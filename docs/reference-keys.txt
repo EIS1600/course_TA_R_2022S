@@ -1,5 +1,6 @@
 aims-contents-and-method-of-the-course
 course-evaluation
+datacamp
 class-participation
 homework
 final-project

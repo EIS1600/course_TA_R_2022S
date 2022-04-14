@@ -46,6 +46,14 @@ Course evaluation will be a combination of:
 
 Final projects can be prepared either individually or in groups.
 
+### DataCamp
+
+This class is supported by [DataCamp](https://www.datacamp.com/), the most intuitive learning platform for data science and analytics. Learn any time, anywhere and become an expert in R, Python, SQL, and more. DataCamp’s learn-by-doing methodology combines short expert videos and hands-on-the-keyboard exercises to help learners retain knowledge. DataCamp offers 350+ courses by expert instructors on topics such as importing data, data visualization, and machine learning. They’re constantly expanding their curriculum to keep up with the latest technology trends and to provide the best learning experience for all skill levels. Join over 6 million learners around the world and close your skills gap.
+
+You should all get access to [DataCamp](https://www.datacamp.com/) for the durations of the semester. If you cannot access it, please, contact me as soon as possible.
+
+![DataCamp](./images/DataCamp_For_The_Classroom_2_lobb1p.png.jpeg)
+
 ## Class Participation
 
 Each class session will consist in large part of practical hands-on exercises led by the instructor. BRING YOUR LAPTOP! We will accommodate whatever operating system you use (Windows, Mac, Linux), but it should be a laptop rather than a tablet. Don’t forget that asking for help counts as participation!
