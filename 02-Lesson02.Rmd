@@ -12,7 +12,7 @@
 
 ## Class{#cLass02}
 
-* Practice worksheet: [`02_worksheets_data-structures.Rmd.zip`](../../files/02_worksheets_data-structures.Rmd.zip)
+* Practice worksheet: [02_worksheets_data-structures.Rmd.zip](./files/ws/02_worksheets_data-structures.Rmd.zip)
 
 **NB:** Original worksheets prepared by Lincoln Mullen, GMU (<https://dh-r.lincolnmullen.com/worksheets.html>)
 
