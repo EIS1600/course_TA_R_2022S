@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>References | DH in AAS - TA with R (2022S)</title>
+  <title>2 L02: Main data structures in R | DH in AAS - TA with R (2022S)</title>
   <meta name="description" content="This is a collection of relevant materials for the class ‘57-528 ONLINE S: Digital Humanities in African and Asian Studies: Text Analysis with R’ (2022S), offered at the University of Hamburg (Afrika-Asien Institut) and taught by Maxim G. Romanov" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="References | DH in AAS - TA with R (2022S)" />
+  <meta property="og:title" content="2 L02: Main data structures in R | DH in AAS - TA with R (2022S)" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://eis1600.github.io/course_TA_R_2022S/" />
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="EIS1600/course_TA_R_2022S" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="References | DH in AAS - TA with R (2022S)" />
+  <meta name="twitter:title" content="2 L02: Main data structures in R | DH in AAS - TA with R (2022S)" />
   
   <meta name="twitter:description" content="This is a collection of relevant materials for the class ‘57-528 ONLINE S: Digital Humanities in African and Asian Studies: Text Analysis with R’ (2022S), offered at the University of Hamburg (Afrika-Asien Institut) and taught by Maxim G. Romanov" />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   <link rel="apple-touch-icon-precomposed" sizes="120x120" href="touch-icon.png" />
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-<link rel="prev" href="homeworkhw02.html"/>
-
+<link rel="prev" href="l01-general-introduction.html"/>
+<link rel="next" href="reference-materialsrm02.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -215,17 +215,96 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="references" class="section level1 unnumbered">
-<h1>References</h1>
-
+<div id="l02-main-data-structures-in-r" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> L02: Main data structures in R</h1>
+<div id="goalsgoals02" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Goals{goals02}</h2>
+<ul>
+<li>Getting to know main data structures in R</li>
+</ul>
+</div>
+<div id="softwaresoft02" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Software{soft02}</h2>
+<ul>
+<li><em>the same</em>, with some new libraries:
+<ul>
+<li>R <a href="https://www.r-project.org/" class="uri">https://www.r-project.org/</a></li>
+<li>R Studio <a href="https://www.rstudio.com/" class="uri">https://www.rstudio.com/</a></li>
+</ul></li>
+</ul>
+</div>
+<div id="classclass02" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Class{CLass02}</h2>
+<ul>
+<li>Practice worksheet: <a href="../../files/02_worksheets_data-structures.Rmd.zip"><code>02_worksheets_data-structures.Rmd.zip</code></a></li>
+</ul>
+<p><strong>NB:</strong> Original worksheets prepared by Lincoln Mullen, GMU (<a href="https://dh-r.lincolnmullen.com/worksheets.html" class="uri">https://dh-r.lincolnmullen.com/worksheets.html</a>)</p>
+<div id="topics-data-structures-typestopics02" class="section level3" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> Topics: Data Structures &amp; Types{topics02}</h3>
+<ul>
+<li>Data structures
+<ul>
+<li>Vectors</li>
+<li>Matrices</li>
+<li>Data frames</li>
+<li>Lists</li>
+</ul></li>
+<li>Subsetting operations</li>
+</ul>
+</div>
+<div id="additional-notesadditional_notes_02" class="section level3" number="2.3.2">
+<h3><span class="header-section-number">2.3.2</span> Additional notes{additional_notes_02}</h3>
+<ul>
+<li><code>str()</code> compactly displays information about an R object</li>
+<li><code>typeof()</code> determines the internal type or storage mode of an R object</li>
+<li><code>class()</code> tells you the data structure of an R object:
+<ul>
+<li><code>list</code></li>
+<li><code>data.frame</code></li>
+<li><code>matrix</code></li>
+<li>vector
+<ul>
+<li><code>numeric</code>
+<ul>
+<li><code>typeof()</code> &gt; <code>double</code> — a double-precision vector (floats; default numberic vector type)</li>
+<li><code>typeof()</code> &gt; <code>integer</code> — a vector of integers</li>
+</ul></li>
+<li><code>character</code>
+<ul>
+<li><code>typeof()</code> &gt; <code>character</code> — a vector of strings/characters</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><strong>Checking class/type &amp; Conversion</strong>
+<ul>
+<li>create <code>test &lt;- c(1,2,3,4,5)</code>
+<ul>
+<li><code>is.___</code> tests whether a variable of a <code>___</code> <em>class</em>.
+<ul>
+<li>or <em>type</em>: check the <code>typeof()</code> our <code>test</code> vector; then try <code>test.ch &lt;- as.character(test)</code> and check the type again; can you convert it back into its initial type?).</li>
+</ul></li>
+<li><code>is.___</code> converts into a <code>___</code> <em>class</em>.</li>
+<li>(<code>___</code> is either: <code>vector</code>, <code>matrix</code>, <code>data.frame</code>, <code>list</code>)</li>
+</ul></li>
+<li>Now try the following commands and check the type and class of the new objects:
+<ul>
+<li><code>test.matrix &lt;- as.matrix(test)</code></li>
+<li><code>test.df &lt;- as.data.frame(test)</code></li>
+<li><code>test.list &lt;- as.list(test)</code></li>
+<li><code>test.vector &lt;- as.vector(test.df$test)</code></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="homeworkhw02.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="l01-general-introduction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="reference-materialsrm02.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -256,7 +335,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/EIS1600/course_TM_R_2022S/edit/main/99-references.Rmd",
+"link": "https://github.com/EIS1600/course_TM_R_2022S/edit/main/02-Lesson02.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -264,7 +343,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/EIS1600/course_TM_R_2022S/blob/main/99-references.Rmd",
+"link": "https://github.com/EIS1600/course_TM_R_2022S/blob/main/02-Lesson02.Rmd",
 "text": null
 },
 "download": null,

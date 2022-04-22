@@ -1,7 +1,5 @@
 # L01: General Introduction
 
-**Making Sure Everything Works; Getting to know R**
-
 ## Goals{#L01_goals}
 
 * Install R and R Studio and start working with them
