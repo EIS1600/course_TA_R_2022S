@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3 L03: Data Manipulation &amp; Exloratory Analysis | DH in AAS - TA with R (2022S)</title>
+  <title>4 L04: Data Visualization; Functions | DH in AAS - TA with R (2022S)</title>
   <meta name="description" content="This is a collection of relevant materials for the class ‘57-528 ONLINE S: Digital Humanities in African and Asian Studies: Text Analysis with R’ (2022S), offered at the University of Hamburg (Afrika-Asien Institut) and taught by Maxim G. Romanov" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3 L03: Data Manipulation &amp; Exloratory Analysis | DH in AAS - TA with R (2022S)" />
+  <meta property="og:title" content="4 L04: Data Visualization; Functions | DH in AAS - TA with R (2022S)" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://eis1600.github.io/course_TA_R_2022S/" />
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="EIS1600/course_TA_R_2022S" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3 L03: Data Manipulation &amp; Exloratory Analysis | DH in AAS - TA with R (2022S)" />
+  <meta name="twitter:title" content="4 L04: Data Visualization; Functions | DH in AAS - TA with R (2022S)" />
   
   <meta name="twitter:description" content="This is a collection of relevant materials for the class ‘57-528 ONLINE S: Digital Humanities in African and Asian Studies: Text Analysis with R’ (2022S), offered at the University of Hamburg (Afrika-Asien Institut) and taught by Maxim G. Romanov" />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   <link rel="apple-touch-icon-precomposed" sizes="120x120" href="touch-icon.png" />
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-<link rel="prev" href="l02-main-data-structures-in-r.html"/>
-<link rel="next" href="l04-data-visualization-functions.html"/>
+<link rel="prev" href="l03-data-manipulation-exloratory-analysis.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -235,16 +235,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="l03-data-manipulation-exloratory-analysis" class="section level1" number="3">
-<h1><span class="header-section-number">3</span> L03: Data Manipulation &amp; Exloratory Analysis</h1>
-<div id="goals03" class="section level2" number="3.1">
-<h2><span class="header-section-number">3.1</span> Goals</h2>
+<div id="l04-data-visualization-functions" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> L04: Data Visualization; Functions</h1>
+<div id="goals04" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Goals</h2>
 <ul>
-<li>Getting to know the basics of working with data: manipulating data, basic techniques of exploratory analysis</li>
+<li>Getting to know the basics of data visualization; writing simple functions (reusable, packaged code)</li>
 </ul>
 </div>
-<div id="soft03" class="section level2" number="3.2">
-<h2><span class="header-section-number">3.2</span> Software</h2>
+<div id="soft04" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Software</h2>
 <ul>
 <li><em>the same</em>, with some new libraries:
 <ul>
@@ -253,30 +253,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul>
 </div>
-<div id="cLass03" class="section level2" number="3.3">
-<h2><span class="header-section-number">3.3</span> Class</h2>
+<div id="cLass04" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Class</h2>
 <ul>
 <li><p>Practice worksheets:</p></li>
-<li><p><a href="./files/03_worksheets_data-manipulation-introduction.Rmd.zip"><code>03_worksheets_data-manipulation-introduction.Rmd.zip</code></a></p></li>
-<li><p><a href="./files/04_worksheets_data-manipulation-continued.Rmd.zip"><code>04_worksheets_data-manipulation-continued.Rmd.zip</code></a></p></li>
+<li><p><a href="./files/05_worksheets_ggplot2-introduction-MGR-mod.Rmd.zip"><code>05_worksheets_ggplot2-introduction-MGR-mod.Rmd.zip</code></a></p></li>
+<li><p><a href="./files/06_worksheets_functions.Rmd.zip"><code>06_worksheets_functions.Rmd.zip</code></a></p></li>
 </ul>
 <p><strong>NB:</strong> Original worksheets prepared by Lincoln Mullen, GMU (<a href="https://dh-r.lincolnmullen.com/worksheets.html" class="uri">https://dh-r.lincolnmullen.com/worksheets.html</a>)</p>
-<div id="topics03" class="section level3" number="3.3.1">
-<h3><span class="header-section-number">3.3.1</span> Topics</h3>
+</div>
+<div id="topics04" class="section level2" number="4.4">
+<h2><span class="header-section-number">4.4</span> Topics</h2>
 <ul>
-<li>Selecting columns (<code>select()</code>)</li>
-<li>Filtering rows (<code>filter()</code>)</li>
-<li>Creating new columns (<code>mutate()</code>)</li>
-<li>Sorting columns (<code>arrange()</code>)</li>
-<li>Split-apply-combine (<code>group_by()</code>)</li>
-<li>Summarizing or aggregating data (<code>summarize()</code>)</li>
-<li>Data joining with two table verbs (<code>left_join()</code> et al.)</li>
-<li>Data reshaping (<code>spread()</code> and <code>gather()</code>)</li>
+<li>Basics of using <code>ggplot2</code>
+<ul>
+<li>“grammar” of graphics</li>
+<li>Basic <code>geoms</code> in ggplot2
+<ul>
+<li>Histogram</li>
+<li>Lines</li>
+<li>Bar plots</li>
+<li>Faceting</li>
+</ul></li>
+<li>Labels</li>
+<li>Create your own plots</li>
+</ul></li>
+<li>Writing your own functions
+<ul>
+<li>Explanation of functions</li>
+<li>Function calls</li>
+<li>Function definition</li>
+</ul></li>
 </ul>
 </div>
-</div>
-<div id="RM03" class="section level2" number="3.4">
-<h2><span class="header-section-number">3.4</span> Reference materials</h2>
+<div id="RM04" class="section level2" number="4.5">
+<h2><span class="header-section-number">4.5</span> Reference materials</h2>
 <p>Consult relevant chapters from:</p>
 <ul>
 <li>Healy, Kieran <em>Data Visualization: A Practical Guide</em>. Princeton University Press, 2018. ISBN: 978-0691181622. <a href="http://socviz.co/" class="uri">http://socviz.co/</a></li>
@@ -284,8 +295,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Wickham, Hadley. <em>Advanced R, Second Edition.</em> 2 edition. Boca Raton: Chapman and Hall/CRC, 2019. <a href="http://adv-r.had.co.nz/" class="uri">http://adv-r.had.co.nz/</a></li>
 </ul>
 </div>
-<div id="HW03" class="section level2" number="3.5">
-<h2><span class="header-section-number">3.5</span> Homework</h2>
+<div id="HW04" class="section level2" number="4.6">
+<h2><span class="header-section-number">4.6</span> Homework</h2>
 <ul>
 <li>Finish your worksheet and submit your HW as described below.</li>
 <li><em>Additional:</em> if you’d like more practice, you can use <code>swirl</code> library:
@@ -299,8 +310,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul>
 </div>
-<div id="SHW03" class="section level2" number="3.6">
-<h2><span class="header-section-number">3.6</span> Submitting homework</h2>
+<div id="SHW04" class="section level2" number="4.7">
+<h2><span class="header-section-number">4.7</span> Submitting homework</h2>
 <ul>
 <li>Homework assignment must be submitted by the beginning of the next class;</li>
 <li>Email your homework to the instructor as attachments.
@@ -316,8 +327,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="l02-main-data-structures-in-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="l04-data-visualization-functions.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="l03-data-manipulation-exloratory-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -348,7 +359,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/EIS1600/course_TM_R_2022S/edit/main/02-Lesson03.Rmd",
+"link": "https://github.com/EIS1600/course_TM_R_2022S/edit/main/02-Lesson04.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -356,7 +367,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/EIS1600/course_TM_R_2022S/blob/main/02-Lesson03.Rmd",
+"link": "https://github.com/EIS1600/course_TM_R_2022S/blob/main/02-Lesson04.Rmd",
 "text": null
 },
 "download": null,

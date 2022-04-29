@@ -43,3 +43,11 @@ topics03
 RM03
 HW03
 SHW03
+l04-data-visualization-functions
+goals04
+soft04
+cLass04
+topics04
+RM04
+HW04
+SHW04

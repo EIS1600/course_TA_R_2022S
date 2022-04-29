@@ -1,36 +1,42 @@
-# L03: Data Manipulation & Exloratory Analysis
+# L04: Data Visualization; Functions
 
-## Goals{#goals03}
+## Goals{#goals04}
 
-- Getting to know the basics of working with data: manipulating data, basic techniques of exploratory analysis
+- Getting to know the basics of data visualization; writing simple functions (reusable, packaged code)
 
-## Software{#soft03}
+## Software{#soft04}
 
 * *the same*, with some new libraries:
 	* R <https://www.r-project.org/> 
 	* R Studio <https://www.rstudio.com/>
 
-## Class{#cLass03}
+## Class{#cLass04}
 
 * Practice worksheets:
 
-- [`03_worksheets_data-manipulation-introduction.Rmd.zip`](./files/03_worksheets_data-manipulation-introduction.Rmd.zip)
-- [`04_worksheets_data-manipulation-continued.Rmd.zip`](./files/04_worksheets_data-manipulation-continued.Rmd.zip)
+- [`05_worksheets_ggplot2-introduction-MGR-mod.Rmd.zip`](./files/05_worksheets_ggplot2-introduction-MGR-mod.Rmd.zip)
+- [`06_worksheets_functions.Rmd.zip`](./files/06_worksheets_functions.Rmd.zip)
 
 **NB:** Original worksheets prepared by Lincoln Mullen, GMU (<https://dh-r.lincolnmullen.com/worksheets.html>)
 
-### Topics{#topics03}
 
-- Selecting columns (`select()`)
-- Filtering rows (`filter()`)
-- Creating new columns (`mutate()`)
-- Sorting columns (`arrange()`)
-- Split-apply-combine (`group_by()`)
-- Summarizing or aggregating data (`summarize()`)
-- Data joining with two table verbs (`left_join()` et al.)
-- Data reshaping (`spread()` and `gather()`)
+## Topics{#topics04}
 
-## Reference materials{#RM03}
+- Basics of using `ggplot2`
+  - "grammar" of graphics
+  - Basic `geoms` in ggplot2
+    - Histogram
+    - Lines
+    - Bar plots
+    - Faceting
+  - Labels
+  - Create your own plots
+- Writing your own functions
+  - Explanation of functions
+  - Function calls
+  - Function definition
+
+## Reference materials{#RM04}
 
 Consult relevant chapters from: 
 
@@ -39,7 +45,7 @@ Consult relevant chapters from:
 * Wickham, Hadley. *Advanced R, Second Edition.* 2 edition. Boca Raton: Chapman and Hall/CRC, 2019. <http://adv-r.had.co.nz/>
 
 
-## Homework{#HW03}
+## Homework{#HW04}
 
 - Finish your worksheet and submit your HW as described below.
 * *Additional:* if you'd like more practice, you can use `swirl` library:
@@ -48,7 +54,7 @@ Consult relevant chapters from:
     * Then: `swirl()`
     * it will offer you a set of interactive exercises similar to DataCamp.
 
-## Submitting homework{#SHW03}
+## Submitting homework{#SHW04}
 
 * Homework assignment must be submitted by the beginning of the next class;
 * Email your homework to the instructor as attachments.
