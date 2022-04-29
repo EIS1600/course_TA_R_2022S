@@ -35,3 +35,11 @@ additional_notes_02
 RM02
 HW02
 L02_SHW
+l03-data-manipulation-exloratory-analysis
+goals03
+soft03
+cLass03
+topics03
+RM03
+HW03
+SHW03
