@@ -14,8 +14,8 @@
 
 * Practice worksheets:
 
-- [`05_worksheets_ggplot2-introduction-MGR-mod.Rmd.zip`](./files/05_worksheets_ggplot2-introduction-MGR-mod.Rmd.zip)
-- [`06_worksheets_functions.Rmd.zip`](./files/06_worksheets_functions.Rmd.zip)
+- [`05_worksheets_ggplot2-introduction-MGR-mod.Rmd.zip`](./files/ws/05_worksheets_ggplot2-introduction-MGR-mod.Rmd.zip)
+- [`06_worksheets_functions.Rmd.zip`](./files/ws/06_worksheets_functions.Rmd.zip)
 
 **NB:** Original worksheets prepared by Lincoln Mullen, GMU (<https://dh-r.lincolnmullen.com/worksheets.html>)
 
