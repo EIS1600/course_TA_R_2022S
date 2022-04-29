@@ -12,7 +12,7 @@ handouts-workbooks
 datacamp-assignments
 schedule
 lesson-topics-subject-to-modifications
-l01-general-introduction
+general-introduction
 L01_goals
 L01_sw
 L01_class
@@ -26,7 +26,7 @@ tracing-errors
 comments-commenting-out
 random-errors
 L01_SHW
-l02-main-data-structures-in-r
+basics-i-main-data-structures-in-r
 goals02
 soft02
 cLass02
@@ -35,7 +35,7 @@ additional_notes_02
 RM02
 HW02
 L02_SHW
-l03-data-manipulation-exloratory-analysis
+basics-ii-data-manipulation-exloratory-analysis
 goals03
 soft03
 cLass03
@@ -43,7 +43,7 @@ topics03
 RM03
 HW03
 SHW03
-l04-data-visualization-functions
+basics-iii-data-visualization-functions
 goals04
 soft04
 cLass04

@@ -1,4 +1,4 @@
-# L01: General Introduction
+# General Introduction
 
 ## Goals{#L01_goals}
 

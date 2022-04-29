@@ -1,4 +1,4 @@
-# L02: Main data structures in R
+# Basics I: Main data structures in R
 
 ## Goals{#goals02}
 

@@ -1,4 +1,4 @@
-# L03: Data Manipulation & Exloratory Analysis
+# Basics II: Data Manipulation & Exloratory Analysis
 
 ## Goals{#goals03}
 

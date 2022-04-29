@@ -1,4 +1,4 @@
-# L04: Data Visualization; Functions
+# Basics III: Data Visualization; Functions
 
 ## Goals{#goals04}
 
