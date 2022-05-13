@@ -161,6 +161,34 @@ Morris 2013 - The measure of civilization - Social Development Score - East.pdf
 Morris 2013 - The measure of civilization - Social Development Score - West.pdf
 -->
 
+## OCR in R{#OCR05}
+
+As was noted above, we can use R to OCR text in PDFs and images. The following libraries will be necessary.
+
+```{r eval=FALSE, include=TRUE}
+library(pdftools)
+library(tidyverse)
+library(tesseract)
+library(readr)
+```
+
+This code we can use to OCR individual PNG files.
+
+```{r eval=FALSE, include=TRUE}
+text <- tesseract::ocr(pathToPNGfile, engine = tesseract("eng"))
+readr::write_lines(text, str_replace(pathToPNGfile, ".png", ".txt"))
+```
+
+This code can be used to process entire PDFs (I have problems installing `pdftools` on R 4.1.2, which runs on MacBook M1):
+
+```{r eval=FALSE, include=TRUE}
+imagesToProcess <- pdftools::pdf_convert(pathToPDFfile, dpi = 600)
+text <- tesseract::ocr(imagesToProcess, engine = tesseract("eng"))
+readr::write_lines(text, str_replace(pathToPDFfile, ".pdf", ".txt"))
+```
+
+More details on how to use Tesseract with R you can find here: <https://cran.r-project.org/web/packages/tesseract/vignettes/intro.html>
+
 
 ## Reference Materials:{#rm05}
 

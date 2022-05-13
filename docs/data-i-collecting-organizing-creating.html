@@ -228,13 +228,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="5.4.1" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#CaB05"><i class="fa fa-check"></i><b>5.4.1</b> Morris Dataset: <em>the East Vs. the West</em></a></li>
 </ul></li>
-<li class="chapter" data-level="5.5" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#rm05"><i class="fa fa-check"></i><b>5.5</b> Reference Materials:</a>
+<li class="chapter" data-level="5.5" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#OCR05"><i class="fa fa-check"></i><b>5.5</b> OCR in R</a></li>
+<li class="chapter" data-level="5.6" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#rm05"><i class="fa fa-check"></i><b>5.6</b> Reference Materials:</a>
 <ul>
-<li class="chapter" data-level="5.5.1" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#rmA05"><i class="fa fa-check"></i><b>5.5.1</b> Additional</a></li>
-<li class="chapter" data-level="5.5.2" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#rmB05"><i class="fa fa-check"></i><b>5.5.2</b> Additional Readings</a></li>
+<li class="chapter" data-level="5.6.1" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#rmA05"><i class="fa fa-check"></i><b>5.6.1</b> Additional</a></li>
+<li class="chapter" data-level="5.6.2" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#rmB05"><i class="fa fa-check"></i><b>5.6.2</b> Additional Readings</a></li>
 </ul></li>
-<li class="chapter" data-level="5.6" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#HW05"><i class="fa fa-check"></i><b>5.6</b> Homework</a></li>
-<li class="chapter" data-level="5.7" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#SHW05"><i class="fa fa-check"></i><b>5.7</b> Submitting homework</a></li>
+<li class="chapter" data-level="5.7" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#HW05"><i class="fa fa-check"></i><b>5.7</b> Homework</a></li>
+<li class="chapter" data-level="5.8" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#SHW05"><i class="fa fa-check"></i><b>5.8</b> Submitting homework</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -466,8 +467,24 @@ Morris 2013 - The measure of civilization - Social Development Score - West.pdf
 </div>
 </div>
 </div>
-<div id="rm05" class="section level2" number="5.5">
-<h2><span class="header-section-number">5.5</span> Reference Materials:</h2>
+<div id="OCR05" class="section level2" number="5.5">
+<h2><span class="header-section-number">5.5</span> OCR in R</h2>
+<p>As was noted above, we can use R to OCR text in PDFs and images. The following libraries will be necessary.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="data-i-collecting-organizing-creating.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pdftools)</span>
+<span id="cb4-2"><a href="data-i-collecting-organizing-creating.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb4-3"><a href="data-i-collecting-organizing-creating.html#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tesseract)</span>
+<span id="cb4-4"><a href="data-i-collecting-organizing-creating.html#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span></code></pre></div>
+<p>This code we can use to OCR individual PNG files.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="data-i-collecting-organizing-creating.html#cb5-1" aria-hidden="true" tabindex="-1"></a>text <span class="ot">&lt;-</span> tesseract<span class="sc">::</span><span class="fu">ocr</span>(pathToPNGfile, <span class="at">engine =</span> <span class="fu">tesseract</span>(<span class="st">&quot;eng&quot;</span>))</span>
+<span id="cb5-2"><a href="data-i-collecting-organizing-creating.html#cb5-2" aria-hidden="true" tabindex="-1"></a>readr<span class="sc">::</span><span class="fu">write_lines</span>(text, <span class="fu">str_replace</span>(pathToPNGfile, <span class="st">&quot;.png&quot;</span>, <span class="st">&quot;.txt&quot;</span>))</span></code></pre></div>
+<p>This code can be used to process entire PDFs (I have problems installing <code>pdftools</code> on R 4.1.2, which runs on MacBook M1):</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="data-i-collecting-organizing-creating.html#cb6-1" aria-hidden="true" tabindex="-1"></a>imagesToProcess <span class="ot">&lt;-</span> pdftools<span class="sc">::</span><span class="fu">pdf_convert</span>(pathToPDFfile, <span class="at">dpi =</span> <span class="dv">600</span>)</span>
+<span id="cb6-2"><a href="data-i-collecting-organizing-creating.html#cb6-2" aria-hidden="true" tabindex="-1"></a>text <span class="ot">&lt;-</span> tesseract<span class="sc">::</span><span class="fu">ocr</span>(imagesToProcess, <span class="at">engine =</span> <span class="fu">tesseract</span>(<span class="st">&quot;eng&quot;</span>))</span>
+<span id="cb6-3"><a href="data-i-collecting-organizing-creating.html#cb6-3" aria-hidden="true" tabindex="-1"></a>readr<span class="sc">::</span><span class="fu">write_lines</span>(text, <span class="fu">str_replace</span>(pathToPDFfile, <span class="st">&quot;.pdf&quot;</span>, <span class="st">&quot;.txt&quot;</span>))</span></code></pre></div>
+<p>More details on how to use Tesseract with R you can find here: <a href="https://cran.r-project.org/web/packages/tesseract/vignettes/intro.html" class="uri">https://cran.r-project.org/web/packages/tesseract/vignettes/intro.html</a></p>
+</div>
+<div id="rm05" class="section level2" number="5.6">
+<h2><span class="header-section-number">5.6</span> Reference Materials:</h2>
 <ul>
 <li>Wickham, Hadley. 2014. “Tidy Data.” <em>Journal of Statistical Software 59 (10)</em>. <a href="https://doi.org/10.18637/jss.v059.i10" class="uri">https://doi.org/10.18637/jss.v059.i10</a>. (The article in open access)
 <ul>
@@ -475,8 +492,8 @@ Morris 2013 - The measure of civilization - Social Development Score - West.pdf
 </ul></li>
 <li>Broman, Karl W., and Kara H. Woo. 2018. “Data Organization in Spreadsheets.” <em>The American Statistician</em> 72 (1): 2–10. <a href="https://doi.org/10.1080/00031305.2017.1375989" class="uri">https://doi.org/10.1080/00031305.2017.1375989</a>.</li>
 </ul>
-<div id="rmA05" class="section level3" number="5.5.1">
-<h3><span class="header-section-number">5.5.1</span> Additional</h3>
+<div id="rmA05" class="section level3" number="5.6.1">
+<h3><span class="header-section-number">5.6.1</span> Additional</h3>
 <ul>
 <li>Morris, Ian. 2013. <em>The Measure of Civilization: How Social Development Decides the Fate of Nations</em>. Princeton: Princeton University Press.
 <ul>
@@ -484,15 +501,15 @@ Morris 2013 - The measure of civilization - Social Development Score - West.pdf
 </ul></li>
 </ul>
 </div>
-<div id="rmB05" class="section level3" number="5.5.2">
-<h3><span class="header-section-number">5.5.2</span> Additional Readings</h3>
+<div id="rmB05" class="section level3" number="5.6.2">
+<h3><span class="header-section-number">5.6.2</span> Additional Readings</h3>
 <ul>
 <li>Wickham, Hadley. 2014. “Tidy Data.” <em>Journal of Statistical Software 59 (10)</em>. <a href="https://doi.org/10.18637/jss.v059.i10" class="uri">https://doi.org/10.18637/jss.v059.i10</a>. (The article in open access)</li>
 </ul>
 </div>
 </div>
-<div id="HW05" class="section level2" number="5.6">
-<h2><span class="header-section-number">5.6</span> Homework</h2>
+<div id="HW05" class="section level2" number="5.7">
+<h2><span class="header-section-number">5.7</span> Homework</h2>
 <ul>
 <li>Finish your worksheet and submit your HW as described below.</li>
 <li><em>Additional:</em> if you’d like more practice, you can use <code>swirl</code> library:
@@ -506,8 +523,8 @@ Morris 2013 - The measure of civilization - Social Development Score - West.pdf
 </ul></li>
 </ul>
 </div>
-<div id="SHW05" class="section level2" number="5.7">
-<h2><span class="header-section-number">5.7</span> Submitting homework</h2>
+<div id="SHW05" class="section level2" number="5.8">
+<h2><span class="header-section-number">5.8</span> Submitting homework</h2>
 <ul>
 <li>Homework assignment must be submitted by the beginning of the next class;</li>
 <li>Email your homework to the instructor as attachments.
