@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>2 Basics I: Main data structures in R | DH in AAS - TA with R (2022S)</title>
+  <title>5 Data I: Collecting, Organizing, Creating | DH in AAS - TA with R (2022S)</title>
   <meta name="description" content="This is a collection of relevant materials for the class ‘57-528 ONLINE S: Digital Humanities in African and Asian Studies: Text Analysis with R’ (2022S), offered at the University of Hamburg (Afrika-Asien Institut) and taught by Maxim G. Romanov" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2 Basics I: Main data structures in R | DH in AAS - TA with R (2022S)" />
+  <meta property="og:title" content="5 Data I: Collecting, Organizing, Creating | DH in AAS - TA with R (2022S)" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://eis1600.github.io/course_TA_R_2022S/" />
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="EIS1600/course_TA_R_2022S" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2 Basics I: Main data structures in R | DH in AAS - TA with R (2022S)" />
+  <meta name="twitter:title" content="5 Data I: Collecting, Organizing, Creating | DH in AAS - TA with R (2022S)" />
   
   <meta name="twitter:description" content="This is a collection of relevant materials for the class ‘57-528 ONLINE S: Digital Humanities in African and Asian Studies: Text Analysis with R’ (2022S), offered at the University of Hamburg (Afrika-Asien Institut) and taught by Maxim G. Romanov" />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   <link rel="apple-touch-icon-precomposed" sizes="120x120" href="touch-icon.png" />
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-<link rel="prev" href="general-introduction.html"/>
-<link rel="next" href="basics-ii-data-manipulation-exloratory-analysis.html"/>
+<link rel="prev" href="basics-iii-data-visualization-functions.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -257,114 +257,257 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="basics-i-main-data-structures-in-r" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> Basics I: Main data structures in R</h1>
-<div id="goals02" class="section level2" number="2.1">
-<h2><span class="header-section-number">2.1</span> Goals</h2>
+<div id="data-i-collecting-organizing-creating" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Data I: Collecting, Organizing, Creating</h1>
+<div id="goals05" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Goals</h2>
+<p>Getting to know the basics of working with data: collecting, creating, organizing.</p>
+</div>
+<div id="soft05" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Software</h2>
 <ul>
-<li>Getting to know main data structures in R</li>
+<li>R</li>
+<li>OCR Engines (<a href="https://www.onlineocr.net/" class="uri">https://www.onlineocr.net/</a>)
+<ul>
+<li>OCR can also be done directly in R (requires Tesseract installed)</li>
+</ul></li>
+<li>Excel, Google Spreadsheets, or any other alternative</li>
 </ul>
 </div>
-<div id="soft02" class="section level2" number="2.2">
-<h2><span class="header-section-number">2.2</span> Software</h2>
+<div id="CA05" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> In Class I: <em>Theoretical and Conceptual</em></h2>
+<div id="CaA05" class="section level3" number="5.3.1">
+<h3><span class="header-section-number">5.3.1</span> Ways of obtaining data</h3>
+<ol style="list-style-type: decimal">
+<li>Reusing already produced data
 <ul>
-<li><em>the same</em>, with some new libraries:
-<ul>
-<li>R <a href="https://www.r-project.org/" class="uri">https://www.r-project.org/</a></li>
-<li>R Studio <a href="https://www.rstudio.com/" class="uri">https://www.rstudio.com/</a></li>
+<li>One may require to mold data into a more fitting structure.</li>
 </ul></li>
-</ul>
+<li>Creating one’s own dataset</li>
+<li>Digitizing data from printed and/or hand-written sources</li>
+</ol>
 </div>
-<div id="cLass02" class="section level2" number="2.3">
-<h2><span class="header-section-number">2.3</span> Class</h2>
+<div id="CbA05" class="section level3" number="5.3.2">
+<h3><span class="header-section-number">5.3.2</span> Main format</h3>
 <ul>
-<li>Practice worksheet: <a href="./files/ws/02_worksheets_data-structures.Rmd.zip">02_worksheets_data-structures.Rmd.zip</a></li>
-</ul>
-<p><strong>NB:</strong> Original worksheets prepared by Lincoln Mullen, GMU (<a href="https://dh-r.lincolnmullen.com/worksheets.html" class="uri">https://dh-r.lincolnmullen.com/worksheets.html</a>)</p>
-<div id="topics02" class="section level3" number="2.3.1">
-<h3><span class="header-section-number">2.3.1</span> Topics: Data Structures &amp; Types</h3>
+<li>Relational databases or Tables/Spreadsheets (<em>tabular data</em>)?
 <ul>
-<li>Data structures
-<ul>
-<li>Vectors</li>
-<li>Matrices</li>
-<li>Data frames</li>
-<li>Lists</li>
+<li>Tabular format: tables; spreadsheets; CSV/TSV files.</li>
 </ul></li>
-<li>Subsetting operations</li>
-</ul>
-</div>
-<div id="additional_notes_02" class="section level3" number="2.3.2">
-<h3><span class="header-section-number">2.3.2</span> Additional notes</h3>
+<li><em>Unique identifiers</em>:
 <ul>
-<li><code>str()</code> compactly displays information about an R object</li>
-<li><code>typeof()</code> determines the internal type or storage mode of an R object</li>
-<li><code>class()</code> tells you the data structure of an R object:
+<li>tables with different data can be connected via <em>unique identifiers</em></li>
+<li><strong>Note:</strong> A relational database (rDB) is a collection of interconnected tables. Tables in an rDB are connected with each other via <em>unique identifiers</em> which are usually automatically created by the database itself when new data is added.</li>
+<li>One can maintain interconnected tables without creating a rDB: <em>Open Linked Data</em>
 <ul>
-<li><code>list</code></li>
-<li><code>data.frame</code></li>
-<li><code>matrix</code></li>
-<li>vector
-<ul>
-<li><code>numeric</code>
-<ul>
-<li><code>typeof()</code> &gt; <code>double</code> — a double-precision vector (floats; default numberic vector type)</li>
-<li><code>typeof()</code> &gt; <code>integer</code> — a vector of integers</li>
-</ul></li>
-<li><code>character</code>
-<ul>
-<li><code>typeof()</code> &gt; <code>character</code> — a vector of strings/characters</li>
-</ul></li>
-</ul></li>
-</ul></li>
-<li><strong>Checking class/type &amp; Conversion</strong>
-<ul>
-<li>create <code>test &lt;- c(1,2,3,4,5)</code>
-<ul>
-<li><code>is.___</code> tests whether a variable of a <code>___</code> <em>class</em>.
-<ul>
-<li>or <em>type</em>: check the <code>typeof()</code> our <code>test</code> vector; then try <code>test.ch &lt;- as.character(test)</code> and check the type again; can you convert it back into its initial type?).</li>
-</ul></li>
-<li><code>is.___</code> converts into a <code>___</code> <em>class</em>.</li>
-<li>(<code>___</code> is either: <code>vector</code>, <code>matrix</code>, <code>data.frame</code>, <code>list</code>)</li>
-</ul></li>
-<li>Now try the following commands and check the type and class of the new objects:
-<ul>
-<li><code>test.matrix &lt;- as.matrix(test)</code></li>
-<li><code>test.df &lt;- as.data.frame(test)</code></li>
-<li><code>test.list &lt;- as.list(test)</code></li>
-<li><code>test.vector &lt;- as.vector(test.df$test)</code></li>
+<li><strong>Example</strong>: Table of the growth of cities. One table includes information on population over time; Another table includes coordinates of the cities from the dataset. It is more efficient and practical (reducing error rate from typos) to work on these tables separately, and connect them via unique identifiers of cities which are used in both tables.</li>
 </ul></li>
 </ul></li>
 </ul>
+<div id="CcA05" class="section level4" number="5.3.2.1">
+<h4><span class="header-section-number">5.3.2.1</span> Note on the <code>CSV</code>/<code>TSV</code> format</h4>
+<p><code>CSV</code> stands for <em>comma-separated values</em>; <code>TSV</code> — for <em>tab-separated values</em>.</p>
+<p>Below is an examples of a CSV format. Here, the first line is the <em>header</em>, which provides the names of columns; each line is a row, while columns are separated with <code>,</code> commas.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb3-1"><a href="data-i-collecting-organizing-creating.html#cb3-1" aria-hidden="true" tabindex="-1"></a>city<span class="op">,</span>growth_from_2000_to_2013<span class="op">,</span>latitude<span class="op">,</span>longitude<span class="op">,</span>population<span class="op">,</span>rank<span class="op">,</span>state</span>
+<span id="cb3-2"><a href="data-i-collecting-organizing-creating.html#cb3-2" aria-hidden="true" tabindex="-1"></a>New York<span class="op">,</span><span class="fl">4.8</span><span class="op">%,</span><span class="fl">40.7127837</span><span class="op">,-</span><span class="fl">74.0059413</span><span class="op">,</span><span class="dv">8405837</span><span class="op">,</span><span class="dv">1</span><span class="op">,</span>New York</span>
+<span id="cb3-3"><a href="data-i-collecting-organizing-creating.html#cb3-3" aria-hidden="true" tabindex="-1"></a>Los Angeles<span class="op">,</span><span class="fl">4.8</span><span class="op">%,</span><span class="fl">34.0522342</span><span class="op">,-</span><span class="fl">118.2436849</span><span class="op">,</span><span class="dv">3884307</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span>California</span>
+<span id="cb3-4"><a href="data-i-collecting-organizing-creating.html#cb3-4" aria-hidden="true" tabindex="-1"></a>Chicago<span class="op">,-</span><span class="fl">6.1</span><span class="op">%,</span><span class="fl">41.8781136</span><span class="op">,-</span><span class="fl">87.6297982</span><span class="op">,</span><span class="dv">2718782</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span>Illinois</span>
+<span id="cb3-5"><a href="data-i-collecting-organizing-creating.html#cb3-5" aria-hidden="true" tabindex="-1"></a>Houston<span class="op">,</span><span class="fl">11.0</span><span class="op">%,</span><span class="fl">29.7604267</span><span class="op">,-</span><span class="fl">95.3698028</span><span class="op">,</span><span class="dv">2195914</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span>Texas</span>
+<span id="cb3-6"><a href="data-i-collecting-organizing-creating.html#cb3-6" aria-hidden="true" tabindex="-1"></a>Philadelphia<span class="op">,</span><span class="fl">2.6</span><span class="op">%,</span><span class="fl">39.9525839</span><span class="op">,-</span><span class="fl">75.1652215</span><span class="op">,</span><span class="dv">1553165</span><span class="op">,</span><span class="dv">5</span><span class="op">,</span>Pennsylvania</span></code></pre></div>
+<p><code>TSV</code> is a better option than a <code>CSV</code>, since TAB characters (<code>\t</code>) are very unlikely to appear in values.</p>
+<p>Neither <code>TSV</code> not <code>CSV</code> are good for preserving <em>new line characters</em> (<code>\n</code>)—or, in other words, text split into multiple lines/paragraphs. As a workaround, one can convert <code>\n</code> into some unlikely-to-occur character combination (for example, <code>;;;</code>), which would be easy to restore into <code>\n</code> later, if necessary.</p>
 </div>
 </div>
-<div id="RM02" class="section level2" number="2.4">
-<h2><span class="header-section-number">2.4</span> Reference materials</h2>
+<div id="CdA05" class="section level3" number="5.3.3">
+<h3><span class="header-section-number">5.3.3</span> Basic principles of organizing data: <em>Tidy Data</em></h3>
+<div id="CeA05" class="section level4" number="5.3.3.1">
+<h4><span class="header-section-number">5.3.3.1</span> Tidy Data</h4>
 <ul>
-<li>Read two chapters from: Wickham, Hadley. <em>Advanced R, Second Edition.</em> 2 edition. Boca Raton: Chapman and Hall/CRC, 2019. <a href="http://adv-r.had.co.nz/" class="uri">http://adv-r.had.co.nz/</a>
+<li>Each variable is in its own column</li>
+<li>Each observation is in its own row</li>
+<li>Each value is in its own cell</li>
+</ul>
+</div>
+<div id="CfA05" class="section level4" number="5.3.3.2">
+<h4><span class="header-section-number">5.3.3.2</span> Clean Data</h4>
 <ul>
-<li><a href="http://adv-r.had.co.nz/Data-structures.html">Data structures</a></li>
-<li><a href="http://adv-r.had.co.nz/Subsetting.html">Subsetting</a></li>
+<li>Column names and row names are easy to use and informative. In general, it is a good practice to avoid <code>spaces</code> and special characters.
+<ul>
+<li>Good example: <code>western_cities</code></li>
+<li>Alternative good example: <code>WesternCities</code></li>
+<li>Bad example: <code>Western Cities (only the largest)</code></li>
 </ul></li>
-<li>For the next class, read the following article (in <em>open access</em>, simply follow the link):
+<li>Obvious mistakes in the data have been removed
 <ul>
+<li>Date format: <code>YYYY-MM-DD</code> is the most reliable format. Any thoughts why?</li>
+<li>There should be no empty <code>cells</code>:
+<ul>
+<li>If you have them, it might be that your data is not organized properly.</li>
+<li>If your data is organized properly, <code>NA</code> must be used as an explicit indication that data point is not available.</li>
+</ul></li>
+<li>Each cell must contain only one piece of data.</li>
+</ul></li>
+<li>Variable values must be internally consistent
+<ul>
+<li>Be consistent in coding your values: <code>M</code> and <code>man</code> are different values computationally, but may be the same in the dataset;</li>
+<li>Keep track of your categories: a document where all codes used in the data set are explained.</li>
+</ul></li>
+<li>Preserve original values
+<ul>
+<li>If you are working with a historical dataset, it might be inconsistent.
+<ul>
+<li>For example, distances between cities are given in different formats: days of travel, miles, <em>farsaḫ</em>s/parasangs, etc.).</li>
+<li>Instead of replacing original values, it is better to create an additional column, where this information will be homogenized according to some principle.</li>
+<li>Keeping original data will allow to honogenize data in multiple ways (example: <em>day of travel</em>).</li>
+</ul></li>
+<li>Clearly differentiate between the <em>original</em> and <em>modified/modelled</em> values.
+<ul>
+<li>The use of suffixes can be convenient: <code>Distance_Orig</code> <em>vs</em> <code>Distance_Modified</code>.</li>
+</ul></li>
+</ul></li>
+<li>Most of editing operations should be performed in software other than R; any spreadsheet program will work, unless it cannot export into CSV/TSV format.
+<ul>
+<li>Keep in mind that if you prepare your data in an Excel-like program, rich formatting (like manual highlights, bolds, and italics) is not <em>data</em> and it will be lost, when you export your data into CSV/TSV format.</li>
+<li><strong>Note:</strong> It might be useful, however, to use rule-based highlighting in order, for example, to identify bad values that need to be fixed.</li>
+</ul></li>
+<li>Back up your data!
+<ul>
+<li><a href="http://github.com" class="uri">http://github.com</a> is a great place for this, plus it allows to work collaboratively.</li>
+<li><strong>Google spreadsheets</strong> is a decent alternative, but it lacks version control and detailed tracking of changes.</li>
+</ul></li>
+</ul>
+<!--
+EXTRA NOTES
+
+https://lsru.github.io/tv_course/lecture05_tidyr.html#1
+
+https://arxiv.org/abs/1809.02264
+
+https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html
+http://vita.had.co.nz/papers/tidy-data.html // https://vita.had.co.nz/papers/tidy-data.pdf
+
+Jeff Leek in his book The Elements of Data Analytic Style (Jeff Leek, The Elements of Data Analytic Style, Leanpub, 2015-03-02) summarizes the characteristics of tidy data as the points:[3]
+
+Each variable you measure should be in one column.
+Each different observation of that variable should be in a different row.
+There should be one table for each "kind" of variable.
+If you have multiple tables, they should include a column in the table that allows them to be linked.
+-->
+</div>
+</div>
+</div>
+<div id="CB05" class="section level2" number="5.4">
+<h2><span class="header-section-number">5.4</span> In Class II: <em>Practical</em></h2>
+<!--
+## Bulliet Dataset
+
+|![Sample_Page_With_Tabular_Data](./img/03/Sample_Page_With_Tabular_Data.png)|
+|:-:|
+|The data set shows chrono-geographical distribution of Islamic scholars, according to one of the medieval biographical sources. Source: Bulliet, Richard W. 2009. *Cotton, Climate, and Camels in Early Islamic Iran: A Moment in World History*. New York: Columbia University Press.|
+
+* Digitize a small data set from this [Sample_Page_With_Tabular_Data.zip](../files/03/Sample_Page_With_Tabular_Data.zip).
+* Fix the dataset so that it conforms to the principles of **tidy data**. What should be corrected?
+* Load the data set into R
+* Data for regions is given in relative values. Calculate absolute values. Graph chronological distribution of Islamic scholars from each region both in absolute and relative values.
+-->
+<div id="CaB05" class="section level3" number="5.4.1">
+<h3><span class="header-section-number">5.4.1</span> Morris Dataset: <em>the East Vs. the West</em></h3>
+<table>
+<colgroup>
+<col width="100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"><img src="files/data/Sample_Page_With_Tabular_Data_Morris.png" alt="Sample_Page_With_Tabular_Data_Morris.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><em>War-making capacity since 4000 BCE (in social development points).</em> <strong>Data source</strong>: Morris, Ian. 2013. <em>The Measure of Civilization: How Social Development Decides the Fate of Nations</em>. Princeton: Princeton University Press.</td>
+</tr>
+</tbody>
+</table>
+<div id="CbB05" class="section level4" number="5.4.1.1">
+<h4><span class="header-section-number">5.4.1.1</span> Difficulty: Easy</h4>
+<ul>
+<li>Digitize “War-making capacity since 4000 BCE” from this file <a href="./files/data/Morris_2013_Combined.pdf">Morris_2013_Combined.pdf</a>.</li>
+<li>Fix the dataset so that it conforms to the principles of <strong>tidy data</strong>. What should be corrected?</li>
+<li>Load the data set into R</li>
+<li>Graph chronological changes in war-making capacities for the East and the West.</li>
+<li>When the East was in the lead?</li>
+<li>When the West was in the lead?</li>
+<li>How can you determine that? (<em>Hint</em>: review logical operators and vector comparison).</li>
+</ul>
+</div>
+<div id="CcB05" class="section level4" number="5.4.1.2">
+<h4><span class="header-section-number">5.4.1.2</span> Difficulty: More complicated</h4>
+<ul>
+<li>Digitize “Maximum Settlement Sizes” from this file <a href="./files/data/Morris_2013_Combined.pdf">Morris_2013_Combined.pdf</a>.</li>
+<li>Fix the dataset so that it conforms to the principles of <strong>tidy data</strong>. What should be corrected?</li>
+<li>The datasets for the East and the West are separate. What would be your strategies to combine them?</li>
+<li>Graph chronological changes in war-making capacities for the East and the West.</li>
+<li>When the East was in the lead? What were the most prominent settlements?</li>
+<li>When the West was in the lead? What were the most prominent settlements?</li>
+<li>How can you determine that? (<em>Hint</em>: review logical operators and vector comparison).</li>
+</ul>
+<!--
+
+Morris_2013_Combined_Raster.pdf
+
+Morris 2013 - The measure of civilization - War Making Capacity - Both.pdf
+Morris 2013 - The measure of civilization - Energy Capture - East.pdf
+Morris 2013 - The measure of civilization - Energy Capture - West.pdf
+Morris 2013 - The measure of civilization - Information Technology Scores - Both.pdf
+Morris 2013 - The measure of civilization - Maximum Settlement Sizes - East.pdf
+Morris 2013 - The measure of civilization - Maximum Settlement Sizes - West.pdf
+Morris 2013 - The measure of civilization - Social Development Score - East.pdf
+Morris 2013 - The measure of civilization - Social Development Score - West.pdf
+-->
+</div>
+</div>
+</div>
+<div id="rm05" class="section level2" number="5.5">
+<h2><span class="header-section-number">5.5</span> Reference Materials:</h2>
+<ul>
+<li>Wickham, Hadley. 2014. “Tidy Data.” <em>Journal of Statistical Software 59 (10)</em>. <a href="https://doi.org/10.18637/jss.v059.i10" class="uri">https://doi.org/10.18637/jss.v059.i10</a>. (The article in open access)
+<ul>
+<li>Check these slides: A. Ginolhac, E. Koncina, R. Krause. <em>Principles of Tidy Data: tidyr</em> <a href="https://lsru.github.io/tv_course/lecture05_tidyr.html" class="uri">https://lsru.github.io/tv_course/lecture05_tidyr.html</a> (Also check their other lectures/slides: )</li>
+</ul></li>
 <li>Broman, Karl W., and Kara H. Woo. 2018. “Data Organization in Spreadsheets.” <em>The American Statistician</em> 72 (1): 2–10. <a href="https://doi.org/10.1080/00031305.2017.1375989" class="uri">https://doi.org/10.1080/00031305.2017.1375989</a>.</li>
-</ul></li>
-<li><strong>Additional readings</strong>:
+</ul>
+<div id="rmA05" class="section level3" number="5.5.1">
+<h3><span class="header-section-number">5.5.1</span> Additional</h3>
 <ul>
-<li>Read <em>Introduction</em> to Lincoln A. Mullen, <em>Computational Historical Thinking: With Applications in R (2018–)</em>: (<a href="http://dh-r.lincolnmullen.com/introduction.html" class="uri">http://dh-r.lincolnmullen.com/introduction.html</a>)</li>
+<li>Morris, Ian. 2013. <em>The Measure of Civilization: How Social Development Decides the Fate of Nations</em>. Princeton: Princeton University Press.
+<ul>
+<li><strong>Note:</strong> This book is a methodological companion to: Morris, Ian. 2010. <em>Why the West Rules—for Now: The Patterns of History, and What They Reveal about the Future.</em> New York: Farrar, Straus and Giroux.</li>
 </ul></li>
 </ul>
 </div>
-<div id="HW02" class="section level2" number="2.5">
-<h2><span class="header-section-number">2.5</span> Homework</h2>
+<div id="rmB05" class="section level3" number="5.5.2">
+<h3><span class="header-section-number">5.5.2</span> Additional Readings</h3>
+<ul>
+<li>Wickham, Hadley. 2014. “Tidy Data.” <em>Journal of Statistical Software 59 (10)</em>. <a href="https://doi.org/10.18637/jss.v059.i10" class="uri">https://doi.org/10.18637/jss.v059.i10</a>. (The article in open access)</li>
+</ul>
+</div>
+</div>
+<div id="HW05" class="section level2" number="5.6">
+<h2><span class="header-section-number">5.6</span> Homework</h2>
 <ul>
 <li>Finish your worksheet and submit your HW as described below.</li>
+<li><em>Additional:</em> if you’d like more practice, you can use <code>swirl</code> library:
+<ul>
+<li>To install: <code>install.packages("swirl")</code></li>
+<li>To run: <code>library(swirl)</code>
+<ul>
+<li>Then: <code>swirl()</code></li>
+<li>it will offer you a set of interactive exercises similar to DataCamp.</li>
+</ul></li>
+</ul></li>
 </ul>
 </div>
-<div id="L02_SHW" class="section level2" number="2.6">
-<h2><span class="header-section-number">2.6</span> Submitting homework</h2>
+<div id="SHW05" class="section level2" number="5.7">
+<h2><span class="header-section-number">5.7</span> Submitting homework</h2>
 <ul>
 <li>Homework assignment must be submitted by the beginning of the next class;</li>
 <li>Email your homework to the instructor as attachments.
@@ -380,8 +523,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="general-introduction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="basics-ii-data-manipulation-exloratory-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="basics-iii-data-visualization-functions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -412,7 +555,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/EIS1600/course_TM_R_2022S/edit/main/02-Lesson02.Rmd",
+"link": "https://github.com/EIS1600/course_TM_R_2022S/edit/main/02-Lesson05.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -420,7 +563,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/EIS1600/course_TM_R_2022S/blob/main/02-Lesson02.Rmd",
+"link": "https://github.com/EIS1600/course_TM_R_2022S/blob/main/02-Lesson05.Rmd",
 "text": null
 },
 "download": null,

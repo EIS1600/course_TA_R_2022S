@@ -1,4 +1,4 @@
-# L05 Data I: Collecting, Organizing, Creating
+# Data I: Collecting, Organizing, Creating
 
 ## Goals{#goals05}
 
