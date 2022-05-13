@@ -14,8 +14,8 @@
 
 * Practice worksheets:
 
-- [`03_worksheets_data-manipulation-introduction.Rmd.zip`](./files/03_worksheets_data-manipulation-introduction.Rmd.zip)
-- [`04_worksheets_data-manipulation-continued.Rmd.zip`](./files/04_worksheets_data-manipulation-continued.Rmd.zip)
+- [`03_worksheets_data-manipulation-introduction.Rmd.zip`](./files/ws/03_worksheets_data-manipulation-introduction.Rmd.zip)
+- [`04_worksheets_data-manipulation-continued.Rmd.zip`](./files/ws/04_worksheets_data-manipulation-continued.Rmd.zip)
 
 **NB:** Original worksheets prepared by Lincoln Mullen, GMU (<https://dh-r.lincolnmullen.com/worksheets.html>)
 
