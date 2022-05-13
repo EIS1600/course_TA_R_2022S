@@ -179,13 +179,15 @@ text <- tesseract::ocr(pathToPNGfile, engine = tesseract("eng"))
 readr::write_lines(text, str_replace(pathToPNGfile, ".png", ".txt"))
 ```
 
-This code can be used to process entire PDFs (I have problems installing `pdftools` on R 4.1.2, which runs on MacBook M1):
+This code can be used to process entire PDFs:
 
 ```{r eval=FALSE, include=TRUE}
 imagesToProcess <- pdftools::pdf_convert(pathToPDFfile, dpi = 600)
 text <- tesseract::ocr(imagesToProcess, engine = tesseract("eng"))
 readr::write_lines(text, str_replace(pathToPDFfile, ".pdf", ".txt"))
 ```
+
+**NB:** I had issues running `pdftools` on Mac. Make sure that you install additional required tools for it. For more details, see: <https://github.com/ropensci/pdftools>.
 
 More details on how to use Tesseract with R you can find here: <https://cran.r-project.org/web/packages/tesseract/vignettes/intro.html>
 
