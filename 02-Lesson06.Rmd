@@ -46,11 +46,11 @@ These are the terms that refer to the same idea. The notion of *proxies* is used
 
 The main idea behind these terms is that some simple *features* of an object can act as *proxies* to some complex phenomena.
 
-For example, Ian Morris uses the size of cities as a proxy to the complexity of social organization. The logic is following: the larger the size of a city, the more complex social, economic and technical organization is required to keep that city functional, therefore is can be used as an indicator of the social complexity.
+For example, Ian Morris uses the size of cities as a proxy to the complexity of social organization. The logic is following: the larger the size of a city, the more complex social, economic and technical organization is required to keep that city functional, therefore it alone can be used as an indicator of the social complexity (or a proxy to the social complexity).
 
 While *proxies* are selected from what is available—usually not much, especially when it comes to historical data—as a way to approach something more complex, it may be argued that abstractions are often arrived to from the opposite direction. We start with an object which is available in its complexity and we reduce its complexity to a more manageable form which—we expect—would prepresent a particular aspect of the initial complex object. Most commonly this is applied to texts in a natural language. For example, in *stylometry* texts are reduced to freqiency lists of most frequent *features*, which are expected to represent an *authorial fingerprint*.
 
-The complexity of texts can be reduced in a number of ways: into a list of lemmas (e.g., for topic modeling analysis), frequency lists (e.g., for document distance comparison), syntactic structures, ngrams, etc. This list is never set and researchers can create multiple abstractions depending on their research questions.
+The complexity of texts can be reduced in a number of ways: into a list of lemmas (e.g., for topic modeling analysis), frequency lists (e.g., for document distance comparison, such as, for example, stylometry), keyword values (e.g., for identifying texts on a similar topic, using, for example, the TF-IDF method), syntactic structures, ngrams, etc. As you get to practice and experiment more, you will start coming up withyour own ways of creating abstractions depending on your current research questions.
 
 ## In Class II: *Practical*{#InClassII06}
 
