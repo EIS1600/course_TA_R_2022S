@@ -19,7 +19,7 @@ Getting to know the basics of working with data: modeling, manipulating
 
 One of the most common way of modeling data in historical research—joining items into broader categories. Categorization is important because it allows to group items with low frequencies into items with higher frequencies, and through those discern patterns and trends. Additionally, alternative categorizations allow one to test different perspectives on historical data.
 
-The overall process is rather simple in terms of technological implementation, but is quite complex in terms of subject knowledge and specialized expertise is required to make well-informed decisions.
+The overall process is rather simple in terms of technological implementation, but is quite complex in terms of subject knowledge and specialized expertise which is required to make well-informed decisions.
 
 * For example, let's say we have the following categories: *baker*, *blacksmith*, *coppersmith*, *confectioner*, and *goldsmith*.
 	* These can be categorized as **occupations**;
@@ -42,7 +42,7 @@ It is a safe practice to **preserve the initial data**, creating *normalized* da
 
 ### Note: *Proxies*, *Features*, *Abstractions*{#Proxies06}
 
-These are the terms that refer to the same idea. The notion of *proxies* is used in data visualization, that of *features*—in computer science; that of *abstractions*—in the humanities.
+These are the terms that refer to the same idea. The notion of *proxies* is used in data visualization, that of *features*—in computer science; that of *abstractions*—in the humanities (see, for example, Franco Moretti’s *Graph, Maps, Trees*).
 
 The main idea behind these terms is that some simple *features* of an object can act as *proxies* to some complex phenomena.
 
@@ -54,7 +54,7 @@ The complexity of texts can be reduced in a number of ways: into a list of lemma
 
 ## In Class II: *Practical*{#InClassII06}
 
-Data for the practical session and homework: [Bosker_Data.zip](./files/Bosker_Data.zip). The data is available in open access and is a supplement to a study (see, *Reference Materials*).
+Data for the practical session and homework: [Bosker_Data.zip](./files/data/Bosker_Data.zip). The data is available in open access and is a supplement to a study (see, *Reference Materials*).
 
 The zipped file includes everything you need for the practical session. Download and unzip (read the article at home!).
 
