@@ -60,6 +60,8 @@ The zipped file includes everything you need for the practical session. Download
 
 **Note:** create a notebook and work through the following questions. Group work is encouraged. Please, explain in one or two sentences what you do in each step, so that your work is also human readable. Please, submit this notebook as your homework. Make sure to name your file in the following manner: `57528-LXX-HW-YourLastName-YourMatriculationNumber.EXT`, where `LXX` is the number of the lesson for which you submit homework; `YourLastName` is your last name; and `YourMatriculationNumber` is your matriculation number; `EXT` is the extension of your file --- yopu can submit it either as HTML or as a PDF.
 
+Testing...
+
 
 ### SECTION I.{#Si06}
 
