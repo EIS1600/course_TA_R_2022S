@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>2 Basics I: Main data structures in R | DH in AAS - TA with R (2022S)</title>
+  <title>6 Data II: Modeling &amp; Manipulating | DH in AAS - TA with R (2022S)</title>
   <meta name="description" content="This is a collection of relevant materials for the class ‘57-528 ONLINE S: Digital Humanities in African and Asian Studies: Text Analysis with R’ (2022S), offered at the University of Hamburg (Afrika-Asien Institut) and taught by Maxim G. Romanov" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2 Basics I: Main data structures in R | DH in AAS - TA with R (2022S)" />
+  <meta property="og:title" content="6 Data II: Modeling &amp; Manipulating | DH in AAS - TA with R (2022S)" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://eis1600.github.io/course_TA_R_2022S/" />
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="EIS1600/course_TA_R_2022S" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2 Basics I: Main data structures in R | DH in AAS - TA with R (2022S)" />
+  <meta name="twitter:title" content="6 Data II: Modeling &amp; Manipulating | DH in AAS - TA with R (2022S)" />
   
   <meta name="twitter:description" content="This is a collection of relevant materials for the class ‘57-528 ONLINE S: Digital Humanities in African and Asian Studies: Text Analysis with R’ (2022S), offered at the University of Hamburg (Afrika-Asien Institut) and taught by Maxim G. Romanov" />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   <link rel="apple-touch-icon-precomposed" sizes="120x120" href="touch-icon.png" />
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-<link rel="prev" href="general-introduction.html"/>
-<link rel="next" href="basics-ii-data-manipulation-exloratory-analysis.html"/>
+<link rel="prev" href="data-i-collecting-organizing-creating.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -280,114 +280,154 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="basics-i-main-data-structures-in-r" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> Basics I: Main data structures in R</h1>
-<div id="goals02" class="section level2" number="2.1">
-<h2><span class="header-section-number">2.1</span> Goals</h2>
+<div id="data-ii-modeling-manipulating" class="section level1" number="6">
+<h1><span class="header-section-number">6</span> Data II: Modeling &amp; Manipulating</h1>
+<div id="goals06" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> Goals:</h2>
+<p>Getting to know the basics of working with data: modeling, manipulating</p>
+</div>
+<div id="soft06" class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> Software:</h2>
 <ul>
-<li>Getting to know main data structures in R</li>
+<li>R</li>
+<li>Excel, Google Spreadsheets, or any other alternative</li>
 </ul>
 </div>
-<div id="soft02" class="section level2" number="2.2">
-<h2><span class="header-section-number">2.2</span> Software</h2>
+<div id="InClassI06" class="section level2" number="6.3">
+<h2><span class="header-section-number">6.3</span> In Class I: <em>Theoretical and Conceptual</em></h2>
+<div id="DM06" class="section level3" number="6.3.1">
+<h3><span class="header-section-number">6.3.1</span> Ways of modeling data: Categorization</h3>
+<blockquote>
+<p>“[Modeling is] a continual process of coming to know by manipulating representations.”</p>
+</blockquote>
 <ul>
-<li><em>the same</em>, with some new libraries:
+<li>Willard McCarty, “Modeling: A Study in Words and Meanings,” in Susan Schreibman, Ray Siemens, and John Unsworth, <em>A New Companion to Digital Humanities</em>, 2nd ed. (Chichester, UK, 2016), <a href="http://www.digitalhumanities.org/companion/" class="uri">http://www.digitalhumanities.org/companion/</a>.</li>
+</ul>
+<p>One of the most common way of modeling data in historical research—joining items into broader categories. Categorization is important because it allows to group items with low frequencies into items with higher frequencies, and through those discern patterns and trends. Additionally, alternative categorizations allow one to test different perspectives on historical data.</p>
+<p>The overall process is rather simple in terms of technological implementation, but is quite complex in terms of subject knowledge and specialized expertise is required to make well-informed decisions.</p>
 <ul>
-<li>R <a href="https://www.r-project.org/" class="uri">https://www.r-project.org/</a></li>
-<li>R Studio <a href="https://www.rstudio.com/" class="uri">https://www.rstudio.com/</a></li>
+<li>For example, let’s say we have the following categories: <em>baker</em>, <em>blacksmith</em>, <em>coppersmith</em>, <em>confectioner</em>, and <em>goldsmith</em>.
+<ul>
+<li>These can be categorized as <strong>occupations</strong>;</li>
+<li>Additionally, <em>blacksmith</em>, <em>coppersmith</em>, and <em>goldsmith</em> can also be categorized as <strong>‘metal industry’</strong>, while <em>baker</em> and <em>confectioner</em>, can be categorized as <strong>‘food industry’</strong>;</li>
+<li>Yet even more, one might want to introduce additional categories, such as <strong>luxury production</strong> to include items like <em>goldsmith</em> and <em>confectioner</em>; and <strong>regular production</strong> for items like <em>baker</em>, <em>blacksmith</em>, <em>coppersmith</em>.</li>
 </ul></li>
+<li>Such categorizations can be created in two different ways, with each having its advantages:
+<ul>
+<li>first, one can create them as additional columns. This approach will allow to always have the original—or alternative—classifications at hand, which is helpful for re-thinking classifications and creating alternative ones where items will be reclassified differently, based on a different set of assumptions about your subject.</li>
+<li>second, these can be created in separate files, which might be easier as one does not have to stare at existing classifications and therefore will be less influenced by them in making classification decisions.</li>
+</ul></li>
+<li>Additionally, one can use some pre-existing classifications that have already been created in academic literature. These most likely need to be digitized and converted into properly formatted data, as we discussed in the previous lesson.</li>
 </ul>
 </div>
-<div id="cLass02" class="section level2" number="2.3">
-<h2><span class="header-section-number">2.3</span> Class</h2>
+<div id="Norm06" class="section level3" number="6.3.2">
+<h3><span class="header-section-number">6.3.2</span> Normalization</h3>
+<p>This is a rather simple, yet important procedure, which is, on the technical side, very similar to what was described above. In essence, the main goal of normalization is to remove insignificant differences that may hinder analysis.</p>
 <ul>
-<li>Practice worksheet: <a href="./files/ws/02_worksheets_data-structures.Rmd.zip">02_worksheets_data-structures.Rmd.zip</a></li>
-</ul>
-<p><strong>NB:</strong> Original worksheets prepared by Lincoln Mullen, GMU (<a href="https://dh-r.lincolnmullen.com/worksheets.html" class="uri">https://dh-r.lincolnmullen.com/worksheets.html</a>)</p>
-<div id="topics02" class="section level3" number="2.3.1">
-<h3><span class="header-section-number">2.3.1</span> Topics: Data Structures &amp; Types</h3>
+<li>Most common examples would be:
 <ul>
-<li>Data structures
-<ul>
-<li>Vectors</li>
-<li>Matrices</li>
-<li>Data frames</li>
-<li>Lists</li>
-</ul></li>
-<li>Subsetting operations</li>
-</ul>
-</div>
-<div id="additional_notes_02" class="section level3" number="2.3.2">
-<h3><span class="header-section-number">2.3.2</span> Additional notes</h3>
-<ul>
-<li><code>str()</code> compactly displays information about an R object</li>
-<li><code>typeof()</code> determines the internal type or storage mode of an R object</li>
-<li><code>class()</code> tells you the data structure of an R object:
-<ul>
-<li><code>list</code></li>
-<li><code>data.frame</code></li>
-<li><code>matrix</code></li>
-<li>vector
-<ul>
-<li><code>numeric</code>
-<ul>
-<li><code>typeof()</code> &gt; <code>double</code> — a double-precision vector (floats; default numberic vector type)</li>
-<li><code>typeof()</code> &gt; <code>integer</code> — a vector of integers</li>
-</ul></li>
-<li><code>character</code>
-<ul>
-<li><code>typeof()</code> &gt; <code>character</code> — a vector of strings/characters</li>
-</ul></li>
-</ul></li>
-</ul></li>
-<li><strong>Checking class/type &amp; Conversion</strong>
-<ul>
-<li>create <code>test &lt;- c(1,2,3,4,5)</code>
-<ul>
-<li><code>is.___</code> tests whether a variable of a <code>___</code> <em>class</em>.
-<ul>
-<li>or <em>type</em>: check the <code>typeof()</code> our <code>test</code> vector; then try <code>test.ch &lt;- as.character(test)</code> and check the type again; can you convert it back into its initial type?).</li>
-</ul></li>
-<li><code>is.___</code> converts into a <code>___</code> <em>class</em>.</li>
-<li>(<code>___</code> is either: <code>vector</code>, <code>matrix</code>, <code>data.frame</code>, <code>list</code>)</li>
-</ul></li>
-<li>Now try the following commands and check the type and class of the new objects:
-<ul>
-<li><code>test.matrix &lt;- as.matrix(test)</code></li>
-<li><code>test.df &lt;- as.data.frame(test)</code></li>
-<li><code>test.list &lt;- as.list(test)</code></li>
-<li><code>test.vector &lt;- as.vector(test.df$test)</code></li>
-</ul></li>
+<li>bringing information to the same format (e.g., dates, names, etc.)</li>
+<li>unifying spelling differences</li>
 </ul></li>
 </ul>
+<p>It is a safe practice to <strong>preserve the initial data</strong>, creating <em>normalized</em> data in separate columns (or tables)</p>
+</div>
+<div id="Proxies06" class="section level3" number="6.3.3">
+<h3><span class="header-section-number">6.3.3</span> Note: <em>Proxies</em>, <em>Features</em>, <em>Abstractions</em></h3>
+<p>These are the terms that refer to the same idea. The notion of <em>proxies</em> is used in data visualization, that of <em>features</em>—in computer science; that of <em>abstractions</em>—in the humanities.</p>
+<p>The main idea behind these terms is that some simple <em>features</em> of an object can act as <em>proxies</em> to some complex phenomena.</p>
+<p>For example, Ian Morris uses the size of cities as a proxy to the complexity of social organization. The logic is following: the larger the size of a city, the more complex social, economic and technical organization is required to keep that city functional, therefore is can be used as an indicator of the social complexity.</p>
+<p>While <em>proxies</em> are selected from what is available—usually not much, especially when it comes to historical data—as a way to approach something more complex, it may be argued that abstractions are often arrived to from the opposite direction. We start with an object which is available in its complexity and we reduce its complexity to a more manageable form which—we expect—would prepresent a particular aspect of the initial complex object. Most commonly this is applied to texts in a natural language. For example, in <em>stylometry</em> texts are reduced to freqiency lists of most frequent <em>features</em>, which are expected to represent an <em>authorial fingerprint</em>.</p>
+<p>The complexity of texts can be reduced in a number of ways: into a list of lemmas (e.g., for topic modeling analysis), frequency lists (e.g., for document distance comparison), syntactic structures, ngrams, etc. This list is never set and researchers can create multiple abstractions depending on their research questions.</p>
 </div>
 </div>
-<div id="RM02" class="section level2" number="2.4">
-<h2><span class="header-section-number">2.4</span> Reference materials</h2>
+<div id="InClassII06" class="section level2" number="6.4">
+<h2><span class="header-section-number">6.4</span> In Class II: <em>Practical</em></h2>
+<p>Data for the practical session and homework: <a href="../../files/Bosker_Data.zip">Bosker_Data.zip</a>. The data is available in open access and is a supplement to a study (see, <em>Reference Materials</em>).</p>
+<p>The zipped file includes everything you need for the practical session. Download and unzip (read the article at home!).</p>
+<p><strong>Note:</strong> create a notebook and work through the following questions. Group work is encouraged. Please, explain in one or two sentences what you do in each step, so that your work is also human-readable. Please, submit this notebook as your homework. MAke sure to name your file in the following manner: <code>070184-LXX-HW-YourLastName-YourMatriculationNumber.EXT</code>, where <code>LXX</code> is the number of the lesson for which you submit homework; <code>YourLastName</code> is your last name; and <code>YourMatriculationNumber</code> is your matriculation number; <code>EXT</code> is the extension of your file — yopu can submit it either as HTML or as a PDF.</p>
+<div id="Si06" class="section level3" number="6.4.1">
+<h3><span class="header-section-number">6.4.1</span> SECTION I.</h3>
+<p>Please, provide your answers (2-3 sentences) to the following questions:</p>
 <ul>
-<li>Read two chapters from: Wickham, Hadley. <em>Advanced R, Second Edition.</em> 2 edition. Boca Raton: Chapman and Hall/CRC, 2019. <a href="http://adv-r.had.co.nz/" class="uri">http://adv-r.had.co.nz/</a>
+<li>Can you figure which file contains data?</li>
+<li>In which format is data?</li>
+<li>How can we load it into R? (Describe and provide working <code>R code</code>)</li>
+<li>What is the chronological extent of this data?
 <ul>
-<li><a href="http://adv-r.had.co.nz/Data-structures.html">Data structures</a></li>
-<li><a href="http://adv-r.had.co.nz/Subsetting.html">Subsetting</a></li>
+<li>[<em>easy-ish</em>] What periods can it be divided into? How can we do that?</li>
 </ul></li>
-<li>For the next class, read the following article (in <em>open access</em>, simply follow the link):
+<li>How can we introduce the following categories into this data:
 <ul>
-<li>Broman, Karl W., and Kara H. Woo. 2018. “Data Organization in Spreadsheets.” <em>The American Statistician</em> 72 (1): 2–10. <a href="https://doi.org/10.1080/00031305.2017.1375989" class="uri">https://doi.org/10.1080/00031305.2017.1375989</a>.</li>
-</ul></li>
-<li><strong>Additional readings</strong>:
-<ul>
-<li>Read <em>Introduction</em> to Lincoln A. Mullen, <em>Computational Historical Thinking: With Applications in R (2018–)</em>: (<a href="http://dh-r.lincolnmullen.com/introduction.html" class="uri">http://dh-r.lincolnmullen.com/introduction.html</a>)</li>
+<li>[<em>easy</em>] North Africa and Europe?</li>
+<li>[<em>a bit more complicated</em>] the Austro-Hungarian Empire?</li>
+<li>[<em>a tad tricky</em>] Christiandom and Islamdom?</li>
 </ul></li>
 </ul>
 </div>
-<div id="HW02" class="section level2" number="2.5">
-<h2><span class="header-section-number">2.5</span> Homework</h2>
+<div id="Sii06" class="section level3" number="6.4.2">
+<h3><span class="header-section-number">6.4.2</span> SECTION II</h3>
+<p>Please, provide your answers as working <code>R code</code> and a couple of sentences to describe how you approach (2-3 sentences) the following problems:</p>
+<ul>
+<li>What is the chronological extent of this data?
+<ul>
+<li>[<em>easy-ish</em>] What periods can it be divided into? How can we do that?
+<ul>
+<li>Can you generate a cumulative graph of population over time, divided into these periods? (<em>Hint:</em> there should be one line for one period and another for another, etc.)</li>
+</ul></li>
+</ul></li>
+<li>How can we introduce the following categories into this data:
+<ul>
+<li>[<em>easy</em>] North Africa and Europe?
+<ul>
+<li>Construct comparative graphs of population in North Africa and Europe (similar to what you did with the Morris dataset). Here you will need to sum up population!</li>
+</ul></li>
+<li>[<em>a bit more complicated</em>] the Austro-Hungarian Empire?
+<ul>
+<li>When did the Empire had the largest number of cities (based on the data set)?</li>
+<li>When was its population at the highest?</li>
+</ul></li>
+<li>[<em>a tad tricky</em>] Christiandom and Islamdom?
+<ul>
+<li>What are the largest cities of Islamdom for each reported period?</li>
+<li>What are the largest western cities of Islamdom between 1000 and 1500 CE?</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="RM06" class="section level2" number="6.5">
+<h2><span class="header-section-number">6.5</span> Reference Materials</h2>
+<ul>
+<li>Bosker, Maarten, Eltjo Buringh, and Jan Luiten van Zanden. 2012. “From Baghdad to London: Unraveling Urban Development in Europe, the Middle East, and North Africa, 800–1800.” <em>The Review of Economics and Statistics</em> 95 (4): 1418–37. <a href="https://doi.org/10.1162/REST_a_00284" class="uri">https://doi.org/10.1162/REST_a_00284</a>.</li>
+<li>Bosker, Maarten, Eltjo Buringh, and Jan Luiten Van Zanden. 2014. “Replication Data for: From Baghdad to London: Unraveling Urban Development in Europe, the Middle East, and North Africa, 800-1800.” <em>Harvard Dataverse</em>. <a href="https://doi.org/10.7910/DVN/24747" class="uri">https://doi.org/10.7910/DVN/24747</a>.</li>
+</ul>
+<div id="AR06" class="section level3" number="6.5.1">
+<h3><span class="header-section-number">6.5.1</span> Additional Readings</h3>
+<ul>
+<li>Moretti, Franco. 2007. <em>Graphs, Maps, Trees: Abstract Models for Literary History</em>. London - New York: Verso.</li>
+<li>Moretti, Franco. 2013. <em>Distant Reading.</em> London ; New York: Verso.</li>
+<li>Romanov, Maxim G. 2017. “Algorithmic Analysis of Medieval Arabic Biographical Collections.” <em>Speculum</em> 92 (S1): S226–46. <a href="https://doi.org/10.1086/693970" class="uri">https://doi.org/10.1086/693970</a>.</li>
+</ul>
+</div>
+</div>
+<div id="HW06" class="section level2" number="6.6">
+<h2><span class="header-section-number">6.6</span> Homework</h2>
 <ul>
 <li>Finish your worksheet and submit your HW as described below.</li>
+<li><em>Additional:</em> if you’d like more practice, you can use <code>swirl</code> library:
+<ul>
+<li>To install: <code>install.packages("swirl")</code></li>
+<li>To run: <code>library(swirl)</code>
+<ul>
+<li>Then: <code>swirl()</code></li>
+<li>it will offer you a set of interactive exercises similar to DataCamp.</li>
+</ul></li>
+</ul></li>
 </ul>
 </div>
-<div id="L02_SHW" class="section level2" number="2.6">
-<h2><span class="header-section-number">2.6</span> Submitting homework</h2>
+<div id="SHW06" class="section level2" number="6.7">
+<h2><span class="header-section-number">6.7</span> Submitting homework</h2>
 <ul>
 <li>Homework assignment must be submitted by the beginning of the next class;</li>
 <li>Email your homework to the instructor as attachments.
@@ -403,8 +443,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="general-introduction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="basics-ii-data-manipulation-exloratory-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="data-i-collecting-organizing-creating.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -435,7 +475,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/EIS1600/course_TM_R_2022S/edit/main/02-Lesson02.Rmd",
+"link": "https://github.com/EIS1600/course_TM_R_2022S/edit/main/02-Lesson06.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -443,7 +483,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/EIS1600/course_TM_R_2022S/blob/main/02-Lesson02.Rmd",
+"link": "https://github.com/EIS1600/course_TM_R_2022S/blob/main/02-Lesson06.Rmd",
 "text": null
 },
 "download": null,

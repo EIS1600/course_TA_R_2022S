@@ -71,3 +71,17 @@ rmA05
 rmB05
 HW05
 SHW05
+data-ii-modeling-manipulating
+goals06
+soft06
+InClassI06
+DM06
+Norm06
+Proxies06
+InClassII06
+Si06
+Sii06
+RM06
+AR06
+HW06
+SHW06
