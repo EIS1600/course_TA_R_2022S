@@ -58,7 +58,7 @@ Data for the practical session and homework: [Bosker_Data.zip](./files/data/Bosk
 
 The zipped file includes everything you need for the practical session. Download and unzip (read the article at home!).
 
-**Note:** create a notebook and work through the following questions. Group work is encouraged. Please, explain in one or two sentences what you do in each step, so that your work is also human-readable. Please, submit this notebook as your homework. MAke sure to name your file in the following manner: `070184-LXX-HW-YourLastName-YourMatriculationNumber.EXT`, where `LXX` is the number of the lesson for which you submit homework; `YourLastName` is your last name; and `YourMatriculationNumber` is your matriculation number; `EXT` is the extension of your file --- yopu can submit it either as HTML or as a PDF.
+**Note:** create a notebook and work through the following questions. Group work is encouraged. Please, explain in one or two sentences what you do in each step, so that your work is also human readable. Please, submit this notebook as your homework. Make sure to name your file in the following manner: `57528-LXX-HW-YourLastName-YourMatriculationNumber.EXT`, where `LXX` is the number of the lesson for which you submit homework; `YourLastName` is your last name; and `YourMatriculationNumber` is your matriculation number; `EXT` is the extension of your file --- yopu can submit it either as HTML or as a PDF.
 
 
 ### SECTION I.{#Si06}
@@ -72,7 +72,7 @@ Please, provide your answers (2-3 sentences) to the following questions:
 	* [*easy-ish*] What periods can it be divided into? How can we do that?
 * How can we introduce the following categories into this data:
 	* [*easy*] North Africa and Europe?
-	* [*a bit more complicated*] the Austro-Hungarian Empire?
+	* [*a bit more complicated*] the Ottoman Empire?
 	* [*a tad tricky*] Christiandom and Islamdom?
 
 ### SECTION II{#Sii06}
@@ -85,7 +85,7 @@ Please, provide your answers as working `R code` and a couple of sentences to de
 * How can we introduce the following categories into this data:
 	* [*easy*] North Africa and Europe?
 		* Construct comparative graphs of population in North Africa and Europe (similar to what you did with the Morris dataset). Here you will need to sum up population!
-	* [*a bit more complicated*] the Austro-Hungarian Empire?
+	* [*a bit more complicated*] the Ottoman Empire?
 		* When did the Empire had the largest number of cities (based on the data set)?
 		* When was its population at the highest?
 	* [*a tad tricky*] Christiandom and Islamdom?
@@ -100,7 +100,7 @@ Please, provide your answers as working `R code` and a couple of sentences to de
 ### Additional Readings{#AR06}
 
 * Moretti, Franco. 2007. *Graphs, Maps, Trees: Abstract Models for Literary History*. London - New York: Verso.
-* Moretti, Franco. 2013. *Distant Reading.* London ; New York: Verso.
+* Moretti, Franco. 2013. *Distant Reading.* London; New York: Verso.
 * Romanov, Maxim G. 2017. “Algorithmic Analysis of Medieval Arabic Biographical Collections.” *Speculum* 92 (S1): S226–46. <https://doi.org/10.1086/693970>.
 
 ## Homework{#HW06}
