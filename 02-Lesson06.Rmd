@@ -54,7 +54,7 @@ The complexity of texts can be reduced in a number of ways: into a list of lemma
 
 ## In Class II: *Practical*{#InClassII06}
 
-Data for the practical session and homework: [Bosker_Data.zip](../../files/Bosker_Data.zip). The data is available in open access and is a supplement to a study (see, *Reference Materials*).
+Data for the practical session and homework: [Bosker_Data.zip](./files/Bosker_Data.zip). The data is available in open access and is a supplement to a study (see, *Reference Materials*).
 
 The zipped file includes everything you need for the practical session. Download and unzip (read the article at home!).
 
