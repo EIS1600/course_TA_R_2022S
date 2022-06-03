@@ -12,29 +12,21 @@
 
 We will use the following text files in this worksheet. Please download them and keep them close to your worksheet. Since some of the files are quite large, you want to download them before loading them into R:
 
-* [The Richmond Dispatch (1861)](./files/data/dispatch_1861.tsv)
 * [The Richmond Dispatch (1862)](./files/data/dispatch_1862.tsv)
 * [Star Wars I: The Phantom Menace (script)](./files/data/sw1.md)
 
-* <https://univie-histr-2020s.github.io/files/dispatch_1861.tsv>
-* <https://univie-histr-2020s.github.io/files/dispatch_1862.tsv>
-* <https://univie-histr-2020s.github.io/files/sw1.md>
-
-In order to make loading these files a little bit easier, you can paste the path to where you placed these files into an isolated variable and then reuse it as follows:
+In order to make loading these files a little bit easier, you can paste the path to where you placed these files into an isolated variable and then reuse it as follows (in other words, make sure that your `pathToFiles` is the path on your local machine):
 
 ```{r}
 pathToFiles = "./files/data/"
 
-#d1861 <- read.delim(paste0(pathToFiles, "dispatch_1861.tsv"), encoding="UTF-8", header=TRUE, quote="")
 d1862 <- read.delim(paste0(pathToFiles, "dispatch_1862.tsv"), encoding="UTF-8", header=TRUE, quote="")
 
 sw1 <- scan(paste0(pathToFiles, "sw1.md"), what="character", sep="\n")
 
 ```
 
-The first two files are articles from "The Daily Dispatch" for the years of 1861 and 1862. The newspaper was published in Richmond, VA --- the capital of the Confederate States (the South) during the American Civil War (1861-1865). The last file is a script of the first episode of Star Wars :). In fact, for now, we only need one file of the Dispatch.
-
-
+The first file is articles from "The Daily Dispatch" for the year 1862. The newspaper was published in Richmond, VA --- the capital of the Confederate States (the South) during the American Civil War (1861-1865). The second file is a script of the first episode of Star Wars :).
 
 ## Homework{#HW07}
 
