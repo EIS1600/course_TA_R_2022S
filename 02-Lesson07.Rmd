@@ -299,6 +299,48 @@ wordcloud(words=test_set_tidy_clean$word, freq=test_set_tidy_clean$n,
 
 For more details on generating word clouds in R, see: <http://www.sthda.com/english/wiki/text-mining-and-word-cloud-fundamentals-in-r-5-simple-steps-you-should-know>.
 
+## Word Distribution Plots
+
+### Simple — a Star Wars Example
+
+This kind of plot works better with texts rather than with newspapers. Let's take a look at a script of Episode I:
+
+```{r}
+SW_to_DF <- function(path_to_file, episode){
+  sw_sentences <- scan(path_to_file, what="character", sep="\n")
+  sw_sentences <- as.character(sw_sentences)
+  sw_sentences <- gsub("([A-Z]) ([A-Z])", "\\1_\\2", sw_sentences)
+  sw_sentences <- gsub("([A-Z])-([A-Z])", "\\1_\\2", sw_sentences)
+  sw_sentences <- as.data.frame(cbind(episode, sw_sentences), stringsAsFactors=FALSE)
+  colnames(sw_sentences) <- c("episode", "sentences")
+  return(sw_sentences)
+}
+
+sw1_df <- SW_to_DF(paste0(pathToFiles, "sw1.md"), "sw1")
+
+sw1_df_tidy <- sw1_df %>%
+  mutate(linenumber = row_number(),
+         chapter = cumsum(str_detect(sentences, regex("^#", ignore_case = TRUE))))
+
+sw1_df_tidy <- sw1_df_tidy %>%
+  unnest_tokens(word, sentences)
+```
+
+Try names of different characters (`shmi`, `padme`, `anakin`, `sebulba`, `yoda`, `sith`), or other terms that you know are tied to a specific part of the movie (`pod`, `naboo`, `gungans`, `coruscant`).
+
+```{r fig.width=15, fig.height=3}
+ourWord = "yoda"
+word_occurance_vector <- which(sw1_df_tidy$word == ourWord)
+
+plot(0, type='n', #ann=FALSE,
+     xlim=c(1,length(sw1_df_tidy$word)), ylim=c(0,1),
+     main=paste0("Dispersion Plot of `", ourWord, "` in SW1"),
+     xlab="Movie Time", ylab=ourWord, yaxt="n")
+segments(x0=word_occurance_vector, x1=word_occurance_vector, y0=0, y1=2)
+
+# col=rgb(0,0,0,alpha=0.3) -- can be included as a parameter to segment to make lines more transparent
+```
+
 
 
 

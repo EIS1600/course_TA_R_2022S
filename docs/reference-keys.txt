@@ -96,5 +96,7 @@ texts-and-text-analysis
 word-frequencies-and-word-clouds
 word-frequencies
 wordclouds
+word-distribution-plots
+simple-a-star-wars-example
 HW07
 SHW07

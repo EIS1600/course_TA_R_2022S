@@ -274,8 +274,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.4.1" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#word-frequencies"><i class="fa fa-check"></i><b>7.4.1</b> Word Frequencies</a></li>
 <li class="chapter" data-level="7.4.2" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#wordclouds"><i class="fa fa-check"></i><b>7.4.2</b> Wordclouds</a></li>
 </ul></li>
-<li class="chapter" data-level="7.5" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#HW07"><i class="fa fa-check"></i><b>7.5</b> Homework</a></li>
-<li class="chapter" data-level="7.6" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#SHW07"><i class="fa fa-check"></i><b>7.6</b> Submitting homework</a></li>
+<li class="chapter" data-level="7.5" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#word-distribution-plots"><i class="fa fa-check"></i><b>7.5</b> Word Distribution Plots</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#simple-a-star-wars-example"><i class="fa fa-check"></i><b>7.5.1</b> Simple — a Star Wars Example</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#HW07"><i class="fa fa-check"></i><b>7.6</b> Homework</a></li>
+<li class="chapter" data-level="7.7" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#SHW07"><i class="fa fa-check"></i><b>7.7</b> Submitting homework</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -85040,8 +85044,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>For more details on generating word clouds in R, see: <a href="http://www.sthda.com/english/wiki/text-mining-and-word-cloud-fundamentals-in-r-5-simple-steps-you-should-know" class="uri">http://www.sthda.com/english/wiki/text-mining-and-word-cloud-fundamentals-in-r-5-simple-steps-you-should-know</a>.</p>
 </div>
 </div>
-<div id="HW07" class="section level2" number="7.5">
-<h2><span class="header-section-number">7.5</span> Homework</h2>
+<div id="word-distribution-plots" class="section level2" number="7.5">
+<h2><span class="header-section-number">7.5</span> Word Distribution Plots</h2>
+<div id="simple-a-star-wars-example" class="section level3" number="7.5.1">
+<h3><span class="header-section-number">7.5.1</span> Simple — a Star Wars Example</h3>
+<p>This kind of plot works better with texts rather than with newspapers. Let’s take a look at a script of Episode I:</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="text-analysis-i-basics.html#cb43-1" aria-hidden="true" tabindex="-1"></a>SW_to_DF <span class="ot">&lt;-</span> <span class="cf">function</span>(path_to_file, episode){</span>
+<span id="cb43-2"><a href="text-analysis-i-basics.html#cb43-2" aria-hidden="true" tabindex="-1"></a>  sw_sentences <span class="ot">&lt;-</span> <span class="fu">scan</span>(path_to_file, <span class="at">what=</span><span class="st">&quot;character&quot;</span>, <span class="at">sep=</span><span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb43-3"><a href="text-analysis-i-basics.html#cb43-3" aria-hidden="true" tabindex="-1"></a>  sw_sentences <span class="ot">&lt;-</span> <span class="fu">as.character</span>(sw_sentences)</span>
+<span id="cb43-4"><a href="text-analysis-i-basics.html#cb43-4" aria-hidden="true" tabindex="-1"></a>  sw_sentences <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">&quot;([A-Z]) ([A-Z])&quot;</span>, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">1_</span><span class="sc">\\</span><span class="st">2&quot;</span>, sw_sentences)</span>
+<span id="cb43-5"><a href="text-analysis-i-basics.html#cb43-5" aria-hidden="true" tabindex="-1"></a>  sw_sentences <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">&quot;([A-Z])-([A-Z])&quot;</span>, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">1_</span><span class="sc">\\</span><span class="st">2&quot;</span>, sw_sentences)</span>
+<span id="cb43-6"><a href="text-analysis-i-basics.html#cb43-6" aria-hidden="true" tabindex="-1"></a>  sw_sentences <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">cbind</span>(episode, sw_sentences), <span class="at">stringsAsFactors=</span><span class="cn">FALSE</span>)</span>
+<span id="cb43-7"><a href="text-analysis-i-basics.html#cb43-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(sw_sentences) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;episode&quot;</span>, <span class="st">&quot;sentences&quot;</span>)</span>
+<span id="cb43-8"><a href="text-analysis-i-basics.html#cb43-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(sw_sentences)</span>
+<span id="cb43-9"><a href="text-analysis-i-basics.html#cb43-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb43-10"><a href="text-analysis-i-basics.html#cb43-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-11"><a href="text-analysis-i-basics.html#cb43-11" aria-hidden="true" tabindex="-1"></a>sw1_df <span class="ot">&lt;-</span> <span class="fu">SW_to_DF</span>(<span class="fu">paste0</span>(pathToFiles, <span class="st">&quot;sw1.md&quot;</span>), <span class="st">&quot;sw1&quot;</span>)</span>
+<span id="cb43-12"><a href="text-analysis-i-basics.html#cb43-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-13"><a href="text-analysis-i-basics.html#cb43-13" aria-hidden="true" tabindex="-1"></a>sw1_df_tidy <span class="ot">&lt;-</span> sw1_df <span class="sc">%&gt;%</span></span>
+<span id="cb43-14"><a href="text-analysis-i-basics.html#cb43-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">linenumber =</span> <span class="fu">row_number</span>(),</span>
+<span id="cb43-15"><a href="text-analysis-i-basics.html#cb43-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">chapter =</span> <span class="fu">cumsum</span>(<span class="fu">str_detect</span>(sentences, <span class="fu">regex</span>(<span class="st">&quot;^#&quot;</span>, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>))))</span>
+<span id="cb43-16"><a href="text-analysis-i-basics.html#cb43-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-17"><a href="text-analysis-i-basics.html#cb43-17" aria-hidden="true" tabindex="-1"></a>sw1_df_tidy <span class="ot">&lt;-</span> sw1_df_tidy <span class="sc">%&gt;%</span></span>
+<span id="cb43-18"><a href="text-analysis-i-basics.html#cb43-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(word, sentences)</span></code></pre></div>
+<p>Try names of different characters (<code>shmi</code>, <code>padme</code>, <code>anakin</code>, <code>sebulba</code>, <code>yoda</code>, <code>sith</code>), or other terms that you know are tied to a specific part of the movie (<code>pod</code>, <code>naboo</code>, <code>gungans</code>, <code>coruscant</code>).</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="text-analysis-i-basics.html#cb44-1" aria-hidden="true" tabindex="-1"></a>ourWord <span class="ot">=</span> <span class="st">&quot;yoda&quot;</span></span>
+<span id="cb44-2"><a href="text-analysis-i-basics.html#cb44-2" aria-hidden="true" tabindex="-1"></a>word_occurance_vector <span class="ot">&lt;-</span> <span class="fu">which</span>(sw1_df_tidy<span class="sc">$</span>word <span class="sc">==</span> ourWord)</span>
+<span id="cb44-3"><a href="text-analysis-i-basics.html#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-4"><a href="text-analysis-i-basics.html#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">0</span>, <span class="at">type=</span><span class="st">&#39;n&#39;</span>, <span class="co">#ann=FALSE,</span></span>
+<span id="cb44-5"><a href="text-analysis-i-basics.html#cb44-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="fu">length</span>(sw1_df_tidy<span class="sc">$</span>word)), <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
+<span id="cb44-6"><a href="text-analysis-i-basics.html#cb44-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="fu">paste0</span>(<span class="st">&quot;Dispersion Plot of `&quot;</span>, ourWord, <span class="st">&quot;` in SW1&quot;</span>),</span>
+<span id="cb44-7"><a href="text-analysis-i-basics.html#cb44-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">&quot;Movie Time&quot;</span>, <span class="at">ylab=</span>ourWord, <span class="at">yaxt=</span><span class="st">&quot;n&quot;</span>)</span>
+<span id="cb44-8"><a href="text-analysis-i-basics.html#cb44-8" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(<span class="at">x0=</span>word_occurance_vector, <span class="at">x1=</span>word_occurance_vector, <span class="at">y0=</span><span class="dv">0</span>, <span class="at">y1=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="main_files/figure-html/unnamed-chunk-30-1.png" width="1440" /></p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="text-analysis-i-basics.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># col=rgb(0,0,0,alpha=0.3) -- can be included as a parameter to segment to make lines more transparent</span></span></code></pre></div>
+</div>
+</div>
+<div id="HW07" class="section level2" number="7.6">
+<h2><span class="header-section-number">7.6</span> Homework</h2>
 <ul>
 <li>Finish your worksheet and submit your HW as described below.</li>
 <li><em>Additional:</em> if you’d like more practice, you can use <code>swirl</code> library:
@@ -85055,8 +85095,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul>
 </div>
-<div id="SHW07" class="section level2" number="7.6">
-<h2><span class="header-section-number">7.6</span> Submitting homework</h2>
+<div id="SHW07" class="section level2" number="7.7">
+<h2><span class="header-section-number">7.7</span> Submitting homework</h2>
 <ul>
 <li>Homework assignment must be submitted by the beginning of the next class;</li>
 <li>Email your homework to the instructor as attachments.
