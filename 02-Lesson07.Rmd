@@ -2,10 +2,10 @@
 
 ## Goals{#goals07}
 
-- introduce basic text analysis concepts:
-  - ...
-  - ...
-  - ...
+- basic text analysis concepts;
+- word frequencies and word clouds;
+- word distribution plots;
+- kwic: keywords-in-context
 
 ## Preliminaries{#Prelim07}
 
@@ -430,17 +430,15 @@ kwic_test %>% as_tibble %>%
 
 ## Homework{#HW07}
 
-- Finish your worksheet and submit your HW as described below.
-* *Additional:* if you'd like more practice, you can use `swirl` library:
-  * To install: `install.packages("swirl")`
-  * To run: `library(swirl)`
-    * Then: `swirl()`
-    * it will offer you a set of interactive exercises similar to DataCamp.
+* Read about *ngrams* in *Chapter 4. Relationships between words: n-grams and correlations* (<https://www.tidytextmining.com/ngrams.html>), in <https://www.tidytextmining.com/>.
+  - Using what you have learned in this chapter identify and analyze *bigrams* in Dispatch, 1862.
+  - Submit the results of your analysis as an R notebook, as usual.
+  - You are welcome to work in groups.
+* *Optional*: Work through Chapter 9 of Arnold, Taylor, and Lauren Tilton. 2015. *Humanities Data in R*. New York, NY: Springer Science+Business Media. (on Moodle!): create a notebook with all the code discusses there and send it via email (share via DropBox or some other service, if too large).
+* DataCamp Assignments.
 
 ## Submitting homework{#SHW07}
 
 * Homework assignment must be submitted by the beginning of the next class;
 * Email your homework to the instructor as attachments.
 	*  In the subject of your email, please, add the following: `57528-LXX-HW-YourLastName-YourMatriculationNumber`, where `LXX` is the number of the lesson for which you submit homework; `YourLastName` is your last name; and `YourMatriculationNumber` is your matriculation number.
-	
-**NB:** The original version has beed developed and prepared by Maxim Romanov for the course "R for Historical Research" (U Vienna, Spring 2019).
