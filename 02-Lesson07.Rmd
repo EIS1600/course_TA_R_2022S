@@ -120,13 +120,13 @@ While there are similarities between traditional text analysis, there are of cou
 **NOTE:**
 
 - NLP: *natural language processing*;
-- Token: you can think of *token* as a continuous string of letter characters, as a word as it appears in the text in its inflected forms with possible other attached elements (in arabic we often have prepositions, articles, pronominal suffixes, which are not part of the word, but attached to it);
+- Token: you can think of *token* as a continuous string of letter characters, as a word as it appears in the text in its inflected forms with possible other attached elements (in Arabic we often have prepositions, articles, pronominal suffixes, which are not part of the word, but attached to it);
 - Lemma: the dictionary form of the word;
 - Stem: a “root” of the word;
 
 Some examples:
 
-```{r message=TRUE, warning=FALSE}
+```{r message=FALSE, warning=FALSE}
 #install.packages("textstem")
 library(textstem)
 

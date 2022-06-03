@@ -393,39 +393,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><strong>NOTE:</strong></p>
 <ul>
 <li>NLP: <em>natural language processing</em>;</li>
-<li>Token: you can think of <em>token</em> as a continuous string of letter characters, as a word as it appears in the text in its inflected forms with possible other attached elements (in arabic we often have prepositions, articles, pronominal suffixes, which are not part of the word, but attached to it);</li>
+<li>Token: you can think of <em>token</em> as a continuous string of letter characters, as a word as it appears in the text in its inflected forms with possible other attached elements (in Arabic we often have prepositions, articles, pronominal suffixes, which are not part of the word, but attached to it);</li>
 <li>Lemma: the dictionary form of the word;</li>
 <li>Stem: a “root” of the word;</li>
 </ul>
 <p>Some examples:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="text-analysis-i-basics.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;textstem&quot;)</span></span>
-<span id="cb19-2"><a href="text-analysis-i-basics.html#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(textstem)</span></code></pre></div>
-<pre><code>## Lade nötiges Paket: koRpus.lang.en</code></pre>
-<pre><code>## Lade nötiges Paket: koRpus</code></pre>
-<pre><code>## Lade nötiges Paket: sylly</code></pre>
-<pre><code>## For information on available language packages for &#39;koRpus&#39;, run
-## 
-##   available.koRpus.lang()
-## 
-## and see ?install.koRpus.lang()</code></pre>
-<pre><code>## 
-## Attache Paket: &#39;koRpus&#39;</code></pre>
-<pre><code>## Die folgenden Objekte sind maskiert von &#39;package:quanteda&#39;:
-## 
-##     tokens, types</code></pre>
-<pre><code>## Das folgende Objekt ist maskiert &#39;package:readr&#39;:
-## 
-##     tokenize</code></pre>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="text-analysis-i-basics.html#cb27-1" aria-hidden="true" tabindex="-1"></a>sentence <span class="ot">=</span> <span class="fu">c</span>(</span>
-<span id="cb27-2"><a href="text-analysis-i-basics.html#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;He tried to open one of the bigger boxes.&quot;</span>,</span>
-<span id="cb27-3"><a href="text-analysis-i-basics.html#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;The smaller boxes did not want to be opened.&quot;</span>,</span>
-<span id="cb27-4"><a href="text-analysis-i-basics.html#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Different forms: open, opens, opened, opening, opened, opener, openers.&quot;</span></span>
-<span id="cb27-5"><a href="text-analysis-i-basics.html#cb27-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<span id="cb19-2"><a href="text-analysis-i-basics.html#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(textstem)</span>
+<span id="cb19-3"><a href="text-analysis-i-basics.html#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="text-analysis-i-basics.html#cb19-4" aria-hidden="true" tabindex="-1"></a>sentence <span class="ot">=</span> <span class="fu">c</span>(</span>
+<span id="cb19-5"><a href="text-analysis-i-basics.html#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;He tried to open one of the bigger boxes.&quot;</span>,</span>
+<span id="cb19-6"><a href="text-analysis-i-basics.html#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;The smaller boxes did not want to be opened.&quot;</span>,</span>
+<span id="cb19-7"><a href="text-analysis-i-basics.html#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Different forms: open, opens, opened, opening, opened, opener, openers.&quot;</span></span>
+<span id="cb19-8"><a href="text-analysis-i-basics.html#cb19-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 <p>The library <code>textstem</code> does lemmatization and stemming, but only for English. Tokenization can be performed with <code>str_split()</code> function — and you can define <em>how</em> you want your string to be split.</p>
 <ul>
 <li>Tokenization</li>
 </ul>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="text-analysis-i-basics.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_split</span>(sentence, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">W+&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="text-analysis-i-basics.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_split</span>(sentence, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">W+&quot;</span>)</span></code></pre></div>
 <pre><code>## [[1]]
 ##  [1] &quot;He&quot;     &quot;tried&quot;  &quot;to&quot;     &quot;open&quot;   &quot;one&quot;    &quot;of&quot;     &quot;the&quot;    &quot;bigger&quot;
 ##  [9] &quot;boxes&quot;  &quot;&quot;      
@@ -440,14 +425,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Lemmatization</li>
 </ul>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="text-analysis-i-basics.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lemmatize_strings</span>(sentence)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="text-analysis-i-basics.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lemmatize_strings</span>(sentence)</span></code></pre></div>
 <pre><code>## [1] &quot;He try to open one of the big box.&quot;                           
 ## [2] &quot;The small box do not want to be open.&quot;                        
 ## [3] &quot;Different form: open, open, open, open, open, opener, opener.&quot;</code></pre>
 <ul>
 <li>Stemming</li>
 </ul>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="text-analysis-i-basics.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stem_strings</span>(sentence)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="text-analysis-i-basics.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stem_strings</span>(sentence)</span></code></pre></div>
 <pre><code>## [1] &quot;He tri to open on of the bigger box.&quot;                  
 ## [2] &quot;The smaller box did not want to be open.&quot;              
 ## [3] &quot;Differ form: open, open, open, open, open, open, open.&quot;</code></pre>
