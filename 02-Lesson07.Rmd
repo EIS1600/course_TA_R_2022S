@@ -86,6 +86,78 @@ Let's try a crazy example:
 hypothenuse(390,456)
 ```
 
+###$ More complex one: Cleaning Text
+
+Let's say we want to clean up a text so that it is easier to analyze it: 1) convert everithing to lower case; 2) remove all non-alphanumeric characters; and 3) make sure that there are no multiple spaces: 
+
+```{r}
+clean_up_text = function(x) {
+  x %>% 
+    str_to_lower %>% # make text lower case
+    str_replace_all("[^[:alnum:]]", " ") %>% # remove non-alphanumeric symbols
+    str_replace_all("\\s+", " ") # collapse multiple spaces
+}
+```
+
+Let's test it now:
+
+```{r}
+text = "This is a sentence with punctuation, which mentions Hamburg, a city in Germany."
+clean_up_text(text)
+```
+
+## Texts and Text Analysis
+
+We can think of text analysis as means of extracting meaningful information from structured and unstructured texts. As historians, we often do that by reading texts and collecting relevant information by taking notes, writing index cards, summarizing texts, juxtaposing one texts against another, comparing texts, looking into how specific words and terms are used, etc. Doing text analysis computationally we do lots of similar things: we extract information of specific kind, we compare texts, we look for similarities, we look differences, etc.
+
+While there are similarities between traditional text analysis, there are of course, also significant differences. One of them is procedural: in computational reading we must explicitly perform every step of our analyses. For example, when we read a sentence, we, sort of, automatically identify the meaningful words --- subject, verb, object, etc.; we identify keywords; we parse every word, identifying what part of speech it is, what is its lemma (i.e. its dictionary form, etc.). By doing these steps we re-construct the meaning of the text that we read --- but we do most of these steps almost unconsciously, especially if a text is written in our native tongues. In computational analysis, these steps must be performed explicitly (*in the order of growing complexity*):
+
+1. **Tokenization**: what we see as a text made of words, the computer sees as a continuous string of characters (white spaces, punctuation and the like are characters). We need to break such strings into discreet objects that computer can understand construe as words.
+3. **Lemmatization**: reduces the variety of forms of the same words to their dictionary forms. Another, somewhat similar procedure is called `stemming`, which usually means the removal of most common suffixes and endings to get to the *stem* (or, *root*) of the word.
+4. **POS (part-of-speech tagging)**: this is where we run some NLP tool that identifies the part of speech of each word in our text.
+5. **Syntactic analysis**: is the most complicated procedure, which is also usually performed with some NLP tool, which analyzes syntactic relationships within each sentence, identifying its subject(s), verb(s), object(s), etc. 
+
+**NOTE:**
+
+- NLP: *natural language processing*;
+- Token: you can think of *token* as a continuous string of letter characters, as a word as it appears in the text in its inflected forms with possible other attached elements (in arabic we often have prepositions, articles, pronominal suffixes, which are not part of the word, but attached to it);
+- Lemma: the dictionary form of the word;
+- Stem: a “root” of the word;
+
+Some examples:
+
+```{r message=TRUE, warning=FALSE}
+#install.packages("textstem")
+library(textstem)
+
+sentence = c(
+  "He tried to open one of the bigger boxes.",
+  "The smaller boxes did not want to be opened.",
+  "Different forms: open, opens, opened, opening, opened, opener, openers."
+  )
+```
+
+The library `textstem` does lemmatization and stemming, but only for English. Tokenization can be performed with `str_split()` function --- and you can define *how* you want your string to be split.
+
+- Tokenization
+
+```{r}
+str_split(sentence, "\\W+")
+```
+
+- Lemmatization
+
+```{r}
+lemmatize_strings(sentence)
+```
+
+- Stemming
+
+```{r}
+stem_strings(sentence)
+```
+
+*Note:* It is often important to ensure that all capital letters are converted into small letters or the other way around; additionally, some *normalization* procedures may be necessary to reduce orthographic complexities of specific languages (for example, ö > oe in German; simplification of forms of *alif* in Arabic).
 
 
 ## Homework{#HW07}

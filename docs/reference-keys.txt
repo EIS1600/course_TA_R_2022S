@@ -92,5 +92,6 @@ Data07
 Lib07
 functions07
 Hypothenuse07
+texts-and-text-analysis
 HW07
 SHW07

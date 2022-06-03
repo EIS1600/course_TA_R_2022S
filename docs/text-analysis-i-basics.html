@@ -268,8 +268,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.2.2" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#Lib07"><i class="fa fa-check"></i><b>7.2.2</b> Libraries</a></li>
 <li class="chapter" data-level="7.2.3" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#functions07"><i class="fa fa-check"></i><b>7.2.3</b> Functions in <code>R</code> (a refresher)</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#HW07"><i class="fa fa-check"></i><b>7.3</b> Homework</a></li>
-<li class="chapter" data-level="7.4" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#SHW07"><i class="fa fa-check"></i><b>7.4</b> Submitting homework</a></li>
+<li class="chapter" data-level="7.3" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#texts-and-text-analysis"><i class="fa fa-check"></i><b>7.3</b> Texts and Text Analysis</a></li>
+<li class="chapter" data-level="7.4" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#HW07"><i class="fa fa-check"></i><b>7.4</b> Homework</a></li>
+<li class="chapter" data-level="7.5" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#SHW07"><i class="fa fa-check"></i><b>7.5</b> Submitting homework</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -364,11 +365,96 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="text-analysis-i-basics.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hypothenuse</span>(<span class="dv">390</span>,<span class="dv">456</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;In the triangle with catheti of length 390 and 456, the length of hypothenuse is 600.029999250037&quot;</code></pre>
 <pre><code>## [1] 600.03</code></pre>
+<p>###$ More complex one: Cleaning Text</p>
+<p>Let’s say we want to clean up a text so that it is easier to analyze it: 1) convert everithing to lower case; 2) remove all non-alphanumeric characters; and 3) make sure that there are no multiple spaces:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="text-analysis-i-basics.html#cb16-1" aria-hidden="true" tabindex="-1"></a>clean_up_text <span class="ot">=</span> <span class="cf">function</span>(x) {</span>
+<span id="cb16-2"><a href="text-analysis-i-basics.html#cb16-2" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">%&gt;%</span> </span>
+<span id="cb16-3"><a href="text-analysis-i-basics.html#cb16-3" aria-hidden="true" tabindex="-1"></a>    str_to_lower <span class="sc">%&gt;%</span> <span class="co"># make text lower case</span></span>
+<span id="cb16-4"><a href="text-analysis-i-basics.html#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_replace_all</span>(<span class="st">&quot;[^[:alnum:]]&quot;</span>, <span class="st">&quot; &quot;</span>) <span class="sc">%&gt;%</span> <span class="co"># remove non-alphanumeric symbols</span></span>
+<span id="cb16-5"><a href="text-analysis-i-basics.html#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_replace_all</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">s+&quot;</span>, <span class="st">&quot; &quot;</span>) <span class="co"># collapse multiple spaces</span></span>
+<span id="cb16-6"><a href="text-analysis-i-basics.html#cb16-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Let’s test it now:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="text-analysis-i-basics.html#cb17-1" aria-hidden="true" tabindex="-1"></a>text <span class="ot">=</span> <span class="st">&quot;This is a sentence with punctuation, which mentions Hamburg, a city in Germany.&quot;</span></span>
+<span id="cb17-2"><a href="text-analysis-i-basics.html#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">clean_up_text</span>(text)</span></code></pre></div>
+<pre><code>## [1] &quot;this is a sentence with punctuation which mentions hamburg a city in germany &quot;</code></pre>
 </div>
 </div>
 </div>
-<div id="HW07" class="section level2" number="7.3">
-<h2><span class="header-section-number">7.3</span> Homework</h2>
+<div id="texts-and-text-analysis" class="section level2" number="7.3">
+<h2><span class="header-section-number">7.3</span> Texts and Text Analysis</h2>
+<p>We can think of text analysis as means of extracting meaningful information from structured and unstructured texts. As historians, we often do that by reading texts and collecting relevant information by taking notes, writing index cards, summarizing texts, juxtaposing one texts against another, comparing texts, looking into how specific words and terms are used, etc. Doing text analysis computationally we do lots of similar things: we extract information of specific kind, we compare texts, we look for similarities, we look differences, etc.</p>
+<p>While there are similarities between traditional text analysis, there are of course, also significant differences. One of them is procedural: in computational reading we must explicitly perform every step of our analyses. For example, when we read a sentence, we, sort of, automatically identify the meaningful words — subject, verb, object, etc.; we identify keywords; we parse every word, identifying what part of speech it is, what is its lemma (i.e. its dictionary form, etc.). By doing these steps we re-construct the meaning of the text that we read — but we do most of these steps almost unconsciously, especially if a text is written in our native tongues. In computational analysis, these steps must be performed explicitly (<em>in the order of growing complexity</em>):</p>
+<ol style="list-style-type: decimal">
+<li><strong>Tokenization</strong>: what we see as a text made of words, the computer sees as a continuous string of characters (white spaces, punctuation and the like are characters). We need to break such strings into discreet objects that computer can understand construe as words.</li>
+<li><strong>Lemmatization</strong>: reduces the variety of forms of the same words to their dictionary forms. Another, somewhat similar procedure is called <code>stemming</code>, which usually means the removal of most common suffixes and endings to get to the <em>stem</em> (or, <em>root</em>) of the word.</li>
+<li><strong>POS (part-of-speech tagging)</strong>: this is where we run some NLP tool that identifies the part of speech of each word in our text.</li>
+<li><strong>Syntactic analysis</strong>: is the most complicated procedure, which is also usually performed with some NLP tool, which analyzes syntactic relationships within each sentence, identifying its subject(s), verb(s), object(s), etc.</li>
+</ol>
+<p><strong>NOTE:</strong></p>
+<ul>
+<li>NLP: <em>natural language processing</em>;</li>
+<li>Token: you can think of <em>token</em> as a continuous string of letter characters, as a word as it appears in the text in its inflected forms with possible other attached elements (in arabic we often have prepositions, articles, pronominal suffixes, which are not part of the word, but attached to it);</li>
+<li>Lemma: the dictionary form of the word;</li>
+<li>Stem: a “root” of the word;</li>
+</ul>
+<p>Some examples:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="text-analysis-i-basics.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;textstem&quot;)</span></span>
+<span id="cb19-2"><a href="text-analysis-i-basics.html#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(textstem)</span></code></pre></div>
+<pre><code>## Lade nötiges Paket: koRpus.lang.en</code></pre>
+<pre><code>## Lade nötiges Paket: koRpus</code></pre>
+<pre><code>## Lade nötiges Paket: sylly</code></pre>
+<pre><code>## For information on available language packages for &#39;koRpus&#39;, run
+## 
+##   available.koRpus.lang()
+## 
+## and see ?install.koRpus.lang()</code></pre>
+<pre><code>## 
+## Attache Paket: &#39;koRpus&#39;</code></pre>
+<pre><code>## Die folgenden Objekte sind maskiert von &#39;package:quanteda&#39;:
+## 
+##     tokens, types</code></pre>
+<pre><code>## Das folgende Objekt ist maskiert &#39;package:readr&#39;:
+## 
+##     tokenize</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="text-analysis-i-basics.html#cb27-1" aria-hidden="true" tabindex="-1"></a>sentence <span class="ot">=</span> <span class="fu">c</span>(</span>
+<span id="cb27-2"><a href="text-analysis-i-basics.html#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;He tried to open one of the bigger boxes.&quot;</span>,</span>
+<span id="cb27-3"><a href="text-analysis-i-basics.html#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;The smaller boxes did not want to be opened.&quot;</span>,</span>
+<span id="cb27-4"><a href="text-analysis-i-basics.html#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Different forms: open, opens, opened, opening, opened, opener, openers.&quot;</span></span>
+<span id="cb27-5"><a href="text-analysis-i-basics.html#cb27-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p>The library <code>textstem</code> does lemmatization and stemming, but only for English. Tokenization can be performed with <code>str_split()</code> function — and you can define <em>how</em> you want your string to be split.</p>
+<ul>
+<li>Tokenization</li>
+</ul>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="text-analysis-i-basics.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_split</span>(sentence, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">W+&quot;</span>)</span></code></pre></div>
+<pre><code>## [[1]]
+##  [1] &quot;He&quot;     &quot;tried&quot;  &quot;to&quot;     &quot;open&quot;   &quot;one&quot;    &quot;of&quot;     &quot;the&quot;    &quot;bigger&quot;
+##  [9] &quot;boxes&quot;  &quot;&quot;      
+## 
+## [[2]]
+##  [1] &quot;The&quot;     &quot;smaller&quot; &quot;boxes&quot;   &quot;did&quot;     &quot;not&quot;     &quot;want&quot;    &quot;to&quot;     
+##  [8] &quot;be&quot;      &quot;opened&quot;  &quot;&quot;       
+## 
+## [[3]]
+##  [1] &quot;Different&quot; &quot;forms&quot;     &quot;open&quot;      &quot;opens&quot;     &quot;opened&quot;    &quot;opening&quot;  
+##  [7] &quot;opened&quot;    &quot;opener&quot;    &quot;openers&quot;   &quot;&quot;</code></pre>
+<ul>
+<li>Lemmatization</li>
+</ul>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="text-analysis-i-basics.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lemmatize_strings</span>(sentence)</span></code></pre></div>
+<pre><code>## [1] &quot;He try to open one of the big box.&quot;                           
+## [2] &quot;The small box do not want to be open.&quot;                        
+## [3] &quot;Different form: open, open, open, open, open, opener, opener.&quot;</code></pre>
+<ul>
+<li>Stemming</li>
+</ul>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="text-analysis-i-basics.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stem_strings</span>(sentence)</span></code></pre></div>
+<pre><code>## [1] &quot;He tri to open on of the bigger box.&quot;                  
+## [2] &quot;The smaller box did not want to be open.&quot;              
+## [3] &quot;Differ form: open, open, open, open, open, open, open.&quot;</code></pre>
+<p><em>Note:</em> It is often important to ensure that all capital letters are converted into small letters or the other way around; additionally, some <em>normalization</em> procedures may be necessary to reduce orthographic complexities of specific languages (for example, ö &gt; oe in German; simplification of forms of <em>alif</em> in Arabic).</p>
+</div>
+<div id="HW07" class="section level2" number="7.4">
+<h2><span class="header-section-number">7.4</span> Homework</h2>
 <ul>
 <li>Finish your worksheet and submit your HW as described below.</li>
 <li><em>Additional:</em> if you’d like more practice, you can use <code>swirl</code> library:
@@ -382,8 +468,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul>
 </div>
-<div id="SHW07" class="section level2" number="7.4">
-<h2><span class="header-section-number">7.4</span> Submitting homework</h2>
+<div id="SHW07" class="section level2" number="7.5">
+<h2><span class="header-section-number">7.5</span> Submitting homework</h2>
 <ul>
 <li>Homework assignment must be submitted by the beginning of the next class;</li>
 <li>Email your homework to the instructor as attachments.
