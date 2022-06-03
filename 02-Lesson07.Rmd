@@ -1,5 +1,9 @@
 # Text Analysis I: Basics
 
+```{r}
+library(knitr)
+```
+
 ## Goals{#goals07}
 
 - basic text analysis concepts;
@@ -168,7 +172,7 @@ library(tidytext)
 
 d1862 <- read.delim(paste0(pathToFiles, "dispatch_1862.tsv"), encoding="UTF-8", header=TRUE, quote="")
 
-head(d1862)
+kable(head(d1862))
 ```
 
 We can quickly check what *types* of articles are there in those issues.
@@ -210,7 +214,7 @@ test_set_tidy <- test_set %>%
   unnest_tokens(word, text) %>%
   mutate(word_number = row_number())
 
-test_set_tidy
+head(test_set_tidy)
 
 ```
 
@@ -222,7 +226,7 @@ data("stop_words")
 test_set_tidy_clean <- test_set_tidy %>%
   anti_join(stop_words, by="word")
 
-test_set_tidy_clean
+head(test_set_tidy_clean)
 ```
 
 For research purposes, it is highly advisable to develop your own stop word lists. The process is very simple:
@@ -241,14 +245,16 @@ Let's first count all the words:
 
 ```{r}
 test_set_tidy %>%
-  count(word, sort = TRUE) 
+  count(word, sort = TRUE) %>%
+  head(15)
 ```
 Now, let's also remove the stop words:
 
 ```{r}
 test_set_tidy %>%
   anti_join(stop_words, by="word") %>%
-  count(word, sort = TRUE) 
+  count(word, sort = TRUE) %>%
+  head(15)
 ```
 
 ### Wordclouds
@@ -337,8 +343,6 @@ plot(0, type='n', #ann=FALSE,
      main=paste0("Dispersion Plot of `", ourWord, "` in SW1"),
      xlab="Movie Time", ylab=ourWord, yaxt="n")
 segments(x0=word_occurance_vector, x1=word_occurance_vector, y0=0, y1=2)
-
-# col=rgb(0,0,0,alpha=0.3) -- can be included as a parameter to segment to make lines more transparent
 ```
 
 ## Word Distribution Plots: With Frequencies Over Time
@@ -357,7 +361,7 @@ test_set_tidy <- test_set %>%
   unnest_tokens(word, text) %>%
   mutate(word_number = row_number())
 
-test_set_tidy
+head(test_set_tidy)
 ```
 
 Now, we can calculate frequencies of all words by dates:
@@ -368,7 +372,7 @@ test_set_tidy_freqDay <- test_set_tidy %>%
   group_by(date) %>%
   count(word) 
   
-test_set_tidy_freqDay
+head(test_set_tidy_freqDay)
 ```
 
 We now can build a graph of word occurences over time. In the example below we search for `manassas`, which is the place where the the Second Battle of Bull Run (or, the Second Battle of Manassas) took place on August 28-30, 1862. The battle ended in Confederate victory. Our graph shows the spike of mentions of Manassas in the first days of September --- right after the battle took place.
@@ -416,14 +420,15 @@ Now, we can query the created `corpus` object using this command: `kwic(YourCorp
 
 ```{r}
 kwic_test <- kwic(dispatch1862corpus, pattern = 'lincoln', window=5)
-kwic_test
+head(kwic_test)
 ```
 
 To view results better, we can remove unnecessary columns:
 
 ```{r}
 kwic_test %>% as_tibble %>%
-  select(pre, keyword, post)
+  select(pre, keyword, post) %>%
+  head(15)
 ```
 
 *NB:* `quanteda` is quite a robust library. Check this page with examples for other possible quick experiments: <https://quanteda.io/articles/pkgdown/examples/plotting.html>
