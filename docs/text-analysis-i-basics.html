@@ -306,7 +306,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="text-analysis-i-basics" class="section level1" number="7">
 <h1><span class="header-section-number">7</span> Text Analysis I: Basics</h1>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="text-analysis-i-basics.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span></code></pre></div>
 <div id="goals07" class="section level2" number="7.1">
 <h2><span class="header-section-number">7.1</span> Goals</h2>
 <ul>
@@ -326,29 +325,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./files/data/sw1.md">Star Wars I: The Phantom Menace (script)</a></li>
 </ul>
 <p>In order to make loading these files a little bit easier, you can paste the path to where you placed these files into an isolated variable and then reuse it as follows (in other words, make sure that your <code>pathToFiles</code> is the path on your local machine):</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="text-analysis-i-basics.html#cb8-1" aria-hidden="true" tabindex="-1"></a>pathToFiles <span class="ot">=</span> <span class="st">&quot;./files/data/&quot;</span></span>
-<span id="cb8-2"><a href="text-analysis-i-basics.html#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="text-analysis-i-basics.html#cb8-3" aria-hidden="true" tabindex="-1"></a>d1862 <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="fu">paste0</span>(pathToFiles, <span class="st">&quot;dispatch_1862.tsv&quot;</span>), <span class="at">encoding=</span><span class="st">&quot;UTF-8&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">quote=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb8-4"><a href="text-analysis-i-basics.html#cb8-4" aria-hidden="true" tabindex="-1"></a>sw1 <span class="ot">&lt;-</span> <span class="fu">scan</span>(<span class="fu">paste0</span>(pathToFiles, <span class="st">&quot;sw1.md&quot;</span>), <span class="at">what=</span><span class="st">&quot;character&quot;</span>, <span class="at">sep=</span><span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="text-analysis-i-basics.html#cb7-1" aria-hidden="true" tabindex="-1"></a>pathToFiles <span class="ot">=</span> <span class="st">&quot;./files/data/&quot;</span></span>
+<span id="cb7-2"><a href="text-analysis-i-basics.html#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="text-analysis-i-basics.html#cb7-3" aria-hidden="true" tabindex="-1"></a>d1862 <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="fu">paste0</span>(pathToFiles, <span class="st">&quot;dispatch_1862.tsv&quot;</span>), <span class="at">encoding=</span><span class="st">&quot;UTF-8&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">quote=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb7-4"><a href="text-analysis-i-basics.html#cb7-4" aria-hidden="true" tabindex="-1"></a>sw1 <span class="ot">&lt;-</span> <span class="fu">scan</span>(<span class="fu">paste0</span>(pathToFiles, <span class="st">&quot;sw1.md&quot;</span>), <span class="at">what=</span><span class="st">&quot;character&quot;</span>, <span class="at">sep=</span><span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
 <p>The first file is articles from “The Daily Dispatch” for the year 1862. The newspaper was published in Richmond, VA — the capital of the Confederate States (the South) during the American Civil War (1861-1865). The second file is a script of the first episode of Star Wars :).</p>
 </div>
 <div id="Lib07" class="section level3" number="7.2.2">
 <h3><span class="header-section-number">7.2.2</span> Libraries</h3>
 <p>The following are the libraries that we will need for this section. Install those that you do not have yet.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="text-analysis-i-basics.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;tidyverse&quot;, &quot;readr&quot;, &quot;stringr&quot;)</span></span>
-<span id="cb9-2"><a href="text-analysis-i-basics.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;tidytext&quot;, &quot;wordcloud&quot;, &quot;RColorBrewer&quot;&quot;, &quot;quanteda&quot;, &quot;readtext&quot;)</span></span>
-<span id="cb9-3"><a href="text-analysis-i-basics.html#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="text-analysis-i-basics.html#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># General ones </span></span>
-<span id="cb9-5"><a href="text-analysis-i-basics.html#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb9-6"><a href="text-analysis-i-basics.html#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb9-7"><a href="text-analysis-i-basics.html#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;RColorBrewer&quot;</span>)</span>
-<span id="cb9-8"><a href="text-analysis-i-basics.html#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-9"><a href="text-analysis-i-basics.html#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Text Analysis Specific</span></span>
-<span id="cb9-10"><a href="text-analysis-i-basics.html#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb9-11"><a href="text-analysis-i-basics.html#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
-<span id="cb9-12"><a href="text-analysis-i-basics.html#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wordcloud)</span>
-<span id="cb9-13"><a href="text-analysis-i-basics.html#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda)</span>
-<span id="cb9-14"><a href="text-analysis-i-basics.html#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readtext)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="text-analysis-i-basics.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;tidyverse&quot;, &quot;readr&quot;, &quot;stringr&quot;)</span></span>
+<span id="cb8-2"><a href="text-analysis-i-basics.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;tidytext&quot;, &quot;wordcloud&quot;, &quot;RColorBrewer&quot;&quot;, &quot;quanteda&quot;, &quot;readtext&quot;)</span></span>
+<span id="cb8-3"><a href="text-analysis-i-basics.html#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="text-analysis-i-basics.html#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># General ones </span></span>
+<span id="cb8-5"><a href="text-analysis-i-basics.html#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb8-6"><a href="text-analysis-i-basics.html#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb8-7"><a href="text-analysis-i-basics.html#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;RColorBrewer&quot;</span>)</span>
+<span id="cb8-8"><a href="text-analysis-i-basics.html#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="text-analysis-i-basics.html#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Text Analysis Specific</span></span>
+<span id="cb8-10"><a href="text-analysis-i-basics.html#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb8-11"><a href="text-analysis-i-basics.html#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
+<span id="cb8-12"><a href="text-analysis-i-basics.html#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wordcloud)</span>
+<span id="cb8-13"><a href="text-analysis-i-basics.html#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda)</span>
+<span id="cb8-14"><a href="text-analysis-i-basics.html#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readtext)</span></code></pre></div>
 </div>
 <div id="functions07" class="section level3" number="7.2.3">
 <h3><span class="header-section-number">7.2.3</span> Functions in <code>R</code> (a refresher)</h3>
@@ -359,33 +358,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4><span class="header-section-number">7.2.3.1</span> Simple Function Example: Hypothenuse</h4>
 <p>(From <a href="https://en.wikipedia.org/wiki/Hypotenuse">Wikipedia</a>) In geometry, a <em>hypotenuse</em> is the longest side of a right-angled triangle, the side opposite the right angle. The length of the hypotenuse of a right triangle can be found using the Pythagorean theorem, which states that the square of the length of the hypotenuse equals the sum of the squares of the lengths of the other two sides (<em>catheti</em>). For example, if one of the other sides has a length of 3 (when squared, 9) and the other has a length of 4 (when squared, 16), then their squares add up to 25. The length of the hypotenuse is the square root of 25, that is, 5.</p>
 <p>Let’s write a function that takes lengths of catheti as arguments and returns the length of hypothenuse:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="text-analysis-i-basics.html#cb10-1" aria-hidden="true" tabindex="-1"></a>hypothenuse <span class="ot">&lt;-</span> <span class="cf">function</span>(cathetus1, cathetus2) {</span>
-<span id="cb10-2"><a href="text-analysis-i-basics.html#cb10-2" aria-hidden="true" tabindex="-1"></a>  hypothenuse<span class="ot">&lt;-</span> <span class="fu">sqrt</span>(cathetus1<span class="sc">*</span>cathetus1<span class="sc">+</span>cathetus2<span class="sc">*</span>cathetus2)</span>
-<span id="cb10-3"><a href="text-analysis-i-basics.html#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;In the triangle with catheti of length &quot;</span>,</span>
-<span id="cb10-4"><a href="text-analysis-i-basics.html#cb10-4" aria-hidden="true" tabindex="-1"></a>              cathetus1, <span class="st">&quot; and &quot;</span>, cathetus2,</span>
-<span id="cb10-5"><a href="text-analysis-i-basics.html#cb10-5" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;, the length of hypothenuse is &quot;</span>,</span>
-<span id="cb10-6"><a href="text-analysis-i-basics.html#cb10-6" aria-hidden="true" tabindex="-1"></a>              hypothenuse))</span>
-<span id="cb10-7"><a href="text-analysis-i-basics.html#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(hypothenuse)</span>
-<span id="cb10-8"><a href="text-analysis-i-basics.html#cb10-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="text-analysis-i-basics.html#cb9-1" aria-hidden="true" tabindex="-1"></a>hypothenuse <span class="ot">&lt;-</span> <span class="cf">function</span>(cathetus1, cathetus2) {</span>
+<span id="cb9-2"><a href="text-analysis-i-basics.html#cb9-2" aria-hidden="true" tabindex="-1"></a>  hypothenuse<span class="ot">&lt;-</span> <span class="fu">sqrt</span>(cathetus1<span class="sc">*</span>cathetus1<span class="sc">+</span>cathetus2<span class="sc">*</span>cathetus2)</span>
+<span id="cb9-3"><a href="text-analysis-i-basics.html#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;In the triangle with catheti of length &quot;</span>,</span>
+<span id="cb9-4"><a href="text-analysis-i-basics.html#cb9-4" aria-hidden="true" tabindex="-1"></a>              cathetus1, <span class="st">&quot; and &quot;</span>, cathetus2,</span>
+<span id="cb9-5"><a href="text-analysis-i-basics.html#cb9-5" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;, the length of hypothenuse is &quot;</span>,</span>
+<span id="cb9-6"><a href="text-analysis-i-basics.html#cb9-6" aria-hidden="true" tabindex="-1"></a>              hypothenuse))</span>
+<span id="cb9-7"><a href="text-analysis-i-basics.html#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(hypothenuse)</span>
+<span id="cb9-8"><a href="text-analysis-i-basics.html#cb9-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>Let’s try a simple example:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="text-analysis-i-basics.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hypothenuse</span>(<span class="dv">3</span>,<span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="text-analysis-i-basics.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hypothenuse</span>(<span class="dv">3</span>,<span class="dv">4</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;In the triangle with catheti of length 3 and 4, the length of hypothenuse is 5&quot;</code></pre>
 <pre><code>## [1] 5</code></pre>
 <p>Let’s try a crazy example:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="text-analysis-i-basics.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hypothenuse</span>(<span class="dv">390</span>,<span class="dv">456</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="text-analysis-i-basics.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hypothenuse</span>(<span class="dv">390</span>,<span class="dv">456</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;In the triangle with catheti of length 390 and 456, the length of hypothenuse is 600.029999250037&quot;</code></pre>
 <pre><code>## [1] 600.03</code></pre>
 <p>###$ More complex one: Cleaning Text</p>
 <p>Let’s say we want to clean up a text so that it is easier to analyze it: 1) convert everithing to lower case; 2) remove all non-alphanumeric characters; and 3) make sure that there are no multiple spaces:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="text-analysis-i-basics.html#cb17-1" aria-hidden="true" tabindex="-1"></a>clean_up_text <span class="ot">=</span> <span class="cf">function</span>(x) {</span>
-<span id="cb17-2"><a href="text-analysis-i-basics.html#cb17-2" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">%&gt;%</span> </span>
-<span id="cb17-3"><a href="text-analysis-i-basics.html#cb17-3" aria-hidden="true" tabindex="-1"></a>    str_to_lower <span class="sc">%&gt;%</span> <span class="co"># make text lower case</span></span>
-<span id="cb17-4"><a href="text-analysis-i-basics.html#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_replace_all</span>(<span class="st">&quot;[^[:alnum:]]&quot;</span>, <span class="st">&quot; &quot;</span>) <span class="sc">%&gt;%</span> <span class="co"># remove non-alphanumeric symbols</span></span>
-<span id="cb17-5"><a href="text-analysis-i-basics.html#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_replace_all</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">s+&quot;</span>, <span class="st">&quot; &quot;</span>) <span class="co"># collapse multiple spaces</span></span>
-<span id="cb17-6"><a href="text-analysis-i-basics.html#cb17-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="text-analysis-i-basics.html#cb16-1" aria-hidden="true" tabindex="-1"></a>clean_up_text <span class="ot">=</span> <span class="cf">function</span>(x) {</span>
+<span id="cb16-2"><a href="text-analysis-i-basics.html#cb16-2" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">%&gt;%</span> </span>
+<span id="cb16-3"><a href="text-analysis-i-basics.html#cb16-3" aria-hidden="true" tabindex="-1"></a>    str_to_lower <span class="sc">%&gt;%</span> <span class="co"># make text lower case</span></span>
+<span id="cb16-4"><a href="text-analysis-i-basics.html#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_replace_all</span>(<span class="st">&quot;[^[:alnum:]]&quot;</span>, <span class="st">&quot; &quot;</span>) <span class="sc">%&gt;%</span> <span class="co"># remove non-alphanumeric symbols</span></span>
+<span id="cb16-5"><a href="text-analysis-i-basics.html#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_replace_all</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">s+&quot;</span>, <span class="st">&quot; &quot;</span>) <span class="co"># collapse multiple spaces</span></span>
+<span id="cb16-6"><a href="text-analysis-i-basics.html#cb16-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>Let’s test it now:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="text-analysis-i-basics.html#cb18-1" aria-hidden="true" tabindex="-1"></a>text <span class="ot">=</span> <span class="st">&quot;This is a sentence with punctuation, which mentions Hamburg, a city in Germany.&quot;</span></span>
-<span id="cb18-2"><a href="text-analysis-i-basics.html#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">clean_up_text</span>(text)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="text-analysis-i-basics.html#cb17-1" aria-hidden="true" tabindex="-1"></a>text <span class="ot">=</span> <span class="st">&quot;This is a sentence with punctuation, which mentions Hamburg, a city in Germany.&quot;</span></span>
+<span id="cb17-2"><a href="text-analysis-i-basics.html#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">clean_up_text</span>(text)</span></code></pre></div>
 <pre><code>## [1] &quot;this is a sentence with punctuation which mentions hamburg a city in germany &quot;</code></pre>
 </div>
 </div>
@@ -408,19 +407,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Stem: a “root” of the word;</li>
 </ul>
 <p>Some examples:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="text-analysis-i-basics.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;textstem&quot;)</span></span>
-<span id="cb20-2"><a href="text-analysis-i-basics.html#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(textstem)</span>
-<span id="cb20-3"><a href="text-analysis-i-basics.html#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-4"><a href="text-analysis-i-basics.html#cb20-4" aria-hidden="true" tabindex="-1"></a>sentence <span class="ot">=</span> <span class="fu">c</span>(</span>
-<span id="cb20-5"><a href="text-analysis-i-basics.html#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;He tried to open one of the bigger boxes.&quot;</span>,</span>
-<span id="cb20-6"><a href="text-analysis-i-basics.html#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;The smaller boxes did not want to be opened.&quot;</span>,</span>
-<span id="cb20-7"><a href="text-analysis-i-basics.html#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Different forms: open, opens, opened, opening, opened, opener, openers.&quot;</span></span>
-<span id="cb20-8"><a href="text-analysis-i-basics.html#cb20-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="text-analysis-i-basics.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;textstem&quot;)</span></span>
+<span id="cb19-2"><a href="text-analysis-i-basics.html#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(textstem)</span>
+<span id="cb19-3"><a href="text-analysis-i-basics.html#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="text-analysis-i-basics.html#cb19-4" aria-hidden="true" tabindex="-1"></a>sentence <span class="ot">=</span> <span class="fu">c</span>(</span>
+<span id="cb19-5"><a href="text-analysis-i-basics.html#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;He tried to open one of the bigger boxes.&quot;</span>,</span>
+<span id="cb19-6"><a href="text-analysis-i-basics.html#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;The smaller boxes did not want to be opened.&quot;</span>,</span>
+<span id="cb19-7"><a href="text-analysis-i-basics.html#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Different forms: open, opens, opened, opening, opened, opener, openers.&quot;</span></span>
+<span id="cb19-8"><a href="text-analysis-i-basics.html#cb19-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 <p>The library <code>textstem</code> does lemmatization and stemming, but only for English. Tokenization can be performed with <code>str_split()</code> function — and you can define <em>how</em> you want your string to be split.</p>
 <ul>
 <li>Tokenization</li>
 </ul>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="text-analysis-i-basics.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_split</span>(sentence, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">W+&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="text-analysis-i-basics.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_split</span>(sentence, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">W+&quot;</span>)</span></code></pre></div>
 <pre><code>## [[1]]
 ##  [1] &quot;He&quot;     &quot;tried&quot;  &quot;to&quot;     &quot;open&quot;   &quot;one&quot;    &quot;of&quot;     &quot;the&quot;    &quot;bigger&quot;
 ##  [9] &quot;boxes&quot;  &quot;&quot;      
@@ -435,14 +434,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Lemmatization</li>
 </ul>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="text-analysis-i-basics.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lemmatize_strings</span>(sentence)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="text-analysis-i-basics.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lemmatize_strings</span>(sentence)</span></code></pre></div>
 <pre><code>## [1] &quot;He try to open one of the big box.&quot;                           
 ## [2] &quot;The small box do not want to be open.&quot;                        
 ## [3] &quot;Different form: open, open, open, open, open, opener, opener.&quot;</code></pre>
 <ul>
 <li>Stemming</li>
 </ul>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="text-analysis-i-basics.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stem_strings</span>(sentence)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="text-analysis-i-basics.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stem_strings</span>(sentence)</span></code></pre></div>
 <pre><code>## [1] &quot;He tri to open on of the bigger box.&quot;                  
 ## [2] &quot;The smaller box did not want to be open.&quot;              
 ## [3] &quot;Differ form: open, open, open, open, open, open, open.&quot;</code></pre>
@@ -451,11 +450,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="word-frequencies-and-word-clouds" class="section level2" number="7.4">
 <h2><span class="header-section-number">7.4</span> Word Frequencies and Word Clouds</h2>
 <p>Let’s load all issues of Dispatch from 1862.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="text-analysis-i-basics.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
-<span id="cb27-2"><a href="text-analysis-i-basics.html#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-3"><a href="text-analysis-i-basics.html#cb27-3" aria-hidden="true" tabindex="-1"></a>d1862 <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="fu">paste0</span>(pathToFiles, <span class="st">&quot;dispatch_1862.tsv&quot;</span>), <span class="at">encoding=</span><span class="st">&quot;UTF-8&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">quote=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb27-4"><a href="text-analysis-i-basics.html#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-5"><a href="text-analysis-i-basics.html#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(d1862))</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="text-analysis-i-basics.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
+<span id="cb26-2"><a href="text-analysis-i-basics.html#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="text-analysis-i-basics.html#cb26-3" aria-hidden="true" tabindex="-1"></a>d1862 <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="fu">paste0</span>(pathToFiles, <span class="st">&quot;dispatch_1862.tsv&quot;</span>), <span class="at">encoding=</span><span class="st">&quot;UTF-8&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">quote=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb26-4"><a href="text-analysis-i-basics.html#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="text-analysis-i-basics.html#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(d1862))</span></code></pre></div>
 <table>
 <colgroup>
 <col width="0%" />
@@ -519,8 +518,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <p>We can quickly check what <em>types</em> of articles are there in those issues.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="text-analysis-i-basics.html#cb28-1" aria-hidden="true" tabindex="-1"></a>d1862 <span class="sc">%&gt;%</span></span>
-<span id="cb28-2"><a href="text-analysis-i-basics.html#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(type, <span class="at">sort=</span>T)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="text-analysis-i-basics.html#cb27-1" aria-hidden="true" tabindex="-1"></a>d1862 <span class="sc">%&gt;%</span></span>
+<span id="cb27-2"><a href="text-analysis-i-basics.html#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(type, <span class="at">sort=</span>T)</span></code></pre></div>
 <pre><code>##        type     n
 ## 1   article 14680
 ## 2  ad-blank  7029
@@ -557,8 +556,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 33  ranaway     1
 ## 34   simple     1</code></pre>
 <p>We can create subsets of articles based on their types.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="text-analysis-i-basics.html#cb30-1" aria-hidden="true" tabindex="-1"></a>death_d1862 <span class="ot">&lt;-</span> d1862 <span class="sc">%&gt;%</span></span>
-<span id="cb30-2"><a href="text-analysis-i-basics.html#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(type<span class="sc">==</span><span class="st">&quot;death&quot;</span> <span class="sc">|</span> type <span class="sc">==</span> <span class="st">&quot;died&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="text-analysis-i-basics.html#cb29-1" aria-hidden="true" tabindex="-1"></a>death_d1862 <span class="ot">&lt;-</span> d1862 <span class="sc">%&gt;%</span></span>
+<span id="cb29-2"><a href="text-analysis-i-basics.html#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(type<span class="sc">==</span><span class="st">&quot;death&quot;</span> <span class="sc">|</span> type <span class="sc">==</span> <span class="st">&quot;died&quot;</span>)</span></code></pre></div>
 <ol class="example" style="list-style-type: decimal">
 <li><p>Create subsets for other major types.</p></li>
 <li><p>Describe problems with the data set and how they can be fixed.</p></li>
@@ -567,15 +566,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><em>your answer goes here…</em></p>
 </blockquote>
 <p>Now, let’s tidy them up: to work with this as a tidy dataset, we need to restructure it in the one-token-per-row format, which as we saw earlier is done with the <code>unnest_tokens()</code> function.</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="text-analysis-i-basics.html#cb31-1" aria-hidden="true" tabindex="-1"></a>test_set <span class="ot">&lt;-</span> death_d1862</span>
-<span id="cb31-2"><a href="text-analysis-i-basics.html#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-3"><a href="text-analysis-i-basics.html#cb31-3" aria-hidden="true" tabindex="-1"></a>test_set_tidy <span class="ot">&lt;-</span> test_set <span class="sc">%&gt;%</span></span>
-<span id="cb31-4"><a href="text-analysis-i-basics.html#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">item_number =</span> <span class="fu">cumsum</span>(<span class="fu">str_detect</span>(text, <span class="fu">regex</span>(<span class="st">&quot;^&quot;</span>, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>)))) <span class="sc">%&gt;%</span></span>
-<span id="cb31-5"><a href="text-analysis-i-basics.html#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>type) <span class="sc">%&gt;%</span></span>
-<span id="cb31-6"><a href="text-analysis-i-basics.html#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(word, text) <span class="sc">%&gt;%</span></span>
-<span id="cb31-7"><a href="text-analysis-i-basics.html#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">word_number =</span> <span class="fu">row_number</span>())</span>
-<span id="cb31-8"><a href="text-analysis-i-basics.html#cb31-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-9"><a href="text-analysis-i-basics.html#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(test_set_tidy)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="text-analysis-i-basics.html#cb30-1" aria-hidden="true" tabindex="-1"></a>test_set <span class="ot">&lt;-</span> death_d1862</span>
+<span id="cb30-2"><a href="text-analysis-i-basics.html#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="text-analysis-i-basics.html#cb30-3" aria-hidden="true" tabindex="-1"></a>test_set_tidy <span class="ot">&lt;-</span> test_set <span class="sc">%&gt;%</span></span>
+<span id="cb30-4"><a href="text-analysis-i-basics.html#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">item_number =</span> <span class="fu">cumsum</span>(<span class="fu">str_detect</span>(text, <span class="fu">regex</span>(<span class="st">&quot;^&quot;</span>, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>)))) <span class="sc">%&gt;%</span></span>
+<span id="cb30-5"><a href="text-analysis-i-basics.html#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>type) <span class="sc">%&gt;%</span></span>
+<span id="cb30-6"><a href="text-analysis-i-basics.html#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(word, text) <span class="sc">%&gt;%</span></span>
+<span id="cb30-7"><a href="text-analysis-i-basics.html#cb30-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">word_number =</span> <span class="fu">row_number</span>())</span>
+<span id="cb30-8"><a href="text-analysis-i-basics.html#cb30-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-9"><a href="text-analysis-i-basics.html#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(test_set_tidy)</span></code></pre></div>
 <pre><code>##                     id       date header item_number     word word_number
 ## 1 1862-02-20_death_122 1862-02-20   Died           1   diedin           1
 ## 2 1862-02-20_death_122 1862-02-20   Died           1 richmond           2
@@ -584,12 +583,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5 1862-02-20_death_122 1862-02-20   Died           1     19th           5
 ## 6 1862-02-20_death_122 1862-02-20   Died           1     inst           6</code></pre>
 <p>Stop words is an important concept. In general, this notion refers to the most frequent words/tokens which one might want to exclude from analysis. There are existing lists of stop words that you can find online, and they can work fine for testing purposes.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="text-analysis-i-basics.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;stop_words&quot;</span>)</span>
-<span id="cb33-2"><a href="text-analysis-i-basics.html#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-3"><a href="text-analysis-i-basics.html#cb33-3" aria-hidden="true" tabindex="-1"></a>test_set_tidy_clean <span class="ot">&lt;-</span> test_set_tidy <span class="sc">%&gt;%</span></span>
-<span id="cb33-4"><a href="text-analysis-i-basics.html#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop_words, <span class="at">by=</span><span class="st">&quot;word&quot;</span>)</span>
-<span id="cb33-5"><a href="text-analysis-i-basics.html#cb33-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-6"><a href="text-analysis-i-basics.html#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(test_set_tidy_clean)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="text-analysis-i-basics.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;stop_words&quot;</span>)</span>
+<span id="cb32-2"><a href="text-analysis-i-basics.html#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="text-analysis-i-basics.html#cb32-3" aria-hidden="true" tabindex="-1"></a>test_set_tidy_clean <span class="ot">&lt;-</span> test_set_tidy <span class="sc">%&gt;%</span></span>
+<span id="cb32-4"><a href="text-analysis-i-basics.html#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop_words, <span class="at">by=</span><span class="st">&quot;word&quot;</span>)</span>
+<span id="cb32-5"><a href="text-analysis-i-basics.html#cb32-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-6"><a href="text-analysis-i-basics.html#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(test_set_tidy_clean)</span></code></pre></div>
 <pre><code>##                     id       date header item_number     word word_number
 ## 1 1862-02-20_death_122 1862-02-20   Died           1   diedin           1
 ## 2 1862-02-20_death_122 1862-02-20   Died           1 richmond           2
@@ -609,9 +608,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="word-frequencies" class="section level3" number="7.4.1">
 <h3><span class="header-section-number">7.4.1</span> Word Frequencies</h3>
 <p>Let’s first count all the words:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="text-analysis-i-basics.html#cb35-1" aria-hidden="true" tabindex="-1"></a>test_set_tidy <span class="sc">%&gt;%</span></span>
-<span id="cb35-2"><a href="text-analysis-i-basics.html#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb35-3"><a href="text-analysis-i-basics.html#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">15</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="text-analysis-i-basics.html#cb34-1" aria-hidden="true" tabindex="-1"></a>test_set_tidy <span class="sc">%&gt;%</span></span>
+<span id="cb34-2"><a href="text-analysis-i-basics.html#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb34-3"><a href="text-analysis-i-basics.html#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">15</span>)</span></code></pre></div>
 <pre><code>##       word    n
 ## 1      the 9352
 ## 2       of 8148
@@ -629,10 +628,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 14    from 1084
 ## 15    this 1084</code></pre>
 <p>Now, let’s also remove the stop words:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="text-analysis-i-basics.html#cb37-1" aria-hidden="true" tabindex="-1"></a>test_set_tidy <span class="sc">%&gt;%</span></span>
-<span id="cb37-2"><a href="text-analysis-i-basics.html#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop_words, <span class="at">by=</span><span class="st">&quot;word&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb37-3"><a href="text-analysis-i-basics.html#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb37-4"><a href="text-analysis-i-basics.html#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">15</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="text-analysis-i-basics.html#cb36-1" aria-hidden="true" tabindex="-1"></a>test_set_tidy <span class="sc">%&gt;%</span></span>
+<span id="cb36-2"><a href="text-analysis-i-basics.html#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop_words, <span class="at">by=</span><span class="st">&quot;word&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb36-3"><a href="text-analysis-i-basics.html#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb36-4"><a href="text-analysis-i-basics.html#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">15</span>)</span></code></pre></div>
 <pre><code>##         word    n
 ## 1    o&#39;clock 1102
 ## 2    friends  992
@@ -653,30 +652,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="wordclouds" class="section level3" number="7.4.2">
 <h3><span class="header-section-number">7.4.2</span> Wordclouds</h3>
 <p>Wordclouds can be an efficient way to visualize most frequent words. Unfortunately, in most cases, wordclouds are not used either correctly or efficiently. (Let’s check Google for some examples).</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="text-analysis-i-basics.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wordcloud)</span>
-<span id="cb39-2"><a href="text-analysis-i-basics.html#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;RColorBrewer&quot;</span>)</span>
-<span id="cb39-3"><a href="text-analysis-i-basics.html#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-4"><a href="text-analysis-i-basics.html#cb39-4" aria-hidden="true" tabindex="-1"></a>test_set_tidy_clean <span class="ot">&lt;-</span> test_set_tidy <span class="sc">%&gt;%</span></span>
-<span id="cb39-5"><a href="text-analysis-i-basics.html#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop_words, <span class="at">by=</span><span class="st">&quot;word&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb39-6"><a href="text-analysis-i-basics.html#cb39-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word, <span class="at">sort=</span>T)</span>
-<span id="cb39-7"><a href="text-analysis-i-basics.html#cb39-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-8"><a href="text-analysis-i-basics.html#cb39-8" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb39-9"><a href="text-analysis-i-basics.html#cb39-9" aria-hidden="true" tabindex="-1"></a><span class="fu">wordcloud</span>(<span class="at">words=</span>test_set_tidy_clean<span class="sc">$</span>word, <span class="at">freq=</span>test_set_tidy_clean<span class="sc">$</span>n,</span>
-<span id="cb39-10"><a href="text-analysis-i-basics.html#cb39-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">min.freq =</span> <span class="dv">1</span>, <span class="at">rot.per =</span> .<span class="dv">25</span>, <span class="at">random.order=</span><span class="cn">FALSE</span>, <span class="co">#scale=c(5,.5),</span></span>
-<span id="cb39-11"><a href="text-analysis-i-basics.html#cb39-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">max.words=</span><span class="dv">150</span>, <span class="at">colors=</span><span class="fu">brewer.pal</span>(<span class="dv">8</span>, <span class="st">&quot;Dark2&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="text-analysis-i-basics.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wordcloud)</span>
+<span id="cb38-2"><a href="text-analysis-i-basics.html#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;RColorBrewer&quot;</span>)</span>
+<span id="cb38-3"><a href="text-analysis-i-basics.html#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-4"><a href="text-analysis-i-basics.html#cb38-4" aria-hidden="true" tabindex="-1"></a>test_set_tidy_clean <span class="ot">&lt;-</span> test_set_tidy <span class="sc">%&gt;%</span></span>
+<span id="cb38-5"><a href="text-analysis-i-basics.html#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop_words, <span class="at">by=</span><span class="st">&quot;word&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb38-6"><a href="text-analysis-i-basics.html#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word, <span class="at">sort=</span>T)</span>
+<span id="cb38-7"><a href="text-analysis-i-basics.html#cb38-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-8"><a href="text-analysis-i-basics.html#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb38-9"><a href="text-analysis-i-basics.html#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="fu">wordcloud</span>(<span class="at">words=</span>test_set_tidy_clean<span class="sc">$</span>word, <span class="at">freq=</span>test_set_tidy_clean<span class="sc">$</span>n,</span>
+<span id="cb38-10"><a href="text-analysis-i-basics.html#cb38-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">min.freq =</span> <span class="dv">1</span>, <span class="at">rot.per =</span> .<span class="dv">25</span>, <span class="at">random.order=</span><span class="cn">FALSE</span>, <span class="co">#scale=c(5,.5),</span></span>
+<span id="cb38-11"><a href="text-analysis-i-basics.html#cb38-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">max.words=</span><span class="dv">150</span>, <span class="at">colors=</span><span class="fu">brewer.pal</span>(<span class="dv">8</span>, <span class="st">&quot;Dark2&quot;</span>))</span></code></pre></div>
 <p><img src="main_files/figure-html/unnamed-chunk-26-1.png" width="960" /></p>
 <ol start="3" class="example" style="list-style-type: decimal">
 <li>What can we glean out form this wordcloud? Create a wordcloud for obituaries.</li>
 </ol>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="text-analysis-i-basics.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code; your response</span></span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="text-analysis-i-basics.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code; your response</span></span></code></pre></div>
 <ol start="4" class="example" style="list-style-type: decimal">
 <li>Create a wordcloud for obituaries, but without stop words.</li>
 </ol>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="text-analysis-i-basics.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code; your response</span></span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="text-analysis-i-basics.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code; your response</span></span></code></pre></div>
 <ol start="5" class="example" style="list-style-type: decimal">
 <li>Create a wordcloud for obituaries, but on lemmatized texts and without stop words.</li>
 </ol>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="text-analysis-i-basics.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code; your response</span></span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="text-analysis-i-basics.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code; your response</span></span></code></pre></div>
 <ol start="6" class="example" style="list-style-type: decimal">
 <li>Summarize your observations below. What does stand out in these different versions of wordclouds? Which of the wordclouds you find more efficient? Can you think of some scenarios when a different type of wordcloud can be more efficient? Why?</li>
 </ol>
@@ -693,51 +692,51 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="simple-a-star-wars-example" class="section level3" number="7.5.1">
 <h3><span class="header-section-number">7.5.1</span> Simple — a Star Wars Example</h3>
 <p>This kind of plot works better with texts rather than with newspapers. Let’s take a look at a script of Episode I:</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="text-analysis-i-basics.html#cb43-1" aria-hidden="true" tabindex="-1"></a>SW_to_DF <span class="ot">&lt;-</span> <span class="cf">function</span>(path_to_file, episode){</span>
-<span id="cb43-2"><a href="text-analysis-i-basics.html#cb43-2" aria-hidden="true" tabindex="-1"></a>  sw_sentences <span class="ot">&lt;-</span> <span class="fu">scan</span>(path_to_file, <span class="at">what=</span><span class="st">&quot;character&quot;</span>, <span class="at">sep=</span><span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb43-3"><a href="text-analysis-i-basics.html#cb43-3" aria-hidden="true" tabindex="-1"></a>  sw_sentences <span class="ot">&lt;-</span> <span class="fu">as.character</span>(sw_sentences)</span>
-<span id="cb43-4"><a href="text-analysis-i-basics.html#cb43-4" aria-hidden="true" tabindex="-1"></a>  sw_sentences <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">&quot;([A-Z]) ([A-Z])&quot;</span>, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">1_</span><span class="sc">\\</span><span class="st">2&quot;</span>, sw_sentences)</span>
-<span id="cb43-5"><a href="text-analysis-i-basics.html#cb43-5" aria-hidden="true" tabindex="-1"></a>  sw_sentences <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">&quot;([A-Z])-([A-Z])&quot;</span>, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">1_</span><span class="sc">\\</span><span class="st">2&quot;</span>, sw_sentences)</span>
-<span id="cb43-6"><a href="text-analysis-i-basics.html#cb43-6" aria-hidden="true" tabindex="-1"></a>  sw_sentences <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">cbind</span>(episode, sw_sentences), <span class="at">stringsAsFactors=</span><span class="cn">FALSE</span>)</span>
-<span id="cb43-7"><a href="text-analysis-i-basics.html#cb43-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(sw_sentences) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;episode&quot;</span>, <span class="st">&quot;sentences&quot;</span>)</span>
-<span id="cb43-8"><a href="text-analysis-i-basics.html#cb43-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(sw_sentences)</span>
-<span id="cb43-9"><a href="text-analysis-i-basics.html#cb43-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb43-10"><a href="text-analysis-i-basics.html#cb43-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-11"><a href="text-analysis-i-basics.html#cb43-11" aria-hidden="true" tabindex="-1"></a>sw1_df <span class="ot">&lt;-</span> <span class="fu">SW_to_DF</span>(<span class="fu">paste0</span>(pathToFiles, <span class="st">&quot;sw1.md&quot;</span>), <span class="st">&quot;sw1&quot;</span>)</span>
-<span id="cb43-12"><a href="text-analysis-i-basics.html#cb43-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-13"><a href="text-analysis-i-basics.html#cb43-13" aria-hidden="true" tabindex="-1"></a>sw1_df_tidy <span class="ot">&lt;-</span> sw1_df <span class="sc">%&gt;%</span></span>
-<span id="cb43-14"><a href="text-analysis-i-basics.html#cb43-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">linenumber =</span> <span class="fu">row_number</span>(),</span>
-<span id="cb43-15"><a href="text-analysis-i-basics.html#cb43-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">chapter =</span> <span class="fu">cumsum</span>(<span class="fu">str_detect</span>(sentences, <span class="fu">regex</span>(<span class="st">&quot;^#&quot;</span>, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>))))</span>
-<span id="cb43-16"><a href="text-analysis-i-basics.html#cb43-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-17"><a href="text-analysis-i-basics.html#cb43-17" aria-hidden="true" tabindex="-1"></a>sw1_df_tidy <span class="ot">&lt;-</span> sw1_df_tidy <span class="sc">%&gt;%</span></span>
-<span id="cb43-18"><a href="text-analysis-i-basics.html#cb43-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(word, sentences)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="text-analysis-i-basics.html#cb42-1" aria-hidden="true" tabindex="-1"></a>SW_to_DF <span class="ot">&lt;-</span> <span class="cf">function</span>(path_to_file, episode){</span>
+<span id="cb42-2"><a href="text-analysis-i-basics.html#cb42-2" aria-hidden="true" tabindex="-1"></a>  sw_sentences <span class="ot">&lt;-</span> <span class="fu">scan</span>(path_to_file, <span class="at">what=</span><span class="st">&quot;character&quot;</span>, <span class="at">sep=</span><span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb42-3"><a href="text-analysis-i-basics.html#cb42-3" aria-hidden="true" tabindex="-1"></a>  sw_sentences <span class="ot">&lt;-</span> <span class="fu">as.character</span>(sw_sentences)</span>
+<span id="cb42-4"><a href="text-analysis-i-basics.html#cb42-4" aria-hidden="true" tabindex="-1"></a>  sw_sentences <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">&quot;([A-Z]) ([A-Z])&quot;</span>, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">1_</span><span class="sc">\\</span><span class="st">2&quot;</span>, sw_sentences)</span>
+<span id="cb42-5"><a href="text-analysis-i-basics.html#cb42-5" aria-hidden="true" tabindex="-1"></a>  sw_sentences <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">&quot;([A-Z])-([A-Z])&quot;</span>, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">1_</span><span class="sc">\\</span><span class="st">2&quot;</span>, sw_sentences)</span>
+<span id="cb42-6"><a href="text-analysis-i-basics.html#cb42-6" aria-hidden="true" tabindex="-1"></a>  sw_sentences <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">cbind</span>(episode, sw_sentences), <span class="at">stringsAsFactors=</span><span class="cn">FALSE</span>)</span>
+<span id="cb42-7"><a href="text-analysis-i-basics.html#cb42-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(sw_sentences) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;episode&quot;</span>, <span class="st">&quot;sentences&quot;</span>)</span>
+<span id="cb42-8"><a href="text-analysis-i-basics.html#cb42-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(sw_sentences)</span>
+<span id="cb42-9"><a href="text-analysis-i-basics.html#cb42-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb42-10"><a href="text-analysis-i-basics.html#cb42-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-11"><a href="text-analysis-i-basics.html#cb42-11" aria-hidden="true" tabindex="-1"></a>sw1_df <span class="ot">&lt;-</span> <span class="fu">SW_to_DF</span>(<span class="fu">paste0</span>(pathToFiles, <span class="st">&quot;sw1.md&quot;</span>), <span class="st">&quot;sw1&quot;</span>)</span>
+<span id="cb42-12"><a href="text-analysis-i-basics.html#cb42-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-13"><a href="text-analysis-i-basics.html#cb42-13" aria-hidden="true" tabindex="-1"></a>sw1_df_tidy <span class="ot">&lt;-</span> sw1_df <span class="sc">%&gt;%</span></span>
+<span id="cb42-14"><a href="text-analysis-i-basics.html#cb42-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">linenumber =</span> <span class="fu">row_number</span>(),</span>
+<span id="cb42-15"><a href="text-analysis-i-basics.html#cb42-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">chapter =</span> <span class="fu">cumsum</span>(<span class="fu">str_detect</span>(sentences, <span class="fu">regex</span>(<span class="st">&quot;^#&quot;</span>, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>))))</span>
+<span id="cb42-16"><a href="text-analysis-i-basics.html#cb42-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-17"><a href="text-analysis-i-basics.html#cb42-17" aria-hidden="true" tabindex="-1"></a>sw1_df_tidy <span class="ot">&lt;-</span> sw1_df_tidy <span class="sc">%&gt;%</span></span>
+<span id="cb42-18"><a href="text-analysis-i-basics.html#cb42-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(word, sentences)</span></code></pre></div>
 <p>Try names of different characters (<code>shmi</code>, <code>padme</code>, <code>anakin</code>, <code>sebulba</code>, <code>yoda</code>, <code>sith</code>), or other terms that you know are tied to a specific part of the movie (<code>pod</code>, <code>naboo</code>, <code>gungans</code>, <code>coruscant</code>).</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="text-analysis-i-basics.html#cb44-1" aria-hidden="true" tabindex="-1"></a>ourWord <span class="ot">=</span> <span class="st">&quot;yoda&quot;</span></span>
-<span id="cb44-2"><a href="text-analysis-i-basics.html#cb44-2" aria-hidden="true" tabindex="-1"></a>word_occurance_vector <span class="ot">&lt;-</span> <span class="fu">which</span>(sw1_df_tidy<span class="sc">$</span>word <span class="sc">==</span> ourWord)</span>
-<span id="cb44-3"><a href="text-analysis-i-basics.html#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-4"><a href="text-analysis-i-basics.html#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">0</span>, <span class="at">type=</span><span class="st">&#39;n&#39;</span>, <span class="co">#ann=FALSE,</span></span>
-<span id="cb44-5"><a href="text-analysis-i-basics.html#cb44-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="fu">length</span>(sw1_df_tidy<span class="sc">$</span>word)), <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
-<span id="cb44-6"><a href="text-analysis-i-basics.html#cb44-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="fu">paste0</span>(<span class="st">&quot;Dispersion Plot of `&quot;</span>, ourWord, <span class="st">&quot;` in SW1&quot;</span>),</span>
-<span id="cb44-7"><a href="text-analysis-i-basics.html#cb44-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">&quot;Movie Time&quot;</span>, <span class="at">ylab=</span>ourWord, <span class="at">yaxt=</span><span class="st">&quot;n&quot;</span>)</span>
-<span id="cb44-8"><a href="text-analysis-i-basics.html#cb44-8" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(<span class="at">x0=</span>word_occurance_vector, <span class="at">x1=</span>word_occurance_vector, <span class="at">y0=</span><span class="dv">0</span>, <span class="at">y1=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="text-analysis-i-basics.html#cb43-1" aria-hidden="true" tabindex="-1"></a>ourWord <span class="ot">=</span> <span class="st">&quot;yoda&quot;</span></span>
+<span id="cb43-2"><a href="text-analysis-i-basics.html#cb43-2" aria-hidden="true" tabindex="-1"></a>word_occurance_vector <span class="ot">&lt;-</span> <span class="fu">which</span>(sw1_df_tidy<span class="sc">$</span>word <span class="sc">==</span> ourWord)</span>
+<span id="cb43-3"><a href="text-analysis-i-basics.html#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="text-analysis-i-basics.html#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">0</span>, <span class="at">type=</span><span class="st">&#39;n&#39;</span>, <span class="co">#ann=FALSE,</span></span>
+<span id="cb43-5"><a href="text-analysis-i-basics.html#cb43-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="fu">length</span>(sw1_df_tidy<span class="sc">$</span>word)), <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
+<span id="cb43-6"><a href="text-analysis-i-basics.html#cb43-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="fu">paste0</span>(<span class="st">&quot;Dispersion Plot of `&quot;</span>, ourWord, <span class="st">&quot;` in SW1&quot;</span>),</span>
+<span id="cb43-7"><a href="text-analysis-i-basics.html#cb43-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">&quot;Movie Time&quot;</span>, <span class="at">ylab=</span>ourWord, <span class="at">yaxt=</span><span class="st">&quot;n&quot;</span>)</span>
+<span id="cb43-8"><a href="text-analysis-i-basics.html#cb43-8" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(<span class="at">x0=</span>word_occurance_vector, <span class="at">x1=</span>word_occurance_vector, <span class="at">y0=</span><span class="dv">0</span>, <span class="at">y1=</span><span class="dv">2</span>)</span></code></pre></div>
 <p><img src="main_files/figure-html/unnamed-chunk-31-1.png" width="1440" /></p>
 </div>
 </div>
 <div id="word-distribution-plots-with-frequencies-over-time" class="section level2" number="7.6">
 <h2><span class="header-section-number">7.6</span> Word Distribution Plots: With Frequencies Over Time</h2>
 <p>For newspapers—and other diachronic corpora—a different approach will work better:</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="text-analysis-i-basics.html#cb45-1" aria-hidden="true" tabindex="-1"></a>d1862 <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="fu">paste0</span>(pathToFiles, <span class="st">&quot;dispatch_1862.tsv&quot;</span>), <span class="at">encoding=</span><span class="st">&quot;UTF-8&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">quote=</span><span class="st">&quot;&quot;</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb45-2"><a href="text-analysis-i-basics.html#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-3"><a href="text-analysis-i-basics.html#cb45-3" aria-hidden="true" tabindex="-1"></a>test_set <span class="ot">&lt;-</span> d1862</span>
-<span id="cb45-4"><a href="text-analysis-i-basics.html#cb45-4" aria-hidden="true" tabindex="-1"></a>test_set<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(test_set<span class="sc">$</span>date, <span class="at">format=</span><span class="st">&quot;%Y-%m-%d&quot;</span>)</span>
-<span id="cb45-5"><a href="text-analysis-i-basics.html#cb45-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-6"><a href="text-analysis-i-basics.html#cb45-6" aria-hidden="true" tabindex="-1"></a>test_set_tidy <span class="ot">&lt;-</span> test_set <span class="sc">%&gt;%</span></span>
-<span id="cb45-7"><a href="text-analysis-i-basics.html#cb45-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">item_number =</span> <span class="fu">cumsum</span>(<span class="fu">str_detect</span>(text, <span class="fu">regex</span>(<span class="st">&quot;^&quot;</span>, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>)))) <span class="sc">%&gt;%</span></span>
-<span id="cb45-8"><a href="text-analysis-i-basics.html#cb45-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>type) <span class="sc">%&gt;%</span></span>
-<span id="cb45-9"><a href="text-analysis-i-basics.html#cb45-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(word, text) <span class="sc">%&gt;%</span></span>
-<span id="cb45-10"><a href="text-analysis-i-basics.html#cb45-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">word_number =</span> <span class="fu">row_number</span>())</span>
-<span id="cb45-11"><a href="text-analysis-i-basics.html#cb45-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-12"><a href="text-analysis-i-basics.html#cb45-12" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(test_set_tidy)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="text-analysis-i-basics.html#cb44-1" aria-hidden="true" tabindex="-1"></a>d1862 <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="fu">paste0</span>(pathToFiles, <span class="st">&quot;dispatch_1862.tsv&quot;</span>), <span class="at">encoding=</span><span class="st">&quot;UTF-8&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">quote=</span><span class="st">&quot;&quot;</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb44-2"><a href="text-analysis-i-basics.html#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-3"><a href="text-analysis-i-basics.html#cb44-3" aria-hidden="true" tabindex="-1"></a>test_set <span class="ot">&lt;-</span> d1862</span>
+<span id="cb44-4"><a href="text-analysis-i-basics.html#cb44-4" aria-hidden="true" tabindex="-1"></a>test_set<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(test_set<span class="sc">$</span>date, <span class="at">format=</span><span class="st">&quot;%Y-%m-%d&quot;</span>)</span>
+<span id="cb44-5"><a href="text-analysis-i-basics.html#cb44-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-6"><a href="text-analysis-i-basics.html#cb44-6" aria-hidden="true" tabindex="-1"></a>test_set_tidy <span class="ot">&lt;-</span> test_set <span class="sc">%&gt;%</span></span>
+<span id="cb44-7"><a href="text-analysis-i-basics.html#cb44-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">item_number =</span> <span class="fu">cumsum</span>(<span class="fu">str_detect</span>(text, <span class="fu">regex</span>(<span class="st">&quot;^&quot;</span>, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>)))) <span class="sc">%&gt;%</span></span>
+<span id="cb44-8"><a href="text-analysis-i-basics.html#cb44-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>type) <span class="sc">%&gt;%</span></span>
+<span id="cb44-9"><a href="text-analysis-i-basics.html#cb44-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(word, text) <span class="sc">%&gt;%</span></span>
+<span id="cb44-10"><a href="text-analysis-i-basics.html#cb44-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">word_number =</span> <span class="fu">row_number</span>())</span>
+<span id="cb44-11"><a href="text-analysis-i-basics.html#cb44-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-12"><a href="text-analysis-i-basics.html#cb44-12" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(test_set_tidy)</span></code></pre></div>
 <pre><code>##                       id       date             header item_number     word
 ## 1 1862-02-20_ad-blank_20 1862-02-20 Richmond Dispatch.           1 richmond
 ## 2 1862-02-20_ad-blank_20 1862-02-20 Richmond Dispatch.           1 dispatch
@@ -753,12 +752,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5           5
 ## 6           6</code></pre>
 <p>Now, we can calculate frequencies of all words by dates:</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="text-analysis-i-basics.html#cb47-1" aria-hidden="true" tabindex="-1"></a>test_set_tidy_freqDay <span class="ot">&lt;-</span> test_set_tidy <span class="sc">%&gt;%</span></span>
-<span id="cb47-2"><a href="text-analysis-i-basics.html#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop_words, <span class="at">by=</span><span class="st">&quot;word&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb47-3"><a href="text-analysis-i-basics.html#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(date) <span class="sc">%&gt;%</span></span>
-<span id="cb47-4"><a href="text-analysis-i-basics.html#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word) </span>
-<span id="cb47-5"><a href="text-analysis-i-basics.html#cb47-5" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb47-6"><a href="text-analysis-i-basics.html#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(test_set_tidy_freqDay)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="text-analysis-i-basics.html#cb46-1" aria-hidden="true" tabindex="-1"></a>test_set_tidy_freqDay <span class="ot">&lt;-</span> test_set_tidy <span class="sc">%&gt;%</span></span>
+<span id="cb46-2"><a href="text-analysis-i-basics.html#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop_words, <span class="at">by=</span><span class="st">&quot;word&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb46-3"><a href="text-analysis-i-basics.html#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(date) <span class="sc">%&gt;%</span></span>
+<span id="cb46-4"><a href="text-analysis-i-basics.html#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word) </span>
+<span id="cb46-5"><a href="text-analysis-i-basics.html#cb46-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb46-6"><a href="text-analysis-i-basics.html#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(test_set_tidy_freqDay)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 3
 ## # Groups:   date [1]
 ##   date       word      n
@@ -771,21 +770,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 6 1862-01-01 100       2</code></pre>
 <p>We now can build a graph of word occurences over time. In the example below we search for <code>manassas</code>, which is the place where the the Second Battle of Bull Run (or, the Second Battle of Manassas) took place on August 28-30, 1862. The battle ended in Confederate victory. Our graph shows the spike of mentions of Manassas in the first days of September — right after the battle took place.</p>
 <p>Such graphs can be used to monitor discussions of different topic in chronological perspective.</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="text-analysis-i-basics.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># interesting examples:</span></span>
-<span id="cb49-2"><a href="text-analysis-i-basics.html#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="co"># deserters, killed,</span></span>
-<span id="cb49-3"><a href="text-analysis-i-basics.html#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="co"># donelson (The Battle of Fort Donelson took place in early February of 1862),</span></span>
-<span id="cb49-4"><a href="text-analysis-i-basics.html#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="co"># manassas (place of the Second Bull Run, fought in August 28–30, 1862),</span></span>
-<span id="cb49-5"><a href="text-analysis-i-basics.html#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="co"># shiloh (Battle of Shiloh took place in April of 1862)</span></span>
-<span id="cb49-6"><a href="text-analysis-i-basics.html#cb49-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-7"><a href="text-analysis-i-basics.html#cb49-7" aria-hidden="true" tabindex="-1"></a>ourWord <span class="ot">=</span> <span class="st">&quot;manassas&quot;</span> </span>
-<span id="cb49-8"><a href="text-analysis-i-basics.html#cb49-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-9"><a href="text-analysis-i-basics.html#cb49-9" aria-hidden="true" tabindex="-1"></a>test_set_tidy_word <span class="ot">&lt;-</span> test_set_tidy_freqDay <span class="sc">%&gt;%</span></span>
-<span id="cb49-10"><a href="text-analysis-i-basics.html#cb49-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(word<span class="sc">==</span>ourWord)</span>
-<span id="cb49-11"><a href="text-analysis-i-basics.html#cb49-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-12"><a href="text-analysis-i-basics.html#cb49-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span>test_set_tidy_word<span class="sc">$</span>date, <span class="at">y=</span>test_set_tidy_word<span class="sc">$</span>n, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lty=</span><span class="dv">3</span>, <span class="at">lwd=</span><span class="dv">1</span>,</span>
-<span id="cb49-13"><a href="text-analysis-i-basics.html#cb49-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="fu">paste0</span>(<span class="st">&quot;Word `&quot;</span>, ourWord, <span class="st">&quot;` over time&quot;</span>),</span>
-<span id="cb49-14"><a href="text-analysis-i-basics.html#cb49-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;1862 - Dispatch coverage&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;word frequency per day&quot;</span>)</span>
-<span id="cb49-15"><a href="text-analysis-i-basics.html#cb49-15" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(<span class="at">x0=</span>test_set_tidy_word<span class="sc">$</span>date, <span class="at">x1=</span>test_set_tidy_word<span class="sc">$</span>date, <span class="at">y0=</span><span class="dv">0</span>, <span class="at">y1=</span>test_set_tidy_word<span class="sc">$</span>n, <span class="at">lty=</span><span class="dv">1</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="text-analysis-i-basics.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># interesting examples:</span></span>
+<span id="cb48-2"><a href="text-analysis-i-basics.html#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="co"># deserters, killed,</span></span>
+<span id="cb48-3"><a href="text-analysis-i-basics.html#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="co"># donelson (The Battle of Fort Donelson took place in early February of 1862),</span></span>
+<span id="cb48-4"><a href="text-analysis-i-basics.html#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="co"># manassas (place of the Second Bull Run, fought in August 28–30, 1862),</span></span>
+<span id="cb48-5"><a href="text-analysis-i-basics.html#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="co"># shiloh (Battle of Shiloh took place in April of 1862)</span></span>
+<span id="cb48-6"><a href="text-analysis-i-basics.html#cb48-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-7"><a href="text-analysis-i-basics.html#cb48-7" aria-hidden="true" tabindex="-1"></a>ourWord <span class="ot">=</span> <span class="st">&quot;manassas&quot;</span> </span>
+<span id="cb48-8"><a href="text-analysis-i-basics.html#cb48-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-9"><a href="text-analysis-i-basics.html#cb48-9" aria-hidden="true" tabindex="-1"></a>test_set_tidy_word <span class="ot">&lt;-</span> test_set_tidy_freqDay <span class="sc">%&gt;%</span></span>
+<span id="cb48-10"><a href="text-analysis-i-basics.html#cb48-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(word<span class="sc">==</span>ourWord)</span>
+<span id="cb48-11"><a href="text-analysis-i-basics.html#cb48-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-12"><a href="text-analysis-i-basics.html#cb48-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span>test_set_tidy_word<span class="sc">$</span>date, <span class="at">y=</span>test_set_tidy_word<span class="sc">$</span>n, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lty=</span><span class="dv">3</span>, <span class="at">lwd=</span><span class="dv">1</span>,</span>
+<span id="cb48-13"><a href="text-analysis-i-basics.html#cb48-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="fu">paste0</span>(<span class="st">&quot;Word `&quot;</span>, ourWord, <span class="st">&quot;` over time&quot;</span>),</span>
+<span id="cb48-14"><a href="text-analysis-i-basics.html#cb48-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;1862 - Dispatch coverage&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;word frequency per day&quot;</span>)</span>
+<span id="cb48-15"><a href="text-analysis-i-basics.html#cb48-15" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(<span class="at">x0=</span>test_set_tidy_word<span class="sc">$</span>date, <span class="at">x1=</span>test_set_tidy_word<span class="sc">$</span>date, <span class="at">y0=</span><span class="dv">0</span>, <span class="at">y1=</span>test_set_tidy_word<span class="sc">$</span>n, <span class="at">lty=</span><span class="dv">1</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span></code></pre></div>
 <p><img src="main_files/figure-html/unnamed-chunk-34-1.png" width="960" /></p>
 <ol start="7" class="example" style="list-style-type: decimal">
 <li>The graph like this can be used in a different way. Try words <em>killed</em> and <em>deserters</em>. When do these words spike? Can you interpret these graphs?</li>
@@ -799,15 +798,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="kwic-keywords-in-context" class="section level2" number="7.7">
 <h2><span class="header-section-number">7.7</span> KWIC: Keywords-in-Context</h2>
 <p>Keywords-in-context is the most common method for creating concordances — a view that that allows us to go through all instances of specific words or word forms in order to understand <em>how</em> they are used. The <code>quanteda</code> library offers a very quick and easy application of this method:</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="text-analysis-i-basics.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda)</span>
-<span id="cb50-2"><a href="text-analysis-i-basics.html#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readtext)</span>
-<span id="cb50-3"><a href="text-analysis-i-basics.html#cb50-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-4"><a href="text-analysis-i-basics.html#cb50-4" aria-hidden="true" tabindex="-1"></a>dispatch1862 <span class="ot">&lt;-</span> <span class="fu">readtext</span>(<span class="fu">paste0</span>(pathToFiles, <span class="st">&quot;dispatch_1862.tsv&quot;</span>), <span class="at">text_field =</span> <span class="st">&quot;text&quot;</span>, <span class="at">quote=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb50-5"><a href="text-analysis-i-basics.html#cb50-5" aria-hidden="true" tabindex="-1"></a>dispatch1862corpus <span class="ot">&lt;-</span> <span class="fu">corpus</span>(dispatch1862)</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="text-analysis-i-basics.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda)</span>
+<span id="cb49-2"><a href="text-analysis-i-basics.html#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readtext)</span>
+<span id="cb49-3"><a href="text-analysis-i-basics.html#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-4"><a href="text-analysis-i-basics.html#cb49-4" aria-hidden="true" tabindex="-1"></a>dispatch1862 <span class="ot">&lt;-</span> <span class="fu">readtext</span>(<span class="fu">paste0</span>(pathToFiles, <span class="st">&quot;dispatch_1862.tsv&quot;</span>), <span class="at">text_field =</span> <span class="st">&quot;text&quot;</span>, <span class="at">quote=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb49-5"><a href="text-analysis-i-basics.html#cb49-5" aria-hidden="true" tabindex="-1"></a>dispatch1862corpus <span class="ot">&lt;-</span> <span class="fu">corpus</span>(dispatch1862)</span></code></pre></div>
 <p>Now, we can query the created <code>corpus</code> object using this command: <code>kwic(YourCorpusObject, pattern = YourSearchPattern)</code>. <code>pattern=</code> can also take vectors (for example, <code>c("soldier*", "troop*")</code>); you can also search for phrases with <code>pattern=phrase("fort donelson")</code>; <code>window=</code> defines how many words will be shown before and after the match.</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="text-analysis-i-basics.html#cb51-1" aria-hidden="true" tabindex="-1"></a>kwic_test <span class="ot">&lt;-</span> <span class="fu">kwic</span>(dispatch1862corpus, <span class="at">pattern =</span> <span class="st">&#39;lincoln&#39;</span>, <span class="at">window=</span><span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="text-analysis-i-basics.html#cb50-1" aria-hidden="true" tabindex="-1"></a>kwic_test <span class="ot">&lt;-</span> <span class="fu">kwic</span>(dispatch1862corpus, <span class="at">pattern =</span> <span class="st">&#39;lincoln&#39;</span>, <span class="at">window=</span><span class="dv">5</span>)</span></code></pre></div>
 <pre><code>## Warning: &#39;kwic.corpus()&#39; is deprecated. Use &#39;tokens()&#39; first.</code></pre>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="text-analysis-i-basics.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(kwic_test)</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="text-analysis-i-basics.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(kwic_test)</span></code></pre></div>
 <pre><code>## Keyword-in-context with 6 matches.                                                                         
 ##    [dispatch_1862.tsv.23, 40] cunning and cowardly Premier of | Lincoln |
 ##   [dispatch_1862.tsv.23, 121]          with the wishes of the | Lincoln |
@@ -823,9 +822,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  , from Havana, with        
 ##  had begun to make camping</code></pre>
 <p>To view results better, we can remove unnecessary columns:</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="text-analysis-i-basics.html#cb55-1" aria-hidden="true" tabindex="-1"></a>kwic_test <span class="sc">%&gt;%</span> as_tibble <span class="sc">%&gt;%</span></span>
-<span id="cb55-2"><a href="text-analysis-i-basics.html#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(pre, keyword, post) <span class="sc">%&gt;%</span></span>
-<span id="cb55-3"><a href="text-analysis-i-basics.html#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">15</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="text-analysis-i-basics.html#cb54-1" aria-hidden="true" tabindex="-1"></a>kwic_test <span class="sc">%&gt;%</span> as_tibble <span class="sc">%&gt;%</span></span>
+<span id="cb54-2"><a href="text-analysis-i-basics.html#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(pre, keyword, post) <span class="sc">%&gt;%</span></span>
+<span id="cb54-3"><a href="text-analysis-i-basics.html#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">15</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 15 × 3
 ##    pre                                       keyword post                       
 ##    &lt;chr&gt;                                     &lt;chr&gt;   &lt;chr&gt;                      

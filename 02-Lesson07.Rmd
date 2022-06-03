@@ -1,6 +1,6 @@
 # Text Analysis I: Basics
 
-```{r}
+```{r echo=FALSE}
 library(knitr)
 ```
 
