@@ -98,5 +98,6 @@ word-frequencies
 wordclouds
 word-distribution-plots
 simple-a-star-wars-example
+word-distribution-plots-with-frequencies-over-time
 HW07
 SHW07
