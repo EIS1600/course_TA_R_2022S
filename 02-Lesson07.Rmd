@@ -398,8 +398,35 @@ segments(x0=test_set_tidy_word$date, x1=test_set_tidy_word$date, y0=0, y1=test_s
 
 >> *your response goes here*
 
+# KWIC: Keywords-in-Context
+
+Keywords-in-context is the most common method for creating concordances --- a view that that allows us to go through all instances of specific words or word forms in order to understand *how* they are used. The `quanteda` library offers a very quick and easy application of this method:
+
+```{r message=F}
+library(quanteda)
+library(readtext)
+
+dispatch1862 <- readtext(paste0(pathToFiles, "dispatch_1862.tsv"), text_field = "text", quote="")
+dispatch1862corpus <- corpus(dispatch1862)
+
+```
+
+Now, we can query the created `corpus` object using this command: `kwic(YourCorpusObject, pattern = YourSearchPattern)`. `pattern=` can also take vectors (for example, `c("soldier*", "troop*")`); you can also search for phrases with `pattern=phrase("fort donelson")`; `window=` defines how many words will be shown before and after the match.
+
+```{r}
+kwic_test <- kwic(dispatch1862corpus, pattern = 'lincoln', window=10)
+kwic_test
+```
+
+If you type `View(kwic_test)` in your console, an HTML table with all the results will be opened in your browser. 
 
 
+```{r}
+kwic_test %>% as_tibble %>%
+  select(pre, keyword, post)
+```
+
+*NB:* `quanteda` is quite a robust library. Check this page with examples for other possible quick experiments: <https://quanteda.io/articles/pkgdown/examples/plotting.html>
 
 ## Homework{#HW07}
 
