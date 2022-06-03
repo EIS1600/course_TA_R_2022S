@@ -157,7 +157,139 @@ lemmatize_strings(sentence)
 stem_strings(sentence)
 ```
 
-*Note:* It is often important to ensure that all capital letters are converted into small letters or the other way around; additionally, some *normalization* procedures may be necessary to reduce orthographic complexities of specific languages (for example, ö > oe in German; simplification of forms of *alif* in Arabic).
+*Note:* It is often important to ensure that all capital letters are converted into small letters or the other way around; additionally, some *normalization* procedures may be necessary to reduce orthographic complexities of specific languages (for example, ö > oe in German; simplification of forms of *alif* in Arabic, etc.).
+
+## Word Frequencies and Word Clouds
+
+Let's load all issues of Dispatch from 1862.
+
+```{r}
+library(tidytext)
+
+d1862 <- read.delim(paste0(pathToFiles, "dispatch_1862.tsv"), encoding="UTF-8", header=TRUE, quote="")
+
+head(d1862)
+```
+
+We can quickly check what *types* of articles are there in those issues.
+
+```{r}
+d1862 %>%
+  count(type, sort=T)
+```
+
+We can create subsets of articles based on their types.
+
+```{r}
+
+death_d1862 <- d1862 %>%
+  filter(type=="death" | type == "died")
+
+```
+
+(@) Create subsets for other major types.
+
+```{r}
+
+
+```
+
+(@) Describe problems with the data set and how they can be fixed.
+
+> *your answer goes here...*
+
+Now, let's tidy them up: to work with this as a tidy dataset, we need to restructure it in the one-token-per-row format, which as we saw earlier is done with the `unnest_tokens()` function.
+
+```{r}
+
+test_set <- death_d1862
+
+test_set_tidy <- test_set %>%
+  mutate(item_number = cumsum(str_detect(text, regex("^", ignore_case = TRUE)))) %>%
+  select(-type) %>%
+  unnest_tokens(word, text) %>%
+  mutate(word_number = row_number())
+
+test_set_tidy
+
+```
+
+Stop words is an important concept. In general, this notion refers to the most frequent words/tokens which one might want to exclude from analysis. There are existing lists of stop words that you can find online, and they can work fine for testing purposes.
+
+```{r}
+data("stop_words")
+
+test_set_tidy_clean <- test_set_tidy %>%
+  anti_join(stop_words, by="word")
+
+test_set_tidy_clean
+```
+
+For research purposes, it is highly advisable to develop your own stop word lists. The process is very simple:
+
+1. create a frequency list of your tokens/words;
+2. arrange them by frequencies in descending order;
+3. save top 2-3,000 in a tsv/csv file; 
+4. open in any table editor; 
+5. add a new column and tag those words that you want to exclude. For example, `1` -- for to exclude; `0` --- for to keep. It is convenient to automatically fill the column with some default value (`0`), and then you can change only those that you want to remove (`1`). 
+
+You will see that some words, despite their frequency, might be worth keeping. When you are done, you can load them and use `anti_join` function to filter your corpus.
+
+### Word Frequencies
+
+```{r}
+test_set_tidy %>%
+  #anti_join(stop_words, by="word") %>%
+  count(word, sort = TRUE) 
+```
+
+### Wordclouds
+
+Wordclouds can be an efficient way to visualize most frequent words. Unfortunately, in most cases, wordclouds are not used either correctly or efficiently. (Let's check Google for some examples).
+
+```{r message=F, fig.height=10, fig.width=10}
+library(wordcloud)
+library("RColorBrewer")
+
+test_set_tidy_clean <- test_set_tidy %>%
+  anti_join(stop_words, by="word") %>%
+  count(word, sort=T)
+
+set.seed(1234)
+wordcloud(words=test_set_tidy_clean$word, freq=test_set_tidy_clean$n,
+          min.freq = 1, rot.per = .25, random.order=FALSE, #scale=c(5,.5),
+          max.words=150, colors=brewer.pal(8, "Dark2"))
+```
+
+(@) What can we glean out form this wordcloud? Create a wordcloud for obituaries.
+
+```{r}
+
+# your code; your response
+
+```
+
+(@) Create a wordcloud for obituaries, but without stop words.
+
+```{r}
+
+# your code; your response
+
+```
+
+(@) Create a wordcloud for obituaries, but on lemmatized texts and without stop words.
+
+```{r}
+
+# your code; your response
+
+```
+
+(@) Summarize your observations below. What does stand out in these different versions of wordclouds? Which of the wordclouds you find more efficient? Can you think of some scenarios when a different type of wordcloud can be more efficient? Why? 
+
+>> *you answer goes here*
+
+For more details on generating word clouds in R, see: <http://www.sthda.com/english/wiki/text-mining-and-word-cloud-fundamentals-in-r-5-simple-steps-you-should-know>.
 
 
 ## Homework{#HW07}

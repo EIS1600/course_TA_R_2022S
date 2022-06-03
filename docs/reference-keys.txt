@@ -93,5 +93,8 @@ Lib07
 functions07
 Hypothenuse07
 texts-and-text-analysis
+word-frequencies-and-word-clouds
+word-frequencies
+wordclouds
 HW07
 SHW07
