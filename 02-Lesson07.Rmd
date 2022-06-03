@@ -1,10 +1,11 @@
 # Text Analysis I: Basics
 
-## ...
+## Goals{#goals07}
 
-## Goals:{#goals07}
-
-- introduce basic text analysis approaches
+- introduce basic text analysis concepts:
+  - ...
+  - ...
+  - ...
 
 ## Preliminaries{#Prelim07}
 

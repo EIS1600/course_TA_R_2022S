@@ -86,7 +86,6 @@ AR06
 HW06
 SHW06
 text-analysis-i-basics
-section
 goals07
 Prelim07
 Data07
