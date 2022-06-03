@@ -28,6 +28,29 @@ sw1 <- scan(paste0(pathToFiles, "sw1.md"), what="character", sep="\n")
 
 The first file is articles from "The Daily Dispatch" for the year 1862. The newspaper was published in Richmond, VA --- the capital of the Confederate States (the South) during the American Civil War (1861-1865). The second file is a script of the first episode of Star Wars :).
 
+## Libraries
+
+The following are the libraries that we will need for this section. Install those that you do not have yet.
+
+```{r message=FALSE}
+#install.packages("tidyverse", "readr", "stringr")
+#install.packages("tidytext", "wordcloud", "RColorBrewer"", "quanteda", "readtext")
+
+# General ones 
+library(tidyverse)
+library(readr)
+library("RColorBrewer")
+
+# text analysis specific
+library(stringr)
+library(tidytext)
+library(wordcloud)
+library(quanteda)
+library(readtext)
+```
+
+
+
 ## Homework{#HW07}
 
 - Finish your worksheet and submit your HW as described below.

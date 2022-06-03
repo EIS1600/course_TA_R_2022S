@@ -90,5 +90,6 @@ section
 goals07
 preliminaries
 data
+libraries
 HW07
 SHW07
