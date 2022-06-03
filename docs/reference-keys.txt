@@ -88,8 +88,8 @@ SHW06
 text-analysis-i-basics
 section
 goals07
-preliminaries
-data
-libraries
+Prelim07
+Data07
+Lib07
 HW07
 SHW07

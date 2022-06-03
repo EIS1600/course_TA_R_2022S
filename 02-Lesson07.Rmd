@@ -6,9 +6,9 @@
 
 - introduce basic text analysis approaches
 
-## Preliminaries
+## Preliminaries{#Prelim07}
 
-### Data
+### Data{#Data07}
 
 We will use the following text files in this worksheet. Please download them and keep them close to your worksheet. Since some of the files are quite large, you want to download them before loading them into R:
 
@@ -28,7 +28,7 @@ sw1 <- scan(paste0(pathToFiles, "sw1.md"), what="character", sep="\n")
 
 The first file is articles from "The Daily Dispatch" for the year 1862. The newspaper was published in Richmond, VA --- the capital of the Confederate States (the South) during the American Civil War (1861-1865). The second file is a script of the first episode of Star Wars :).
 
-## Libraries
+### Libraries{#Lib07}
 
 The following are the libraries that we will need for this section. Install those that you do not have yet.
 
@@ -41,7 +41,7 @@ library(tidyverse)
 library(readr)
 library("RColorBrewer")
 
-# text analysis specific
+# Text Analysis Specific
 library(stringr)
 library(tidytext)
 library(wordcloud)

@@ -263,13 +263,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="7.1" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#section"><i class="fa fa-check"></i><b>7.1</b> …</a></li>
 <li class="chapter" data-level="7.2" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#goals07"><i class="fa fa-check"></i><b>7.2</b> Goals:</a></li>
-<li class="chapter" data-level="7.3" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#preliminaries"><i class="fa fa-check"></i><b>7.3</b> Preliminaries</a>
+<li class="chapter" data-level="7.3" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#Prelim07"><i class="fa fa-check"></i><b>7.3</b> Preliminaries</a>
 <ul>
-<li class="chapter" data-level="7.3.1" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#data"><i class="fa fa-check"></i><b>7.3.1</b> Data</a></li>
+<li class="chapter" data-level="7.3.1" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#Data07"><i class="fa fa-check"></i><b>7.3.1</b> Data</a></li>
+<li class="chapter" data-level="7.3.2" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#Lib07"><i class="fa fa-check"></i><b>7.3.2</b> Libraries</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#libraries"><i class="fa fa-check"></i><b>7.4</b> Libraries</a></li>
-<li class="chapter" data-level="7.5" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#HW07"><i class="fa fa-check"></i><b>7.5</b> Homework</a></li>
-<li class="chapter" data-level="7.6" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#SHW07"><i class="fa fa-check"></i><b>7.6</b> Submitting homework</a></li>
+<li class="chapter" data-level="7.4" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#HW07"><i class="fa fa-check"></i><b>7.4</b> Homework</a></li>
+<li class="chapter" data-level="7.5" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#SHW07"><i class="fa fa-check"></i><b>7.5</b> Submitting homework</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -303,9 +303,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>introduce basic text analysis approaches</li>
 </ul>
 </div>
-<div id="preliminaries" class="section level2" number="7.3">
+<div id="Prelim07" class="section level2" number="7.3">
 <h2><span class="header-section-number">7.3</span> Preliminaries</h2>
-<div id="data" class="section level3" number="7.3.1">
+<div id="Data07" class="section level3" number="7.3.1">
 <h3><span class="header-section-number">7.3.1</span> Data</h3>
 <p>We will use the following text files in this worksheet. Please download them and keep them close to your worksheet. Since some of the files are quite large, you want to download them before loading them into R:</p>
 <ul>
@@ -320,9 +320,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb7-5"><a href="text-analysis-i-basics.html#cb7-5" aria-hidden="true" tabindex="-1"></a>sw1 <span class="ot">&lt;-</span> <span class="fu">scan</span>(<span class="fu">paste0</span>(pathToFiles, <span class="st">&quot;sw1.md&quot;</span>), <span class="at">what=</span><span class="st">&quot;character&quot;</span>, <span class="at">sep=</span><span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
 <p>The first file is articles from “The Daily Dispatch” for the year 1862. The newspaper was published in Richmond, VA — the capital of the Confederate States (the South) during the American Civil War (1861-1865). The second file is a script of the first episode of Star Wars :).</p>
 </div>
-</div>
-<div id="libraries" class="section level2" number="7.4">
-<h2><span class="header-section-number">7.4</span> Libraries</h2>
+<div id="Lib07" class="section level3" number="7.3.2">
+<h3><span class="header-section-number">7.3.2</span> Libraries</h3>
 <p>The following are the libraries that we will need for this section. Install those that you do not have yet.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="text-analysis-i-basics.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;tidyverse&quot;, &quot;readr&quot;, &quot;stringr&quot;)</span></span>
 <span id="cb8-2"><a href="text-analysis-i-basics.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;tidytext&quot;, &quot;wordcloud&quot;, &quot;RColorBrewer&quot;&quot;, &quot;quanteda&quot;, &quot;readtext&quot;)</span></span>
@@ -332,15 +331,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb8-6"><a href="text-analysis-i-basics.html#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
 <span id="cb8-7"><a href="text-analysis-i-basics.html#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;RColorBrewer&quot;</span>)</span>
 <span id="cb8-8"><a href="text-analysis-i-basics.html#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-9"><a href="text-analysis-i-basics.html#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># text analysis specific</span></span>
+<span id="cb8-9"><a href="text-analysis-i-basics.html#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Text Analysis Specific</span></span>
 <span id="cb8-10"><a href="text-analysis-i-basics.html#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
 <span id="cb8-11"><a href="text-analysis-i-basics.html#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
 <span id="cb8-12"><a href="text-analysis-i-basics.html#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wordcloud)</span>
 <span id="cb8-13"><a href="text-analysis-i-basics.html#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda)</span>
 <span id="cb8-14"><a href="text-analysis-i-basics.html#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readtext)</span></code></pre></div>
 </div>
-<div id="HW07" class="section level2" number="7.5">
-<h2><span class="header-section-number">7.5</span> Homework</h2>
+</div>
+<div id="HW07" class="section level2" number="7.4">
+<h2><span class="header-section-number">7.4</span> Homework</h2>
 <ul>
 <li>Finish your worksheet and submit your HW as described below.</li>
 <li><em>Additional:</em> if you’d like more practice, you can use <code>swirl</code> library:
@@ -354,8 +354,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul>
 </div>
-<div id="SHW07" class="section level2" number="7.6">
-<h2><span class="header-section-number">7.6</span> Submitting homework</h2>
+<div id="SHW07" class="section level2" number="7.5">
+<h2><span class="header-section-number">7.5</span> Submitting homework</h2>
 <ul>
 <li>Homework assignment must be submitted by the beginning of the next class;</li>
 <li>Email your homework to the instructor as attachments.
