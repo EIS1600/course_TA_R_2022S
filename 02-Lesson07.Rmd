@@ -237,9 +237,17 @@ You will see that some words, despite their frequency, might be worth keeping. W
 
 ### Word Frequencies
 
+Let's first count all the words:
+
 ```{r}
 test_set_tidy %>%
-  #anti_join(stop_words, by="word") %>%
+  count(word, sort = TRUE) 
+```
+Now, let's also remove the stop words:
+
+```{r}
+test_set_tidy %>%
+  anti_join(stop_words, by="word") %>%
   count(word, sort = TRUE) 
 ```
 
@@ -290,6 +298,8 @@ wordcloud(words=test_set_tidy_clean$word, freq=test_set_tidy_clean$n,
 >> *you answer goes here*
 
 For more details on generating word clouds in R, see: <http://www.sthda.com/english/wiki/text-mining-and-word-cloud-fundamentals-in-r-5-simple-steps-you-should-know>.
+
+
 
 
 ## Homework{#HW07}
