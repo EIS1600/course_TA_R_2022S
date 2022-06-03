@@ -22,7 +22,6 @@ In order to make loading these files a little bit easier, you can paste the path
 pathToFiles = "./files/data/"
 
 d1862 <- read.delim(paste0(pathToFiles, "dispatch_1862.tsv"), encoding="UTF-8", header=TRUE, quote="")
-
 sw1 <- scan(paste0(pathToFiles, "sw1.md"), what="character", sep="\n")
 
 ```
@@ -48,6 +47,41 @@ library(tidytext)
 library(wordcloud)
 library(quanteda)
 library(readtext)
+```
+### Functions in `R` (a refresher){#functions07}
+
+Functions are groups of related statements that perform a specific task, which help breaking a program into smaller and modular chunks. As programs grow larger and larger, functions make them more organized and manageable. Functions help avoiding repetition and makes code reusable.
+
+Most programming languages, `R` including, come with a lot of pre-defined—or built-in—functions. Essentially, all statements that take arguments in parentheses are functions. For instance, in the code chunk above, `read.delim()` is a function that takes as its arguments: 1) filename (or, path to a file); 2) encoding; 3) specifies that the file has a header; and 4) not using `"` as a special character. We can also write our own functions, which take care of sets of operations thet we tend to repeat again and again. 
+
+Later, take a look at this [video by one of the key `R` developers](https://campus.datacamp.com/courses/writing-functions-in-r/a-quick-refresher?ex=1), and check this [tutorial](https://rpubs.com/williamsurles/292234).
+
+#### Simple Function Example: Hypothenuse{#Hypothenuse07}
+
+(From [Wikipedia](https://en.wikipedia.org/wiki/Hypotenuse)) In geometry, a *hypotenuse* is the longest side of a right-angled triangle, the side opposite the right angle. The length of the hypotenuse of a right triangle can be found using the Pythagorean theorem, which states that the square of the length of the hypotenuse equals the sum of the squares of the lengths of the other two sides (*catheti*). For example, if one of the other sides has a length of 3 (when squared, 9) and the other has a length of 4 (when squared, 16), then their squares add up to 25. The length of the hypotenuse is the square root of 25, that is, 5.
+
+Let's write a function that takes lengths of catheti as arguments and returns the length of hypothenuse:
+
+```{r}
+hypothenuse <- function(cathetus1, cathetus2) {
+  hypothenuse<- sqrt(cathetus1*cathetus1+cathetus2*cathetus2)
+  print(paste0("In the triangle with catheti of length ",
+              cathetus1, " and ", cathetus2, ", the length of hypothenuse is ", hypothenuse))
+  return(hypothenuse)
+}
+```
+
+
+Let's try a simple example:
+
+```{r}
+hypothenuse(3,4)
+```
+
+Let's try a crazy example:
+
+```{r}
+hypothenuse(390,456)
 ```
 
 

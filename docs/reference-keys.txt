@@ -90,5 +90,7 @@ goals07
 Prelim07
 Data07
 Lib07
+functions07
+Hypothenuse07
 HW07
 SHW07

@@ -266,6 +266,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="7.2.1" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#Data07"><i class="fa fa-check"></i><b>7.2.1</b> Data</a></li>
 <li class="chapter" data-level="7.2.2" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#Lib07"><i class="fa fa-check"></i><b>7.2.2</b> Libraries</a></li>
+<li class="chapter" data-level="7.2.3" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#functions07"><i class="fa fa-check"></i><b>7.2.3</b> Functions in <code>R</code> (a refresher)</a></li>
 </ul></li>
 <li class="chapter" data-level="7.3" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#HW07"><i class="fa fa-check"></i><b>7.3</b> Homework</a></li>
 <li class="chapter" data-level="7.4" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#SHW07"><i class="fa fa-check"></i><b>7.4</b> Submitting homework</a></li>
@@ -317,8 +318,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="text-analysis-i-basics.html#cb7-1" aria-hidden="true" tabindex="-1"></a>pathToFiles <span class="ot">=</span> <span class="st">&quot;./files/data/&quot;</span></span>
 <span id="cb7-2"><a href="text-analysis-i-basics.html#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="text-analysis-i-basics.html#cb7-3" aria-hidden="true" tabindex="-1"></a>d1862 <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="fu">paste0</span>(pathToFiles, <span class="st">&quot;dispatch_1862.tsv&quot;</span>), <span class="at">encoding=</span><span class="st">&quot;UTF-8&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">quote=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb7-4"><a href="text-analysis-i-basics.html#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="text-analysis-i-basics.html#cb7-5" aria-hidden="true" tabindex="-1"></a>sw1 <span class="ot">&lt;-</span> <span class="fu">scan</span>(<span class="fu">paste0</span>(pathToFiles, <span class="st">&quot;sw1.md&quot;</span>), <span class="at">what=</span><span class="st">&quot;character&quot;</span>, <span class="at">sep=</span><span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<span id="cb7-4"><a href="text-analysis-i-basics.html#cb7-4" aria-hidden="true" tabindex="-1"></a>sw1 <span class="ot">&lt;-</span> <span class="fu">scan</span>(<span class="fu">paste0</span>(pathToFiles, <span class="st">&quot;sw1.md&quot;</span>), <span class="at">what=</span><span class="st">&quot;character&quot;</span>, <span class="at">sep=</span><span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
 <p>The first file is articles from “The Daily Dispatch” for the year 1862. The newspaper was published in Richmond, VA — the capital of the Confederate States (the South) during the American Civil War (1861-1865). The second file is a script of the first episode of Star Wars :).</p>
 </div>
 <div id="Lib07" class="section level3" number="7.2.2">
@@ -338,6 +338,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb8-12"><a href="text-analysis-i-basics.html#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wordcloud)</span>
 <span id="cb8-13"><a href="text-analysis-i-basics.html#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda)</span>
 <span id="cb8-14"><a href="text-analysis-i-basics.html#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readtext)</span></code></pre></div>
+</div>
+<div id="functions07" class="section level3" number="7.2.3">
+<h3><span class="header-section-number">7.2.3</span> Functions in <code>R</code> (a refresher)</h3>
+<p>Functions are groups of related statements that perform a specific task, which help breaking a program into smaller and modular chunks. As programs grow larger and larger, functions make them more organized and manageable. Functions help avoiding repetition and makes code reusable.</p>
+<p>Most programming languages, <code>R</code> including, come with a lot of pre-defined—or built-in—functions. Essentially, all statements that take arguments in parentheses are functions. For instance, in the code chunk above, <code>read.delim()</code> is a function that takes as its arguments: 1) filename (or, path to a file); 2) encoding; 3) specifies that the file has a header; and 4) not using <code>"</code> as a special character. We can also write our own functions, which take care of sets of operations thet we tend to repeat again and again.</p>
+<p>Later, take a look at this <a href="https://campus.datacamp.com/courses/writing-functions-in-r/a-quick-refresher?ex=1">video by one of the key <code>R</code> developers</a>, and check this <a href="https://rpubs.com/williamsurles/292234">tutorial</a>.</p>
+<div id="Hypothenuse07" class="section level4" number="7.2.3.1">
+<h4><span class="header-section-number">7.2.3.1</span> Simple Function Example: Hypothenuse</h4>
+<p>(From <a href="https://en.wikipedia.org/wiki/Hypotenuse">Wikipedia</a>) In geometry, a <em>hypotenuse</em> is the longest side of a right-angled triangle, the side opposite the right angle. The length of the hypotenuse of a right triangle can be found using the Pythagorean theorem, which states that the square of the length of the hypotenuse equals the sum of the squares of the lengths of the other two sides (<em>catheti</em>). For example, if one of the other sides has a length of 3 (when squared, 9) and the other has a length of 4 (when squared, 16), then their squares add up to 25. The length of the hypotenuse is the square root of 25, that is, 5.</p>
+<p>Let’s write a function that takes lengths of catheti as arguments and returns the length of hypothenuse:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="text-analysis-i-basics.html#cb9-1" aria-hidden="true" tabindex="-1"></a>hypothenuse <span class="ot">&lt;-</span> <span class="cf">function</span>(cathetus1, cathetus2) {</span>
+<span id="cb9-2"><a href="text-analysis-i-basics.html#cb9-2" aria-hidden="true" tabindex="-1"></a>  hypothenuse<span class="ot">&lt;-</span> <span class="fu">sqrt</span>(cathetus1<span class="sc">*</span>cathetus1<span class="sc">+</span>cathetus2<span class="sc">*</span>cathetus2)</span>
+<span id="cb9-3"><a href="text-analysis-i-basics.html#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;In the triangle with catheti of length &quot;</span>,</span>
+<span id="cb9-4"><a href="text-analysis-i-basics.html#cb9-4" aria-hidden="true" tabindex="-1"></a>              cathetus1, <span class="st">&quot; and &quot;</span>, cathetus2, <span class="st">&quot;, the length of hypothenuse is &quot;</span>, hypothenuse))</span>
+<span id="cb9-5"><a href="text-analysis-i-basics.html#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(hypothenuse)</span>
+<span id="cb9-6"><a href="text-analysis-i-basics.html#cb9-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Let’s try a simple example:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="text-analysis-i-basics.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hypothenuse</span>(<span class="dv">3</span>,<span class="dv">4</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;In the triangle with catheti of length 3 and 4, the length of hypothenuse is 5&quot;</code></pre>
+<pre><code>## [1] 5</code></pre>
+<p>Let’s try a crazy example:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="text-analysis-i-basics.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hypothenuse</span>(<span class="dv">390</span>,<span class="dv">456</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;In the triangle with catheti of length 390 and 456, the length of hypothenuse is 600.029999250037&quot;</code></pre>
+<pre><code>## [1] 600.03</code></pre>
+</div>
 </div>
 </div>
 <div id="HW07" class="section level2" number="7.3">
