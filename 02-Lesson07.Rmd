@@ -69,9 +69,9 @@ Let's write a function that takes lengths of catheti as arguments and returns th
 ```{r}
 hypothenuse <- function(cathetus1, cathetus2) {
   hypothenuse<- sqrt(cathetus1*cathetus1+cathetus2*cathetus2)
-  print(paste0("In the triangle with catheti of length ",
-              cathetus1, " and ", cathetus2,
-              ", the length of hypothenuse is ",
+  print(paste("In the triangle with catheti of length",
+              cathetus1, "and", cathetus2,
+              ", the length of hypothenuse is",
               hypothenuse))
   return(hypothenuse)
 }

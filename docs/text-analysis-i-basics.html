@@ -24,7 +24,7 @@
 <meta name="author" content="Maxim G. Romanov" />
 
 
-<meta name="date" content="2022-06-03" />
+<meta name="date" content="2022-06-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -360,19 +360,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Let’s write a function that takes lengths of catheti as arguments and returns the length of hypothenuse:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="text-analysis-i-basics.html#cb9-1" aria-hidden="true" tabindex="-1"></a>hypothenuse <span class="ot">&lt;-</span> <span class="cf">function</span>(cathetus1, cathetus2) {</span>
 <span id="cb9-2"><a href="text-analysis-i-basics.html#cb9-2" aria-hidden="true" tabindex="-1"></a>  hypothenuse<span class="ot">&lt;-</span> <span class="fu">sqrt</span>(cathetus1<span class="sc">*</span>cathetus1<span class="sc">+</span>cathetus2<span class="sc">*</span>cathetus2)</span>
-<span id="cb9-3"><a href="text-analysis-i-basics.html#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;In the triangle with catheti of length &quot;</span>,</span>
-<span id="cb9-4"><a href="text-analysis-i-basics.html#cb9-4" aria-hidden="true" tabindex="-1"></a>              cathetus1, <span class="st">&quot; and &quot;</span>, cathetus2,</span>
-<span id="cb9-5"><a href="text-analysis-i-basics.html#cb9-5" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;, the length of hypothenuse is &quot;</span>,</span>
+<span id="cb9-3"><a href="text-analysis-i-basics.html#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;In the triangle with catheti of length&quot;</span>,</span>
+<span id="cb9-4"><a href="text-analysis-i-basics.html#cb9-4" aria-hidden="true" tabindex="-1"></a>              cathetus1, <span class="st">&quot;and&quot;</span>, cathetus2,</span>
+<span id="cb9-5"><a href="text-analysis-i-basics.html#cb9-5" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;, the length of hypothenuse is&quot;</span>,</span>
 <span id="cb9-6"><a href="text-analysis-i-basics.html#cb9-6" aria-hidden="true" tabindex="-1"></a>              hypothenuse))</span>
 <span id="cb9-7"><a href="text-analysis-i-basics.html#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(hypothenuse)</span>
 <span id="cb9-8"><a href="text-analysis-i-basics.html#cb9-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>Let’s try a simple example:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="text-analysis-i-basics.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hypothenuse</span>(<span class="dv">3</span>,<span class="dv">4</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;In the triangle with catheti of length 3 and 4, the length of hypothenuse is 5&quot;</code></pre>
+<pre><code>## [1] &quot;In the triangle with catheti of length 3 and 4 , the length of hypothenuse is 5&quot;</code></pre>
 <pre><code>## [1] 5</code></pre>
 <p>Let’s try a crazy example:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="text-analysis-i-basics.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hypothenuse</span>(<span class="dv">390</span>,<span class="dv">456</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;In the triangle with catheti of length 390 and 456, the length of hypothenuse is 600.029999250037&quot;</code></pre>
+<pre><code>## [1] &quot;In the triangle with catheti of length 390 and 456 , the length of hypothenuse is 600.029999250037&quot;</code></pre>
 <pre><code>## [1] 600.03</code></pre>
 <p>###$ More complex one: Cleaning Text</p>
 <p>Let’s say we want to clean up a text so that it is easier to analyze it: 1) convert everithing to lower case; 2) remove all non-alphanumeric characters; and 3) make sure that there are no multiple spaces:</p>
