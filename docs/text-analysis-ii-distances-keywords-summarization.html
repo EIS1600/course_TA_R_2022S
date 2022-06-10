@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>8 Text Analysis II: Distances, KEywords, Summarization | DH in AAS - TA with R (2022S)</title>
+  <meta name="description" content="This is a collection of relevant materials for the class ‘57-528 ONLINE S: Digital Humanities in African and Asian Studies: Text Analysis with R’ (2022S), offered at the University of Hamburg (Afrika-Asien Institut) and taught by Maxim G. Romanov" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="8 Text Analysis II: Distances, KEywords, Summarization | DH in AAS - TA with R (2022S)" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://eis1600.github.io/course_TA_R_2022S/" />
+  
+  <meta property="og:description" content="This is a collection of relevant materials for the class ‘57-528 ONLINE S: Digital Humanities in African and Asian Studies: Text Analysis with R’ (2022S), offered at the University of Hamburg (Afrika-Asien Institut) and taught by Maxim G. Romanov" />
+  <meta name="github-repo" content="EIS1600/course_TA_R_2022S" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="8 Text Analysis II: Distances, KEywords, Summarization | DH in AAS - TA with R (2022S)" />
+  
+  <meta name="twitter:description" content="This is a collection of relevant materials for the class ‘57-528 ONLINE S: Digital Humanities in African and Asian Studies: Text Analysis with R’ (2022S), offered at the University of Hamburg (Afrika-Asien Institut) and taught by Maxim G. Romanov" />
+  
+
+<meta name="author" content="Maxim G. Romanov" />
+
+
+<meta name="date" content="2022-06-10" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="touch-icon.png" />
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+<link rel="prev" href="text-analysis-i-basics.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">DH Methods for Middle Eastern Studies: Text Mining with R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Syllabus</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-details"><i class="fa fa-check"></i>Course Details</a></li>
+<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#aims-contents-and-method-of-the-course"><i class="fa fa-check"></i><b>0.1</b> Aims, Contents and Method of the Course</a></li>
+<li class="chapter" data-level="0.2" data-path="index.html"><a href="index.html#course-evaluation"><i class="fa fa-check"></i><b>0.2</b> Course Evaluation</a>
+<ul>
+<li class="chapter" data-level="0.2.1" data-path="index.html"><a href="index.html#datacamp"><i class="fa fa-check"></i><b>0.2.1</b> DataCamp</a></li>
+</ul></li>
+<li class="chapter" data-level="0.3" data-path="index.html"><a href="index.html#class-participation"><i class="fa fa-check"></i><b>0.3</b> Class Participation</a></li>
+<li class="chapter" data-level="0.4" data-path="index.html"><a href="index.html#homework"><i class="fa fa-check"></i><b>0.4</b> Homework</a></li>
+<li class="chapter" data-level="0.5" data-path="index.html"><a href="index.html#final-project"><i class="fa fa-check"></i><b>0.5</b> Final Project</a></li>
+<li class="chapter" data-level="0.6" data-path="index.html"><a href="index.html#practice-worksheets-r-notebooks"><i class="fa fa-check"></i><b>0.6</b> Practice Worksheets (R Notebooks)</a></li>
+<li class="chapter" data-level="0.7" data-path="index.html"><a href="index.html#additional-study-materials"><i class="fa fa-check"></i><b>0.7</b> Additional Study Materials</a></li>
+<li class="chapter" data-level="0.8" data-path="index.html"><a href="index.html#software-tools-technologies"><i class="fa fa-check"></i><b>0.8</b> Software, Tools, &amp; Technologies:</a></li>
+<li class="chapter" data-level="0.9" data-path="index.html"><a href="index.html#submitting-homework"><i class="fa fa-check"></i><b>0.9</b> Submitting Homework:</a>
+<ul>
+<li class="chapter" data-level="0.9.1" data-path="index.html"><a href="index.html#handouts-workbooks"><i class="fa fa-check"></i><b>0.9.1</b> Handouts / Workbooks</a></li>
+<li class="chapter" data-level="0.9.2" data-path="index.html"><a href="index.html#datacamp-assignments"><i class="fa fa-check"></i><b>0.9.2</b> DataCamp Assignments</a></li>
+</ul></li>
+<li class="chapter" data-level="0.10" data-path="index.html"><a href="index.html#schedule"><i class="fa fa-check"></i><b>0.10</b> Schedule</a></li>
+<li class="chapter" data-level="0.11" data-path="index.html"><a href="index.html#lesson-topics-subject-to-modifications"><i class="fa fa-check"></i><b>0.11</b> Lesson Topics (<em>subject to modifications</em>)</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="general-introduction.html"><a href="general-introduction.html"><i class="fa fa-check"></i><b>1</b> General Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="general-introduction.html"><a href="general-introduction.html#L01_goals"><i class="fa fa-check"></i><b>1.1</b> Goals</a></li>
+<li class="chapter" data-level="1.2" data-path="general-introduction.html"><a href="general-introduction.html#L01_sw"><i class="fa fa-check"></i><b>1.2</b> Software</a></li>
+<li class="chapter" data-level="1.3" data-path="general-introduction.html"><a href="general-introduction.html#L01_class"><i class="fa fa-check"></i><b>1.3</b> Class</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="general-introduction.html"><a href="general-introduction.html#installing-rmarkdown"><i class="fa fa-check"></i><b>1.3.1</b> Installing <code>rmarkdown</code></a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="general-introduction.html"><a href="general-introduction.html#starting-with-our-first-workbook"><i class="fa fa-check"></i><b>1.4</b> Starting with our first workbook:</a></li>
+<li class="chapter" data-level="1.5" data-path="general-introduction.html"><a href="general-introduction.html#L01_topics"><i class="fa fa-check"></i><b>1.5</b> Topics covered</a></li>
+<li class="chapter" data-level="1.6" data-path="general-introduction.html"><a href="general-introduction.html#L01_RM"><i class="fa fa-check"></i><b>1.6</b> Reference materials</a></li>
+<li class="chapter" data-level="1.7" data-path="general-introduction.html"><a href="general-introduction.html#L01_HW"><i class="fa fa-check"></i><b>1.7</b> Homework</a></li>
+<li class="chapter" data-level="1.8" data-path="general-introduction.html"><a href="general-introduction.html#L01_commonissues"><i class="fa fa-check"></i><b>1.8</b> Common issues with homework</a>
+<ul>
+<li class="chapter" data-level="1.8.1" data-path="general-introduction.html"><a href="general-introduction.html#tracing-errors"><i class="fa fa-check"></i><b>1.8.1</b> Tracing errors</a></li>
+<li class="chapter" data-level="1.8.2" data-path="general-introduction.html"><a href="general-introduction.html#comments-commenting-out"><i class="fa fa-check"></i><b>1.8.2</b> Comments / Commenting out</a></li>
+<li class="chapter" data-level="1.8.3" data-path="general-introduction.html"><a href="general-introduction.html#random-errors"><i class="fa fa-check"></i><b>1.8.3</b> Random errors:</a></li>
+</ul></li>
+<li class="chapter" data-level="1.9" data-path="general-introduction.html"><a href="general-introduction.html#L01_SHW"><i class="fa fa-check"></i><b>1.9</b> Submitting homework</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="basics-i-main-data-structures-in-r.html"><a href="basics-i-main-data-structures-in-r.html"><i class="fa fa-check"></i><b>2</b> Basics I: Main data structures in R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="basics-i-main-data-structures-in-r.html"><a href="basics-i-main-data-structures-in-r.html#goals02"><i class="fa fa-check"></i><b>2.1</b> Goals</a></li>
+<li class="chapter" data-level="2.2" data-path="basics-i-main-data-structures-in-r.html"><a href="basics-i-main-data-structures-in-r.html#soft02"><i class="fa fa-check"></i><b>2.2</b> Software</a></li>
+<li class="chapter" data-level="2.3" data-path="basics-i-main-data-structures-in-r.html"><a href="basics-i-main-data-structures-in-r.html#cLass02"><i class="fa fa-check"></i><b>2.3</b> Class</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="basics-i-main-data-structures-in-r.html"><a href="basics-i-main-data-structures-in-r.html#topics02"><i class="fa fa-check"></i><b>2.3.1</b> Topics: Data Structures &amp; Types</a></li>
+<li class="chapter" data-level="2.3.2" data-path="basics-i-main-data-structures-in-r.html"><a href="basics-i-main-data-structures-in-r.html#additional_notes_02"><i class="fa fa-check"></i><b>2.3.2</b> Additional notes</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="basics-i-main-data-structures-in-r.html"><a href="basics-i-main-data-structures-in-r.html#RM02"><i class="fa fa-check"></i><b>2.4</b> Reference materials</a></li>
+<li class="chapter" data-level="2.5" data-path="basics-i-main-data-structures-in-r.html"><a href="basics-i-main-data-structures-in-r.html#HW02"><i class="fa fa-check"></i><b>2.5</b> Homework</a></li>
+<li class="chapter" data-level="2.6" data-path="basics-i-main-data-structures-in-r.html"><a href="basics-i-main-data-structures-in-r.html#L02_SHW"><i class="fa fa-check"></i><b>2.6</b> Submitting homework</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="basics-ii-data-manipulation-exloratory-analysis.html"><a href="basics-ii-data-manipulation-exloratory-analysis.html"><i class="fa fa-check"></i><b>3</b> Basics II: Data Manipulation &amp; Exloratory Analysis</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="basics-ii-data-manipulation-exloratory-analysis.html"><a href="basics-ii-data-manipulation-exloratory-analysis.html#goals03"><i class="fa fa-check"></i><b>3.1</b> Goals</a></li>
+<li class="chapter" data-level="3.2" data-path="basics-ii-data-manipulation-exloratory-analysis.html"><a href="basics-ii-data-manipulation-exloratory-analysis.html#soft03"><i class="fa fa-check"></i><b>3.2</b> Software</a></li>
+<li class="chapter" data-level="3.3" data-path="basics-ii-data-manipulation-exloratory-analysis.html"><a href="basics-ii-data-manipulation-exloratory-analysis.html#cLass03"><i class="fa fa-check"></i><b>3.3</b> Class</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="basics-ii-data-manipulation-exloratory-analysis.html"><a href="basics-ii-data-manipulation-exloratory-analysis.html#topics03"><i class="fa fa-check"></i><b>3.3.1</b> Topics</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="basics-ii-data-manipulation-exloratory-analysis.html"><a href="basics-ii-data-manipulation-exloratory-analysis.html#RM03"><i class="fa fa-check"></i><b>3.4</b> Reference materials</a></li>
+<li class="chapter" data-level="3.5" data-path="basics-ii-data-manipulation-exloratory-analysis.html"><a href="basics-ii-data-manipulation-exloratory-analysis.html#HW03"><i class="fa fa-check"></i><b>3.5</b> Homework</a></li>
+<li class="chapter" data-level="3.6" data-path="basics-ii-data-manipulation-exloratory-analysis.html"><a href="basics-ii-data-manipulation-exloratory-analysis.html#SHW03"><i class="fa fa-check"></i><b>3.6</b> Submitting homework</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="basics-iii-data-visualization-functions.html"><a href="basics-iii-data-visualization-functions.html"><i class="fa fa-check"></i><b>4</b> Basics III: Data Visualization; Functions</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="basics-iii-data-visualization-functions.html"><a href="basics-iii-data-visualization-functions.html#goals04"><i class="fa fa-check"></i><b>4.1</b> Goals</a></li>
+<li class="chapter" data-level="4.2" data-path="basics-iii-data-visualization-functions.html"><a href="basics-iii-data-visualization-functions.html#soft04"><i class="fa fa-check"></i><b>4.2</b> Software</a></li>
+<li class="chapter" data-level="4.3" data-path="basics-iii-data-visualization-functions.html"><a href="basics-iii-data-visualization-functions.html#cLass04"><i class="fa fa-check"></i><b>4.3</b> Class</a></li>
+<li class="chapter" data-level="4.4" data-path="basics-iii-data-visualization-functions.html"><a href="basics-iii-data-visualization-functions.html#topics04"><i class="fa fa-check"></i><b>4.4</b> Topics</a></li>
+<li class="chapter" data-level="4.5" data-path="basics-iii-data-visualization-functions.html"><a href="basics-iii-data-visualization-functions.html#RM04"><i class="fa fa-check"></i><b>4.5</b> Reference materials</a></li>
+<li class="chapter" data-level="4.6" data-path="basics-iii-data-visualization-functions.html"><a href="basics-iii-data-visualization-functions.html#HW04"><i class="fa fa-check"></i><b>4.6</b> Homework</a></li>
+<li class="chapter" data-level="4.7" data-path="basics-iii-data-visualization-functions.html"><a href="basics-iii-data-visualization-functions.html#SHW04"><i class="fa fa-check"></i><b>4.7</b> Submitting homework</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html"><i class="fa fa-check"></i><b>5</b> Data I: Collecting, Organizing, Creating</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#goals05"><i class="fa fa-check"></i><b>5.1</b> Goals</a></li>
+<li class="chapter" data-level="5.2" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#soft05"><i class="fa fa-check"></i><b>5.2</b> Software</a></li>
+<li class="chapter" data-level="5.3" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#CA05"><i class="fa fa-check"></i><b>5.3</b> In Class I: <em>Theoretical and Conceptual</em></a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#CaA05"><i class="fa fa-check"></i><b>5.3.1</b> Ways of obtaining data</a></li>
+<li class="chapter" data-level="5.3.2" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#CbA05"><i class="fa fa-check"></i><b>5.3.2</b> Main format</a></li>
+<li class="chapter" data-level="5.3.3" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#CdA05"><i class="fa fa-check"></i><b>5.3.3</b> Basic principles of organizing data: <em>Tidy Data</em></a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#CB05"><i class="fa fa-check"></i><b>5.4</b> In Class II: <em>Practical</em></a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#CaB05"><i class="fa fa-check"></i><b>5.4.1</b> Morris Dataset: <em>the East Vs. the West</em></a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#OCR05"><i class="fa fa-check"></i><b>5.5</b> OCR in R</a></li>
+<li class="chapter" data-level="5.6" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#rm05"><i class="fa fa-check"></i><b>5.6</b> Reference Materials:</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#rmA05"><i class="fa fa-check"></i><b>5.6.1</b> Additional</a></li>
+<li class="chapter" data-level="5.6.2" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#rmB05"><i class="fa fa-check"></i><b>5.6.2</b> Additional Readings</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#HW05"><i class="fa fa-check"></i><b>5.7</b> Homework</a></li>
+<li class="chapter" data-level="5.8" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#SHW05"><i class="fa fa-check"></i><b>5.8</b> Submitting homework</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="data-ii-modeling-manipulating.html"><a href="data-ii-modeling-manipulating.html"><i class="fa fa-check"></i><b>6</b> Data II: Modeling &amp; Manipulating</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="data-ii-modeling-manipulating.html"><a href="data-ii-modeling-manipulating.html#goals06"><i class="fa fa-check"></i><b>6.1</b> Goals:</a></li>
+<li class="chapter" data-level="6.2" data-path="data-ii-modeling-manipulating.html"><a href="data-ii-modeling-manipulating.html#soft06"><i class="fa fa-check"></i><b>6.2</b> Software:</a></li>
+<li class="chapter" data-level="6.3" data-path="data-ii-modeling-manipulating.html"><a href="data-ii-modeling-manipulating.html#InClassI06"><i class="fa fa-check"></i><b>6.3</b> In Class I: <em>Theoretical and Conceptual</em></a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="data-ii-modeling-manipulating.html"><a href="data-ii-modeling-manipulating.html#DM06"><i class="fa fa-check"></i><b>6.3.1</b> Ways of modeling data: Categorization</a></li>
+<li class="chapter" data-level="6.3.2" data-path="data-ii-modeling-manipulating.html"><a href="data-ii-modeling-manipulating.html#Norm06"><i class="fa fa-check"></i><b>6.3.2</b> Normalization</a></li>
+<li class="chapter" data-level="6.3.3" data-path="data-ii-modeling-manipulating.html"><a href="data-ii-modeling-manipulating.html#Proxies06"><i class="fa fa-check"></i><b>6.3.3</b> Note: <em>Proxies</em>, <em>Features</em>, <em>Abstractions</em></a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="data-ii-modeling-manipulating.html"><a href="data-ii-modeling-manipulating.html#InClassII06"><i class="fa fa-check"></i><b>6.4</b> In Class II: <em>Practical</em></a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="data-ii-modeling-manipulating.html"><a href="data-ii-modeling-manipulating.html#Si06"><i class="fa fa-check"></i><b>6.4.1</b> SECTION I.</a></li>
+<li class="chapter" data-level="6.4.2" data-path="data-ii-modeling-manipulating.html"><a href="data-ii-modeling-manipulating.html#Sii06"><i class="fa fa-check"></i><b>6.4.2</b> SECTION II</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="data-ii-modeling-manipulating.html"><a href="data-ii-modeling-manipulating.html#RM06"><i class="fa fa-check"></i><b>6.5</b> Reference Materials</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="data-ii-modeling-manipulating.html"><a href="data-ii-modeling-manipulating.html#AR06"><i class="fa fa-check"></i><b>6.5.1</b> Additional Readings</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="data-ii-modeling-manipulating.html"><a href="data-ii-modeling-manipulating.html#HW06"><i class="fa fa-check"></i><b>6.6</b> Homework</a></li>
+<li class="chapter" data-level="6.7" data-path="data-ii-modeling-manipulating.html"><a href="data-ii-modeling-manipulating.html#SHW06"><i class="fa fa-check"></i><b>6.7</b> Submitting homework</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html"><i class="fa fa-check"></i><b>7</b> Text Analysis I: Basics</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#goals07"><i class="fa fa-check"></i><b>7.1</b> Goals</a></li>
+<li class="chapter" data-level="7.2" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#Prelim07"><i class="fa fa-check"></i><b>7.2</b> Preliminaries</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#Data07"><i class="fa fa-check"></i><b>7.2.1</b> Data</a></li>
+<li class="chapter" data-level="7.2.2" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#Lib07"><i class="fa fa-check"></i><b>7.2.2</b> Libraries</a></li>
+<li class="chapter" data-level="7.2.3" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#functions07"><i class="fa fa-check"></i><b>7.2.3</b> Functions in <code>R</code> (a refresher)</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#texts-and-text-analysis"><i class="fa fa-check"></i><b>7.3</b> Texts and Text Analysis</a></li>
+<li class="chapter" data-level="7.4" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#word-frequencies-and-word-clouds"><i class="fa fa-check"></i><b>7.4</b> Word Frequencies and Word Clouds</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#word-frequencies"><i class="fa fa-check"></i><b>7.4.1</b> Word Frequencies</a></li>
+<li class="chapter" data-level="7.4.2" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#wordclouds"><i class="fa fa-check"></i><b>7.4.2</b> Wordclouds</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#word-distribution-plots"><i class="fa fa-check"></i><b>7.5</b> Word Distribution Plots</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#simple-a-star-wars-example"><i class="fa fa-check"></i><b>7.5.1</b> Simple — a Star Wars Example</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#word-distribution-plots-with-frequencies-over-time"><i class="fa fa-check"></i><b>7.6</b> Word Distribution Plots: With Frequencies Over Time</a></li>
+<li class="chapter" data-level="7.7" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#kwic-keywords-in-context"><i class="fa fa-check"></i><b>7.7</b> KWIC: Keywords-in-Context</a></li>
+<li class="chapter" data-level="7.8" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#HW07"><i class="fa fa-check"></i><b>7.8</b> Homework</a></li>
+<li class="chapter" data-level="7.9" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#SHW07"><i class="fa fa-check"></i><b>7.9</b> Submitting homework</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="text-analysis-ii-distances-keywords-summarization.html"><a href="text-analysis-ii-distances-keywords-summarization.html"><i class="fa fa-check"></i><b>8</b> Text Analysis II: Distances, KEywords, Summarization</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="text-analysis-ii-distances-keywords-summarization.html"><a href="text-analysis-ii-distances-keywords-summarization.html#goals08"><i class="fa fa-check"></i><b>8.1</b> Goals</a></li>
+<li class="chapter" data-level="8.2" data-path="text-analysis-ii-distances-keywords-summarization.html"><a href="text-analysis-ii-distances-keywords-summarization.html#Prelim08"><i class="fa fa-check"></i><b>8.2</b> Preliminaries</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="text-analysis-ii-distances-keywords-summarization.html"><a href="text-analysis-ii-distances-keywords-summarization.html#Data08"><i class="fa fa-check"></i><b>8.2.1</b> Data</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="text-analysis-ii-distances-keywords-summarization.html"><a href="text-analysis-ii-distances-keywords-summarization.html#docsim08"><i class="fa fa-check"></i><b>8.3</b> Document similarity/distance measures: <code>text2vec</code> library</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="text-analysis-ii-distances-keywords-summarization.html"><a href="text-analysis-ii-distances-keywords-summarization.html#distance-measures-jaccard-index-cosine-similarity-euclidean-distance"><i class="fa fa-check"></i><b>8.3.1</b> Distance Measures: Jaccard index, Cosine similarity, Euclidean distance</a></li>
+<li class="chapter" data-level="8.3.2" data-path="text-analysis-ii-distances-keywords-summarization.html"><a href="text-analysis-ii-distances-keywords-summarization.html#now-lets-run-this-on-dispatch"><i class="fa fa-check"></i><b>8.3.2</b> Now, let’s run this on “Dispatch”</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="text-analysis-ii-distances-keywords-summarization.html"><a href="text-analysis-ii-distances-keywords-summarization.html#HW08"><i class="fa fa-check"></i><b>8.4</b> Homework</a></li>
+<li class="chapter" data-level="8.5" data-path="text-analysis-ii-distances-keywords-summarization.html"><a href="text-analysis-ii-distances-keywords-summarization.html#SHW08"><i class="fa fa-check"></i><b>8.5</b> Submitting homework</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">DH in AAS - TA with R (2022S)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="text-analysis-ii-distances-keywords-summarization" class="section level1" number="8">
+<h1><span class="header-section-number">8</span> Text Analysis II: Distances, KEywords, Summarization</h1>
+<div id="goals08" class="section level2" number="8.1">
+<h2><span class="header-section-number">8.1</span> Goals</h2>
+<ul>
+<li>similarity distances;</li>
+<li>keyword extraction (tf-idf);</li>
+<li>text summarization techniques; similarity distances;</li>
+</ul>
+</div>
+<div id="Prelim08" class="section level2" number="8.2">
+<h2><span class="header-section-number">8.2</span> Preliminaries</h2>
+<div id="Data08" class="section level3" number="8.2.1">
+<h3><span class="header-section-number">8.2.1</span> Data</h3>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb56-1" aria-hidden="true" tabindex="-1"></a>prep_fun <span class="ot">=</span> <span class="cf">function</span>(x) {</span>
+<span id="cb56-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb56-2" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">%&gt;%</span> </span>
+<span id="cb56-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb56-3" aria-hidden="true" tabindex="-1"></a>    str_to_lower <span class="sc">%&gt;%</span> <span class="co"># make text lower case</span></span>
+<span id="cb56-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb56-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_replace_all</span>(<span class="st">&quot;[^[:alnum:]]&quot;</span>, <span class="st">&quot; &quot;</span>) <span class="sc">%&gt;%</span> <span class="co"># remove non-alphanumeric symbols</span></span>
+<span id="cb56-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb56-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_replace_all</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">s+&quot;</span>, <span class="st">&quot; &quot;</span>) <span class="co"># collapse multiple spaces</span></span>
+<span id="cb56-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb56-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb57-1" aria-hidden="true" tabindex="-1"></a>pathToFiles <span class="ot">=</span> <span class="st">&quot;./files/data/&quot;</span></span>
+<span id="cb57-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb57-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb57-3" aria-hidden="true" tabindex="-1"></a>d1862 <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="fu">paste0</span>(pathToFiles, <span class="st">&quot;dispatch_1862.tsv&quot;</span>), <span class="at">encoding=</span><span class="st">&quot;UTF-8&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">quote=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<p>The following are the libraries that we will need for this section. Install those that you do not have yet.</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;tidyverse&quot;, &quot;readr&quot;, &quot;stringr&quot;, &quot;text2vec&quot;)</span></span>
+<span id="cb58-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;tidytext&quot;, &quot;wordcloud&quot;, &quot;RColorBrewer&quot;&quot;, &quot;quanteda&quot;, &quot;readtext&quot;, &quot;igraph&quot;)</span></span>
+<span id="cb58-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb58-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="co"># General ones </span></span>
+<span id="cb58-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb58-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb58-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb58-7"><a href="text-analysis-ii-distances-keywords-summarization.html#cb58-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;RColorBrewer&quot;</span>)</span>
+<span id="cb58-8"><a href="text-analysis-ii-distances-keywords-summarization.html#cb58-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-9"><a href="text-analysis-ii-distances-keywords-summarization.html#cb58-9" aria-hidden="true" tabindex="-1"></a><span class="co"># text analysis specific</span></span>
+<span id="cb58-10"><a href="text-analysis-ii-distances-keywords-summarization.html#cb58-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb58-11"><a href="text-analysis-ii-distances-keywords-summarization.html#cb58-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(text2vec)</span>
+<span id="cb58-12"><a href="text-analysis-ii-distances-keywords-summarization.html#cb58-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
+<span id="cb58-13"><a href="text-analysis-ii-distances-keywords-summarization.html#cb58-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wordcloud)</span>
+<span id="cb58-14"><a href="text-analysis-ii-distances-keywords-summarization.html#cb58-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda)</span>
+<span id="cb58-15"><a href="text-analysis-ii-distances-keywords-summarization.html#cb58-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readtext)</span>
+<span id="cb58-16"><a href="text-analysis-ii-distances-keywords-summarization.html#cb58-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span></code></pre></div>
+</div>
+</div>
+<div id="docsim08" class="section level2" number="8.3">
+<h2><span class="header-section-number">8.3</span> Document similarity/distance measures: <code>text2vec</code> library</h2>
+<p>Document similarity—or distance—measures are valuable for a variety of tasks, such as identification of texts with similar (or the same) content. Let’s just filter it down to some sample that would not take too much time to process. We also need to clean up our texts for better calculations.</p>
+<div id="distance-measures-jaccard-index-cosine-similarity-euclidean-distance" class="section level3" number="8.3.1">
+<h3><span class="header-section-number">8.3.1</span> Distance Measures: Jaccard index, Cosine similarity, Euclidean distance</h3>
+<p>The <code>text2vec</code> library can calculate a several different kinds of distances (details: <a href="http://text2vec.org/similarity.html" class="uri">http://text2vec.org/similarity.html</a>): Jaccard, cosine, and Euclidean.</p>
+<div id="jaccard-similarityindex" class="section level4" number="8.3.1.1">
+<h4><span class="header-section-number">8.3.1.1</span> <em>Jaccard similarity/index</em></h4>
+<p>is a simple measure of similarity based on the comparison of two sets, namely, as the proportion of the number of common words to the number of unique words in both documents. Jaccard similarity takes only unique set of words for each sentence/document (<a href="https://en.wikipedia.org/wiki/Jaccard_index" class="uri">https://en.wikipedia.org/wiki/Jaccard_index</a>). <em>Jaccard index</em> is commonly used to find text that deal with the same subjects (share same vocabulary — frequencies of words have no effect on this measure)</p>
+<p>Jaccard similarity measures the similarity between two nominal attributes by taking the intersection of both and divide it by their union.</p>
+</div>
+<div id="cosine-similarity" class="section level4" number="8.3.1.2">
+<h4><span class="header-section-number">8.3.1.2</span> <em>Cosine similarity</em></h4>
+<p>another approach that measures similarity based on the content overlap between documents: each document is represented as a bag-of-words and as a sparse vector; the measure of overlap is defined as angle between vectors. <em>Cosine similarity</em> is better when we compare texts of varied length (angle of vectors, instead of distance). (<a href="https://en.wikipedia.org/wiki/Cosine_similarity" class="uri">https://en.wikipedia.org/wiki/Cosine_similarity</a>)</p>
+<p>Cosine similarity measures the similarity between two vectors by taking the cosine of the angle the two vectors make in their dot product space. If the angle is zero, their similarity is one, the larger the angle is, the smaller their similarity. The measure is independent of vector length.</p>
+</div>
+<div id="euclidean-distance" class="section level4" number="8.3.1.3">
+<h4><span class="header-section-number">8.3.1.3</span> <em>Euclidean distance</em></h4>
+<p>one of the most common measures—a straight-line distance between two points in Euclidian space; based on word frequencies and most commonly used to find duplicates (<a href="https://en.wikipedia.org/wiki/Euclidean_distance" class="uri">https://en.wikipedia.org/wiki/Euclidean_distance</a>).</p>
+<p><strong>NB</strong>: more detailed explanations, see <a href="https://cmry.github.io/notes/euclidean-v-cosine" class="uri">https://cmry.github.io/notes/euclidean-v-cosine</a></p>
+</div>
+<div id="testing" class="section level4" number="8.3.1.4">
+<h4><span class="header-section-number">8.3.1.4</span> Testing…</h4>
+<p>Let’s try a small and simple example first.</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb59-1" aria-hidden="true" tabindex="-1"></a>sentences <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;The Caliph arrived to Baghdad from Mecca&quot;</span>,</span>
+<span id="cb59-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb59-2" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;The Caliph arrived to Mecca from Baghdad.&quot;</span>,</span>
+<span id="cb59-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb59-3" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;The Caliph arrived from Mecca to Baghdad. The Caliph arrived from Baghdad to Mecca.&quot;</span>,</span>
+<span id="cb59-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb59-4" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;The Caliph arrived to Baghdad from Mecca. The Caliph arrived. The Caliph arrived. The Caliph arrived.&quot;</span>,</span>
+<span id="cb59-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb59-5" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;The Caliph arrived to Baghdad from Mecca. The Caliph returned to Mecca from Baghdad&quot;</span>,</span>
+<span id="cb59-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb59-6" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;The Caliph arrived from Mecca to Baghdad, and then returned to Mecca&quot;</span>,</span>
+<span id="cb59-7"><a href="text-analysis-ii-distances-keywords-summarization.html#cb59-7" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;The vezier arrived from Isbahan to Mecca. The Caliph Caliph Caliph returned from Mecca to Baghdad Baghdad Baghdad.&quot;</span>)</span>
+<span id="cb59-8"><a href="text-analysis-ii-distances-keywords-summarization.html#cb59-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-9"><a href="text-analysis-ii-distances-keywords-summarization.html#cb59-9" aria-hidden="true" tabindex="-1"></a>testDF <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="st">&quot;ID&quot;</span> <span class="ot">=</span> <span class="fu">as.character</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(sentences)), <span class="st">&quot;TEXT&quot;</span> <span class="ot">=</span> sentences)</span>
+<span id="cb59-10"><a href="text-analysis-ii-distances-keywords-summarization.html#cb59-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-11"><a href="text-analysis-ii-distances-keywords-summarization.html#cb59-11" aria-hidden="true" tabindex="-1"></a>testDF<span class="sc">$</span>TEXT <span class="ot">&lt;-</span> <span class="fu">prep_fun</span>(testDF<span class="sc">$</span>TEXT)</span></code></pre></div>
+<p>Now, converting to <code>text2vec</code> format:</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># shared vector space</span></span>
+<span id="cb60-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb60-2" aria-hidden="true" tabindex="-1"></a>it <span class="ot">=</span> <span class="fu">itoken</span>(<span class="fu">as.vector</span>(testDF<span class="sc">$</span>TEXT))</span>
+<span id="cb60-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb60-3" aria-hidden="true" tabindex="-1"></a>v <span class="ot">=</span> <span class="fu">create_vocabulary</span>(it)</span>
+<span id="cb60-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb60-4" aria-hidden="true" tabindex="-1"></a>vectorizer <span class="ot">=</span> <span class="fu">vocab_vectorizer</span>(v)</span>
+<span id="cb60-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb60-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb60-6" aria-hidden="true" tabindex="-1"></a><span class="co"># creating matrices</span></span>
+<span id="cb60-7"><a href="text-analysis-ii-distances-keywords-summarization.html#cb60-7" aria-hidden="true" tabindex="-1"></a>sparseMatrix <span class="ot">=</span> <span class="fu">create_dtm</span>(it, vectorizer)</span>
+<span id="cb60-8"><a href="text-analysis-ii-distances-keywords-summarization.html#cb60-8" aria-hidden="true" tabindex="-1"></a>denseMatrix <span class="ot">=</span> <span class="fu">as.matrix</span>(sparseMatrix)</span></code></pre></div>
+<p>Let’s take a look inside:</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb61-1" aria-hidden="true" tabindex="-1"></a>denseMatrix</span></code></pre></div>
+<pre><code>##   and isbahan then vezier returned from arrived baghdad mecca to the caliph
+## 1   0       0    0      0        0    1       1       1     1  1   1      1
+## 2   0       0    0      0        0    1       1       1     1  1   1      1
+## 3   0       0    0      0        0    2       2       2     2  2   2      2
+## 4   0       0    0      0        0    1       4       1     1  1   4      4
+## 5   0       0    0      0        1    2       1       2     2  2   2      2
+## 6   1       0    1      0        1    1       1       1     2  2   1      1
+## 7   0       1    0      1        1    2       1       3     2  2   2      3</code></pre>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb63-1" aria-hidden="true" tabindex="-1"></a>sparseMatrix</span></code></pre></div>
+<pre><code>## 7 x 12 sparse Matrix of class &quot;dgCMatrix&quot;</code></pre>
+<pre><code>##    [[ suppressing 12 column names &#39;and&#39;, &#39;isbahan&#39;, &#39;then&#39; ... ]]</code></pre>
+<pre><code>##                          
+## 1 . . . . . 1 1 1 1 1 1 1
+## 2 . . . . . 1 1 1 1 1 1 1
+## 3 . . . . . 2 2 2 2 2 2 2
+## 4 . . . . . 1 4 1 1 1 4 4
+## 5 . . . . 1 2 1 2 2 2 2 2
+## 6 1 . 1 . 1 1 1 1 2 2 1 1
+## 7 . 1 . 1 1 2 1 3 2 2 2 3</code></pre>
+<p>Let’s generate our distance matrices:</p>
+<p>Now, let’s check against the actual sentences:</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb67-1" aria-hidden="true" tabindex="-1"></a>testDF<span class="sc">$</span>TEXT</span></code></pre></div>
+<pre><code>## [1] &quot;the caliph arrived to baghdad from mecca&quot;                                                                         
+## [2] &quot;the caliph arrived to mecca from baghdad &quot;                                                                        
+## [3] &quot;the caliph arrived from mecca to baghdad the caliph arrived from baghdad to mecca &quot;                               
+## [4] &quot;the caliph arrived to baghdad from mecca the caliph arrived the caliph arrived the caliph arrived &quot;               
+## [5] &quot;the caliph arrived to baghdad from mecca the caliph returned to mecca from baghdad&quot;                               
+## [6] &quot;the caliph arrived from mecca to baghdad and then returned to mecca&quot;                                              
+## [7] &quot;the vezier arrived from isbahan to mecca the caliph caliph caliph returned from mecca to baghdad baghdad baghdad &quot;</code></pre>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;JACCARD: 1 is full match&quot;</span>); jaccardMatrix</span></code></pre></div>
+<pre><code>## [1] &quot;JACCARD: 1 is full match&quot;</code></pre>
+<pre><code>## 7 x 7 sparse Matrix of class &quot;dgCMatrix&quot;
+##       1     2     3     4     5         6         7
+## 1 1.000 1.000 1.000 1.000 0.875 0.7000000 0.7000000
+## 2 1.000 1.000 1.000 1.000 0.875 0.7000000 0.7000000
+## 3 1.000 1.000 1.000 1.000 0.875 0.7000000 0.7000000
+## 4 1.000 1.000 1.000 1.000 0.875 0.7000000 0.7000000
+## 5 0.875 0.875 0.875 0.875 1.000 0.8000000 0.8000000
+## 6 0.700 0.700 0.700 0.700 0.800 1.0000000 0.6666667
+## 7 0.700 0.700 0.700 0.700 0.800 0.6666667 1.0000000</code></pre>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;COSINE: 1 is full match&quot;</span>); cosineMatrix</span></code></pre></div>
+<pre><code>## [1] &quot;COSINE: 1 is full match&quot;</code></pre>
+<pre><code>## 7 x 7 sparse Matrix of class &quot;dgCMatrix&quot;
+##           1         2         3         4         5         6         7
+## 1 1.0000000 1.0000000 1.0000000 0.8386279 0.9636241 0.8504201 0.9197090
+## 2 1.0000000 1.0000000 1.0000000 0.8386279 0.9636241 0.8504201 0.9197090
+## 3 1.0000000 1.0000000 1.0000000 0.8386279 0.9636241 0.8504201 0.9197090
+## 4 0.8386279 0.8386279 0.8386279 1.0000000 0.7614996 0.6240377 0.7423701
+## 5 0.9636241 0.9636241 0.9636241 0.7614996 1.0000000 0.8825226 0.9544271
+## 6 0.8504201 0.8504201 0.8504201 0.6240377 0.8825226 1.0000000 0.8111071
+## 7 0.9197090 0.9197090 0.9197090 0.7423701 0.9544271 0.8111071 1.0000000</code></pre>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;EUCLIDEAN: 0 is full match&quot;</span>); euclideanMatrix</span></code></pre></div>
+<pre><code>## [1] &quot;EUCLIDEAN: 0 is full match&quot;</code></pre>
+<pre><code>##           [,1]      [,2]      [,3]      [,4]      [,5]      [,6]      [,7]
+## [1,] 0.0000000 0.0000000 0.0000000 0.5681059 0.2697254 0.5469551 0.4007268
+## [2,] 0.0000000 0.0000000 0.0000000 0.5681059 0.2697254 0.5469551 0.4007268
+## [3,] 0.0000000 0.0000000 0.0000000 0.5681059 0.2697254 0.5469551 0.4007268
+## [4,] 0.5681059 0.5681059 0.5681059 0.0000000 0.6906524 0.8671358 0.7178160
+## [5,] 0.2697254 0.2697254 0.2697254 0.6906524 0.0000000 0.4847213 0.3019035
+## [6,] 0.5469551 0.5469551 0.5469551 0.8671358 0.4847213 0.0000000 0.6146428
+## [7,] 0.4007268 0.4007268 0.4007268 0.7178160 0.3019035 0.6146428 0.0000000</code></pre>
+<p>All three distances tell us that 1, 2, and 3 are the “same”. But when it comes to 4, the situation changes: Jaccard is most efficient, then Cosine, and Euclidean is least useful. If we want to find both 1 and 7, Cosine is the most effective, and Euclidean is the least effective.</p>
+<p>Perhaps: Jaccard &gt; overlap; Cosine &gt; similarity; Euclidean &gt; exactness?
+Additional read: <a href="https://cmry.github.io/notes/euclidean-v-cosine" class="uri">https://cmry.github.io/notes/euclidean-v-cosine</a> (although <code>python</code> is used here)</p>
+</div>
+</div>
+<div id="now-lets-run-this-on-dispatch" class="section level3" number="8.3.2">
+<h3><span class="header-section-number">8.3.2</span> Now, let’s run this on “Dispatch”</h3>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb78-1" aria-hidden="true" tabindex="-1"></a>sample_d1862 <span class="ot">&lt;-</span> d1862 <span class="sc">%&gt;%</span></span>
+<span id="cb78-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb78-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(type<span class="sc">==</span><span class="st">&quot;advert&quot;</span>)</span>
+<span id="cb78-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb78-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb78-4" aria-hidden="true" tabindex="-1"></a>sample_d1862<span class="sc">$</span>text <span class="ot">&lt;-</span> <span class="fu">prep_fun</span>(sample_d1862<span class="sc">$</span>text)</span>
+<span id="cb78-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb78-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb78-6" aria-hidden="true" tabindex="-1"></a><span class="co"># shared vector space</span></span>
+<span id="cb78-7"><a href="text-analysis-ii-distances-keywords-summarization.html#cb78-7" aria-hidden="true" tabindex="-1"></a>it <span class="ot">=</span> <span class="fu">itoken</span>(<span class="fu">as.vector</span>(sample_d1862<span class="sc">$</span>text))</span>
+<span id="cb78-8"><a href="text-analysis-ii-distances-keywords-summarization.html#cb78-8" aria-hidden="true" tabindex="-1"></a>v <span class="ot">=</span> <span class="fu">create_vocabulary</span>(it) <span class="sc">%&gt;%</span></span>
+<span id="cb78-9"><a href="text-analysis-ii-distances-keywords-summarization.html#cb78-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prune_vocabulary</span>(<span class="at">term_count_min =</span> <span class="dv">3</span>) <span class="co"># </span></span>
+<span id="cb78-10"><a href="text-analysis-ii-distances-keywords-summarization.html#cb78-10" aria-hidden="true" tabindex="-1"></a>vectorizer <span class="ot">=</span> <span class="fu">vocab_vectorizer</span>(v)</span></code></pre></div>
+<p><code>prune_vocabulary()</code> is a useful function if you work with a large corpus; using <code>term_count_min=</code> would allow to remove low frequency vocabulary from our vector space and lighten up calculations.</p>
+<p>Now, we need to create a document-feature matrix:</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb79-1" aria-hidden="true" tabindex="-1"></a>dtmD <span class="ot">=</span> <span class="fu">create_dtm</span>(it, vectorizer)</span></code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb80-1" aria-hidden="true" tabindex="-1"></a>jaccardMatrix <span class="ot">=</span> <span class="fu">sim2</span>(dtmD, dtmD, <span class="at">method =</span> <span class="st">&quot;jaccard&quot;</span>, <span class="at">norm =</span> <span class="st">&quot;none&quot;</span>)</span>
+<span id="cb80-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb80-2" aria-hidden="true" tabindex="-1"></a>jaccardMatrix<span class="sc">@</span>Dimnames[[<span class="dv">1</span>]] <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(sample_d1862<span class="sc">$</span>id)</span>
+<span id="cb80-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb80-3" aria-hidden="true" tabindex="-1"></a>jaccardMatrix<span class="sc">@</span>Dimnames[[<span class="dv">2</span>]] <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(sample_d1862<span class="sc">$</span>id)</span></code></pre></div>
+<p>Let’s take a look at a small section of our matrix. Can you read it? How should this data look in tidy format?</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb81-1" aria-hidden="true" tabindex="-1"></a>jaccardMatrix[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span></code></pre></div>
+<pre><code>## 4 x 2 sparse Matrix of class &quot;dgCMatrix&quot;
+##                       1862-04-22_advert_244 1862-04-22_advert_245
+## 1862-04-22_advert_244            1.00000000            0.05063291
+## 1862-04-22_advert_245            0.05063291            1.00000000
+## 1862-04-16_advert_6              0.10588235            0.11764706
+## 1862-04-16_advert_7              0.06578947            0.07317073</code></pre>
+<p>Converting matrix into a proper tidy data frame is a bit tricky. Luckily, <code>igraph</code> library can be extremely helpful here. We can treat our matrix as edges, where each number is the weight of each given edge. Loading this data into <code>igraph</code> will help us to avoid heavy-lifting on conversion as it can do all the complicated reconfiguration of our data, converting it into a proper dataframe that conforms to the principles of tidy data.</p>
+<p>All steps include:</p>
+<ol style="list-style-type: decimal">
+<li>convert our initial object from a <em>sparse</em> matrix format into a <em>regular</em> matrix format;</li>
+<li>rename rows and columns (we have done this already though);</li>
+<li>create <code>igraph</code> object from our regular matrix;</li>
+<li>extract edges dataframe.</li>
+</ol>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb83-1" aria-hidden="true" tabindex="-1"></a>jaccardMatrix <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(jaccardMatrix)</span>
+<span id="cb83-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb83-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb83-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
+<span id="cb83-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb83-4" aria-hidden="true" tabindex="-1"></a>jaccardNW <span class="ot">&lt;-</span> <span class="fu">graph.adjacency</span>(jaccardMatrix, <span class="at">mode=</span><span class="st">&quot;undirected&quot;</span>, <span class="at">weighted=</span><span class="cn">TRUE</span>)</span>
+<span id="cb83-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb83-5" aria-hidden="true" tabindex="-1"></a>jaccardNW <span class="ot">&lt;-</span> <span class="fu">simplify</span>(jaccardNW)</span>
+<span id="cb83-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb83-6" aria-hidden="true" tabindex="-1"></a>jaccard_sim_df <span class="ot">&lt;-</span> <span class="fu">as_data_frame</span>(jaccardNW, <span class="at">what=</span><span class="st">&quot;edges&quot;</span>)</span>
+<span id="cb83-7"><a href="text-analysis-ii-distances-keywords-summarization.html#cb83-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-8"><a href="text-analysis-ii-distances-keywords-summarization.html#cb83-8" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(jaccard_sim_df) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;text1&quot;</span>, <span class="st">&quot;text2&quot;</span>, <span class="st">&quot;jaccardSimilarity&quot;</span>)</span>
+<span id="cb83-9"><a href="text-analysis-ii-distances-keywords-summarization.html#cb83-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-10"><a href="text-analysis-ii-distances-keywords-summarization.html#cb83-10" aria-hidden="true" tabindex="-1"></a>jaccard_sim_df <span class="ot">&lt;-</span> jaccard_sim_df <span class="sc">%&gt;%</span></span>
+<span id="cb83-11"><a href="text-analysis-ii-distances-keywords-summarization.html#cb83-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(jaccardSimilarity))</span>
+<span id="cb83-12"><a href="text-analysis-ii-distances-keywords-summarization.html#cb83-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-13"><a href="text-analysis-ii-distances-keywords-summarization.html#cb83-13" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(jaccard_sim_df)</span></code></pre></div>
+<pre><code>##                   text1                 text2 jaccardSimilarity
+## 1 1862-04-22_advert_244 1862-04-05_advert_248                 1
+## 2 1862-01-13_advert_273 1862-01-11_advert_231                 1
+## 3 1862-04-07_advert_127 1862-04-05_advert_235                 1
+## 4 1862-04-07_advert_162 1862-04-05_advert_183                 1
+## 5 1862-04-07_advert_189 1862-04-05_advert_161                 1
+## 6 1862-04-07_advert_250 1862-04-05_advert_255                 1</code></pre>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb85-1" aria-hidden="true" tabindex="-1"></a>t_jaccard_sim_df_subset <span class="ot">&lt;-</span> jaccard_sim_df <span class="sc">%&gt;%</span></span>
+<span id="cb85-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb85-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(jaccardSimilarity <span class="sc">&gt;</span> <span class="fl">0.49</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb85-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb85-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(jaccardSimilarity <span class="sc">&lt;=</span> <span class="fl">0.9</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb85-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb85-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(jaccardSimilarity), <span class="at">.by_group=</span>T)</span>
+<span id="cb85-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb85-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb85-6" aria-hidden="true" tabindex="-1"></a>t_jaccard_sim_df_subset</span></code></pre></div>
+<pre><code>##                     text1                 text2 jaccardSimilarity
+## 1    1862-04-07_advert_30 1862-04-05_advert_237         0.9000000
+## 2   1862-04-07_advert_175  1862-04-05_advert_38         0.9000000
+## 3   1862-04-05_advert_303 1862-02-10_advert_149         0.9000000
+## 4   1862-01-13_advert_272 1862-01-11_advert_230         0.8979592
+## 5   1862-05-12_advert_219  1862-06-09_advert_63         0.8974359
+## 6   1862-03-10_advert_146 1862-04-05_advert_261         0.8928571
+## 7    1862-03-10_advert_13 1862-02-10_advert_224         0.8913043
+## 8   1862-05-12_advert_233 1862-06-09_advert_309         0.8913043
+## 9    1862-04-07_advert_22 1862-04-05_advert_148         0.8888889
+## 10  1862-04-07_advert_163 1862-04-05_advert_184         0.8888889
+## 11  1862-04-07_advert_165 1862-06-09_advert_331         0.8888889
+## 12  1862-04-07_advert_250 1862-06-09_advert_339         0.8888889
+## 13  1862-04-07_advert_267 1862-04-05_advert_261         0.8888889
+## 14  1862-04-05_advert_255 1862-06-09_advert_339         0.8888889
+## 15  1862-04-07_advert_268 1862-04-05_advert_262         0.8867925
+## 16  1862-04-07_advert_131 1862-04-05_advert_166         0.8823529
+## 17  1862-04-07_advert_137  1862-06-09_advert_95         0.8823529
+## 18   1862-10-13_advert_57 1862-10-13_advert_206         0.8823529
+## 19  1862-04-07_advert_184 1862-03-11_advert_304         0.8809524
+## 20    1862-05-12_advert_9 1862-06-09_advert_248         0.8800000
+## 21  1862-04-07_advert_190 1862-04-05_advert_162         0.8780488
+## 22   1862-04-07_advert_29 1862-04-05_advert_236         0.8775510
+## 23  1862-04-07_advert_183 1862-03-10_advert_198         0.8750000
+## 24  1862-04-07_advert_217  1862-04-05_advert_27         0.8750000
+## 25  1862-04-07_advert_232 1862-04-05_advert_249         0.8727273
+## 26  1862-04-07_advert_204 1862-04-05_advert_156         0.8679245
+## 27  1862-04-07_advert_219 1862-04-05_advert_164         0.8679245
+## 28  1862-01-13_advert_157 1862-02-10_advert_228         0.8666667
+## 29   1862-04-07_advert_25 1862-04-05_advert_115         0.8636364
+## 30  1862-04-07_advert_160 1862-04-05_advert_113         0.8636364
+## 31  1862-04-07_advert_250 1862-05-12_advert_161         0.8636364
+## 32  1862-05-12_advert_161 1862-04-05_advert_255         0.8636364
+## 33  1862-04-07_advert_218 1862-04-05_advert_163         0.8611111
+## 34  1862-04-07_advert_176  1862-04-05_advert_40         0.8585859
+## 35   1862-04-07_advert_55 1862-04-05_advert_216         0.8507463
+## 36  1862-01-13_advert_153 1862-02-10_advert_227         0.8500000
+## 37  1862-06-09_advert_248 1862-10-13_advert_195         0.8500000
+## 38  1862-04-07_advert_187 1862-04-05_advert_159         0.8472222
+## 39  1862-04-05_advert_287 1862-06-09_advert_294         0.8461538
+## 40   1862-04-07_advert_49 1862-04-05_advert_206         0.8421053
+## 41  1862-04-07_advert_165 1862-04-05_advert_186         0.8421053
+## 42  1862-04-05_advert_184 1862-06-09_advert_327         0.8421053
+## 43  1862-05-12_advert_161 1862-06-09_advert_339         0.8409091
+## 44    1862-05-12_advert_6 1862-04-05_advert_295         0.8405797
+## 45  1862-04-07_advert_169  1862-04-05_advert_54         0.8385093
+## 46  1862-04-07_advert_174  1862-04-05_advert_36         0.8378378
+## 47  1862-04-07_advert_170  1862-04-05_advert_55         0.8372093
+## 48  1862-04-07_advert_193  1862-04-05_advert_46         0.8363636
+## 49  1862-05-12_advert_246 1862-06-09_advert_296         0.8363636
+## 50  1862-04-07_advert_168  1862-04-05_advert_43         0.8346457
+## 51   1862-04-07_advert_23 1862-04-05_advert_117         0.8333333
+## 52    1862-05-12_advert_5 1862-06-09_advert_266         0.8333333
+## 53  1862-05-12_advert_179 1862-04-05_advert_202         0.8333333
+## 54   1862-04-07_advert_45 1862-04-05_advert_199         0.8311688
+## 55   1862-04-07_advert_16  1862-06-09_advert_63         0.8292683
+## 56  1862-03-10_advert_149 1862-04-05_advert_303         0.8292683
+## 57  1862-01-13_advert_200 1862-02-10_advert_262         0.8275862
+## 58   1862-05-12_advert_93  1862-06-09_advert_39         0.8275862
+## 59  1862-04-07_advert_246 1862-04-05_advert_243         0.8260870
+## 60  1862-04-07_advert_258   1862-05-12_advert_6         0.8260870
+## 61  1862-06-09_advert_247 1862-10-13_advert_194         0.8260870
+## 62  1862-04-07_advert_267 1862-03-10_advert_146         0.8214286
+## 63  1862-04-07_advert_215 1862-04-05_advert_158         0.8205128
+## 64  1862-04-07_advert_206 1862-04-05_advert_157         0.8172043
+## 65  1862-06-09_advert_247 1862-02-10_advert_161         0.8142857
+## 66  1862-04-05_advert_167 1862-06-09_advert_319         0.8020833
+## 67   1862-04-07_advert_19  1862-04-05_advert_14         0.8000000
+## 68   1862-04-07_advert_32 1862-04-05_advert_254         0.8000000
+## 69  1862-04-07_advert_172  1862-04-05_advert_26         0.8000000
+## 70  1862-04-07_advert_229  1862-06-09_advert_28         0.8000000
+## 71    1862-05-12_advert_6 1862-06-09_advert_246         0.8000000
+## 72    1862-05-12_advert_8 1862-06-09_advert_247         0.8000000
+## 73  1862-04-05_advert_118 1862-06-09_advert_348         0.8000000
+## 74  1862-06-30_advert_157  1862-06-09_advert_88         0.7959184
+## 75   1862-05-12_advert_15  1862-06-09_advert_37         0.7916667
+## 76  1862-05-12_advert_291 1862-06-09_advert_344         0.7910448
+## 77  1862-04-07_advert_164 1862-04-05_advert_185         0.7894737
+## 78  1862-05-12_advert_189 1862-04-05_advert_206         0.7894737
+## 79   1862-04-07_advert_14 1862-04-05_advert_140         0.7857143
+## 80   1862-04-07_advert_54 1862-04-05_advert_215         0.7826087
+## 81  1862-04-07_advert_221  1862-04-05_advert_58         0.7812500
+## 82   1862-04-07_advert_38 1862-04-05_advert_134         0.7777778
+## 83   1862-04-07_advert_47 1862-05-12_advert_179         0.7777778
+## 84  1862-04-07_advert_249 1862-05-12_advert_229         0.7777778
+## 85  1862-02-10_advert_135 1862-02-10_advert_136         0.7777778
+## 86  1862-02-10_advert_136 1862-02-10_advert_137         0.7777778
+## 87  1862-03-10_advert_157 1862-02-10_advert_123         0.7647059
+## 88   1862-04-07_advert_15 1862-04-05_advert_141         0.7631579
+## 89  1862-04-05_advert_295 1862-06-09_advert_246         0.7605634
+## 90  1862-04-07_advert_249 1862-03-10_advert_201         0.7600000
+## 91  1862-04-07_advert_213  1862-04-05_advert_41         0.7538462
+## 92   1862-01-13_advert_66 1862-01-13_advert_201         0.7532468
+## 93  1862-04-07_advert_207  1862-04-05_advert_42         0.7521368
+## 94  1862-04-07_advert_185 1862-02-10_advert_144         0.7520000
+## 95   1862-04-07_advert_31 1862-04-05_advert_238         0.7500000
+## 96   1862-04-07_advert_40 1862-04-05_advert_193         0.7500000
+## 97   1862-04-07_advert_48 1862-04-05_advert_203         0.7500000
+## 98  1862-04-07_advert_137 1862-04-05_advert_149         0.7500000
+## 99  1862-04-07_advert_161 1862-04-05_advert_114         0.7500000
+## 100 1862-05-12_advert_184 1862-04-05_advert_207         0.7500000
+## 101 1862-05-12_advert_234 1862-06-09_advert_310         0.7500000
+## 102 1862-06-09_advert_340 1862-02-10_advert_221         0.7500000
+## 103 1862-04-07_advert_258 1862-06-09_advert_246         0.7464789
+## 104  1862-04-07_advert_34 1862-04-05_advert_127         0.7428571
+## 105 1862-05-12_advert_249 1862-06-09_advert_297         0.7428571
+## 106 1862-04-07_advert_186 1862-04-05_advert_118         0.7407407
+## 107  1862-05-12_advert_38 1862-06-09_advert_287         0.7391304
+## 108 1862-05-12_advert_145 1862-05-12_advert_146         0.7368421
+## 109 1862-05-12_advert_146 1862-05-12_advert_147         0.7368421
+## 110   1862-04-07_advert_9   1862-04-05_advert_5         0.7346939
+## 111  1862-07-07_advert_48 1862-10-13_advert_193         0.7346939
+## 112 1862-04-07_advert_132   1862-04-05_advert_1         0.7333333
+## 113 1862-04-05_advert_188  1862-06-09_advert_92         0.7333333
+## 114 1862-04-22_advert_245 1862-06-09_advert_325         0.7307692
+## 115 1862-05-12_advert_258  1862-06-09_advert_28         0.7307692
+## 116 1862-04-07_advert_173  1862-04-05_advert_30         0.7304965
+## 117 1862-04-07_advert_191  1862-04-05_advert_50         0.7246377
+## 118 1862-01-13_advert_177 1862-04-07_advert_185         0.7244094
+## 119 1862-04-07_advert_202  1862-04-05_advert_57         0.7230769
+## 120  1862-04-07_advert_47 1862-04-05_advert_202         0.7222222
+## 121 1862-03-10_advert_102 1862-03-10_advert_242         0.7179487
+## 122 1862-05-12_advert_159 1862-06-09_advert_307         0.7164179
+## 123  1862-04-07_advert_18  1862-04-05_advert_13         0.7142857
+## 124 1862-04-07_advert_186 1862-06-09_advert_348         0.7142857
+## 125 1862-03-10_advert_201 1862-05-12_advert_229         0.7037037
+## 126 1862-05-12_advert_229 1862-04-05_advert_247         0.7037037
+## 127 1862-01-13_advert_110 1862-04-07_advert_213         0.7017544
+## 128 1862-05-12_advert_145 1862-05-12_advert_147         0.7000000
+## 129 1862-02-10_advert_135 1862-02-10_advert_137         0.7000000
+## 130 1862-04-07_advert_249 1862-04-05_advert_247         0.6923077
+## 131  1862-04-07_advert_50 1862-05-12_advert_184         0.6875000
+## 132 1862-04-07_advert_245 1862-04-05_advert_242         0.6875000
+## 133  1862-04-07_advert_44 1862-04-05_advert_197         0.6842105
+## 134 1862-04-07_advert_265  1862-05-12_advert_39         0.6829268
+## 135  1862-05-12_advert_39 1862-04-05_advert_257         0.6829268
+## 136  1862-04-07_advert_51 1862-04-05_advert_210         0.6724138
+## 137 1862-06-09_advert_260 1862-10-13_advert_350         0.6716418
+## 138 1862-01-13_advert_224 1862-02-10_advert_218         0.6666667
+## 139   1862-04-07_advert_8 1862-04-05_advert_116         0.6666667
+## 140  1862-04-07_advert_28  1862-04-05_advert_17         0.6666667
+## 141  1862-05-12_advert_84 1862-06-09_advert_166         0.6666667
+## 142  1862-09-08_advert_51  1862-09-08_advert_52         0.6666667
+## 143  1862-04-07_advert_10   1862-04-05_advert_8         0.6590909
+## 144 1862-01-13_advert_105 1862-09-08_advert_170         0.6547619
+## 145  1862-04-07_advert_27  1862-04-05_advert_16         0.6521739
+## 146  1862-04-07_advert_49 1862-05-12_advert_189         0.6500000
+## 147 1862-04-05_advert_149  1862-06-09_advert_95         0.6500000
+## 148 1862-05-12_advert_237 1862-06-09_advert_249         0.6486486
+## 149  1862-04-07_advert_26  1862-04-05_advert_15         0.6451613
+## 150  1862-04-07_advert_43 1862-04-05_advert_196         0.6363636
+## 151  1862-04-07_advert_39 1862-04-05_advert_135         0.6216216
+## 152 1862-06-09_advert_249 1862-06-09_advert_251         0.6216216
+## 153 1862-03-10_advert_255 1862-03-10_advert_274         0.6212121
+## 154  1862-04-07_advert_37 1862-04-05_advert_133         0.6190476
+## 155 1862-10-13_advert_235 1862-10-13_advert_237         0.6129032
+## 156  1862-02-10_advert_13  1862-02-10_advert_17         0.6063830
+## 157 1862-04-05_advert_288 1862-06-09_advert_292         0.6052632
+## 158  1862-01-13_advert_74  1862-01-13_advert_75         0.6000000
+## 159 1862-01-13_advert_272 1862-01-13_advert_273         0.6000000
+## 160 1862-01-13_advert_272 1862-01-11_advert_231         0.6000000
+## 161  1862-04-07_advert_36 1862-04-05_advert_132         0.6000000
+## 162  1862-09-08_advert_47 1862-10-13_advert_231         0.6000000
+## 163 1862-01-13_advert_106 1862-09-08_advert_163         0.5925926
+## 164 1862-06-09_advert_268 1862-02-10_advert_152         0.5909091
+## 165  1862-04-07_advert_41 1862-04-05_advert_194         0.5897436
+## 166 1862-01-13_advert_189 1862-01-13_advert_190         0.5882353
+## 167 1862-03-10_advert_206 1862-03-10_advert_207         0.5882353
+## 168 1862-10-13_advert_234 1862-10-13_advert_355         0.5862069
+## 169 1862-01-13_advert_273 1862-01-11_advert_230         0.5818182
+## 170 1862-01-11_advert_230 1862-01-11_advert_231         0.5818182
+## 171 1862-04-07_advert_104  1862-05-12_advert_84         0.5714286
+## 172 1862-05-12_advert_228 1862-05-12_advert_231         0.5714286
+## 173 1862-06-09_advert_226 1862-06-09_advert_232         0.5714286
+## 174 1862-01-13_advert_143 1862-02-10_advert_157         0.5681818
+## 175 1862-04-07_advert_137 1862-06-09_advert_236         0.5652174
+## 176  1862-03-10_advert_14 1862-01-17_advert_201         0.5645161
+## 177  1862-09-08_advert_77  1862-09-08_advert_78         0.5625000
+## 178  1862-04-07_advert_53 1862-04-05_advert_212         0.5600000
+## 179 1862-04-07_advert_207 1862-09-08_advert_163         0.5575221
+## 180 1862-01-13_advert_128 1862-02-10_advert_129         0.5555556
+## 181 1862-04-07_advert_104 1862-06-09_advert_166         0.5555556
+## 182 1862-04-05_advert_305  1862-06-09_advert_95         0.5555556
+## 183 1862-01-13_advert_110  1862-04-05_advert_41         0.5524476
+## 184 1862-09-08_advert_162 1862-09-08_advert_163         0.5462963
+## 185 1862-01-13_advert_106 1862-04-07_advert_207         0.5438596
+## 186 1862-04-07_advert_207  1862-04-05_advert_40         0.5416667
+## 187 1862-04-07_advert_222  1862-04-05_advert_59         0.5370370
+## 188 1862-04-07_advert_192 1862-04-07_advert_197         0.5365854
+## 189 1862-04-05_advert_119 1862-06-09_advert_321         0.5365854
+## 190 1862-01-13_advert_128 1862-05-12_advert_156         0.5360825
+## 191 1862-01-13_advert_187 1862-01-13_advert_188         0.5357143
+## 192  1862-10-13_advert_76 1862-10-13_advert_268         0.5357143
+## 193 1862-09-08_advert_162 1862-09-08_advert_170         0.5346535
+## 194 1862-04-07_advert_192  1862-04-05_advert_51         0.5327869
+## 195 1862-04-07_advert_197  1862-04-05_advert_45         0.5322581
+## 196  1862-06-09_advert_78  1862-06-09_advert_79         0.5322581
+## 197 1862-04-07_advert_104  1862-03-10_advert_60         0.5312500
+## 198 1862-09-08_advert_170 1862-10-13_advert_145         0.5300000
+## 199 1862-04-07_advert_176 1862-04-07_advert_207         0.5299145
+## 200 1862-01-13_advert_194 1862-01-13_advert_195         0.5294118
+## 201  1862-04-05_advert_45  1862-04-05_advert_51         0.5284553
+## 202  1862-04-05_advert_38  1862-04-05_advert_40         0.5251799
+## 203 1862-02-10_advert_213 1862-02-10_advert_216         0.5250000
+## 204  1862-04-07_advert_33 1862-05-12_advert_178         0.5245902
+## 205 1862-09-08_advert_131 1862-09-08_advert_172         0.5238095
+## 206 1862-09-08_advert_163 1862-09-08_advert_171         0.5225225
+## 207 1862-04-07_advert_207  1862-04-05_advert_38         0.5220588
+## 208  1862-03-10_advert_60  1862-05-12_advert_84         0.5217391
+## 209 1862-02-10_advert_271 1862-02-10_advert_272         0.5185185
+## 210 1862-01-13_advert_105 1862-10-13_advert_145         0.5157895
+## 211 1862-04-07_advert_175  1862-04-05_advert_40         0.5147059
+## 212  1862-04-07_advert_17   1862-04-05_advert_9         0.5135135
+## 213 1862-06-09_advert_243 1862-02-10_advert_142         0.5135135
+## 214  1862-04-05_advert_26  1862-04-05_advert_40         0.5132743
+## 215  1862-02-10_advert_13  1862-02-10_advert_14         0.5130435
+## 216 1862-04-07_advert_175 1862-04-07_advert_207         0.5112782
+## 217 1862-03-10_advert_116 1862-03-10_advert_117         0.5111111
+## 218 1862-09-08_advert_171 1862-09-08_advert_172         0.5098039
+## 219 1862-09-08_advert_155 1862-09-08_advert_156         0.5089286
+## 220 1862-10-13_advert_156 1862-10-13_advert_159         0.5035971
+## 221 1862-01-13_advert_264 1862-01-13_advert_265         0.5000000
+## 222  1862-04-07_advert_33 1862-04-05_advert_126         0.5000000
+## 223 1862-04-07_advert_137 1862-04-05_advert_305         0.5000000
+## 224 1862-04-07_advert_160 1862-04-07_advert_161         0.5000000
+## 225 1862-04-07_advert_164 1862-06-09_advert_330         0.5000000
+## 226 1862-04-07_advert_207 1862-04-07_advert_217         0.5000000
+## 227 1862-04-07_advert_207  1862-02-10_advert_13         0.5000000
+## 228 1862-03-10_advert_207 1862-03-10_advert_221         0.5000000
+## 229 1862-05-12_advert_289 1862-09-08_advert_139         0.5000000
+## 230 1862-09-08_advert_163 1862-09-08_advert_172         0.4952381
+## 231 1862-01-13_advert_107 1862-01-13_advert_108         0.4949495
+## 232 1862-01-13_advert_108 1862-09-08_advert_169         0.4949495
+## 233  1862-04-07_advert_46 1862-04-05_advert_200         0.4927536
+## 234 1862-04-07_advert_207 1862-09-08_advert_171         0.4913793
+## 235 1862-05-12_advert_287 1862-05-12_advert_288         0.4909091
+## 236  1862-04-07_advert_42 1862-04-05_advert_195         0.4905660</code></pre>
+<p>Let’s check the texts of <code>1862-04-07_advert_175</code> and <code>1862-04-05_advert_38</code>, which have the score of 0.9000000 (a close match).</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb87-1" aria-hidden="true" tabindex="-1"></a>example <span class="ot">&lt;-</span> d1862 <span class="sc">%&gt;%</span></span>
+<span id="cb87-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb87-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(id<span class="sc">==</span><span class="st">&quot;1862-04-07_advert_175&quot;</span>)</span>
+<span id="cb87-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb87-3" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(example[<span class="dv">5</span>])</span></code></pre></div>
+<pre><code>## [1] &quot;Very desirable Residence on the South of Main st., between and Cheery streets, in Sidney, at Auction. -- We will sell, upon the premises, on Monday, the 7th day of April, at 4½ o&#39;clock P. M., a very comfortable and well arranged Framed Residence located as above, and now in the occupancy of Mr. Wm. B Davidson It 7 rooms with closed, kitchen and all accessary out building, and is particularly adapted for the accommodation of a medium family. The location of this house is as desirable as any in Sidney; is located in a very pleasant neighborhood, within a few minutes walk of the business portion of the city. The lot fronts 30 feet and runs back 189 feet to an alley 30 feet wide. Terms. -- One-third cash; the balance at 6 and 12 months, for negotiable notes, with interest added, and secured by a trust deed. The purchaser to pay the taxes and insurance for 1862. Jas. M. Taylor, &amp; Son, Auctioneers. mh 27&quot;</code></pre>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb89-1" aria-hidden="true" tabindex="-1"></a>example <span class="ot">&lt;-</span> d1862 <span class="sc">%&gt;%</span></span>
+<span id="cb89-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb89-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(id<span class="sc">==</span><span class="st">&quot;1862-04-05_advert_38&quot;</span>)</span>
+<span id="cb89-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb89-3" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(example[<span class="dv">5</span>])</span></code></pre></div>
+<pre><code>## [1] &quot;Very desirable Framed Residence of the South side of Main St. Between culvert and Cherri streets. In Sidney, at Auction. -- We will sell, upon the premises, on Monday, the 7th day of April, at 4½ o&#39;clock P. M. a very comfortable and well arranged Framed. Residence located as above, and now in the occupancy of Mr. Wm. B Davidson. It contains 7 rooms, with closets, kitchen and all necessary out buildings, and is particularly adapted for the accommodation of a medium sized family. The location of this house is as desirable as any in Sidney; is located in a very pleasant neighborhood, and within a few minutes walk of the business portion of the city. The lot fronts 80 feet and runs back 189 feet to an alley 20 feet wide. Terms. -- One-third cash, the balance at 6 and 12 months, for negotiable notes, with interest added, and secured by a trust deed. The purchaser to pay the taxes and insurance for 1862 Jas. M. Taylor &amp; Son. mh 27 Auctioneers.&quot;</code></pre>
+<ol start="8" class="example" style="list-style-type: decimal">
+<li>Check <a href="http://text2vec.org/similarity.html" class="uri">http://text2vec.org/similarity.html</a> and calculate <code>cosine</code> and <code>euclidean</code> distances for the same set of texts. What is the score for the same two texts? How do these scores differ in your opinion?</li>
+</ol>
+<blockquote>
+<blockquote>
+<p>your observations</p>
+</blockquote>
+</blockquote>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="co"># THIS IS FOR </span><span class="al">TESTING</span><span class="co"> PURPOSES</span></span>
+<span id="cb91-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb91-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb91-3" aria-hidden="true" tabindex="-1"></a>dtmD <span class="ot">=</span> <span class="fu">create_dtm</span>(it, vectorizer)</span>
+<span id="cb91-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb91-4" aria-hidden="true" tabindex="-1"></a>dtmD2 <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(dtmD)</span>
+<span id="cb91-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb91-5" aria-hidden="true" tabindex="-1"></a>euclideanMatrix <span class="ot">=</span> <span class="fu">dist2</span>(dtmD2, dtmD2, <span class="at">method =</span> <span class="st">&quot;euclidean&quot;</span>, <span class="at">norm =</span> <span class="st">&quot;l2&quot;</span>)</span>
+<span id="cb91-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb91-6" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(euclideanMatrix) <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(sample_d1862<span class="sc">$</span>id)</span>
+<span id="cb91-7"><a href="text-analysis-ii-distances-keywords-summarization.html#cb91-7" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(euclideanMatrix) <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(sample_d1862<span class="sc">$</span>id)</span>
+<span id="cb91-8"><a href="text-analysis-ii-distances-keywords-summarization.html#cb91-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-9"><a href="text-analysis-ii-distances-keywords-summarization.html#cb91-9" aria-hidden="true" tabindex="-1"></a><span class="co"># names to rows and columns in dense/regular matrices are assigned differently.</span></span></code></pre></div>
+<ol start="9" class="example" style="list-style-type: decimal">
+<li>Choose one of the distance measures and take a close look at a subset of texts with the closest match (i.e. find a text which has the highest number of complete matches — 1.0). Try to apply as many techniques as possible in your analysis (e.g., frequency lists, wordclouds, graphing over time, etc.)</li>
+</ol>
+<blockquote>
+<blockquote>
+<p>your analysis, your code…</p>
+</blockquote>
+</blockquote>
+</div>
+</div>
+<div id="HW08" class="section level2" number="8.4">
+<h2><span class="header-section-number">8.4</span> Homework</h2>
+<ul>
+<li>Read about <em>ngrams</em> in <em>Chapter 4. Relationships between words: n-grams and correlations</em> (<a href="https://www.tidytextmining.com/ngrams.html" class="uri">https://www.tidytextmining.com/ngrams.html</a>), in <a href="https://www.tidytextmining.com/" class="uri">https://www.tidytextmining.com/</a>.
+<ul>
+<li>Using what you have learned in this chapter identify and analyze <em>bigrams</em> in Dispatch, 1862.</li>
+<li>Submit the results of your analysis as an R notebook, as usual.</li>
+<li>You are welcome to work in groups.</li>
+</ul></li>
+<li><em>Optional</em>: Work through Chapter 9 of Arnold, Taylor, and Lauren Tilton. 2015. <em>Humanities Data in R</em>. New York, NY: Springer Science+Business Media. (on Moodle!): create a notebook with all the code discusses there and send it via email (share via DropBox or some other service, if too large).</li>
+<li>DataCamp Assignments.</li>
+</ul>
+</div>
+<div id="SHW08" class="section level2" number="8.5">
+<h2><span class="header-section-number">8.5</span> Submitting homework</h2>
+<ul>
+<li>Homework assignment must be submitted by the beginning of the next class;</li>
+<li>Email your homework to the instructor as attachments.
+<ul>
+<li>In the subject of your email, please, add the following: <code>57528-LXX-HW-YourLastName-YourMatriculationNumber</code>, where <code>LXX</code> is the number of the lesson for which you submit homework; <code>YourLastName</code> is your last name; and <code>YourMatriculationNumber</code> is your matriculation number.</li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="text-analysis-i-basics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "github"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "serif",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/EIS1600/course_TM_R_2022S/edit/main/02-Lesson08.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/EIS1600/course_TM_R_2022S/blob/main/02-Lesson08.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"info": true
+});
+});
+</script>
+
+</body>
+
+</html>

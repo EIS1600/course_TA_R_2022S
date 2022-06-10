@@ -102,3 +102,16 @@ word-distribution-plots-with-frequencies-over-time
 kwic-keywords-in-context
 HW07
 SHW07
+text-analysis-ii-distances-keywords-summarization
+goals08
+Prelim08
+Data08
+docsim08
+distance-measures-jaccard-index-cosine-similarity-euclidean-distance
+jaccard-similarityindex
+cosine-similarity
+euclidean-distance
+testing
+now-lets-run-this-on-dispatch
+HW08
+SHW08

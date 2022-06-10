@@ -1,0 +1,269 @@
+# Text Analysis II: Distances, KEywords, Summarization
+
+```{r echo=FALSE}
+library(knitr)
+```
+
+## Goals{#goals08}
+
+- similarity distances; 
+- keyword extraction (tf-idf);
+- text summarization techniques; similarity distances;
+
+## Preliminaries{#Prelim08}
+
+### Data{#Data08}
+
+```{r}
+prep_fun = function(x) {
+  x %>% 
+    str_to_lower %>% # make text lower case
+    str_replace_all("[^[:alnum:]]", " ") %>% # remove non-alphanumeric symbols
+    str_replace_all("\\s+", " ") # collapse multiple spaces
+}
+```
+
+```{r}
+pathToFiles = "./files/data/"
+
+d1862 <- read.delim(paste0(pathToFiles, "dispatch_1862.tsv"), encoding="UTF-8", header=TRUE, quote="")
+```
+
+The following are the libraries that we will need for this section. Install those that you do not have yet.
+
+```{r message=FALSE}
+#install.packages("tidyverse", "readr", "stringr", "text2vec")
+#install.packages("tidytext", "wordcloud", "RColorBrewer"", "quanteda", "readtext", "igraph")
+
+# General ones 
+library(tidyverse)
+library(readr)
+library("RColorBrewer")
+
+# text analysis specific
+library(stringr)
+library(text2vec)
+library(tidytext)
+library(wordcloud)
+library(quanteda)
+library(readtext)
+library(igraph)
+```
+
+## Document similarity/distance measures: `text2vec` library {#docsim08}
+
+Document similarity—or distance—measures are valuable for a variety of tasks, such as identification of texts with similar (or the same) content. Let's just filter it down to some sample that would not take too much time to process. We also need to clean up our texts for better calculations.
+
+### Distance Measures: Jaccard index, Cosine similarity, Euclidean distance 
+
+The `text2vec` library can calculate a several different kinds of distances (details: <http://text2vec.org/similarity.html>): Jaccard, cosine, and Euclidean.
+
+#### *Jaccard similarity/index*
+
+is a simple measure of similarity based on the comparison of two sets, namely, as the proportion of the number of common words to the number of unique words in both documents. Jaccard similarity takes only unique set of words for each sentence/document (<https://en.wikipedia.org/wiki/Jaccard_index>). *Jaccard index* is commonly used to find text that deal with the same subjects (share same vocabulary --- frequencies of words have no effect on this measure)
+
+Jaccard similarity measures the similarity between two nominal attributes by taking the intersection of both and divide it by their union.
+
+
+#### *Cosine similarity*
+
+another approach that measures similarity based on the content overlap between documents: each document is represented as a bag-of-words and as a sparse vector; the measure of overlap is defined as angle between vectors. *Cosine similarity* is better when we compare texts of varied length (angle of vectors, instead of distance).  (<https://en.wikipedia.org/wiki/Cosine_similarity>)
+
+Cosine similarity measures the similarity between two vectors by taking the cosine of the angle the two vectors make in their dot product space. If the angle is zero, their similarity is one, the larger the angle is, the smaller their similarity. The measure is independent of vector length.
+
+#### *Euclidean distance*
+
+one of the most common measures---a straight-line distance between two points in Euclidian space; based on word frequencies and most commonly used to find duplicates (<https://en.wikipedia.org/wiki/Euclidean_distance>).
+
+**NB**: more detailed explanations, see <https://cmry.github.io/notes/euclidean-v-cosine> 
+
+#### Testing...
+
+Let's try a small and simple example first.
+
+```{r}
+
+sentences = c("The Caliph arrived to Baghdad from Mecca",
+              "The Caliph arrived to Mecca from Baghdad.",
+              "The Caliph arrived from Mecca to Baghdad. The Caliph arrived from Baghdad to Mecca.",
+              "The Caliph arrived to Baghdad from Mecca. The Caliph arrived. The Caliph arrived. The Caliph arrived.",
+              "The Caliph arrived to Baghdad from Mecca. The Caliph returned to Mecca from Baghdad",
+              "The Caliph arrived from Mecca to Baghdad, and then returned to Mecca",
+              "The vezier arrived from Isbahan to Mecca. The Caliph Caliph Caliph returned from Mecca to Baghdad Baghdad Baghdad.")
+
+testDF <- data.frame("ID" = as.character(1:length(sentences)), "TEXT" = sentences)
+
+testDF$TEXT <- prep_fun(testDF$TEXT)
+
+```
+
+Now, converting to `text2vec` format:
+
+```{r}
+# shared vector space
+it = itoken(as.vector(testDF$TEXT))
+v = create_vocabulary(it)
+vectorizer = vocab_vectorizer(v)
+
+# creating matrices
+sparseMatrix = create_dtm(it, vectorizer)
+denseMatrix = as.matrix(sparseMatrix)
+```
+
+Let's take a look inside:
+
+```{r}
+denseMatrix
+```
+
+
+```{r}
+sparseMatrix
+```
+
+Let's generate our distance matrices:
+
+```{r echo=F, message=FALSE, warning=FALSE}
+jaccardMatrix = sim2(sparseMatrix, sparseMatrix, method = "jaccard", norm = "none")
+cosineMatrix = sim2(sparseMatrix, sparseMatrix, method = "cosine", norm = "l2")
+euclideanMatrix = dist2(denseMatrix, denseMatrix, method = "euclidean", norm="l2")
+```
+
+Now, let's check against the actual sentences:
+
+```{r}
+testDF$TEXT
+```
+
+```{r}
+print("JACCARD: 1 is full match"); jaccardMatrix
+print("COSINE: 1 is full match"); cosineMatrix
+print("EUCLIDEAN: 0 is full match"); euclideanMatrix
+```
+
+All three distances tell us that 1, 2, and 3 are the "same". But when it comes to 4, the situation changes: Jaccard is most efficient, then Cosine, and Euclidean is least useful. If we want to find both 1 and 7, Cosine is the most effective, and Euclidean is the least effective.
+
+Perhaps: Jaccard > overlap; Cosine > similarity; Euclidean > exactness?
+Additional read: <https://cmry.github.io/notes/euclidean-v-cosine> (although `python` is used here)
+
+### Now, let's run this on "Dispatch"
+
+```{r}
+sample_d1862 <- d1862 %>%
+  filter(type=="advert")
+
+sample_d1862$text <- prep_fun(sample_d1862$text)
+
+# shared vector space
+it = itoken(as.vector(sample_d1862$text))
+v = create_vocabulary(it) %>%
+  prune_vocabulary(term_count_min = 3) # 
+vectorizer = vocab_vectorizer(v)
+```
+
+`prune_vocabulary()` is a useful function if you work with a large corpus; using `term_count_min=` would allow to remove low frequency vocabulary from our vector space and lighten up calculations.
+
+Now, we need to create a document-feature matrix:
+
+```{r}
+dtmD = create_dtm(it, vectorizer)
+```
+
+
+```{r}
+jaccardMatrix = sim2(dtmD, dtmD, method = "jaccard", norm = "none")
+jaccardMatrix@Dimnames[[1]] <- as.vector(sample_d1862$id)
+jaccardMatrix@Dimnames[[2]] <- as.vector(sample_d1862$id)
+```
+
+Let's take a look at a small section of our matrix. Can you read it? How should this data look in tidy format?
+  
+```{r}
+jaccardMatrix[1:4, 1:2]
+```
+
+Converting matrix into a proper tidy data frame is a bit tricky. Luckily, `igraph` library can be extremely helpful here. We can treat our matrix as edges, where each number is the weight of each given edge. Loading this data into `igraph` will help us to avoid heavy-lifting on conversion as it can do all the complicated reconfiguration of our data, converting it into a proper dataframe that conforms to the principles of tidy data. 
+
+All steps include:
+  
+1) convert our initial object from a *sparse* matrix format into a *regular* matrix format;
+2) rename rows and columns (we have done this already though);
+3) create `igraph` object from our regular matrix;
+4) extract edges dataframe.
+
+```{r message=FALSE}
+jaccardMatrix <- as.matrix(jaccardMatrix)
+
+library(igraph)
+jaccardNW <- graph.adjacency(jaccardMatrix, mode="undirected", weighted=TRUE)
+jaccardNW <- simplify(jaccardNW)
+jaccard_sim_df <- as_data_frame(jaccardNW, what="edges")
+
+colnames(jaccard_sim_df) <- c("text1", "text2", "jaccardSimilarity")
+
+jaccard_sim_df <- jaccard_sim_df %>%
+  arrange(desc(jaccardSimilarity))
+
+head(jaccard_sim_df)
+```
+
+```{r}
+t_jaccard_sim_df_subset <- jaccard_sim_df %>%
+  filter(jaccardSimilarity > 0.49) %>%
+  filter(jaccardSimilarity <= 0.9) %>%
+  arrange(desc(jaccardSimilarity), .by_group=T)
+
+t_jaccard_sim_df_subset
+```
+
+Let's check the texts of `1862-04-07_advert_175` and `1862-04-05_advert_38`, which have the score of 0.9000000 (a close match).
+
+```{r}
+example <- d1862 %>%
+  filter(id=="1862-04-07_advert_175")
+paste(example[5])
+```
+
+```{r}
+example <- d1862 %>%
+  filter(id=="1862-04-05_advert_38")
+paste(example[5])
+```
+
+(@) Check <http://text2vec.org/similarity.html> and calculate `cosine` and `euclidean` distances for the same set of texts. What is the score for the same two texts? How do these scores differ in your opinion?
+
+>> your observations
+
+```{r}
+# THIS IS FOR TESTING PURPOSES
+
+dtmD = create_dtm(it, vectorizer)
+dtmD2 <- as.matrix(dtmD)
+euclideanMatrix = dist2(dtmD2, dtmD2, method = "euclidean", norm = "l2")
+colnames(euclideanMatrix) <- as.vector(sample_d1862$id)
+rownames(euclideanMatrix) <- as.vector(sample_d1862$id)
+
+# names to rows and columns in dense/regular matrices are assigned differently.
+
+```
+
+(@) Choose one of the distance measures and take a close look at a subset of texts with the closest match (i.e. find a text which has the highest number of complete matches --- 1.0). Try to apply as many techniques as possible in your analysis (e.g., frequency lists, wordclouds, graphing over time, etc.)
+
+>> your analysis, your code...
+
+
+
+## Homework{#HW08}
+
+* Read about *ngrams* in *Chapter 4. Relationships between words: n-grams and correlations* (<https://www.tidytextmining.com/ngrams.html>), in <https://www.tidytextmining.com/>.
+  - Using what you have learned in this chapter identify and analyze *bigrams* in Dispatch, 1862.
+  - Submit the results of your analysis as an R notebook, as usual.
+  - You are welcome to work in groups.
+* *Optional*: Work through Chapter 9 of Arnold, Taylor, and Lauren Tilton. 2015. *Humanities Data in R*. New York, NY: Springer Science+Business Media. (on Moodle!): create a notebook with all the code discusses there and send it via email (share via DropBox or some other service, if too large).
+* DataCamp Assignments.
+
+## Submitting homework{#SHW08}
+
+* Homework assignment must be submitted by the beginning of the next class;
+* Email your homework to the instructor as attachments.
+	*  In the subject of your email, please, add the following: `57528-LXX-HW-YourLastName-YourMatriculationNumber`, where `LXX` is the number of the lesson for which you submit homework; `YourLastName` is your last name; and `YourMatriculationNumber` is your matriculation number.
