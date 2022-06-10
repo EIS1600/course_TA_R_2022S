@@ -137,13 +137,13 @@ testDF$TEXT
 
 For convenience, here they are again, in a more readable form:
 
-- The Caliph arrived to Baghdad from Mecca.
-- The Caliph arrived to Mecca from Baghdad.
-- The Caliph arrived from Mecca to Baghdad. The Caliph arrived from Baghdad to Mecca.
-- The Caliph arrived to Baghdad from Mecca. The Caliph arrived. The Caliph arrived. The Caliph arrived.
-- The Caliph arrived to Baghdad from Mecca. The Caliph returned to Mecca from Baghdad.
-- The Caliph arrived from Mecca to Baghdad, and then returned to Mecca.
-- The Vezier arrived from Isbahan to Mecca. The Caliph, Caliph, Caliph returned from Mecca to Baghdad Baghdad Baghdad.
+1. The Caliph arrived to Baghdad from Mecca.
+2. The Caliph arrived to Mecca from Baghdad.
+3. The Caliph arrived from Mecca to Baghdad. The Caliph arrived from Baghdad to Mecca.
+4. The Caliph arrived to Baghdad from Mecca. The Caliph arrived. The Caliph arrived. The Caliph arrived.
+5. The Caliph arrived to Baghdad from Mecca. The Caliph returned to Mecca from Baghdad.
+6. The Caliph arrived from Mecca to Baghdad, and then returned to Mecca.
+7. The Vezier arrived from Isbahan to Mecca. The Caliph, Caliph, Caliph returned from Mecca to Baghdad Baghdad Baghdad.
 
 ```{r}
 print("JACCARD: 1 is full match"); jaccardMatrix
