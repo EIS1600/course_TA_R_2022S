@@ -8,7 +8,7 @@ library(knitr)
 
 - similarity distances; 
 - keyword extraction (tf-idf);
-- text summarization techniques; similarity distances;
+- text summarization techniques;
 
 ## Preliminaries{#Prelim08}
 
