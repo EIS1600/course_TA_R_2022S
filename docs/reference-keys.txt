@@ -113,5 +113,8 @@ cosine-similarity
 euclidean-distance
 testing
 now-lets-run-this-on-dispatch
+tf-idf
+inaugural-speeches-of-the-us-presidents
+text-summarization
 HW08
 SHW08

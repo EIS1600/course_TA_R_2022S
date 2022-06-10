@@ -263,6 +263,177 @@ rownames(euclideanMatrix) <- as.vector(sample_d1862$id)
 
 >> your analysis, your code...
 
+## TF-IDF
+
+Before we proceed, let's load some text. Below is an example of how you can load a text using its URL. However, be mindful about using this approach: it is convenient with a small number of short texts, but not efficient with large number of long texts.
+
+
+```{r}
+urlUDHR <- "https://univie-histr-2020s.github.io/files/UDHR.csv"
+udhr <- read.delim(url(urlUDHR), encoding="UTF-8", header=TRUE, quote="", stringsAsFactors = FALSE)
+```
+
+```{r}
+udhrTidy <- udhr %>%
+  unnest_tokens(WORD, TEXT) %>%
+  count(SECTION, WORD, sort=TRUE)
+
+summary(udhrTidy)
+```
+
+**From Wikipedia**: In information retrieval, tf–idf or TFIDF, short for term frequency–inverse document frequency, is a numerical statistic that is intended to reflect how important a word is to a document in a collection or corpus.[1] It is often used as a weighting factor in searches of information retrieval, text mining, and user modeling. The tf–idf value increases proportionally to the number of times a word appears in the document and is offset by the number of documents in the corpus that contain the word, which helps to adjust for the fact that some words appear more frequently in general. tf–idf is one of the most popular term-weighting schemes today; 83% of text-based recommender systems in digital libraries use tf–idf. Variations of the tf–idf weighting scheme are often used by search engines as a central tool in scoring and ranking a document's relevance given a user query. tf–idf can be successfully used for stop-words filtering in various subject fields, including text summarization and classification. One of the simplest ranking functions is computed by summing the tf–idf for each query term; many more sophisticated ranking functions are variants of this simple model.
+
+```{r}
+udhr_TFIDF <- udhrTidy %>% 
+  bind_tf_idf(WORD, SECTION, n) %>%
+  arrange(desc(tf_idf)) %>%
+  ungroup
+
+udhr_TFIDF
+```
+
+
+```{r}
+hist(udhr_TFIDF$tf_idf)
+```
+
+Let's take a look at any of the Articles:
+
+```{r}
+articleID = "Article 4"
+temp <- filter(udhr_TFIDF, SECTION==articleID) %>%
+  arrange(desc(tf_idf))
+
+temp
+```
+
+```{r}
+articleID = "Article 26"
+temp <- filter(udhr_TFIDF, SECTION==articleID) %>%
+  arrange(desc(tf_idf))
+
+temp
+```
+
+We can use wordcloud to vizualize results --- but they will not be too telling, if we use word frequencies.
+
+```{r message=F, fig.height=10, fig.width=10}
+library(wordcloud)
+library("RColorBrewer")
+
+set.seed(1234)
+wordcloud(words=temp$WORD, freq=temp$n,
+          min.freq = 1, rot.per = .0, random.order=FALSE, scale=c(10,.5),
+          max.words=150, colors=brewer.pal(8, "Dark2"))
+```
+
+Instead we can use `tf_idf` values:
+
+```{r message=F, fig.height=10, fig.width=10}
+set.seed(1234)
+wordcloud(words=temp$WORD, freq=temp$tf_idf,
+          min.freq = 1, rot.per = .0, random.order=FALSE, scale=c(10,.5),
+          max.words=150, colors=brewer.pal(8, "Dark2"))
+```
+
+### Inaugural speeches of the US presidents
+
+The `quanteda` package includes a corpus of presidential inaugural speeches. What did the presidenst speak about? For thoughts and ideas, take a look at what Google News Lab did with this data: <http://inauguratespeeches.com/>. You can find readable addresses here: <https://www.presidency.ucsb.edu/documents/presidential-documents-archive-guidebook/inaugural-addresses>.
+
+```{r}
+data("data_corpus_inaugural", package = "quanteda")
+inaug_dfm <- quanteda::dfm(data_corpus_inaugural, verbose = FALSE)
+head(inaug_dfm)
+```
+
+The corpus is stored as a `document-feature matrix`, which we can convert into a more familiar tidy format in the following manner:
+
+```{r}
+inaug_td <- tidy(inaug_dfm)
+head(inaug_td)
+```
+
+(@) Using what you have learned so far, analyze speeches of American presidents:
+
+>> your code; you analysis; your observations...
+
+## Text summarization
+
+Before we proceed, let's load some text. Below is an example of how you can load a text using its URL. However, be mindful about using this approach: it is convenient with a small number of short texts, but not efficient with large number of long texts.
+
+```{r}
+urlText <- "https://univie-histr-2020s.github.io/files/test_text.txt"
+testText <- scan(url(urlText), what="character", sep="\n")
+```
+
+We can use different algorithms to *summarize* texts, which in this context means extracting key sentences, whose keyness is calculated through different means. Library `lexRankr` used tf-idf values and some methods from social network analysis to identify the most central sentences in a text.  (For technical details, see: <https://cran.r-project.org/web/packages/lexRankr/lexRankr.pdf>; for a detailed *math* description: <http://www.cs.cmu.edu/afs/cs/project/jair/pub/volume22/erkan04a-html/erkan04a.html>).
+
+Take a look at the summary and then at the full text!
+
+```{r}
+library(lexRankr)
+
+textToSummarize = testText
+
+summary = lexRank(textToSummarize,
+                  docId = rep(1, length(textToSummarize)), #repeat same docid for all of input vector
+                  n = 5, # number of sentences
+                  continuous = TRUE)
+
+# this is just preparing results for better viewing
+summary$sentenceId <- str_replace_all(summary$sentenceId, "\\d+_", "")
+summary$sentenceId <- as.numeric(summary$sentenceId)
+
+summary <- summary %>%
+  arrange(sentenceId)
+
+summary$sentence
+```
+
+Here is another corpus of articles to play with (from `tm` library):
+
+```{r}
+library(tm)
+
+data("acq")
+
+acqTidy <- tidy(acq)
+
+```
+
+Here is an article:
+
+```{r}
+item = 1
+
+test <- str_replace_all(acqTidy$text[item], "\\s+", " ")
+test
+```
+
+Let's see how our summary comes out:
+
+```{r}
+textToSummarize = test
+
+summary = lexRank(textToSummarize,
+                  docId = rep(1, length(textToSummarize)), #repeat same docid for all of input vector
+                  n = 3, # number of sentences
+                  continuous = TRUE)
+
+# this is just preparing results for better viewing
+summary$sentenceId <- str_replace_all(summary$sentenceId, "\\d+_", "")
+summary$sentenceId <- as.numeric(summary$sentenceId)
+
+summary <- summary %>%
+  arrange(sentenceId)
+
+summary$sentence
+
+```
+
+(@) Try this with other articles --- and compare summaries with full versions. Share your observations.
+
+>> your code; your observations
 
 
 ## Homework{#HW08}

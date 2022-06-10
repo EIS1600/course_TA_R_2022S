@@ -295,8 +295,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.3.1" data-path="text-analysis-ii-distances-keywords-summarization.html"><a href="text-analysis-ii-distances-keywords-summarization.html#distance-measures-jaccard-index-cosine-similarity-euclidean-distance"><i class="fa fa-check"></i><b>8.3.1</b> Distance Measures: Jaccard index, Cosine similarity, Euclidean distance</a></li>
 <li class="chapter" data-level="8.3.2" data-path="text-analysis-ii-distances-keywords-summarization.html"><a href="text-analysis-ii-distances-keywords-summarization.html#now-lets-run-this-on-dispatch"><i class="fa fa-check"></i><b>8.3.2</b> Now, let’s run this on “Dispatch”</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="text-analysis-ii-distances-keywords-summarization.html"><a href="text-analysis-ii-distances-keywords-summarization.html#HW08"><i class="fa fa-check"></i><b>8.4</b> Homework</a></li>
-<li class="chapter" data-level="8.5" data-path="text-analysis-ii-distances-keywords-summarization.html"><a href="text-analysis-ii-distances-keywords-summarization.html#SHW08"><i class="fa fa-check"></i><b>8.5</b> Submitting homework</a></li>
+<li class="chapter" data-level="8.4" data-path="text-analysis-ii-distances-keywords-summarization.html"><a href="text-analysis-ii-distances-keywords-summarization.html#tf-idf"><i class="fa fa-check"></i><b>8.4</b> TF-IDF</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="text-analysis-ii-distances-keywords-summarization.html"><a href="text-analysis-ii-distances-keywords-summarization.html#inaugural-speeches-of-the-us-presidents"><i class="fa fa-check"></i><b>8.4.1</b> Inaugural speeches of the US presidents</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="text-analysis-ii-distances-keywords-summarization.html"><a href="text-analysis-ii-distances-keywords-summarization.html#text-summarization"><i class="fa fa-check"></i><b>8.5</b> Text summarization</a></li>
+<li class="chapter" data-level="8.6" data-path="text-analysis-ii-distances-keywords-summarization.html"><a href="text-analysis-ii-distances-keywords-summarization.html#HW08"><i class="fa fa-check"></i><b>8.6</b> Homework</a></li>
+<li class="chapter" data-level="8.7" data-path="text-analysis-ii-distances-keywords-summarization.html"><a href="text-analysis-ii-distances-keywords-summarization.html#SHW08"><i class="fa fa-check"></i><b>8.7</b> Submitting homework</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -584,8 +589,1431 @@ Additional read: <a href="https://cmry.github.io/notes/euclidean-v-cosine" class
 </blockquote>
 </div>
 </div>
-<div id="HW08" class="section level2" number="8.4">
-<h2><span class="header-section-number">8.4</span> Homework</h2>
+<div id="tf-idf" class="section level2" number="8.4">
+<h2><span class="header-section-number">8.4</span> TF-IDF</h2>
+<p>Before we proceed, let’s load some text. Below is an example of how you can load a text using its URL. However, be mindful about using this approach: it is convenient with a small number of short texts, but not efficient with large number of long texts.</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb92-1" aria-hidden="true" tabindex="-1"></a>urlUDHR <span class="ot">&lt;-</span> <span class="st">&quot;https://univie-histr-2020s.github.io/files/UDHR.csv&quot;</span></span>
+<span id="cb92-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb92-2" aria-hidden="true" tabindex="-1"></a>udhr <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="fu">url</span>(urlUDHR), <span class="at">encoding=</span><span class="st">&quot;UTF-8&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">quote=</span><span class="st">&quot;&quot;</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb93-1" aria-hidden="true" tabindex="-1"></a>udhrTidy <span class="ot">&lt;-</span> udhr <span class="sc">%&gt;%</span></span>
+<span id="cb93-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb93-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(WORD, TEXT) <span class="sc">%&gt;%</span></span>
+<span id="cb93-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb93-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(SECTION, WORD, <span class="at">sort=</span><span class="cn">TRUE</span>)</span>
+<span id="cb93-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb93-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb93-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb93-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(udhrTidy)</span></code></pre></div>
+<pre><code>##    SECTION              WORD                 n         
+##  Length:1134        Length:1134        Min.   : 1.000  
+##  Class :character   Class :character   1st Qu.: 1.000  
+##  Mode  :character   Mode  :character   Median : 1.000  
+##                                        Mean   : 1.515  
+##                                        3rd Qu.: 1.000  
+##                                        Max.   :26.000</code></pre>
+<p><strong>From Wikipedia</strong>: In information retrieval, tf–idf or TFIDF, short for term frequency–inverse document frequency, is a numerical statistic that is intended to reflect how important a word is to a document in a collection or corpus.[1] It is often used as a weighting factor in searches of information retrieval, text mining, and user modeling. The tf–idf value increases proportionally to the number of times a word appears in the document and is offset by the number of documents in the corpus that contain the word, which helps to adjust for the fact that some words appear more frequently in general. tf–idf is one of the most popular term-weighting schemes today; 83% of text-based recommender systems in digital libraries use tf–idf. Variations of the tf–idf weighting scheme are often used by search engines as a central tool in scoring and ranking a document’s relevance given a user query. tf–idf can be successfully used for stop-words filtering in various subject fields, including text summarization and classification. One of the simplest ranking functions is computed by summing the tf–idf for each query term; many more sophisticated ranking functions are variants of this simple model.</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb95-1" aria-hidden="true" tabindex="-1"></a>udhr_TFIDF <span class="ot">&lt;-</span> udhrTidy <span class="sc">%&gt;%</span> </span>
+<span id="cb95-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb95-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_tf_idf</span>(WORD, SECTION, n) <span class="sc">%&gt;%</span></span>
+<span id="cb95-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb95-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(tf_idf)) <span class="sc">%&gt;%</span></span>
+<span id="cb95-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb95-4" aria-hidden="true" tabindex="-1"></a>  ungroup</span>
+<span id="cb95-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb95-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb95-6" aria-hidden="true" tabindex="-1"></a>udhr_TFIDF</span></code></pre></div>
+<pre><code>##         SECTION            WORD  n          tf        idf      tf_idf
+## 1     Article 4         slavery  2 0.095238095 3.43398720 0.327046400
+## 2    Article 15     nationality  3 0.115384615 2.74084002 0.316250772
+## 3     Article 3         liberty  1 0.090909091 3.43398720 0.312180655
+## 4     Article 9          arrest  1 0.090909091 3.43398720 0.312180655
+## 5     Article 9       detention  1 0.090909091 3.43398720 0.312180655
+## 6     Article 9           exile  1 0.090909091 3.43398720 0.312180655
+## 7     Article 6      everywhere  1 0.076923077 3.43398720 0.264152862
+## 8     Article 9       arbitrary  1 0.090909091 2.74084002 0.249167275
+## 9    Article 20     association  2 0.086956522 2.74084002 0.238333915
+## 10    Article 5           cruel  1 0.062500000 3.43398720 0.214624200
+## 11    Article 5       degrading  1 0.062500000 3.43398720 0.214624200
+## 12    Article 5         inhuman  1 0.062500000 3.43398720 0.214624200
+## 13    Article 5      punishment  1 0.062500000 3.43398720 0.214624200
+## 14    Article 5         torture  1 0.062500000 3.43398720 0.214624200
+## 15    Article 5       treatment  1 0.062500000 3.43398720 0.214624200
+## 16    Article 3            life  1 0.090909091 2.33537492 0.212306811
+## 17    Article 3        security  1 0.090909091 2.33537492 0.212306811
+## 18    Article 9       subjected  1 0.090909091 2.33537492 0.212306811
+## 19    Article 7  discrimination  3 0.076923077 2.74084002 0.210833848
+## 20   Article 17        property  2 0.076923077 2.74084002 0.210833848
+## 21    Article 6          before  1 0.076923077 2.74084002 0.210833848
+## 22   Article 12         attacks  2 0.052631579 3.43398720 0.180736169
+## 23   Article 24        holidays  1 0.052631579 3.43398720 0.180736169
+## 24   Article 24           hours  1 0.052631579 3.43398720 0.180736169
+## 25   Article 24         leisure  1 0.052631579 3.43398720 0.180736169
+## 26   Article 24      reasonable  1 0.052631579 3.43398720 0.180736169
+## 27   Article 24            rest  1 0.052631579 3.43398720 0.180736169
+## 28   Article 24         working  1 0.052631579 3.43398720 0.180736169
+## 29    Article 6     recognition  1 0.076923077 2.33537492 0.179644224
+## 30    Article 3          person  1 0.090909091 1.82454929 0.165868117
+## 31    Article 8              by  3 0.111111111 1.48807706 0.165341895
+## 32    Article 4           forms  1 0.047619048 3.43398720 0.163523200
+## 33    Article 4      prohibited  1 0.047619048 3.43398720 0.163523200
+## 34    Article 4       servitude  1 0.047619048 3.43398720 0.163523200
+## 35    Article 4           slave  1 0.047619048 3.43398720 0.163523200
+## 36   Article 26       education  7 0.058823529 2.74084002 0.161225884
+## 37   Article 20          belong  1 0.043478261 3.43398720 0.149303791
+## 38   Article 20        peaceful  1 0.043478261 3.43398720 0.149303791
+## 39   Article 14            from  3 0.063829787 2.33537492 0.149066484
+## 40   Article 18        religion  3 0.063829787 2.33537492 0.149066484
+## 41   Article 11         offence  4 0.042553191 3.43398720 0.146127115
+## 42   Article 11           penal  4 0.042553191 3.43398720 0.146127115
+## 43    Article 5       subjected  1 0.062500000 2.33537492 0.145960932
+## 44   Article 12    interference  2 0.052631579 2.74084002 0.144254738
+## 45   Article 24             pay  1 0.052631579 2.74084002 0.144254738
+## 46   Article 24        periodic  1 0.052631579 2.74084002 0.144254738
+## 47   Article 28             can  1 0.041666667 3.43398720 0.143082800
+## 48   Article 28           fully  1 0.041666667 3.43398720 0.143082800
+## 49   Article 28        realized  1 0.041666667 3.43398720 0.143082800
+## 50    Article 7             are  3 0.076923077 1.82454929 0.140349946
+## 51    Article 6          person  1 0.076923077 1.82454929 0.140349946
+## 52   Article 30             any  5 0.121951220 1.13140211 0.137975867
+## 53    Article 5              or  3 0.187500000 0.72593700 0.136113188
+## 54   Article 13         country  2 0.057142857 2.33537492 0.133449995
+## 55   Article 15          denied  1 0.038461538 3.43398720 0.132076431
+## 56    Article 4           trade  1 0.047619048 2.74084002 0.130516192
+## 57   Article 16        marriage  3 0.037500000 3.43398720 0.128774520
+## 58    Article 8       competent  1 0.037037037 3.43398720 0.127184711
+## 59    Article 8    constitution  1 0.037037037 3.43398720 0.127184711
+## 60    Article 8         granted  1 0.037037037 3.43398720 0.127184711
+## 61    Article 8          remedy  1 0.037037037 3.43398720 0.127184711
+## 62    Article 8       tribunals  1 0.037037037 3.43398720 0.127184711
+## 63    Article 8       violating  1 0.037037037 3.43398720 0.127184711
+## 64    Article 7           equal  3 0.076923077 1.64222774 0.126325210
+## 65   Article 24       including  1 0.052631579 2.33537492 0.122914469
+## 66   Article 24      limitation  1 0.052631579 2.33537492 0.122914469
+## 67   Article 27      scientific  2 0.035714286 3.43398720 0.122642400
+## 68    Article 1             are  2 0.066666667 1.82454929 0.121636619
+## 69   Article 20        assembly  1 0.043478261 2.74084002 0.119166958
+## 70   Article 20       compelled  1 0.043478261 2.74084002 0.119166958
+## 71   Article 18          belief  2 0.042553191 2.74084002 0.116631490
+## 72   Article 18         freedom  3 0.063829787 1.82454929 0.116460593
+## 73    Article 6             law  1 0.076923077 1.48807706 0.114467466
+## 74   Article 23            work  3 0.033333333 3.43398720 0.114466240
+## 75    Article 1         another  1 0.033333333 3.43398720 0.114466240
+## 76    Article 1     brotherhood  1 0.033333333 3.43398720 0.114466240
+## 77    Article 1         endowed  1 0.033333333 3.43398720 0.114466240
+## 78    Article 1          reason  1 0.033333333 3.43398720 0.114466240
+## 79    Article 1          spirit  1 0.033333333 3.43398720 0.114466240
+## 80    Article 1         towards  1 0.033333333 3.43398720 0.114466240
+## 81   Article 28           order  1 0.041666667 2.74084002 0.114201668
+## 82    Article 9             one  1 0.090909091 1.23676263 0.112432966
+## 83    Article 4            held  1 0.047619048 2.33537492 0.111208329
+## 84    Article 4           their  1 0.047619048 2.33537492 0.111208329
+## 85   Article 11             was  3 0.031914894 3.43398720 0.109595336
+## 86   Article 15     arbitrarily  1 0.038461538 2.74084002 0.105416924
+## 87   Article 15          change  1 0.038461538 2.74084002 0.105416924
+## 88   Article 15        deprived  1 0.038461538 2.74084002 0.105416924
+## 89   Article 17     arbitrarily  1 0.038461538 2.74084002 0.105416924
+## 90   Article 17     association  1 0.038461538 2.74084002 0.105416924
+## 91   Article 17        deprived  1 0.038461538 2.74084002 0.105416924
+## 92   Article 17             own  1 0.038461538 2.74084002 0.105416924
+## 93   Article 17            well  1 0.038461538 2.74084002 0.105416924
+## 94   Article 19         freedom  2 0.057142857 1.82454929 0.104259960
+## 95   Article 17              as  2 0.076923077 1.35454566 0.104195820
+## 96    Article 6              as  1 0.076923077 1.35454566 0.104195820
+## 97   Article 10          charge  1 0.030303030 3.43398720 0.104060218
+## 98   Article 10        criminal  1 0.030303030 3.43398720 0.104060218
+## 99   Article 10   determination  1 0.030303030 3.43398720 0.104060218
+## 100  Article 10        equality  1 0.030303030 3.43398720 0.104060218
+## 101  Article 10            fair  1 0.030303030 3.43398720 0.104060218
+## 102  Article 10         hearing  1 0.030303030 3.43398720 0.104060218
+## 103  Article 10       impartial  1 0.030303030 3.43398720 0.104060218
+## 104  Article 10     obligations  1 0.030303030 3.43398720 0.104060218
+## 105  Article 10        tribunal  1 0.030303030 3.43398720 0.104060218
+## 106   Article 9              no  1 0.090909091 1.13140211 0.102854737
+## 107   Article 8       effective  1 0.037037037 2.74084002 0.101512593
+## 108   Article 8             him  1 0.037037037 2.74084002 0.101512593
+## 109  Article 13         borders  1 0.028571429 3.43398720 0.098113920
+## 110  Article 13           leave  1 0.028571429 3.43398720 0.098113920
+## 111  Article 13        movement  1 0.028571429 3.43398720 0.098113920
+## 112  Article 13       residence  1 0.028571429 3.43398720 0.098113920
+## 113  Article 13          return  1 0.028571429 3.43398720 0.098113920
+## 114  Article 13          within  1 0.028571429 3.43398720 0.098113920
+## 115  Article 19      expression  1 0.028571429 3.43398720 0.098113920
+## 116  Article 19       frontiers  1 0.028571429 3.43398720 0.098113920
+## 117  Article 19            hold  1 0.028571429 3.43398720 0.098113920
+## 118  Article 19           ideas  1 0.028571429 3.43398720 0.098113920
+## 119  Article 19          impart  1 0.028571429 3.43398720 0.098113920
+## 120  Article 19     information  1 0.028571429 3.43398720 0.098113920
+## 121  Article 19           media  1 0.028571429 3.43398720 0.098113920
+## 122  Article 19        opinions  1 0.028571429 3.43398720 0.098113920
+## 123  Article 19         receive  1 0.028571429 3.43398720 0.098113920
+## 124  Article 19      regardless  1 0.028571429 3.43398720 0.098113920
+## 125  Article 28           forth  1 0.041666667 2.33537492 0.097307288
+## 126  Article 28             set  1 0.041666667 2.33537492 0.097307288
+## 127   Article 7         against  2 0.051282051 1.82454929 0.093566630
+## 128   Article 1          beings  1 0.033333333 2.74084002 0.091361334
+## 129   Article 1            born  1 0.033333333 2.74084002 0.091361334
+## 130   Article 1          should  1 0.033333333 2.74084002 0.091361334
+## 131   Article 1            they  1 0.033333333 2.74084002 0.091361334
+## 132  Article 12  correspondence  1 0.026315789 3.43398720 0.090368084
+## 133  Article 12            home  1 0.026315789 3.43398720 0.090368084
+## 134  Article 12          honour  1 0.026315789 3.43398720 0.090368084
+## 135  Article 12         privacy  1 0.026315789 3.43398720 0.090368084
+## 136  Article 12      reputation  1 0.026315789 3.43398720 0.090368084
+## 137  Article 12            upon  1 0.026315789 3.43398720 0.090368084
+## 138  Article 15             nor  1 0.038461538 2.33537492 0.089822112
+## 139  Article 17           alone  1 0.038461538 2.33537492 0.089822112
+## 140  Article 17          others  1 0.038461538 2.33537492 0.089822112
+## 141  Article 20              an  1 0.043478261 2.04769284 0.089030124
+## 142  Article 20             may  1 0.043478261 2.04769284 0.089030124
+## 143   Article 7      incitement  1 0.025641026 3.43398720 0.088050954
+## 144   Article 7       violation  1 0.025641026 3.43398720 0.088050954
+## 145   Article 7             any  3 0.076923077 1.13140211 0.087030932
+## 146   Article 8            acts  1 0.037037037 2.33537492 0.086495367
+## 147   Article 2     distinction  2 0.025000000 3.43398720 0.085849680
+## 148   Article 2          status  2 0.025000000 3.43398720 0.085849680
+## 149  Article 21      government  2 0.025000000 3.43398720 0.085849680
+## 150  Article 21            will  2 0.025000000 3.43398720 0.085849680
+## 151   Article 7      protection  2 0.051282051 1.64222774 0.084216807
+## 152  Article 30        activity  1 0.024390244 3.43398720 0.083755785
+## 153  Article 30           aimed  1 0.024390244 3.43398720 0.083755785
+## 154  Article 30     destruction  1 0.024390244 3.43398720 0.083755785
+## 155  Article 30          engage  1 0.024390244 3.43398720 0.083755785
+## 156  Article 30          herein  1 0.024390244 3.43398720 0.083755785
+## 157  Article 30        implying  1 0.024390244 3.43398720 0.083755785
+## 158  Article 30     interpreted  1 0.024390244 3.43398720 0.083755785
+## 159  Article 30         nothing  1 0.024390244 3.43398720 0.083755785
+## 160  Article 30         perform  1 0.024390244 3.43398720 0.083755785
+## 161  Article 10             him  1 0.030303030 2.74084002 0.083055758
+## 162  Article 10     independent  1 0.030303030 2.74084002 0.083055758
+## 163  Article 25            care  2 0.023529412 3.43398720 0.080799699
+## 164  Article 20         freedom  1 0.043478261 1.82454929 0.079328230
+## 165  Article 13            each  1 0.028571429 2.74084002 0.078309715
+## 166  Article 13             own  1 0.028571429 2.74084002 0.078309715
+## 167  Article 19        includes  1 0.028571429 2.74084002 0.078309715
+## 168  Article 19    interference  1 0.028571429 2.74084002 0.078309715
+## 169  Article 19         opinion  1 0.028571429 2.74084002 0.078309715
+## 170  Article 19            seek  1 0.028571429 2.74084002 0.078309715
+## 171   Article 1             act  1 0.033333333 2.33537492 0.077845831
+## 172   Article 1      conscience  1 0.033333333 2.33537492 0.077845831
+## 173   Article 5             one  1 0.062500000 1.23676263 0.077297664
+## 174   Article 2           other  3 0.037500000 2.04769284 0.076788482
+## 175   Article 7        entitled  2 0.051282051 1.48807706 0.076311644
+## 176   Article 7             law  2 0.051282051 1.48807706 0.076311644
+## 177  Article 23      favourable  2 0.022222222 3.43398720 0.076310827
+## 178  Article 28     declaration  1 0.041666667 1.82454929 0.076022887
+## 179  Article 28   international  1 0.041666667 1.82454929 0.076022887
+## 180   Article 8              an  1 0.037037037 2.04769284 0.075840476
+## 181   Article 8     fundamental  1 0.037037037 2.04769284 0.075840476
+## 182   Article 4           shall  2 0.095238095 0.79492987 0.075707607
+## 183    Preamble         whereas  7 0.021806854 3.43398720 0.074884456
+## 184  Article 11       committed  2 0.021276596 3.43398720 0.073063558
+## 185  Article 11          guilty  2 0.021276596 3.43398720 0.073063558
+## 186  Article 11            time  2 0.021276596 3.43398720 0.073063558
+## 187  Article 14         arising  1 0.021276596 3.43398720 0.073063558
+## 188  Article 14          asylum  1 0.021276596 3.43398720 0.073063558
+## 189  Article 14       countries  1 0.021276596 3.43398720 0.073063558
+## 190  Article 14          crimes  1 0.021276596 3.43398720 0.073063558
+## 191  Article 14       genuinely  1 0.021276596 3.43398720 0.073063558
+## 192  Article 14         invoked  1 0.021276596 3.43398720 0.073063558
+## 193  Article 14     persecution  1 0.021276596 3.43398720 0.073063558
+## 194  Article 14    prosecutions  1 0.021276596 3.43398720 0.073063558
+## 195  Article 18          either  1 0.021276596 3.43398720 0.073063558
+## 196  Article 18        manifest  1 0.021276596 3.43398720 0.073063558
+## 197  Article 18        practice  1 0.021276596 3.43398720 0.073063558
+## 198  Article 18         private  1 0.021276596 3.43398720 0.073063558
+## 199  Article 18         thought  1 0.021276596 3.43398720 0.073063558
+## 200  Article 18         worship  1 0.021276596 3.43398720 0.073063558
+## 201  Article 15             his  2 0.076923077 0.94908055 0.073006197
+## 202   Article 9           shall  1 0.090909091 0.79492987 0.072266352
+## 203  Article 12       arbitrary  1 0.026315789 2.74084002 0.072127369
+## 204   Article 5              no  1 0.062500000 1.13140211 0.070712632
+## 205   Article 7          before  1 0.025641026 2.74084002 0.070277949
+## 206   Article 7             all  2 0.051282051 1.35454566 0.069463880
+## 207   Article 2       political  2 0.025000000 2.74084002 0.068521001
+## 208  Article 28        freedoms  1 0.041666667 1.64222774 0.068426156
+## 209  Article 28          social  1 0.041666667 1.64222774 0.068426156
+## 210   Article 1         dignity  1 0.033333333 2.04769284 0.068256428
+## 211   Article 1           human  1 0.033333333 2.04769284 0.068256428
+## 212   Article 8        national  1 0.037037037 1.82454929 0.067575900
+## 213  Article 30           group  1 0.024390244 2.74084002 0.066849757
+## 214   Article 6               a  1 0.076923077 0.86903785 0.066849065
+## 215  Article 13       including  1 0.028571429 2.33537492 0.066724998
+## 216  Article 19         through  1 0.028571429 2.33537492 0.066724998
+## 217   Article 9              or  1 0.090909091 0.72593700 0.065994273
+## 218  Article 11              at  3 0.031914894 2.04769284 0.065351899
+## 219  Article 24            with  1 0.052631579 1.23676263 0.065092770
+## 220  Article 22      accordance  1 0.018867925 3.43398720 0.064792211
+## 221  Article 22        economic  1 0.018867925 3.43398720 0.064792211
+## 222  Article 22          effort  1 0.018867925 3.43398720 0.064792211
+## 223  Article 22   indispensable  1 0.018867925 3.43398720 0.064792211
+## 224  Article 22    organization  1 0.018867925 3.43398720 0.064792211
+## 225  Article 22       resources  1 0.018867925 3.43398720 0.064792211
+## 226   Article 4             all  1 0.047619048 1.35454566 0.064502174
+## 227  Article 10              an  1 0.030303030 2.04769284 0.062051298
+## 228  Article 28        entitled  1 0.041666667 1.48807706 0.062003211
+## 229  Article 28           which  1 0.041666667 1.48807706 0.062003211
+## 230  Article 22          social  2 0.037735849 1.64222774 0.061970858
+## 231  Article 18              or  4 0.085106383 0.72593700 0.061781873
+## 232  Article 12             nor  1 0.026315789 2.33537492 0.061457235
+## 233  Article 12       subjected  1 0.026315789 2.33537492 0.061457235
+## 234  Article 27     advancement  1 0.017857143 3.43398720 0.061321200
+## 235  Article 27        artistic  1 0.017857143 3.43398720 0.061321200
+## 236  Article 27            arts  1 0.017857143 3.43398720 0.061321200
+## 237  Article 27          author  1 0.017857143 3.43398720 0.061321200
+## 238  Article 27        benefits  1 0.017857143 3.43398720 0.061321200
+## 239  Article 27        literary  1 0.017857143 3.43398720 0.061321200
+## 240  Article 27        material  1 0.017857143 3.43398720 0.061321200
+## 241  Article 27           moral  1 0.017857143 3.43398720 0.061321200
+## 242  Article 27     participate  1 0.017857143 3.43398720 0.061321200
+## 243  Article 27      production  1 0.017857143 3.43398720 0.061321200
+## 244  Article 27       resulting  1 0.017857143 3.43398720 0.061321200
+## 245  Article 27           share  1 0.017857143 3.43398720 0.061321200
+## 246  Article 23            just  2 0.022222222 2.74084002 0.060907556
+## 247   Article 4             one  1 0.047619048 1.23676263 0.058893458
+## 248  Article 13           state  1 0.028571429 2.04769284 0.058505510
+## 249  Article 21         country  2 0.025000000 2.33537492 0.058384373
+## 250  Article 14            case  1 0.021276596 2.74084002 0.058315745
+## 251  Article 14        contrary  1 0.021276596 2.74084002 0.058315745
+## 252  Article 14             non  1 0.021276596 2.74084002 0.058315745
+## 253  Article 14       political  1 0.021276596 2.74084002 0.058315745
+## 254  Article 14      principles  1 0.021276596 2.74084002 0.058315745
+## 255  Article 14        purposes  1 0.021276596 2.74084002 0.058315745
+## 256  Article 14            seek  1 0.021276596 2.74084002 0.058315745
+## 257  Article 18          change  1 0.021276596 2.74084002 0.058315745
+## 258  Article 18        includes  1 0.021276596 2.74084002 0.058315745
+## 259  Article 18      observance  1 0.021276596 2.74084002 0.058315745
+## 260  Article 18        teaching  1 0.021276596 2.74084002 0.058315745
+## 261  Article 26      elementary  2 0.016806723 3.43398720 0.057714071
+## 262   Article 4              be  2 0.095238095 0.60077386 0.057216558
+## 263  Article 30             act  1 0.024390244 2.33537492 0.056960364
+## 264  Article 30           forth  1 0.024390244 2.33537492 0.056960364
+## 265  Article 30             set  1 0.024390244 2.33537492 0.056960364
+## 266  Article 28              is  1 0.041666667 1.35454566 0.056439403
+## 267  Article 21              by  3 0.037500000 1.48807706 0.055802890
+## 268  Article 10         against  1 0.030303030 1.82454929 0.055289372
+## 269  Article 10            full  1 0.030303030 1.82454929 0.055289372
+## 270  Article 10          public  1 0.030303030 1.82454929 0.055289372
+## 271   Article 8             law  1 0.037037037 1.48807706 0.055113965
+## 272  Article 23      protection  3 0.033333333 1.64222774 0.054740925
+## 273   Article 1           equal  1 0.033333333 1.64222774 0.054740925
+## 274   Article 9              be  1 0.090909091 0.60077386 0.054615805
+## 275   Article 2              or  6 0.075000000 0.72593700 0.054445275
+## 276  Article 13             his  2 0.057142857 0.94908055 0.054233175
+## 277  Article 12            such  1 0.026315789 2.04769284 0.053886654
+## 278   Article 4              no  1 0.047619048 1.13140211 0.053876291
+## 279  Article 20             one  1 0.043478261 1.23676263 0.053772288
+## 280  Article 26           shall  8 0.067226891 0.79492987 0.053440664
+## 281   Article 7            such  1 0.025641026 2.04769284 0.052504945
+## 282  Article 13         freedom  1 0.028571429 1.82454929 0.052129980
+## 283  Article 19         without  1 0.028571429 1.82454929 0.052129980
+## 284   Article 4              in  2 0.095238095 0.54361545 0.051772900
+## 285  Article 22              co  1 0.018867925 2.74084002 0.051713963
+## 286  Article 22        cultural  1 0.018867925 2.74084002 0.051713963
+## 287  Article 22            each  1 0.018867925 2.74084002 0.051713963
+## 288  Article 22          member  1 0.018867925 2.74084002 0.051713963
+## 289  Article 22       operation  1 0.018867925 2.74084002 0.051713963
+## 290  Article 22     realization  1 0.018867925 2.74084002 0.051713963
+## 291  Article 28            this  1 0.041666667 1.23676263 0.051531776
+## 292  Article 16         society  2 0.025000000 2.04769284 0.051192321
+## 293    Preamble           human  8 0.024922118 2.04769284 0.051032843
+## 294  Article 29        freedoms  3 0.030612245 1.64222774 0.050272278
+## 295  Article 12             his  2 0.052631579 0.94908055 0.049951608
+## 296  Article 30              at  1 0.024390244 2.04769284 0.049943728
+## 297  Article 30             may  1 0.024390244 2.04769284 0.049943728
+## 298  Article 30           state  1 0.024390244 2.04769284 0.049943728
+## 299  Article 14            acts  1 0.021276596 2.33537492 0.049688828
+## 300  Article 14             not  1 0.021276596 2.33537492 0.049688828
+## 301  Article 18           alone  1 0.021276596 2.33537492 0.049688828
+## 302  Article 18       community  1 0.021276596 2.33537492 0.049688828
+## 303  Article 18      conscience  1 0.021276596 2.33537492 0.049688828
+## 304  Article 18          others  1 0.021276596 2.33537492 0.049688828
+## 305   Article 5           shall  1 0.062500000 0.79492987 0.049683117
+## 306   Article 1            free  1 0.033333333 1.48807706 0.049602569
+## 307  Article 20              no  1 0.043478261 1.13140211 0.049191396
+## 308  Article 27        cultural  1 0.017857143 2.74084002 0.048943572
+## 309  Article 27          freely  1 0.017857143 2.74084002 0.048943572
+## 310  Article 27              he  1 0.017857143 2.74084002 0.048943572
+## 311  Article 27       interests  1 0.017857143 2.74084002 0.048943572
+## 312  Article 27             its  1 0.017857143 2.74084002 0.048943572
+## 313  Article 12         against  1 0.026315789 1.82454929 0.048014455
+## 314  Article 12          family  1 0.026315789 1.82454929 0.048014455
+## 315  Article 15             one  1 0.038461538 1.23676263 0.047567793
+## 316  Article 17             one  1 0.038461538 1.23676263 0.047567793
+## 317  Article 17            with  1 0.038461538 1.23676263 0.047567793
+## 318   Article 7     declaration  1 0.025641026 1.82454929 0.046783315
+## 319   Article 7         without  1 0.025641026 1.82454929 0.046783315
+## 320   Article 8             for  1 0.037037037 1.23676263 0.045806023
+## 321  Article 16          family  2 0.025000000 1.82454929 0.045613732
+## 322  Article 16            full  2 0.025000000 1.82454929 0.045613732
+## 323  Article 28              in  2 0.083333333 0.54361545 0.045301287
+## 324   Article 1             all  1 0.033333333 1.35454566 0.045151522
+## 325  Article 10              by  1 0.030303030 1.48807706 0.045093244
+## 326  Article 10        entitled  1 0.030303030 1.48807706 0.045093244
+## 327  Article 30     declaration  1 0.024390244 1.82454929 0.044501202
+## 328  Article 30          person  1 0.024390244 1.82454929 0.044501202
+## 329  Article 22     personality  1 0.018867925 2.33537492 0.044063678
+## 330  Article 22        security  1 0.018867925 2.33537492 0.044063678
+## 331  Article 22         through  1 0.018867925 2.33537492 0.044063678
+## 332    Preamble            have  6 0.018691589 2.33537492 0.043651868
+## 333  Article 14           enjoy  1 0.021276596 2.04769284 0.043567933
+## 334  Article 14             may  1 0.021276596 2.04769284 0.043567933
+## 335  Article 14         nations  1 0.021276596 2.04769284 0.043567933
+## 336  Article 14           other  1 0.021276596 2.04769284 0.043567933
+## 337  Article 14          united  1 0.021276596 2.04769284 0.043567933
+## 338  Article 15              no  1 0.038461538 1.13140211 0.043515466
+## 339  Article 17              no  1 0.038461538 1.13140211 0.043515466
+## 340  Article 12      protection  1 0.026315789 1.64222774 0.043216519
+## 341  Article 28          rights  1 0.041666667 1.03609193 0.043170497
+## 342  Article 16         consent  1 0.012500000 3.43398720 0.042924840
+## 343  Article 16     dissolution  1 0.012500000 3.43398720 0.042924840
+## 344  Article 16          during  1 0.012500000 3.43398720 0.042924840
+## 345  Article 16         entered  1 0.012500000 3.43398720 0.042924840
+## 346  Article 16           found  1 0.012500000 3.43398720 0.042924840
+## 347  Article 16       intending  1 0.012500000 3.43398720 0.042924840
+## 348  Article 16            into  1 0.012500000 3.43398720 0.042924840
+## 349  Article 16           marry  1 0.012500000 3.43398720 0.042924840
+## 350  Article 16         natural  1 0.012500000 3.43398720 0.042924840
+## 351  Article 16         spouses  1 0.012500000 3.43398720 0.042924840
+## 352  Article 16            unit  1 0.012500000 3.43398720 0.042924840
+## 353   Article 2         belongs  1 0.012500000 3.43398720 0.042924840
+## 354   Article 2           birth  1 0.012500000 3.43398720 0.042924840
+## 355   Article 2          colour  1 0.012500000 3.43398720 0.042924840
+## 356   Article 2     furthermore  1 0.012500000 3.43398720 0.042924840
+## 357   Article 2       governing  1 0.012500000 3.43398720 0.042924840
+## 358   Article 2  jurisdictional  1 0.012500000 3.43398720 0.042924840
+## 359   Article 2        language  1 0.012500000 3.43398720 0.042924840
+## 360   Article 2          origin  1 0.012500000 3.43398720 0.042924840
+## 361   Article 2            self  1 0.012500000 3.43398720 0.042924840
+## 362   Article 2             sex  1 0.012500000 3.43398720 0.042924840
+## 363   Article 2     sovereignty  1 0.012500000 3.43398720 0.042924840
+## 364   Article 2       territory  1 0.012500000 3.43398720 0.042924840
+## 365   Article 2           trust  1 0.012500000 3.43398720 0.042924840
+## 366  Article 21          access  1 0.012500000 3.43398720 0.042924840
+## 367  Article 21       authority  1 0.012500000 3.43398720 0.042924840
+## 368  Article 21          chosen  1 0.012500000 3.43398720 0.042924840
+## 369  Article 21        directly  1 0.012500000 3.43398720 0.042924840
+## 370  Article 21       elections  1 0.012500000 3.43398720 0.042924840
+## 371  Article 21      equivalent  1 0.012500000 3.43398720 0.042924840
+## 372  Article 21       expressed  1 0.012500000 3.43398720 0.042924840
+## 373  Article 21         genuine  1 0.012500000 3.43398720 0.042924840
+## 374  Article 21            part  1 0.012500000 3.43398720 0.042924840
+## 375  Article 21      procedures  1 0.012500000 3.43398720 0.042924840
+## 376  Article 21 representatives  1 0.012500000 3.43398720 0.042924840
+## 377  Article 21          secret  1 0.012500000 3.43398720 0.042924840
+## 378  Article 21         service  1 0.012500000 3.43398720 0.042924840
+## 379  Article 21        suffrage  1 0.012500000 3.43398720 0.042924840
+## 380  Article 21            take  1 0.012500000 3.43398720 0.042924840
+## 381  Article 21            vote  1 0.012500000 3.43398720 0.042924840
+## 382  Article 21          voting  1 0.012500000 3.43398720 0.042924840
+## 383    Preamble         peoples  4 0.012461059 3.43398720 0.042791118
+## 384  Article 27       community  1 0.017857143 2.33537492 0.041703123
+## 385  Article 27            from  1 0.017857143 2.33537492 0.041703123
+## 386  Article 27            life  1 0.017857143 2.33537492 0.041703123
+## 387  Article 23             for  3 0.033333333 1.23676263 0.041225421
+## 388   Article 1             one  1 0.033333333 1.23676263 0.041225421
+## 389   Article 1            with  1 0.033333333 1.23676263 0.041225421
+## 390  Article 21           equal  2 0.025000000 1.64222774 0.041055693
+## 391  Article 10              is  1 0.030303030 1.35454566 0.041046838
+## 392  Article 25        adequate  1 0.011764706 3.43398720 0.040399849
+## 393  Article 25      assistance  1 0.011764706 3.43398720 0.040399849
+## 394  Article 25           being  1 0.011764706 3.43398720 0.040399849
+## 395  Article 25          beyond  1 0.011764706 3.43398720 0.040399849
+## 396  Article 25       childhood  1 0.011764706 3.43398720 0.040399849
+## 397  Article 25   circumstances  1 0.011764706 3.43398720 0.040399849
+## 398  Article 25        clothing  1 0.011764706 3.43398720 0.040399849
+## 399  Article 25         control  1 0.011764706 3.43398720 0.040399849
+## 400  Article 25      disability  1 0.011764706 3.43398720 0.040399849
+## 401  Article 25           event  1 0.011764706 3.43398720 0.040399849
+## 402  Article 25            food  1 0.011764706 3.43398720 0.040399849
+## 403  Article 25          health  1 0.011764706 3.43398720 0.040399849
+## 404  Article 25         housing  1 0.011764706 3.43398720 0.040399849
+## 405  Article 25            lack  1 0.011764706 3.43398720 0.040399849
+## 406  Article 25      livelihood  1 0.011764706 3.43398720 0.040399849
+## 407  Article 25          living  1 0.011764706 3.43398720 0.040399849
+## 408  Article 25         medical  1 0.011764706 3.43398720 0.040399849
+## 409  Article 25      motherhood  1 0.011764706 3.43398720 0.040399849
+## 410  Article 25             old  1 0.011764706 3.43398720 0.040399849
+## 411  Article 25             out  1 0.011764706 3.43398720 0.040399849
+## 412  Article 25            same  1 0.011764706 3.43398720 0.040399849
+## 413  Article 25        services  1 0.011764706 3.43398720 0.040399849
+## 414  Article 25        sickness  1 0.011764706 3.43398720 0.040399849
+## 415  Article 25         special  1 0.011764706 3.43398720 0.040399849
+## 416  Article 25         wedlock  1 0.011764706 3.43398720 0.040399849
+## 417  Article 25       widowhood  1 0.011764706 3.43398720 0.040399849
+## 418  Article 18             his  2 0.042553191 0.94908055 0.040386407
+## 419  Article 30        freedoms  1 0.024390244 1.64222774 0.040054335
+## 420  Article 21           shall  4 0.050000000 0.79492987 0.039746494
+## 421  Article 12             law  1 0.026315789 1.48807706 0.039159923
+## 422  Article 18          public  1 0.021276596 1.82454929 0.038820198
+## 423  Article 25          social  2 0.023529412 1.64222774 0.038640653
+## 424  Article 22     development  1 0.018867925 2.04769284 0.038635714
+## 425  Article 22         dignity  1 0.018867925 2.04769284 0.038635714
+## 426  Article 22         society  1 0.018867925 2.04769284 0.038635714
+## 427  Article 22           state  1 0.018867925 2.04769284 0.038635714
+## 428   Article 8          rights  1 0.037037037 1.03609193 0.038373775
+## 429  Article 12              or  2 0.052631579 0.72593700 0.038207211
+## 430  Article 23               4  1 0.011111111 3.43398720 0.038155413
+## 431  Article 23          choice  1 0.011111111 3.43398720 0.038155413
+## 432  Article 23      conditions  1 0.011111111 3.43398720 0.038155413
+## 433  Article 23      employment  1 0.011111111 3.43398720 0.038155413
+## 434  Article 23        ensuring  1 0.011111111 3.43398720 0.038155413
+## 435  Article 23       existence  1 0.011111111 3.43398720 0.038155413
+## 436  Article 23            form  1 0.011111111 3.43398720 0.038155413
+## 437  Article 23            join  1 0.011111111 3.43398720 0.038155413
+## 438  Article 23           means  1 0.011111111 3.43398720 0.038155413
+## 439  Article 23    remuneration  1 0.011111111 3.43398720 0.038155413
+## 440  Article 23    supplemented  1 0.011111111 3.43398720 0.038155413
+## 441  Article 23          unions  1 0.011111111 3.43398720 0.038155413
+## 442  Article 23             who  1 0.011111111 3.43398720 0.038155413
+## 443  Article 23           works  1 0.011111111 3.43398720 0.038155413
+## 444  Article 23          worthy  1 0.011111111 3.43398720 0.038155413
+## 445  Article 20               1  1 0.043478261 0.86903785 0.037784254
+## 446  Article 20               2  1 0.043478261 0.86903785 0.037784254
+## 447   Article 5              be  1 0.062500000 0.60077386 0.037548366
+## 448  Article 16        entitled  2 0.025000000 1.48807706 0.037201926
+## 449  Article 11               a  4 0.042553191 0.86903785 0.036980334
+## 450  Article 27           enjoy  1 0.017857143 2.04769284 0.036565944
+## 451  Article 19             and  5 0.142857143 0.25593337 0.036561911
+## 452  Article 11       according  1 0.010638298 3.43398720 0.036531779
+## 453  Article 11         account  1 0.010638298 3.43398720 0.036531779
+## 454  Article 11      applicable  1 0.010638298 3.43398720 0.036531779
+## 455  Article 11         charged  1 0.010638298 3.43398720 0.036531779
+## 456  Article 11      constitute  1 0.010638298 3.43398720 0.036531779
+## 457  Article 11         defence  1 0.010638298 3.43398720 0.036531779
+## 458  Article 11             did  1 0.010638298 3.43398720 0.036531779
+## 459  Article 11      guarantees  1 0.010638298 3.43398720 0.036531779
+## 460  Article 11             had  1 0.010638298 3.43398720 0.036531779
+## 461  Article 11         heavier  1 0.010638298 3.43398720 0.036531779
+## 462  Article 11         imposed  1 0.010638298 3.43398720 0.036531779
+## 463  Article 11        innocent  1 0.010638298 3.43398720 0.036531779
+## 464  Article 11        omission  1 0.010638298 3.43398720 0.036531779
+## 465  Article 11         penalty  1 0.010638298 3.43398720 0.036531779
+## 466  Article 11        presumed  1 0.010638298 3.43398720 0.036531779
+## 467  Article 11          proved  1 0.010638298 3.43398720 0.036531779
+## 468  Article 11            than  1 0.010638298 3.43398720 0.036531779
+## 469  Article 11           trial  1 0.010638298 3.43398720 0.036531779
+## 470  Article 11           until  1 0.010638298 3.43398720 0.036531779
+## 471  Article 11            when  1 0.010638298 3.43398720 0.036531779
+## 472  Article 17             his  1 0.038461538 0.94908055 0.036503098
+## 473  Article 23           equal  2 0.022222222 1.64222774 0.036493950
+## 474   Article 1              in  2 0.066666667 0.54361545 0.036241030
+## 475  Article 28               a  1 0.041666667 0.86903785 0.036209910
+## 476  Article 22             his  2 0.037735849 0.94908055 0.035814361
+## 477  Article 30              or  2 0.048780488 0.72593700 0.035411561
+## 478   Article 3             has  1 0.090909091 0.38946477 0.035405888
+## 479   Article 3           right  1 0.090909091 0.38946477 0.035405888
+## 480  Article 19            this  1 0.028571429 1.23676263 0.035336075
+## 481  Article 29      democratic  1 0.010204082 3.43398720 0.035040686
+## 482  Article 29          duties  1 0.010204082 3.43398720 0.035040686
+## 483  Article 29        exercise  1 0.010204082 3.43398720 0.035040686
+## 484  Article 29       exercised  1 0.010204082 3.43398720 0.035040686
+## 485  Article 29     limitations  1 0.010204082 3.43398720 0.035040686
+## 486  Article 29         meeting  1 0.010204082 3.43398720 0.035040686
+## 487  Article 29        morality  1 0.010204082 3.43398720 0.035040686
+## 488  Article 29        possible  1 0.010204082 3.43398720 0.035040686
+## 489  Article 29         purpose  1 0.010204082 3.43398720 0.035040686
+## 490  Article 29    requirements  1 0.010204082 3.43398720 0.035040686
+## 491  Article 29        securing  1 0.010204082 3.43398720 0.035040686
+## 492  Article 29          solely  1 0.010204082 3.43398720 0.035040686
+## 493  Article 29         subject  1 0.010204082 3.43398720 0.035040686
+## 494  Article 29         welfare  1 0.010204082 3.43398720 0.035040686
+## 495  Article 18              in  3 0.063829787 0.54361545 0.034698858
+## 496   Article 4              or  1 0.047619048 0.72593700 0.034568429
+## 497   Article 1          rights  1 0.033333333 1.03609193 0.034536398
+## 498  Article 22   international  1 0.018867925 1.82454929 0.034425458
+## 499  Article 22        national  1 0.018867925 1.82454929 0.034425458
+## 500  Article 26     fundamental  2 0.016806723 2.04769284 0.034415006
+## 501  Article 26           human  2 0.016806723 2.04769284 0.034415006
+## 502  Article 26         nations  2 0.016806723 2.04769284 0.034415006
+## 503  Article 10             any  1 0.030303030 1.13140211 0.034284912
+## 504  Article 16             age  1 0.012500000 2.74084002 0.034260500
+## 505  Article 16             due  1 0.012500000 2.74084002 0.034260500
+## 506  Article 16           group  1 0.012500000 2.74084002 0.034260500
+## 507  Article 16             its  1 0.012500000 2.74084002 0.034260500
+## 508  Article 16             men  1 0.012500000 2.74084002 0.034260500
+## 509  Article 16     nationality  1 0.012500000 2.74084002 0.034260500
+## 510  Article 16            only  1 0.012500000 2.74084002 0.034260500
+## 511  Article 16            race  1 0.012500000 2.74084002 0.034260500
+## 512  Article 16            they  1 0.012500000 2.74084002 0.034260500
+## 513  Article 16           women  1 0.012500000 2.74084002 0.034260500
+## 514   Article 2     independent  1 0.012500000 2.74084002 0.034260500
+## 515   Article 2            kind  1 0.012500000 2.74084002 0.034260500
+## 516   Article 2            made  1 0.012500000 2.74084002 0.034260500
+## 517   Article 2             non  1 0.012500000 2.74084002 0.034260500
+## 518   Article 2         opinion  1 0.012500000 2.74084002 0.034260500
+## 519   Article 2        property  1 0.012500000 2.74084002 0.034260500
+## 520   Article 2            race  1 0.012500000 2.74084002 0.034260500
+## 521   Article 2         whether  1 0.012500000 2.74084002 0.034260500
+## 522  Article 21          freely  1 0.012500000 2.74084002 0.034260500
+## 523  Article 21          people  1 0.012500000 2.74084002 0.034260500
+## 524  Article 21        periodic  1 0.012500000 2.74084002 0.034260500
+## 525  Article 21       universal  1 0.012500000 2.74084002 0.034260500
+## 526   Article 1             and  4 0.133333333 0.25593337 0.034124450
+## 527  Article 16              is  2 0.025000000 1.35454566 0.033863642
+## 528  Article 15               1  1 0.038461538 0.86903785 0.033424533
+## 529  Article 15               2  1 0.038461538 0.86903785 0.033424533
+## 530  Article 15               a  1 0.038461538 0.86903785 0.033424533
+## 531  Article 17               1  1 0.038461538 0.86903785 0.033424533
+## 532  Article 17               2  1 0.038461538 0.86903785 0.033424533
+## 533  Article 30              as  1 0.024390244 1.35454566 0.033037699
+## 534  Article 10              in  2 0.060606061 0.54361545 0.032946391
+## 535  Article 12             one  1 0.026315789 1.23676263 0.032546385
+## 536  Article 12            with  1 0.026315789 1.23676263 0.032546385
+## 537  Article 13             any  1 0.028571429 1.13140211 0.032325775
+## 538  Article 19             any  1 0.028571429 1.13140211 0.032325775
+## 539  Article 25             age  1 0.011764706 2.74084002 0.032245177
+## 540  Article 25            born  1 0.011764706 2.74084002 0.032245177
+## 541  Article 25        children  1 0.011764706 2.74084002 0.032245177
+## 542  Article 25         himself  1 0.011764706 2.74084002 0.032245177
+## 543  Article 25        standard  1 0.011764706 2.74084002 0.032245177
+## 544  Article 25    unemployment  1 0.011764706 2.74084002 0.032245177
+## 545  Article 25            well  1 0.011764706 2.74084002 0.032245177
+## 546  Article 25         whether  1 0.011764706 2.74084002 0.032245177
+## 547    Preamble          common  3 0.009345794 3.43398720 0.032093338
+## 548  Article 29          rights  3 0.030612245 1.03609193 0.031717100
+## 549   Article 7            this  1 0.025641026 1.23676263 0.031711862
+## 550  Article 11             law  2 0.021276596 1.48807706 0.031661214
+## 551  Article 11           which  2 0.021276596 1.48807706 0.031661214
+## 552  Article 10          rights  1 0.030303030 1.03609193 0.031396725
+## 553  Article 10             and  4 0.121212121 0.25593337 0.031022227
+## 554  Article 15           shall  1 0.038461538 0.79492987 0.030574226
+## 555  Article 17           shall  1 0.038461538 0.79492987 0.030574226
+## 556  Article 23  discrimination  1 0.011111111 2.74084002 0.030453778
+## 557  Article 23         himself  1 0.011111111 2.74084002 0.030453778
+## 558  Article 23              if  1 0.011111111 2.74084002 0.030453778
+## 559  Article 23       interests  1 0.011111111 2.74084002 0.030453778
+## 560  Article 23             pay  1 0.011111111 2.74084002 0.030453778
+## 561  Article 23           trade  1 0.011111111 2.74084002 0.030453778
+## 562  Article 23    unemployment  1 0.011111111 2.74084002 0.030453778
+## 563  Article 26              be  6 0.050420168 0.60077386 0.030291119
+## 564  Article 30             for  1 0.024390244 1.23676263 0.030164942
+## 565  Article 30            this  1 0.024390244 1.23676263 0.030164942
+## 566  Article 21              be  4 0.050000000 0.60077386 0.030038693
+## 567  Article 15           right  2 0.076923077 0.38946477 0.029958828
+## 568   Article 6             has  1 0.076923077 0.38946477 0.029958828
+## 569   Article 6           right  1 0.076923077 0.38946477 0.029958828
+## 570  Article 12              no  1 0.026315789 1.13140211 0.029773740
+## 571  Article 27      protection  1 0.017857143 1.64222774 0.029325495
+## 572  Article 16            have  1 0.012500000 2.33537492 0.029192186
+## 573  Article 16      limitation  1 0.012500000 2.33537492 0.029192186
+## 574  Article 16        religion  1 0.012500000 2.33537492 0.029192186
+## 575   Article 2           basis  1 0.012500000 2.33537492 0.029192186
+## 576   Article 2         country  1 0.012500000 2.33537492 0.029192186
+## 577   Article 2           forth  1 0.012500000 2.33537492 0.029192186
+## 578   Article 2      limitation  1 0.012500000 2.33537492 0.029192186
+## 579   Article 2              on  1 0.012500000 2.33537492 0.029192186
+## 580   Article 2        religion  1 0.012500000 2.33537492 0.029192186
+## 581   Article 2             set  1 0.012500000 2.33537492 0.029192186
+## 582   Article 2           under  1 0.012500000 2.33537492 0.029192186
+## 583  Article 21           basis  1 0.012500000 2.33537492 0.029192186
+## 584  Article 21            held  1 0.012500000 2.33537492 0.029192186
+## 585  Article 21         through  1 0.012500000 2.33537492 0.029192186
+## 586  Article 11              he  1 0.010638298 2.74084002 0.029157873
+## 587    Preamble          rights  9 0.028037383 1.03609193 0.029049306
+## 588  Article 22             and  6 0.113207547 0.25593337 0.028973590
+## 589   Article 1               a  1 0.033333333 0.86903785 0.028967928
+## 590  Article 26      accessible  1 0.008403361 3.43398720 0.028857035
+## 591  Article 26      activities  1 0.008403361 3.43398720 0.028857035
+## 592  Article 26       available  1 0.008403361 3.43398720 0.028857035
+## 593  Article 26          choose  1 0.008403361 3.43398720 0.028857035
+## 594  Article 26      compulsory  1 0.008403361 3.43398720 0.028857035
+## 595  Article 26        directed  1 0.008403361 3.43398720 0.028857035
+## 596  Article 26         equally  1 0.008403361 3.43398720 0.028857035
+## 597  Article 26      friendship  1 0.008403361 3.43398720 0.028857035
+## 598  Article 26         further  1 0.008403361 3.43398720 0.028857035
+## 599  Article 26       generally  1 0.008403361 3.43398720 0.028857035
+## 600  Article 26           given  1 0.008403361 3.43398720 0.028857035
+## 601  Article 26          groups  1 0.008403361 3.43398720 0.028857035
+## 602  Article 26          higher  1 0.008403361 3.43398720 0.028857035
+## 603  Article 26           least  1 0.008403361 3.43398720 0.028857035
+## 604  Article 26     maintenance  1 0.008403361 3.43398720 0.028857035
+## 605  Article 26           merit  1 0.008403361 3.43398720 0.028857035
+## 606  Article 26         parents  1 0.008403361 3.43398720 0.028857035
+## 607  Article 26           prior  1 0.008403361 3.43398720 0.028857035
+## 608  Article 26    professional  1 0.008403361 3.43398720 0.028857035
+## 609  Article 26          racial  1 0.008403361 3.43398720 0.028857035
+## 610  Article 26       religious  1 0.008403361 3.43398720 0.028857035
+## 611  Article 26          stages  1 0.008403361 3.43398720 0.028857035
+## 612  Article 26   strengthening  1 0.008403361 3.43398720 0.028857035
+## 613  Article 26       technical  1 0.008403361 3.43398720 0.028857035
+## 614  Article 26       tolerance  1 0.008403361 3.43398720 0.028857035
+## 615  Article 10             his  1 0.030303030 0.94908055 0.028760017
+## 616   Article 2             any  2 0.025000000 1.13140211 0.028285053
+## 617  Article 22        entitled  1 0.018867925 1.48807706 0.028076926
+## 618  Article 22            free  1 0.018867925 1.48807706 0.028076926
+## 619  Article 29            case  1 0.010204082 2.74084002 0.027967755
+## 620  Article 29        contrary  1 0.010204082 2.74084002 0.027967755
+## 621  Article 29      determined  1 0.010204082 2.74084002 0.027967755
+## 622  Article 29             due  1 0.010204082 2.74084002 0.027967755
+## 623  Article 29         general  1 0.010204082 2.74084002 0.027967755
+## 624  Article 29            just  1 0.010204082 2.74084002 0.027967755
+## 625  Article 29            only  1 0.010204082 2.74084002 0.027967755
+## 626  Article 29           order  1 0.010204082 2.74084002 0.027967755
+## 627  Article 29      principles  1 0.010204082 2.74084002 0.027967755
+## 628  Article 29        purposes  1 0.010204082 2.74084002 0.027967755
+## 629  Article 29           these  1 0.010204082 2.74084002 0.027967755
+## 630  Article 25       including  1 0.011764706 2.33537492 0.027474999
+## 631  Article 25       necessary  1 0.011764706 2.33537492 0.027474999
+## 632  Article 25        security  1 0.011764706 2.33537492 0.027474999
+## 633   Article 3        everyone  1 0.090909091 0.29849299 0.027135726
+## 634  Article 24             and  2 0.105263158 0.25593337 0.026940355
+## 635   Article 8              or  1 0.037037037 0.72593700 0.026886556
+## 636  Article 27           which  1 0.017857143 1.48807706 0.026572805
+## 637  Article 30              in  2 0.048780488 0.54361545 0.026517827
+## 638  Article 10               a  1 0.030303030 0.86903785 0.026334480
+## 639  Article 11             one  2 0.021276596 1.23676263 0.026314098
+## 640  Article 14            this  1 0.021276596 1.23676263 0.026314098
+## 641  Article 18            this  1 0.021276596 1.23676263 0.026314098
+## 642  Article 18            with  1 0.021276596 1.23676263 0.026314098
+## 643  Article 20              be  1 0.043478261 0.60077386 0.026120603
+## 644  Article 23       necessary  1 0.011111111 2.33537492 0.025948610
+## 645    Preamble         promote  3 0.009345794 2.74084002 0.025615327
+## 646    Preamble       universal  3 0.009345794 2.74084002 0.025615327
+## 647  Article 16              at  1 0.012500000 2.04769284 0.025596161
+## 648  Article 16     fundamental  1 0.012500000 2.04769284 0.025596161
+## 649  Article 16           state  1 0.012500000 2.04769284 0.025596161
+## 650   Article 2              it  1 0.012500000 2.04769284 0.025596161
+## 651   Article 2            such  1 0.012500000 2.04769284 0.025596161
+## 652  Article 22              as  1 0.018867925 1.35454566 0.025557465
+## 653  Article 22              is  1 0.018867925 1.35454566 0.025557465
+## 654    Preamble         nations  4 0.012461059 2.04769284 0.025516422
+## 655  Article 30          rights  1 0.024390244 1.03609193 0.025270535
+## 656  Article 29             for  2 0.020408163 1.23676263 0.025240054
+## 657  Article 28              be  1 0.041666667 0.60077386 0.025032244
+## 658  Article 11             act  1 0.010638298 2.33537492 0.024844414
+## 659  Article 11            held  1 0.010638298 2.33537492 0.024844414
+## 660  Article 11       necessary  1 0.010638298 2.33537492 0.024844414
+## 661  Article 11             nor  1 0.010638298 2.33537492 0.024844414
+## 662  Article 11             not  1 0.010638298 2.33537492 0.024844414
+## 663  Article 11              on  1 0.010638298 2.33537492 0.024844414
+## 664  Article 11            that  1 0.010638298 2.33537492 0.024844414
+## 665  Article 11           under  1 0.010638298 2.33537492 0.024844414
+## 666  Article 13               1  1 0.028571429 0.86903785 0.024829653
+## 667  Article 13               2  1 0.028571429 0.86903785 0.024829653
+## 668  Article 27              is  1 0.017857143 1.35454566 0.024188315
+## 669  Article 25           enjoy  1 0.011764706 2.04769284 0.024090504
+## 670  Article 25           other  1 0.011764706 2.04769284 0.024090504
+## 671  Article 11             any  2 0.021276596 1.13140211 0.024072385
+## 672  Article 29           alone  1 0.010204082 2.33537492 0.023830356
+## 673  Article 29       community  1 0.010204082 2.33537492 0.023830356
+## 674  Article 29          others  1 0.010204082 2.33537492 0.023830356
+## 675  Article 29     personality  1 0.010204082 2.33537492 0.023830356
+## 676  Article 29     recognition  1 0.010204082 2.33537492 0.023830356
+## 677  Article 29         respect  1 0.010204082 2.33537492 0.023830356
+## 678  Article 21             his  2 0.025000000 0.94908055 0.023727014
+## 679  Article 22             for  1 0.018867925 1.23676263 0.023335144
+## 680  Article 22            with  1 0.018867925 1.23676263 0.023335144
+## 681   Article 3             and  1 0.090909091 0.25593337 0.023266670
+## 682  Article 14              in  2 0.042553191 0.54361545 0.023132572
+## 683  Article 15              be  1 0.038461538 0.60077386 0.023106687
+## 684  Article 17              be  1 0.038461538 0.60077386 0.023106687
+## 685  Article 26           among  1 0.008403361 2.74084002 0.023032269
+## 686  Article 26        children  1 0.008403361 2.74084002 0.023032269
+## 687  Article 26            kind  1 0.008403361 2.74084002 0.023032269
+## 688  Article 26            made  1 0.008403361 2.74084002 0.023032269
+## 689  Article 26           peace  1 0.008403361 2.74084002 0.023032269
+## 690  Article 26         promote  1 0.008403361 2.74084002 0.023032269
+## 691  Article 26   understanding  1 0.008403361 2.74084002 0.023032269
+## 692   Article 6        everyone  1 0.076923077 0.29849299 0.022960999
+## 693  Article 16               3  1 0.012500000 1.82454929 0.022806866
+## 694  Article 16             are  1 0.012500000 1.82454929 0.022806866
+## 695  Article 16         without  1 0.012500000 1.82454929 0.022806866
+## 696   Article 2     declaration  1 0.012500000 1.82454929 0.022806866
+## 697   Article 2   international  1 0.012500000 1.82454929 0.022806866
+## 698   Article 2        national  1 0.012500000 1.82454929 0.022806866
+## 699   Article 2          person  1 0.012500000 1.82454929 0.022806866
+## 700   Article 2         without  1 0.012500000 1.82454929 0.022806866
+## 701  Article 21               3  1 0.012500000 1.82454929 0.022806866
+## 702  Article 21          public  1 0.012500000 1.82454929 0.022806866
+## 703  Article 26             all  2 0.016806723 1.35454566 0.022765473
+## 704  Article 23              an  1 0.011111111 2.04769284 0.022752143
+## 705  Article 23         dignity  1 0.011111111 2.04769284 0.022752143
+## 706  Article 23           human  1 0.011111111 2.04769284 0.022752143
+## 707  Article 23           other  1 0.011111111 2.04769284 0.022752143
+## 708    Preamble         freedom  4 0.012461059 1.82454929 0.022735817
+## 709  Article 16             and  7 0.087500000 0.25593337 0.022394170
+## 710  Article 25             his  2 0.023529412 0.94908055 0.022331307
+## 711  Article 13             has  2 0.057142857 0.38946477 0.022255130
+## 712  Article 13           right  2 0.057142857 0.38946477 0.022255130
+## 713  Article 19           right  2 0.057142857 0.38946477 0.022255130
+## 714  Article 29              in  4 0.040816327 0.54361545 0.022188386
+## 715    Preamble           their  3 0.009345794 2.33537492 0.021825934
+## 716  Article 11              it  1 0.010638298 2.04769284 0.021783966
+## 717  Article 18             and  4 0.085106383 0.25593337 0.021781564
+## 718  Article 25             are  1 0.011764706 1.82454929 0.021465286
+## 719  Article 25          family  1 0.011764706 1.82454929 0.021465286
+## 720    Preamble       essential  2 0.006230530 3.43398720 0.021395559
+## 721    Preamble           every  2 0.006230530 3.43398720 0.021395559
+## 722    Preamble          states  2 0.006230530 3.43398720 0.021395559
+## 723    Preamble      themselves  2 0.006230530 3.43398720 0.021395559
+## 724    Preamble           world  2 0.006230530 3.43398720 0.021395559
+## 725  Article 28             and  2 0.083333333 0.25593337 0.021327781
+## 726    Preamble              is  5 0.015576324 1.35454566 0.021098842
+## 727  Article 23             his  2 0.022222222 0.94908055 0.021090679
+## 728  Article 25             and  7 0.082352941 0.25593337 0.021076866
+## 729  Article 12           shall  1 0.026315789 0.79492987 0.020919207
+## 730  Article 17              in  1 0.038461538 0.54361545 0.020908286
+## 731  Article 29     development  1 0.010204082 2.04769284 0.020894825
+## 732  Article 29             may  1 0.010204082 2.04769284 0.020894825
+## 733  Article 29         nations  1 0.010204082 2.04769284 0.020894825
+## 734  Article 29         society  1 0.010204082 2.04769284 0.020894825
+## 735  Article 29            such  1 0.010204082 2.04769284 0.020894825
+## 736  Article 29          united  1 0.010204082 2.04769284 0.020894825
+## 737  Article 29             and  8 0.081632653 0.25593337 0.020892520
+## 738  Article 26             for  2 0.016806723 1.23676263 0.020785927
+## 739    Preamble             and 26 0.080996885 0.25593337 0.020729806
+## 740  Article 16           equal  1 0.012500000 1.64222774 0.020527847
+## 741  Article 16      protection  1 0.012500000 1.64222774 0.020527847
+## 742   Article 2        freedoms  1 0.012500000 1.64222774 0.020527847
+## 743   Article 2          social  1 0.012500000 1.64222774 0.020527847
+## 744  Article 24             has  1 0.052631579 0.38946477 0.020498146
+## 745  Article 24           right  1 0.052631579 0.38946477 0.020498146
+## 746  Article 21              in  3 0.037500000 0.54361545 0.020385579
+## 747  Article 23               3  1 0.011111111 1.82454929 0.020272770
+## 748  Article 23         against  1 0.011111111 1.82454929 0.020272770
+## 749  Article 23          family  1 0.011111111 1.82454929 0.020272770
+## 750  Article 23         without  1 0.011111111 1.82454929 0.020272770
+## 751  Article 27             any  1 0.017857143 1.13140211 0.020203609
+## 752  Article 26           basis  1 0.008403361 2.33537492 0.019624999
+## 753  Article 26            have  1 0.008403361 2.33537492 0.019624999
+## 754  Article 26              on  1 0.008403361 2.33537492 0.019624999
+## 755  Article 26     personality  1 0.008403361 2.33537492 0.019624999
+## 756  Article 26         respect  1 0.008403361 2.33537492 0.019624999
+## 757  Article 26            that  1 0.008403361 2.33537492 0.019624999
+## 758  Article 26           their  1 0.008403361 2.33537492 0.019624999
+## 759   Article 3              of  1 0.090909091 0.21511138 0.019555580
+## 760  Article 22          rights  1 0.018867925 1.03609193 0.019548904
+## 761  Article 27              in  2 0.035714286 0.54361545 0.019414837
+## 762  Article 11   international  1 0.010638298 1.82454929 0.019410099
+## 763  Article 11        national  1 0.010638298 1.82454929 0.019410099
+## 764  Article 11          public  1 0.010638298 1.82454929 0.019410099
+## 765  Article 29             his  2 0.020408163 0.94908055 0.019368991
+## 766  Article 25      protection  1 0.011764706 1.64222774 0.019320326
+## 767    Preamble             for  5 0.015576324 1.23676263 0.019264215
+## 768  Article 25              in  3 0.035294118 0.54361545 0.019186428
+## 769  Article 11              be  3 0.031914894 0.60077386 0.019173634
+## 770  Article 29               3  1 0.010204082 1.82454929 0.018617850
+## 771  Article 29             are  1 0.010204082 1.82454929 0.018617850
+## 772  Article 29            full  1 0.010204082 1.82454929 0.018617850
+## 773  Article 29          public  1 0.010204082 1.82454929 0.018617850
+## 774  Article 16              by  1 0.012500000 1.48807706 0.018600963
+## 775  Article 16            free  1 0.012500000 1.48807706 0.018600963
+## 776   Article 2        entitled  1 0.012500000 1.48807706 0.018600963
+## 777   Article 2           which  1 0.012500000 1.48807706 0.018600963
+## 778  Article 21            free  1 0.012500000 1.48807706 0.018600963
+## 779  Article 21           which  1 0.012500000 1.48807706 0.018600963
+## 780  Article 14               1  1 0.021276596 0.86903785 0.018490167
+## 781  Article 14               2  1 0.021276596 0.86903785 0.018490167
+## 782  Article 23          social  1 0.011111111 1.64222774 0.018246975
+## 783  Article 21              or  2 0.025000000 0.72593700 0.018148425
+## 784  Article 25        entitled  1 0.011764706 1.48807706 0.017506789
+## 785  Article 23             has  4 0.044444444 0.38946477 0.017309545
+## 786  Article 23           right  4 0.044444444 0.38946477 0.017309545
+## 787  Article 26              at  1 0.008403361 2.04769284 0.017207503
+## 788  Article 26     development  1 0.008403361 2.04769284 0.017207503
+## 789  Article 26              it  1 0.008403361 2.04769284 0.017207503
+## 790  Article 26          united  1 0.008403361 2.04769284 0.017207503
+## 791  Article 25              or  2 0.023529412 0.72593700 0.017080871
+## 792    Preamble           among  2 0.006230530 2.74084002 0.017076885
+## 793    Preamble          member  2 0.006230530 2.74084002 0.017076885
+## 794    Preamble      observance  2 0.006230530 2.74084002 0.017076885
+## 795    Preamble           these  2 0.006230530 2.74084002 0.017076885
+## 796  Article 23             and  6 0.066666667 0.25593337 0.017062225
+## 797  Article 13        everyone  2 0.057142857 0.29849299 0.017056742
+## 798    Preamble              in 10 0.031152648 0.54361545 0.016935061
+## 799  Article 20             has  1 0.043478261 0.38946477 0.016933251
+## 800  Article 20           right  1 0.043478261 0.38946477 0.016933251
+## 801  Article 16              as  1 0.012500000 1.35454566 0.016931821
+## 802   Article 2             all  1 0.012500000 1.35454566 0.016931821
+## 803   Article 2              as  1 0.012500000 1.35454566 0.016931821
+## 804   Article 2              is  1 0.012500000 1.35454566 0.016931821
+## 805  Article 11           shall  2 0.021276596 0.79492987 0.016913402
+## 806    Preamble              of 25 0.077881620 0.21511138 0.016753223
+## 807  Article 14           right  2 0.042553191 0.38946477 0.016572969
+## 808  Article 18           right  2 0.042553191 0.38946477 0.016572969
+## 809  Article 23              by  1 0.011111111 1.48807706 0.016534190
+## 810  Article 23            free  1 0.011111111 1.48807706 0.016534190
+## 811  Article 22               a  1 0.018867925 0.86903785 0.016396941
+## 812  Article 22              of  4 0.075471698 0.21511138 0.016234821
+## 813  Article 25             all  1 0.011764706 1.35454566 0.015935831
+## 814  Article 12              be  1 0.026315789 0.60077386 0.015809838
+## 815  Article 24        everyone  1 0.052631579 0.29849299 0.015710157
+## 816   Article 6             the  2 0.153846154 0.10178269 0.015658876
+## 817  Article 27               1  1 0.017857143 0.86903785 0.015518533
+## 818  Article 27               2  1 0.017857143 0.86903785 0.015518533
+## 819  Article 16            with  1 0.012500000 1.23676263 0.015459533
+## 820   Article 2            this  1 0.012500000 1.23676263 0.015459533
+## 821  Article 21            this  1 0.012500000 1.23676263 0.015459533
+## 822  Article 11              or  2 0.021276596 0.72593700 0.015445468
+## 823  Article 14              or  1 0.021276596 0.72593700 0.015445468
+## 824  Article 29              of  7 0.071428571 0.21511138 0.015365099
+## 825    Preamble        freedoms  3 0.009345794 1.64222774 0.015347923
+## 826  Article 26               3  1 0.008403361 1.82454929 0.015332347
+## 827  Article 26            full  1 0.008403361 1.82454929 0.015332347
+## 828  Article 29              by  1 0.010204082 1.48807706 0.015184460
+## 829  Article 29            free  1 0.010204082 1.48807706 0.015184460
+## 830  Article 29             law  1 0.010204082 1.48807706 0.015184460
+## 831  Article 29           which  1 0.010204082 1.48807706 0.015184460
+## 832  Article 25              of  6 0.070588235 0.21511138 0.015184333
+## 833   Article 8             the  4 0.148148148 0.10178269 0.015078918
+## 834  Article 26             and  7 0.058823529 0.25593337 0.015054904
+## 835   Article 2              be  2 0.025000000 0.60077386 0.015019347
+## 836  Article 15             has  1 0.038461538 0.38946477 0.014979414
+## 837  Article 17             has  1 0.038461538 0.38946477 0.014979414
+## 838  Article 17           right  1 0.038461538 0.38946477 0.014979414
+## 839  Article 30              be  1 0.024390244 0.60077386 0.014653021
+## 840  Article 13             and  2 0.057142857 0.25593337 0.014624764
+## 841    Preamble     recognition  2 0.006230530 2.33537492 0.014550623
+## 842    Preamble         respect  2 0.006230530 2.33537492 0.014550623
+## 843    Preamble            that  2 0.006230530 2.33537492 0.014550623
+## 844  Article 25             for  1 0.011764706 1.23676263 0.014550149
+## 845  Article 27             the  8 0.142857143 0.10178269 0.014540385
+## 846   Article 8             has  1 0.037037037 0.38946477 0.014424621
+## 847   Article 8           right  1 0.037037037 0.38946477 0.014424621
+## 848  Article 11             all  1 0.010638298 1.35454566 0.014410060
+## 849  Article 16             any  1 0.012500000 1.13140211 0.014142526
+## 850   Article 2              no  1 0.012500000 1.13140211 0.014142526
+## 851   Article 7              in  1 0.025641026 0.54361545 0.013938858
+## 852  Article 27             has  2 0.035714286 0.38946477 0.013909456
+## 853  Article 27           right  2 0.035714286 0.38946477 0.013909456
+## 854    Preamble              by  3 0.009345794 1.48807706 0.013907262
+## 855  Article 29              as  1 0.010204082 1.35454566 0.013821895
+## 856  Article 29              is  1 0.010204082 1.35454566 0.013821895
+## 857  Article 26        freedoms  1 0.008403361 1.64222774 0.013800233
+## 858  Article 27             and  3 0.053571429 0.25593337 0.013710716
+## 859  Article 21              of  5 0.062500000 0.21511138 0.013444461
+## 860  Article 23        everyone  4 0.044444444 0.29849299 0.013266355
+## 861  Article 11             for  1 0.010638298 1.23676263 0.013157049
+## 862  Article 11            with  1 0.010638298 1.23676263 0.013157049
+## 863   Article 7             and  2 0.051282051 0.25593337 0.013124788
+## 864  Article 10              of  2 0.060606061 0.21511138 0.013037053
+## 865  Article 20        everyone  1 0.043478261 0.29849299 0.012977956
+## 866  Article 27              or  1 0.017857143 0.72593700 0.012963161
+## 867  Article 16          rights  1 0.012500000 1.03609193 0.012951149
+## 868   Article 2          rights  1 0.012500000 1.03609193 0.012951149
+## 869  Article 14              be  1 0.021276596 0.60077386 0.012782423
+## 870    Preamble         dignity  2 0.006230530 2.04769284 0.012758211
+## 871    Preamble     fundamental  2 0.006230530 2.04769284 0.012758211
+## 872    Preamble              it  2 0.006230530 2.04769284 0.012758211
+## 873    Preamble          united  2 0.006230530 2.04769284 0.012758211
+## 874    Preamble             all  3 0.009345794 1.35454566 0.012659305
+## 875    Preamble              as  3 0.009345794 1.35454566 0.012659305
+## 876  Article 23             any  1 0.011111111 1.13140211 0.012571135
+## 877  Article 26            free  1 0.008403361 1.48807706 0.012504849
+## 878  Article 28        everyone  1 0.041666667 0.29849299 0.012437208
+## 879  Article 13              of  2 0.057142857 0.21511138 0.012292079
+## 880  Article 19              of  2 0.057142857 0.21511138 0.012292079
+## 881  Article 29              be  2 0.020408163 0.60077386 0.012260691
+## 882   Article 4             and  1 0.047619048 0.25593337 0.012187304
+## 883  Article 11              no  1 0.010638298 1.13140211 0.012036193
+## 884  Article 23              of  5 0.055555556 0.21511138 0.011950632
+## 885    Preamble            this  3 0.009345794 1.23676263 0.011558529
+## 886  Article 29              no  1 0.010204082 1.13140211 0.011544920
+## 887  Article 27              of  3 0.053571429 0.21511138 0.011523824
+## 888  Article 15        everyone  1 0.038461538 0.29849299 0.011480500
+## 889  Article 17        everyone  1 0.038461538 0.29849299 0.011480500
+## 890    Preamble     declaration  2 0.006230530 1.82454929 0.011367908
+## 891  Article 24              of  1 0.052631579 0.21511138 0.011321652
+## 892  Article 19             has  1 0.028571429 0.38946477 0.011127565
+## 893  Article 20             and  1 0.043478261 0.25593337 0.011127538
+## 894   Article 8        everyone  1 0.037037037 0.29849299 0.011055296
+## 895   Article 7              of  2 0.051282051 0.21511138 0.011031353
+## 896  Article 14             and  2 0.042553191 0.25593337 0.010890782
+## 897  Article 16               1  1 0.012500000 0.86903785 0.010862973
+## 898  Article 16               2  1 0.012500000 0.86903785 0.010862973
+## 899  Article 16               a  1 0.012500000 0.86903785 0.010862973
+## 900   Article 2               a  1 0.012500000 0.86903785 0.010862973
+## 901  Article 21               1  1 0.012500000 0.86903785 0.010862973
+## 902  Article 21               2  1 0.012500000 0.86903785 0.010862973
+## 903  Article 26              of  6 0.050420168 0.21511138 0.010845952
+## 904    Preamble               a  4 0.012461059 0.86903785 0.010829132
+## 905   Article 2              of  4 0.050000000 0.21511138 0.010755569
+## 906    Preamble         achieve  1 0.003115265 3.43398720 0.010697779
+## 907    Preamble     achievement  1 0.003115265 3.43398720 0.010697779
+## 908    Preamble          advent  1 0.003115265 3.43398720 0.010697779
+## 909    Preamble      aspiration  1 0.003115265 3.43398720 0.010697779
+## 910    Preamble       barbarous  1 0.003115265 3.43398720 0.010697779
+## 911    Preamble            been  1 0.003115265 3.43398720 0.010697779
+## 912    Preamble          better  1 0.003115265 3.43398720 0.010697779
+## 913    Preamble         between  1 0.003115265 3.43398720 0.010697779
+## 914    Preamble            both  1 0.003115265 3.43398720 0.010697779
+## 915    Preamble         charter  1 0.003115265 3.43398720 0.010697779
+## 916    Preamble      constantly  1 0.003115265 3.43398720 0.010697779
+## 917    Preamble        contempt  1 0.003115265 3.43398720 0.010697779
+## 918    Preamble       disregard  1 0.003115265 3.43398720 0.010697779
+## 919    Preamble             end  1 0.003115265 3.43398720 0.010697779
+## 920    Preamble           faith  1 0.003115265 3.43398720 0.010697779
+## 921    Preamble            fear  1 0.003115265 3.43398720 0.010697779
+## 922    Preamble      foundation  1 0.003115265 3.43398720 0.010697779
+## 923    Preamble        friendly  1 0.003115265 3.43398720 0.010697779
+## 924    Preamble        greatest  1 0.003115265 3.43398720 0.010697779
+## 925    Preamble         highest  1 0.003115265 3.43398720 0.010697779
+## 926    Preamble      importance  1 0.003115265 3.43398720 0.010697779
+## 927    Preamble     inalienable  1 0.003115265 3.43398720 0.010697779
+## 928    Preamble      individual  1 0.003115265 3.43398720 0.010697779
+## 929    Preamble        inherent  1 0.003115265 3.43398720 0.010697779
+## 930    Preamble    jurisdiction  1 0.003115265 3.43398720 0.010697779
+## 931    Preamble         justice  1 0.003115265 3.43398720 0.010697779
+## 932    Preamble         keeping  1 0.003115265 3.43398720 0.010697779
+## 933    Preamble          larger  1 0.003115265 3.43398720 0.010697779
+## 934    Preamble            last  1 0.003115265 3.43398720 0.010697779
+## 935    Preamble             man  1 0.003115265 3.43398720 0.010697779
+## 936    Preamble         mankind  1 0.003115265 3.43398720 0.010697779
+## 937    Preamble        measures  1 0.003115265 3.43398720 0.010697779
+## 938    Preamble         members  1 0.003115265 3.43398720 0.010697779
+## 939    Preamble            mind  1 0.003115265 3.43398720 0.010697779
+## 940    Preamble             now  1 0.003115265 3.43398720 0.010697779
+## 941    Preamble      oppression  1 0.003115265 3.43398720 0.010697779
+## 942    Preamble           organ  1 0.003115265 3.43398720 0.010697779
+## 943    Preamble        outraged  1 0.003115265 3.43398720 0.010697779
+## 944    Preamble          pledge  1 0.003115265 3.43398720 0.010697779
+## 945    Preamble         pledged  1 0.003115265 3.43398720 0.010697779
+## 946    Preamble      proclaimed  1 0.003115265 3.43398720 0.010697779
+## 947    Preamble       proclaims  1 0.003115265 3.43398720 0.010697779
+## 948    Preamble        progress  1 0.003115265 3.43398720 0.010697779
+## 949    Preamble     progressive  1 0.003115265 3.43398720 0.010697779
+## 950    Preamble       promotion  1 0.003115265 3.43398720 0.010697779
+## 951    Preamble       protected  1 0.003115265 3.43398720 0.010697779
+## 952    Preamble      reaffirmed  1 0.003115265 3.43398720 0.010697779
+## 953    Preamble       rebellion  1 0.003115265 3.43398720 0.010697779
+## 954    Preamble        recourse  1 0.003115265 3.43398720 0.010697779
+## 955    Preamble       relations  1 0.003115265 3.43398720 0.010697779
+## 956    Preamble          resort  1 0.003115265 3.43398720 0.010697779
+## 957    Preamble        resulted  1 0.003115265 3.43398720 0.010697779
+## 958    Preamble            rule  1 0.003115265 3.43398720 0.010697779
+## 959    Preamble          secure  1 0.003115265 3.43398720 0.010697779
+## 960    Preamble          speech  1 0.003115265 3.43398720 0.010697779
+## 961    Preamble       standards  1 0.003115265 3.43398720 0.010697779
+## 962    Preamble          strive  1 0.003115265 3.43398720 0.010697779
+## 963    Preamble     territories  1 0.003115265 3.43398720 0.010697779
+## 964    Preamble       therefore  1 0.003115265 3.43398720 0.010697779
+## 965    Preamble         tyranny  1 0.003115265 3.43398720 0.010697779
+## 966    Preamble            want  1 0.003115265 3.43398720 0.010697779
+## 967    Preamble           worth  1 0.003115265 3.43398720 0.010697779
+## 968  Article 27        everyone  2 0.035714286 0.29849299 0.010660464
+## 969  Article 30              of  2 0.048780488 0.21511138 0.010493238
+## 970  Article 22              in  1 0.018867925 0.54361545 0.010256895
+## 971  Article 12             has  1 0.026315789 0.38946477 0.010249073
+## 972  Article 12           right  1 0.026315789 0.38946477 0.010249073
+## 973    Preamble           equal  2 0.006230530 1.64222774 0.010231949
+## 974  Article 25               1  1 0.011764706 0.86903785 0.010223975
+## 975  Article 25               2  1 0.011764706 0.86903785 0.010223975
+## 976  Article 25               a  1 0.011764706 0.86903785 0.010223975
+## 977  Article 11             his  1 0.010638298 0.94908055 0.010096602
+## 978  Article 16           shall  1 0.012500000 0.79492987 0.009936623
+## 979   Article 2           shall  1 0.012500000 0.79492987 0.009936623
+## 980  Article 21             has  2 0.025000000 0.38946477 0.009736619
+## 981  Article 21           right  2 0.025000000 0.38946477 0.009736619
+## 982  Article 23               1  1 0.011111111 0.86903785 0.009655976
+## 983  Article 23               2  1 0.011111111 0.86903785 0.009655976
+## 984  Article 21             and  3 0.037500000 0.25593337 0.009597502
+## 985  Article 30           right  1 0.024390244 0.38946477 0.009499141
+## 986  Article 20              of  1 0.043478261 0.21511138 0.009352669
+## 987  Article 25           shall  1 0.011764706 0.79492987 0.009352116
+## 988  Article 29             the  9 0.091836735 0.10178269 0.009347390
+## 989    Preamble           which  2 0.006230530 1.48807706 0.009271508
+## 990   Article 3             the  1 0.090909091 0.10178269 0.009252972
+## 991  Article 11               1  1 0.010638298 0.86903785 0.009245083
+## 992  Article 11               2  1 0.010638298 0.86903785 0.009245083
+## 993  Article 25           right  2 0.023529412 0.38946477 0.009163877
+## 994  Article 14              of  2 0.042553191 0.21511138 0.009153676
+## 995  Article 16              or  1 0.012500000 0.72593700 0.009074213
+## 996  Article 10        everyone  1 0.030303030 0.29849299 0.009045242
+## 997  Article 21             the  7 0.087500000 0.10178269 0.008905986
+## 998  Article 29               1  1 0.010204082 0.86903785 0.008867733
+## 999  Article 29               2  1 0.010204082 0.86903785 0.008867733
+## 1000 Article 29               a  1 0.010204082 0.86903785 0.008867733
+## 1001 Article 13             the  3 0.085714286 0.10178269 0.008724231
+## 1002 Article 26          rights  1 0.008403361 1.03609193 0.008706655
+## 1003 Article 20              to  3 0.130434783 0.06669137 0.008698875
+## 1004 Article 14             the  4 0.085106383 0.10178269 0.008662357
+## 1005 Article 26             the 10 0.084033613 0.10178269 0.008553168
+## 1006   Preamble        assembly  1 0.003115265 2.74084002 0.008538442
+## 1007   Preamble          beings  1 0.003115265 2.74084002 0.008538442
+## 1008   Preamble          belief  1 0.003115265 2.74084002 0.008538442
+## 1009   Preamble              co  1 0.003115265 2.74084002 0.008538442
+## 1010   Preamble       compelled  1 0.003115265 2.74084002 0.008538442
+## 1011   Preamble      determined  1 0.003115265 2.74084002 0.008538442
+## 1012   Preamble       education  1 0.003115265 2.74084002 0.008538442
+## 1013   Preamble       effective  1 0.003115265 2.74084002 0.008538442
+## 1014   Preamble         general  1 0.003115265 2.74084002 0.008538442
+## 1015   Preamble              if  1 0.003115265 2.74084002 0.008538442
+## 1016   Preamble             men  1 0.003115265 2.74084002 0.008538442
+## 1017   Preamble       operation  1 0.003115265 2.74084002 0.008538442
+## 1018   Preamble           peace  1 0.003115265 2.74084002 0.008538442
+## 1019   Preamble          people  1 0.003115265 2.74084002 0.008538442
+## 1020   Preamble     realization  1 0.003115265 2.74084002 0.008538442
+## 1021   Preamble          should  1 0.003115265 2.74084002 0.008538442
+## 1022   Preamble        standard  1 0.003115265 2.74084002 0.008538442
+## 1023   Preamble        teaching  1 0.003115265 2.74084002 0.008538442
+## 1024   Preamble   understanding  1 0.003115265 2.74084002 0.008538442
+## 1025   Preamble           women  1 0.003115265 2.74084002 0.008538442
+## 1026 Article 19        everyone  1 0.028571429 0.29849299 0.008528371
+## 1027  Article 5              to  2 0.125000000 0.06669137 0.008336422
+## 1028 Article 11             has  2 0.021276596 0.38946477 0.008286484
+## 1029 Article 14             has  1 0.021276596 0.38946477 0.008286484
+## 1030 Article 18             has  1 0.021276596 0.38946477 0.008286484
+## 1031 Article 15              of  1 0.038461538 0.21511138 0.008273515
+## 1032 Article 17              of  1 0.038461538 0.21511138 0.008273515
+## 1033 Article 29           shall  1 0.010204082 0.79492987 0.008111529
+## 1034 Article 16              of  3 0.037500000 0.21511138 0.008066677
+## 1035 Article 12             the  3 0.078947368 0.10178269 0.008035476
+## 1036   Preamble             the 25 0.077881620 0.10178269 0.007927001
+## 1037 Article 12        everyone  1 0.026315789 0.29849299 0.007855079
+## 1038 Article 15             the  2 0.076923077 0.10178269 0.007829438
+## 1039 Article 22             the  4 0.075471698 0.10178269 0.007681713
+## 1040 Article 16             the  6 0.075000000 0.10178269 0.007633702
+## 1041 Article 13              to  4 0.114285714 0.06669137 0.007621871
+## 1042 Article 16              be  1 0.012500000 0.60077386 0.007509673
+## 1043 Article 21        everyone  2 0.025000000 0.29849299 0.007462325
+## 1044 Article 22             has  1 0.018867925 0.38946477 0.007348392
+## 1045 Article 22           right  1 0.018867925 0.38946477 0.007348392
+## 1046 Article 26               1  1 0.008403361 0.86903785 0.007302839
+## 1047 Article 26               2  1 0.008403361 0.86903785 0.007302839
+## 1048 Article 26               a  1 0.008403361 0.86903785 0.007302839
+## 1049   Preamble            acts  1 0.003115265 2.33537492 0.007275311
+## 1050   Preamble      conscience  1 0.003115265 2.33537492 0.007275311
+## 1051   Preamble            from  1 0.003115265 2.33537492 0.007275311
+## 1052   Preamble            life  1 0.003115265 2.33537492 0.007275311
+## 1053   Preamble             not  1 0.003115265 2.33537492 0.007275311
+## 1054   Preamble           under  1 0.003115265 2.33537492 0.007275311
+## 1055  Article 1              of  1 0.033333333 0.21511138 0.007170379
+## 1056  Article 2              in  1 0.012500000 0.54361545 0.006795193
+## 1057 Article 12             and  1 0.026315789 0.25593337 0.006735089
+## 1058 Article 26           right  2 0.016806723 0.38946477 0.006545626
+## 1059 Article 11             the  6 0.063829787 0.10178269 0.006496768
+## 1060   Preamble     development  1 0.003115265 2.04769284 0.006379105
+## 1061   Preamble           enjoy  1 0.003115265 2.04769284 0.006379105
+## 1062   Preamble         society  1 0.003115265 2.04769284 0.006379105
+## 1063 Article 14        everyone  1 0.021276596 0.29849299 0.006350915
+## 1064 Article 18        everyone  1 0.021276596 0.29849299 0.006350915
+## 1065 Article 30             and  1 0.024390244 0.25593337 0.006242277
+## 1066 Article 26              or  1 0.008403361 0.72593700 0.006100311
+## 1067 Article 29        everyone  2 0.020408163 0.29849299 0.006091694
+## 1068  Article 3              to  1 0.090909091 0.06669137 0.006062852
+## 1069  Article 9              to  1 0.090909091 0.06669137 0.006062852
+## 1070 Article 25             the  5 0.058823529 0.10178269 0.005987217
+## 1071 Article 23              to  8 0.088888889 0.06669137 0.005928122
+## 1072 Article 11              in  1 0.010638298 0.54361545 0.005783143
+## 1073 Article 19              to  3 0.085714286 0.06669137 0.005716404
+## 1074   Preamble         against  1 0.003115265 1.82454929 0.005683954
+## 1075   Preamble          family  1 0.003115265 1.82454929 0.005683954
+## 1076   Preamble            full  1 0.003115265 1.82454929 0.005683954
+## 1077   Preamble   international  1 0.003115265 1.82454929 0.005683954
+## 1078   Preamble        national  1 0.003115265 1.82454929 0.005683954
+## 1079   Preamble          person  1 0.003115265 1.82454929 0.005683954
+## 1080 Article 12              of  1 0.026315789 0.21511138 0.005660826
+## 1081 Article 23             the  5 0.055555556 0.10178269 0.005654594
+## 1082 Article 22        everyone  1 0.018867925 0.29849299 0.005631943
+## 1083 Article 24             the  1 0.052631579 0.10178269 0.005356984
+## 1084 Article 12              to  3 0.078947368 0.06669137 0.005265109
+## 1085  Article 7             the  2 0.051282051 0.10178269 0.005219625
+## 1086  Article 7              to  3 0.076923077 0.06669137 0.005130106
+## 1087 Article 15              to  2 0.076923077 0.06669137 0.005130106
+## 1088  Article 6              to  1 0.076923077 0.06669137 0.005130106
+## 1089   Preamble          social  1 0.003115265 1.64222774 0.005115974
+## 1090  Article 2             the  4 0.050000000 0.10178269 0.005089135
+## 1091 Article 16              to  6 0.075000000 0.06669137 0.005001853
+## 1092 Article 30             the  2 0.048780488 0.10178269 0.004965009
+## 1093   Preamble           shall  2 0.006230530 0.79492987 0.004952834
+## 1094 Article 16           right  1 0.012500000 0.38946477 0.004868310
+## 1095  Article 4             the  1 0.047619048 0.10178269 0.004846795
+## 1096 Article 27              to  4 0.071428571 0.06669137 0.004763670
+## 1097   Preamble             law  1 0.003115265 1.48807706 0.004635754
+## 1098 Article 25             has  1 0.011764706 0.38946477 0.004581938
+## 1099 Article 11              of  2 0.021276596 0.21511138 0.004576838
+## 1100 Article 18              of  1 0.021276596 0.21511138 0.004576838
+## 1101 Article 26              in  1 0.008403361 0.54361545 0.004568197
+## 1102 Article 20             the  1 0.043478261 0.10178269 0.004425335
+## 1103 Article 14              to  3 0.063829787 0.06669137 0.004256896
+## 1104 Article 18              to  3 0.063829787 0.06669137 0.004256896
+## 1105 Article 28             the  1 0.041666667 0.10178269 0.004240946
+## 1106 Article 11           right  1 0.010638298 0.38946477 0.004143242
+## 1107 Article 29             has  1 0.010204082 0.38946477 0.003974130
+## 1108 Article 17             the  1 0.038461538 0.10178269 0.003914719
+## 1109   Preamble            with  1 0.003115265 1.23676263 0.003852843
+## 1110   Preamble              be  2 0.006230530 0.60077386 0.003743139
+## 1111  Article 2        everyone  1 0.012500000 0.29849299 0.003731162
+## 1112 Article 25        everyone  1 0.011764706 0.29849299 0.003511682
+## 1113 Article 24              to  1 0.052631579 0.06669137 0.003510072
+## 1114 Article 26              to  6 0.050420168 0.06669137 0.003362590
+## 1115 Article 26             has  1 0.008403361 0.38946477 0.003272813
+## 1116 Article 30              to  2 0.048780488 0.06669137 0.003253238
+## 1117  Article 2             and  1 0.012500000 0.25593337 0.003199167
+## 1118 Article 11        everyone  1 0.010638298 0.29849299 0.003175457
+## 1119 Article 10             the  1 0.030303030 0.10178269 0.003084324
+## 1120 Article 19             the  1 0.028571429 0.10178269 0.002908077
+## 1121 Article 28              to  1 0.041666667 0.06669137 0.002778807
+## 1122 Article 17              to  1 0.038461538 0.06669137 0.002565053
+## 1123 Article 22              to  2 0.037735849 0.06669137 0.002516656
+## 1124 Article 26        everyone  1 0.008403361 0.29849299 0.002508344
+## 1125  Article 8              to  1 0.037037037 0.06669137 0.002470051
+## 1126 Article 25              to  3 0.035294118 0.06669137 0.002353813
+## 1127 Article 18             the  1 0.021276596 0.10178269 0.002165589
+## 1128 Article 29              to  3 0.030612245 0.06669137 0.002041573
+## 1129 Article 10              to  1 0.030303030 0.06669137 0.002020951
+## 1130   Preamble              to  9 0.028037383 0.06669137 0.001869852
+## 1131  Article 2              to  2 0.025000000 0.06669137 0.001667284
+## 1132 Article 21              to  2 0.025000000 0.06669137 0.001667284
+## 1133 Article 11              to  2 0.021276596 0.06669137 0.001418965
+## 1134   Preamble             has  1 0.003115265 0.38946477 0.001213286</code></pre>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(udhr_TFIDF<span class="sc">$</span>tf_idf)</span></code></pre></div>
+<p><img src="main_files/figure-html/unnamed-chunk-61-1.png" width="672" /></p>
+<p>Let’s take a look at any of the Articles:</p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb98-1" aria-hidden="true" tabindex="-1"></a>articleID <span class="ot">=</span> <span class="st">&quot;Article 4&quot;</span></span>
+<span id="cb98-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb98-2" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">filter</span>(udhr_TFIDF, SECTION<span class="sc">==</span>articleID) <span class="sc">%&gt;%</span></span>
+<span id="cb98-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb98-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(tf_idf))</span>
+<span id="cb98-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb98-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb98-5" aria-hidden="true" tabindex="-1"></a>temp</span></code></pre></div>
+<pre><code>##      SECTION       WORD n         tf       idf      tf_idf
+## 1  Article 4    slavery 2 0.09523810 3.4339872 0.327046400
+## 2  Article 4      forms 1 0.04761905 3.4339872 0.163523200
+## 3  Article 4 prohibited 1 0.04761905 3.4339872 0.163523200
+## 4  Article 4  servitude 1 0.04761905 3.4339872 0.163523200
+## 5  Article 4      slave 1 0.04761905 3.4339872 0.163523200
+## 6  Article 4      trade 1 0.04761905 2.7408400 0.130516192
+## 7  Article 4       held 1 0.04761905 2.3353749 0.111208329
+## 8  Article 4      their 1 0.04761905 2.3353749 0.111208329
+## 9  Article 4      shall 2 0.09523810 0.7949299 0.075707607
+## 10 Article 4        all 1 0.04761905 1.3545457 0.064502174
+## 11 Article 4        one 1 0.04761905 1.2367626 0.058893458
+## 12 Article 4         be 2 0.09523810 0.6007739 0.057216558
+## 13 Article 4         no 1 0.04761905 1.1314021 0.053876291
+## 14 Article 4         in 2 0.09523810 0.5436154 0.051772900
+## 15 Article 4         or 1 0.04761905 0.7259370 0.034568429
+## 16 Article 4        and 1 0.04761905 0.2559334 0.012187304
+## 17 Article 4        the 1 0.04761905 0.1017827 0.004846795</code></pre>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb100-1" aria-hidden="true" tabindex="-1"></a>articleID <span class="ot">=</span> <span class="st">&quot;Article 26&quot;</span></span>
+<span id="cb100-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb100-2" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">filter</span>(udhr_TFIDF, SECTION<span class="sc">==</span>articleID) <span class="sc">%&gt;%</span></span>
+<span id="cb100-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb100-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(tf_idf))</span>
+<span id="cb100-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb100-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb100-5" aria-hidden="true" tabindex="-1"></a>temp</span></code></pre></div>
+<pre><code>##       SECTION          WORD  n          tf        idf      tf_idf
+## 1  Article 26     education  7 0.058823529 2.74084002 0.161225884
+## 2  Article 26    elementary  2 0.016806723 3.43398720 0.057714071
+## 3  Article 26         shall  8 0.067226891 0.79492987 0.053440664
+## 4  Article 26   fundamental  2 0.016806723 2.04769284 0.034415006
+## 5  Article 26         human  2 0.016806723 2.04769284 0.034415006
+## 6  Article 26       nations  2 0.016806723 2.04769284 0.034415006
+## 7  Article 26            be  6 0.050420168 0.60077386 0.030291119
+## 8  Article 26    accessible  1 0.008403361 3.43398720 0.028857035
+## 9  Article 26    activities  1 0.008403361 3.43398720 0.028857035
+## 10 Article 26     available  1 0.008403361 3.43398720 0.028857035
+## 11 Article 26        choose  1 0.008403361 3.43398720 0.028857035
+## 12 Article 26    compulsory  1 0.008403361 3.43398720 0.028857035
+## 13 Article 26      directed  1 0.008403361 3.43398720 0.028857035
+## 14 Article 26       equally  1 0.008403361 3.43398720 0.028857035
+## 15 Article 26    friendship  1 0.008403361 3.43398720 0.028857035
+## 16 Article 26       further  1 0.008403361 3.43398720 0.028857035
+## 17 Article 26     generally  1 0.008403361 3.43398720 0.028857035
+## 18 Article 26         given  1 0.008403361 3.43398720 0.028857035
+## 19 Article 26        groups  1 0.008403361 3.43398720 0.028857035
+## 20 Article 26        higher  1 0.008403361 3.43398720 0.028857035
+## 21 Article 26         least  1 0.008403361 3.43398720 0.028857035
+## 22 Article 26   maintenance  1 0.008403361 3.43398720 0.028857035
+## 23 Article 26         merit  1 0.008403361 3.43398720 0.028857035
+## 24 Article 26       parents  1 0.008403361 3.43398720 0.028857035
+## 25 Article 26         prior  1 0.008403361 3.43398720 0.028857035
+## 26 Article 26  professional  1 0.008403361 3.43398720 0.028857035
+## 27 Article 26        racial  1 0.008403361 3.43398720 0.028857035
+## 28 Article 26     religious  1 0.008403361 3.43398720 0.028857035
+## 29 Article 26        stages  1 0.008403361 3.43398720 0.028857035
+## 30 Article 26 strengthening  1 0.008403361 3.43398720 0.028857035
+## 31 Article 26     technical  1 0.008403361 3.43398720 0.028857035
+## 32 Article 26     tolerance  1 0.008403361 3.43398720 0.028857035
+## 33 Article 26         among  1 0.008403361 2.74084002 0.023032269
+## 34 Article 26      children  1 0.008403361 2.74084002 0.023032269
+## 35 Article 26          kind  1 0.008403361 2.74084002 0.023032269
+## 36 Article 26          made  1 0.008403361 2.74084002 0.023032269
+## 37 Article 26         peace  1 0.008403361 2.74084002 0.023032269
+## 38 Article 26       promote  1 0.008403361 2.74084002 0.023032269
+## 39 Article 26 understanding  1 0.008403361 2.74084002 0.023032269
+## 40 Article 26           all  2 0.016806723 1.35454566 0.022765473
+## 41 Article 26           for  2 0.016806723 1.23676263 0.020785927
+## 42 Article 26         basis  1 0.008403361 2.33537492 0.019624999
+## 43 Article 26          have  1 0.008403361 2.33537492 0.019624999
+## 44 Article 26            on  1 0.008403361 2.33537492 0.019624999
+## 45 Article 26   personality  1 0.008403361 2.33537492 0.019624999
+## 46 Article 26       respect  1 0.008403361 2.33537492 0.019624999
+## 47 Article 26          that  1 0.008403361 2.33537492 0.019624999
+## 48 Article 26         their  1 0.008403361 2.33537492 0.019624999
+## 49 Article 26            at  1 0.008403361 2.04769284 0.017207503
+## 50 Article 26   development  1 0.008403361 2.04769284 0.017207503
+## 51 Article 26            it  1 0.008403361 2.04769284 0.017207503
+## 52 Article 26        united  1 0.008403361 2.04769284 0.017207503
+## 53 Article 26             3  1 0.008403361 1.82454929 0.015332347
+## 54 Article 26          full  1 0.008403361 1.82454929 0.015332347
+## 55 Article 26           and  7 0.058823529 0.25593337 0.015054904
+## 56 Article 26      freedoms  1 0.008403361 1.64222774 0.013800233
+## 57 Article 26          free  1 0.008403361 1.48807706 0.012504849
+## 58 Article 26            of  6 0.050420168 0.21511138 0.010845952
+## 59 Article 26        rights  1 0.008403361 1.03609193 0.008706655
+## 60 Article 26           the 10 0.084033613 0.10178269 0.008553168
+## 61 Article 26             1  1 0.008403361 0.86903785 0.007302839
+## 62 Article 26             2  1 0.008403361 0.86903785 0.007302839
+## 63 Article 26             a  1 0.008403361 0.86903785 0.007302839
+## 64 Article 26         right  2 0.016806723 0.38946477 0.006545626
+## 65 Article 26            or  1 0.008403361 0.72593700 0.006100311
+## 66 Article 26            in  1 0.008403361 0.54361545 0.004568197
+## 67 Article 26            to  6 0.050420168 0.06669137 0.003362590
+## 68 Article 26           has  1 0.008403361 0.38946477 0.003272813
+## 69 Article 26      everyone  1 0.008403361 0.29849299 0.002508344</code></pre>
+<p>We can use wordcloud to vizualize results — but they will not be too telling, if we use word frequencies.</p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wordcloud)</span>
+<span id="cb102-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb102-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;RColorBrewer&quot;</span>)</span>
+<span id="cb102-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb102-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb102-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb102-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb102-5" aria-hidden="true" tabindex="-1"></a><span class="fu">wordcloud</span>(<span class="at">words=</span>temp<span class="sc">$</span>WORD, <span class="at">freq=</span>temp<span class="sc">$</span>n,</span>
+<span id="cb102-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb102-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">min.freq =</span> <span class="dv">1</span>, <span class="at">rot.per =</span> .<span class="dv">0</span>, <span class="at">random.order=</span><span class="cn">FALSE</span>, <span class="at">scale=</span><span class="fu">c</span>(<span class="dv">10</span>,.<span class="dv">5</span>),</span>
+<span id="cb102-7"><a href="text-analysis-ii-distances-keywords-summarization.html#cb102-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">max.words=</span><span class="dv">150</span>, <span class="at">colors=</span><span class="fu">brewer.pal</span>(<span class="dv">8</span>, <span class="st">&quot;Dark2&quot;</span>))</span></code></pre></div>
+<p><img src="main_files/figure-html/unnamed-chunk-64-1.png" width="960" /></p>
+<p>Instead we can use <code>tf_idf</code> values:</p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb103-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb103-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wordcloud</span>(<span class="at">words=</span>temp<span class="sc">$</span>WORD, <span class="at">freq=</span>temp<span class="sc">$</span>tf_idf,</span>
+<span id="cb103-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb103-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">min.freq =</span> <span class="dv">1</span>, <span class="at">rot.per =</span> .<span class="dv">0</span>, <span class="at">random.order=</span><span class="cn">FALSE</span>, <span class="at">scale=</span><span class="fu">c</span>(<span class="dv">10</span>,.<span class="dv">5</span>),</span>
+<span id="cb103-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb103-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">max.words=</span><span class="dv">150</span>, <span class="at">colors=</span><span class="fu">brewer.pal</span>(<span class="dv">8</span>, <span class="st">&quot;Dark2&quot;</span>))</span></code></pre></div>
+<p><img src="main_files/figure-html/unnamed-chunk-65-1.png" width="960" /></p>
+<div id="inaugural-speeches-of-the-us-presidents" class="section level3" number="8.4.1">
+<h3><span class="header-section-number">8.4.1</span> Inaugural speeches of the US presidents</h3>
+<p>The <code>quanteda</code> package includes a corpus of presidential inaugural speeches. What did the presidenst speak about? For thoughts and ideas, take a look at what Google News Lab did with this data: <a href="http://inauguratespeeches.com/" class="uri">http://inauguratespeeches.com/</a>. You can find readable addresses here: <a href="https://www.presidency.ucsb.edu/documents/presidential-documents-archive-guidebook/inaugural-addresses" class="uri">https://www.presidency.ucsb.edu/documents/presidential-documents-archive-guidebook/inaugural-addresses</a>.</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;data_corpus_inaugural&quot;</span>, <span class="at">package =</span> <span class="st">&quot;quanteda&quot;</span>)</span>
+<span id="cb104-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb104-2" aria-hidden="true" tabindex="-1"></a>inaug_dfm <span class="ot">&lt;-</span> quanteda<span class="sc">::</span><span class="fu">dfm</span>(data_corpus_inaugural, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## Warning: &#39;dfm.corpus()&#39; is deprecated. Use &#39;tokens()&#39; first.</code></pre>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(inaug_dfm)</span></code></pre></div>
+<pre><code>## Document-feature matrix of: 6 documents, 9,439 features (93.84% sparse) and 4 docvars.
+##                  features
+## docs              fellow-citizens  of the senate and house representatives :
+##   1789-Washington               1  71 116      1  48     2               2 1
+##   1793-Washington               0  11  13      0   2     0               0 1
+##   1797-Adams                    3 140 163      1 130     0               2 0
+##   1801-Jefferson                2 104 130      0  81     0               0 1
+##   1805-Jefferson                0 101 143      0  93     0               0 0
+##   1809-Madison                  1  69 104      0  43     0               0 0
+##                  features
+## docs              among vicissitudes
+##   1789-Washington     1            1
+##   1793-Washington     0            0
+##   1797-Adams          4            0
+##   1801-Jefferson      1            0
+##   1805-Jefferson      7            0
+##   1809-Madison        0            0
+## [ reached max_nfeat ... 9,429 more features ]</code></pre>
+<p>The corpus is stored as a <code>document-feature matrix</code>, which we can convert into a more familiar tidy format in the following manner:</p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb108-1" aria-hidden="true" tabindex="-1"></a>inaug_td <span class="ot">&lt;-</span> <span class="fu">tidy</span>(inaug_dfm)</span>
+<span id="cb108-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb108-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(inaug_td)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 3
+##   document        term            count
+##   &lt;chr&gt;           &lt;chr&gt;           &lt;dbl&gt;
+## 1 1789-Washington fellow-citizens     1
+## 2 1797-Adams      fellow-citizens     3
+## 3 1801-Jefferson  fellow-citizens     2
+## 4 1809-Madison    fellow-citizens     1
+## 5 1813-Madison    fellow-citizens     1
+## 6 1817-Monroe     fellow-citizens     5</code></pre>
+<ol start="10" class="example" style="list-style-type: decimal">
+<li>Using what you have learned so far, analyze speeches of American presidents:</li>
+</ol>
+<blockquote>
+<blockquote>
+<p>your code; you analysis; your observations…</p>
+</blockquote>
+</blockquote>
+</div>
+</div>
+<div id="text-summarization" class="section level2" number="8.5">
+<h2><span class="header-section-number">8.5</span> Text summarization</h2>
+<p>Before we proceed, let’s load some text. Below is an example of how you can load a text using its URL. However, be mindful about using this approach: it is convenient with a small number of short texts, but not efficient with large number of long texts.</p>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb110-1" aria-hidden="true" tabindex="-1"></a>urlText <span class="ot">&lt;-</span> <span class="st">&quot;https://univie-histr-2020s.github.io/files/test_text.txt&quot;</span></span>
+<span id="cb110-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb110-2" aria-hidden="true" tabindex="-1"></a>testText <span class="ot">&lt;-</span> <span class="fu">scan</span>(<span class="fu">url</span>(urlText), <span class="at">what=</span><span class="st">&quot;character&quot;</span>, <span class="at">sep=</span><span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<p>We can use different algorithms to <em>summarize</em> texts, which in this context means extracting key sentences, whose keyness is calculated through different means. Library <code>lexRankr</code> used tf-idf values and some methods from social network analysis to identify the most central sentences in a text. (For technical details, see: <a href="https://cran.r-project.org/web/packages/lexRankr/lexRankr.pdf" class="uri">https://cran.r-project.org/web/packages/lexRankr/lexRankr.pdf</a>; for a detailed <em>math</em> description: <a href="http://www.cs.cmu.edu/afs/cs/project/jair/pub/volume22/erkan04a-html/erkan04a.html" class="uri">http://www.cs.cmu.edu/afs/cs/project/jair/pub/volume22/erkan04a-html/erkan04a.html</a>).</p>
+<p>Take a look at the summary and then at the full text!</p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lexRankr)</span></code></pre></div>
+<pre><code>## 
+## Attache Paket: &#39;lexRankr&#39;</code></pre>
+<pre><code>## Das folgende Objekt ist maskiert &#39;package:koRpus&#39;:
+## 
+##     tokenize</code></pre>
+<pre><code>## Das folgende Objekt ist maskiert &#39;package:tidytext&#39;:
+## 
+##     unnest_sentences</code></pre>
+<pre><code>## Das folgende Objekt ist maskiert &#39;package:readr&#39;:
+## 
+##     tokenize</code></pre>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb116-1" aria-hidden="true" tabindex="-1"></a>textToSummarize <span class="ot">=</span> testText</span>
+<span id="cb116-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb116-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb116-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb116-3" aria-hidden="true" tabindex="-1"></a>summary <span class="ot">=</span> <span class="fu">lexRank</span>(textToSummarize,</span>
+<span id="cb116-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb116-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">docId =</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">length</span>(textToSummarize)), <span class="co">#repeat same docid for all of input vector</span></span>
+<span id="cb116-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb116-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">n =</span> <span class="dv">5</span>, <span class="co"># number of sentences</span></span>
+<span id="cb116-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb116-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">continuous =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## Parsing text into sentences and tokens...DONE
+## Calculating pairwise sentence similarities...DONE
+## Applying LexRank...DONE
+## Formatting Output...DONE</code></pre>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this is just preparing results for better viewing</span></span>
+<span id="cb118-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb118-2" aria-hidden="true" tabindex="-1"></a>summary<span class="sc">$</span>sentenceId <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(summary<span class="sc">$</span>sentenceId, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">d+_&quot;</span>, <span class="st">&quot;&quot;</span>)</span>
+<span id="cb118-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb118-3" aria-hidden="true" tabindex="-1"></a>summary<span class="sc">$</span>sentenceId <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(summary<span class="sc">$</span>sentenceId)</span>
+<span id="cb118-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb118-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb118-5" aria-hidden="true" tabindex="-1"></a>summary <span class="ot">&lt;-</span> summary <span class="sc">%&gt;%</span></span>
+<span id="cb118-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb118-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(sentenceId)</span>
+<span id="cb118-7"><a href="text-analysis-ii-distances-keywords-summarization.html#cb118-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-8"><a href="text-analysis-ii-distances-keywords-summarization.html#cb118-8" aria-hidden="true" tabindex="-1"></a>summary<span class="sc">$</span>sentence</span></code></pre></div>
+<pre><code>## [1] &quot;The Klimt University of Vienna Ceiling Paintings, also known as the Faculty Paintings, were a series of paintings made by Gustav Klimt for the ceiling of the University of Vienna`s Great Hall between the years of 1900–1907.&quot;                                            
+## [2] &quot;Upon presenting his paintings, Philosophy, Medicine and Jurisprudence, Klimt came under attack for `pornography` and `perverted excess` in the paintings.&quot;                                                                                                                  
+## [3] &quot;Klimt described the painting as follows: `On the left a group of figures, the beginning of life, fruition, decay.&quot;                                                                                                                                                          
+## [4] &quot;In 1903, Hermann Bahr, a writer and a supporter of Klimt, in response to the criticism of the Faculty Paintings compiled articles which attacked Klimt, and published a book Gegen Klimt (Against Klimt) with his foreword, where he argued that the reactions were absurd.&quot;
+## [5] &quot;In 1911 Medicine and Jurisprudence were bought by Klimt`s friend and fellow artist, Koloman Moser.[clarification needed] Medicine eventually came into the possession of a Jewish family, and in 1938 the painting was seized by Germany.&quot;</code></pre>
+<p>Here is another corpus of articles to play with (from <code>tm</code> library):</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tm)</span></code></pre></div>
+<pre><code>## Lade nötiges Paket: NLP</code></pre>
+<pre><code>## 
+## Attache Paket: &#39;NLP&#39;</code></pre>
+<pre><code>## Die folgenden Objekte sind maskiert von &#39;package:quanteda&#39;:
+## 
+##     meta, meta&lt;-</code></pre>
+<pre><code>## Das folgende Objekt ist maskiert &#39;package:ggplot2&#39;:
+## 
+##     annotate</code></pre>
+<pre><code>## 
+## Attache Paket: &#39;tm&#39;</code></pre>
+<pre><code>## Das folgende Objekt ist maskiert &#39;package:koRpus&#39;:
+## 
+##     readTagged</code></pre>
+<pre><code>## Das folgende Objekt ist maskiert &#39;package:quanteda&#39;:
+## 
+##     stopwords</code></pre>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;acq&quot;</span>)</span>
+<span id="cb128-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb128-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb128-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb128-3" aria-hidden="true" tabindex="-1"></a>acqTidy <span class="ot">&lt;-</span> <span class="fu">tidy</span>(acq)</span></code></pre></div>
+<p>Here is an article:</p>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb129-1" aria-hidden="true" tabindex="-1"></a>item <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb129-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb129-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb129-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb129-3" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(acqTidy<span class="sc">$</span>text[item], <span class="st">&quot;</span><span class="sc">\\</span><span class="st">s+&quot;</span>, <span class="st">&quot; &quot;</span>)</span>
+<span id="cb129-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb129-4" aria-hidden="true" tabindex="-1"></a>test</span></code></pre></div>
+<pre><code>## [1] &quot;Computer Terminal Systems Inc said it has completed the sale of 200,000 shares of its common stock, and warrants to acquire an additional one mln shares, to &lt;Sedio N.V.&gt; of Lugano, Switzerland for 50,000 dlrs. The company said the warrants are exercisable for five years at a purchase price of .125 dlrs per share. Computer Terminal said Sedio also has the right to buy additional shares and increase its total holdings up to 40 pct of the Computer Terminal&#39;s outstanding common stock under certain circumstances involving change of control at the company. The company said if the conditions occur the warrants would be exercisable at a price equal to 75 pct of its common stock&#39;s market price at the time, not to exceed 1.50 dlrs per share. Computer Terminal also said it sold the technolgy rights to its Dot Matrix impact technology, including any future improvements, to &lt;Woodco Inc&gt; of Houston, Tex. for 200,000 dlrs. But, it said it would continue to be the exclusive worldwide licensee of the technology for Woodco. The company said the moves were part of its reorganization plan and would help pay current operation costs and ensure product delivery. Computer Terminal makes computer generated labels, forms, tags and ticket printers and terminals. Reuter&quot;</code></pre>
+<p>Let’s see how our summary comes out:</p>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb131-1" aria-hidden="true" tabindex="-1"></a>textToSummarize <span class="ot">=</span> test</span>
+<span id="cb131-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb131-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb131-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb131-3" aria-hidden="true" tabindex="-1"></a>summary <span class="ot">=</span> <span class="fu">lexRank</span>(textToSummarize,</span>
+<span id="cb131-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb131-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">docId =</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">length</span>(textToSummarize)), <span class="co">#repeat same docid for all of input vector</span></span>
+<span id="cb131-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb131-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">n =</span> <span class="dv">3</span>, <span class="co"># number of sentences</span></span>
+<span id="cb131-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb131-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">continuous =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## Parsing text into sentences and tokens...DONE
+## Calculating pairwise sentence similarities...DONE
+## Applying LexRank...DONE
+## Formatting Output...DONE</code></pre>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb133-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this is just preparing results for better viewing</span></span>
+<span id="cb133-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb133-2" aria-hidden="true" tabindex="-1"></a>summary<span class="sc">$</span>sentenceId <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(summary<span class="sc">$</span>sentenceId, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">d+_&quot;</span>, <span class="st">&quot;&quot;</span>)</span>
+<span id="cb133-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb133-3" aria-hidden="true" tabindex="-1"></a>summary<span class="sc">$</span>sentenceId <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(summary<span class="sc">$</span>sentenceId)</span>
+<span id="cb133-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb133-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb133-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb133-5" aria-hidden="true" tabindex="-1"></a>summary <span class="ot">&lt;-</span> summary <span class="sc">%&gt;%</span></span>
+<span id="cb133-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb133-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(sentenceId)</span>
+<span id="cb133-7"><a href="text-analysis-ii-distances-keywords-summarization.html#cb133-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb133-8"><a href="text-analysis-ii-distances-keywords-summarization.html#cb133-8" aria-hidden="true" tabindex="-1"></a>summary<span class="sc">$</span>sentence</span></code></pre></div>
+<pre><code>## [1] &quot;Computer Terminal Systems Inc said it has completed the sale of 200,000 shares of its common stock, and warrants to acquire an additional one mln shares, to &lt;Sedio N.V.&gt; of Lugano, Switzerland for 50,000 dlrs.&quot;                                
+## [2] &quot;Computer Terminal said Sedio also has the right to buy additional shares and increase its total holdings up to 40 pct of the Computer Terminal&#39;s outstanding common stock under certain circumstances involving change of control at the company.&quot;
+## [3] &quot;The company said if the conditions occur the warrants would be exercisable at a price equal to 75 pct of its common stock&#39;s market price at the time, not to exceed 1.50 dlrs per share.&quot;</code></pre>
+<ol start="11" class="example" style="list-style-type: decimal">
+<li>Try this with other articles — and compare summaries with full versions. Share your observations.</li>
+</ol>
+<blockquote>
+<blockquote>
+<p>your code; your observations</p>
+</blockquote>
+</blockquote>
+</div>
+<div id="HW08" class="section level2" number="8.6">
+<h2><span class="header-section-number">8.6</span> Homework</h2>
 <ul>
 <li>Read about <em>ngrams</em> in <em>Chapter 4. Relationships between words: n-grams and correlations</em> (<a href="https://www.tidytextmining.com/ngrams.html" class="uri">https://www.tidytextmining.com/ngrams.html</a>), in <a href="https://www.tidytextmining.com/" class="uri">https://www.tidytextmining.com/</a>.
 <ul>
@@ -597,8 +2025,8 @@ Additional read: <a href="https://cmry.github.io/notes/euclidean-v-cosine" class
 <li>DataCamp Assignments.</li>
 </ul>
 </div>
-<div id="SHW08" class="section level2" number="8.5">
-<h2><span class="header-section-number">8.5</span> Submitting homework</h2>
+<div id="SHW08" class="section level2" number="8.7">
+<h2><span class="header-section-number">8.7</span> Submitting homework</h2>
 <ul>
 <li>Homework assignment must be submitted by the beginning of the next class;</li>
 <li>Email your homework to the instructor as attachments.
