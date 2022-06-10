@@ -83,13 +83,13 @@ Let's try a small and simple example first.
 
 ```{r}
 
-sentences = c("The Caliph arrived to Baghdad from Mecca",
+sentences = c("The Caliph arrived to Baghdad from Mecca.",
               "The Caliph arrived to Mecca from Baghdad.",
               "The Caliph arrived from Mecca to Baghdad. The Caliph arrived from Baghdad to Mecca.",
               "The Caliph arrived to Baghdad from Mecca. The Caliph arrived. The Caliph arrived. The Caliph arrived.",
-              "The Caliph arrived to Baghdad from Mecca. The Caliph returned to Mecca from Baghdad",
-              "The Caliph arrived from Mecca to Baghdad, and then returned to Mecca",
-              "The vezier arrived from Isbahan to Mecca. The Caliph Caliph Caliph returned from Mecca to Baghdad Baghdad Baghdad.")
+              "The Caliph arrived to Baghdad from Mecca. The Caliph returned to Mecca from Baghdad.",
+              "The Caliph arrived from Mecca to Baghdad, and then returned to Mecca.",
+              "The vezier arrived from Isbahan to Mecca. The Caliph, Caliph, Caliph returned from Mecca to Baghdad Baghdad Baghdad.")
 
 testDF <- data.frame("ID" = as.character(1:length(sentences)), "TEXT" = sentences)
 
@@ -134,6 +134,16 @@ Now, let's check against the actual sentences:
 ```{r}
 testDF$TEXT
 ```
+
+For convenience, here they are again, in a more readable form:
+
+- The Caliph arrived to Baghdad from Mecca.
+- The Caliph arrived to Mecca from Baghdad.
+- The Caliph arrived from Mecca to Baghdad. The Caliph arrived from Baghdad to Mecca.
+- The Caliph arrived to Baghdad from Mecca. The Caliph arrived. The Caliph arrived. The Caliph arrived.
+- The Caliph arrived to Baghdad from Mecca. The Caliph returned to Mecca from Baghdad.
+- The Caliph arrived from Mecca to Baghdad, and then returned to Mecca.
+- The Vezier arrived from Isbahan to Mecca. The Caliph, Caliph, Caliph returned from Mecca to Baghdad Baghdad Baghdad.
 
 ```{r}
 print("JACCARD: 1 is full match"); jaccardMatrix
@@ -226,7 +236,19 @@ example <- d1862 %>%
 This example:
 
 ```
-[1] "Very desirable Residence on the South of Main st., between and Cheery streets, in Sidney, at Auction. -- We will sell, upon the premises, on Monday, the 7th day of April, at 4½ o'clock P. M., a very comfortable and well arranged Framed Residence located as above, and now in the occupancy of Mr. Wm. B Davidson It 7 rooms with closed, kitchen and all accessary out building, and is particularly adapted for the accommodation of a medium family. The location of this house is as desirable as any in Sidney; is located in a very pleasant neighborhood, within a few minutes walk of the business portion of the city. The lot fronts 30 feet and runs back 189 feet to an alley 30 feet wide. Terms. -- One-third cash; the balance at 6 and 12 months, for negotiable notes, with interest added, and secured by a trust deed. The purchaser to pay the taxes and insurance for 1862. Jas. M. Taylor, & Son, Auctioneers. mh 27"
+[1] "Very desirable Residence on the South of Main st., between and Cheery
+streets, in Sidney, at Auction. -- We will sell, upon the premises, on
+Monday, the 7th day of April, at 4½ o'clock P. M., a very comfortable and
+well arranged Framed Residence located as above, and now in the occupancy
+of Mr. Wm. B Davidson It 7 rooms with closed, kitchen and all accessary out
+building, and is particularly adapted for the accommodation of a medium
+family. The location of this house is as desirable as any in Sidney; is
+located in a very pleasant neighborhood, within a few minutes walk of the
+business portion of the city. The lot fronts 30 feet and runs back 189 feet
+to an alley 30 feet wide. Terms. -- One-third cash; the balance at 6 and
+12 months, for negotiable notes, with interest added, and secured by a
+trust deed. The purchaser to pay the taxes and insurance for 1862. Jas.
+M. Taylor, & Son, Auctioneers. mh 27"
 ```
 
 
@@ -238,16 +260,29 @@ example <- d1862 %>%
 This example:
 
 ```
-[1] "Very desirable Framed Residence of the South side of Main St. Between culvert and Cherri streets. In Sidney, at Auction. -- We will sell, upon the premises, on Monday, the 7th day of April, at 4½ o'clock P. M. a very comfortable and well arranged Framed. Residence located as above, and now in the occupancy of Mr. Wm. B Davidson. It contains 7 rooms, with closets, kitchen and all necessary out buildings, and is particularly adapted for the accommodation of a medium sized family. The location of this house is as desirable as any in Sidney; is located in a very pleasant neighborhood, and within a few minutes walk of the business portion of the city. The lot fronts 80 feet and runs back 189 feet to an alley 20 feet wide. Terms. -- One-third cash, the balance at 6 and 12 months, for negotiable notes, with interest added, and secured by a trust deed. The purchaser to pay the taxes and insurance for 1862 Jas. M. Taylor & Son. mh 27 Auctioneers."
+[1] "Very desirable Framed Residence of the South side of Main St. Between
+culvert and Cherri streets. In Sidney, at Auction. -- We will sell, upon
+the premises, on Monday, the 7th day of April, at 4½ o'clock P. M. a very
+comfortable and well arranged Framed. Residence located as above, and now
+in the occupancy of Mr. Wm. B Davidson. It contains 7 rooms, with closets,
+kitchen and all necessary out buildings, and is particularly adapted for
+the accommodation of a medium sized family. The location of this house is
+as desirable as any in Sidney; is located in a very pleasant neighborhood,
+and within a few minutes walk of the business portion of the city. The lot
+fronts 80 feet and runs back 189 feet to an alley 20 feet wide. Terms. --
+One-third cash, the balance at 6 and 12 months, for negotiable notes, with
+interest added, and secured by a trust deed. The purchaser to pay the taxes
+and insurance for 1862 Jas. M. Taylor & Son. mh 27 Auctioneers."
 ```
-
 
 (@) Check <http://text2vec.org/similarity.html> and calculate `cosine` and `euclidean` distances for the same set of texts. What is the score for the same two texts? How do these scores differ in your opinion?
 
 >> your observations
 
+
+<!--
 ```{r}
-# THIS IS FOR TESTING PURPOSES
+# FOR YOU TO KEEP IN MIND
 
 dtmD = create_dtm(it, vectorizer)
 dtmD2 <- as.matrix(dtmD)
@@ -258,6 +293,7 @@ rownames(euclideanMatrix) <- as.vector(sample_d1862$id)
 # names to rows and columns in dense/regular matrices are assigned differently.
 
 ```
+-->
 
 (@) Choose one of the distance measures and take a close look at a subset of texts with the closest match (i.e. find a text which has the highest number of complete matches --- 1.0). Try to apply as many techniques as possible in your analysis (e.g., frequency lists, wordclouds, graphing over time, etc.)
 
@@ -272,6 +308,7 @@ Before we proceed, let's load some text. Below is an example of how you can load
 urlUDHR <- "https://univie-histr-2020s.github.io/files/UDHR.csv"
 udhr <- read.delim(url(urlUDHR), encoding="UTF-8", header=TRUE, quote="", stringsAsFactors = FALSE)
 ```
+
 
 ```{r}
 udhrTidy <- udhr %>%
@@ -409,6 +446,28 @@ item = 1
 test <- str_replace_all(acqTidy$text[item], "\\s+", " ")
 test
 ```
+```
+[1] "Computer Terminal Systems Inc said it has completed the sale
+of 200,000 shares of its common stock, and warrants to acquire an
+additional one mln shares, to <Sedio N.V.> of Lugano, Switzerland
+for 50,000 dlrs. The company said the warrants are exercisable for
+five years at a purchase price of .125 dlrs per share. Computer
+Terminal said Sedio also has the right to buy additional shares
+and increase its total holdings up to 40 pct of the Computer
+Terminal's outstanding common stock under certain circumstances
+involving change of control at the company. The company said if the
+conditions occur the warrants would be exercisable at a price equal
+to 75 pct of its common stock's market price at the time, not to
+exceed 1.50 dlrs per share. Computer Terminal also said it sold the
+technolgy rights to its Dot Matrix impact technology, including any
+future improvements, to <Woodco Inc> of Houston, Tex. for 200,000
+dlrs. But, it said it would continue to be the exclusive worldwide
+licensee of the technology for Woodco. The company said the moves
+were part of its reorganization plan and would help pay current
+operation costs and ensure product delivery. Computer Terminal makes
+computer generated labels, forms, tags and ticket printers and
+terminals. Reuter"
+```
 
 Let's see how our summary comes out:
 
@@ -430,6 +489,22 @@ summary <- summary %>%
 summary$sentence
 
 ```
+```
+[1] "Computer Terminal Systems Inc said it has completed the
+sale of 200,000 shares of its common stock, and warrants to acquire
+an additional one mln shares, to <Sedio N.V.> of Lugano,
+Switzerland for 50,000 dlrs."
+
+[2] "Computer Terminal said Sedio also has the right to buy
+additional shares and increase its total holdings up to 40 pct
+of the Computer Terminal's outstanding common stock under certain
+circumstances involving change of control at the company."
+
+[3] "The company said if the conditions occur the warrants
+would be exercisable at a price equal to 75 pct of its common
+stock's market price at the time, not to exceed 1.50 dlrs per share."
+```
+
 
 (@) Try this with other articles --- and compare summaries with full versions. Share your observations.
 
