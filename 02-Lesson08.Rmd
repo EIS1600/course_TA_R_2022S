@@ -404,9 +404,12 @@ We can use different algorithms to *summarize* texts, which in this context mean
 
 Take a look at the summary and then at the full text!
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 library(lexRankr)
+```
 
+
+```{r}
 textToSummarize = testText
 
 summary = lexRank(textToSummarize,

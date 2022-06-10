@@ -859,35 +859,24 @@ rownames(euclideanMatrix) <- as.vector(sample_d1862$id)
 <p>We can use different algorithms to <em>summarize</em> texts, which in this context means extracting key sentences, whose keyness is calculated through different means. Library <code>lexRankr</code> used tf-idf values and some methods from social network analysis to identify the most central sentences in a text. (For technical details, see: <a href="https://cran.r-project.org/web/packages/lexRankr/lexRankr.pdf" class="uri">https://cran.r-project.org/web/packages/lexRankr/lexRankr.pdf</a>; for a detailed <em>math</em> description: <a href="http://www.cs.cmu.edu/afs/cs/project/jair/pub/volume22/erkan04a-html/erkan04a.html" class="uri">http://www.cs.cmu.edu/afs/cs/project/jair/pub/volume22/erkan04a-html/erkan04a.html</a>).</p>
 <p>Take a look at the summary and then at the full text!</p>
 <div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lexRankr)</span></code></pre></div>
-<pre><code>## 
-## Attache Paket: &#39;lexRankr&#39;</code></pre>
-<pre><code>## Das folgende Objekt ist maskiert &#39;package:koRpus&#39;:
-## 
-##     tokenize</code></pre>
-<pre><code>## Das folgende Objekt ist maskiert &#39;package:tidytext&#39;:
-## 
-##     unnest_sentences</code></pre>
-<pre><code>## Das folgende Objekt ist maskiert &#39;package:readr&#39;:
-## 
-##     tokenize</code></pre>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb115-1" aria-hidden="true" tabindex="-1"></a>textToSummarize <span class="ot">=</span> testText</span>
-<span id="cb115-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb115-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb115-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb115-3" aria-hidden="true" tabindex="-1"></a>summary <span class="ot">=</span> <span class="fu">lexRank</span>(textToSummarize,</span>
-<span id="cb115-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb115-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">docId =</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">length</span>(textToSummarize)), <span class="co">#repeat same docid for all of input vector</span></span>
-<span id="cb115-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb115-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">n =</span> <span class="dv">5</span>, <span class="co"># number of sentences</span></span>
-<span id="cb115-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb115-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">continuous =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb111-1" aria-hidden="true" tabindex="-1"></a>textToSummarize <span class="ot">=</span> testText</span>
+<span id="cb111-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb111-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb111-3" aria-hidden="true" tabindex="-1"></a>summary <span class="ot">=</span> <span class="fu">lexRank</span>(textToSummarize,</span>
+<span id="cb111-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb111-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">docId =</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">length</span>(textToSummarize)), <span class="co">#repeat same docid for all of input vector</span></span>
+<span id="cb111-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb111-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">n =</span> <span class="dv">5</span>, <span class="co"># number of sentences</span></span>
+<span id="cb111-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb111-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">continuous =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## Parsing text into sentences and tokens...DONE
 ## Calculating pairwise sentence similarities...DONE
 ## Applying LexRank...DONE
 ## Formatting Output...DONE</code></pre>
-<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this is just preparing results for better viewing</span></span>
-<span id="cb117-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb117-2" aria-hidden="true" tabindex="-1"></a>summary<span class="sc">$</span>sentenceId <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(summary<span class="sc">$</span>sentenceId, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">d+_&quot;</span>, <span class="st">&quot;&quot;</span>)</span>
-<span id="cb117-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb117-3" aria-hidden="true" tabindex="-1"></a>summary<span class="sc">$</span>sentenceId <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(summary<span class="sc">$</span>sentenceId)</span>
-<span id="cb117-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb117-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb117-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb117-5" aria-hidden="true" tabindex="-1"></a>summary <span class="ot">&lt;-</span> summary <span class="sc">%&gt;%</span></span>
-<span id="cb117-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb117-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(sentenceId)</span>
-<span id="cb117-7"><a href="text-analysis-ii-distances-keywords-summarization.html#cb117-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb117-8"><a href="text-analysis-ii-distances-keywords-summarization.html#cb117-8" aria-hidden="true" tabindex="-1"></a>summary<span class="sc">$</span>sentence</span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this is just preparing results for better viewing</span></span>
+<span id="cb113-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb113-2" aria-hidden="true" tabindex="-1"></a>summary<span class="sc">$</span>sentenceId <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(summary<span class="sc">$</span>sentenceId, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">d+_&quot;</span>, <span class="st">&quot;&quot;</span>)</span>
+<span id="cb113-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb113-3" aria-hidden="true" tabindex="-1"></a>summary<span class="sc">$</span>sentenceId <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(summary<span class="sc">$</span>sentenceId)</span>
+<span id="cb113-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb113-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb113-5" aria-hidden="true" tabindex="-1"></a>summary <span class="ot">&lt;-</span> summary <span class="sc">%&gt;%</span></span>
+<span id="cb113-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb113-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(sentenceId)</span>
+<span id="cb113-7"><a href="text-analysis-ii-distances-keywords-summarization.html#cb113-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-8"><a href="text-analysis-ii-distances-keywords-summarization.html#cb113-8" aria-hidden="true" tabindex="-1"></a>summary<span class="sc">$</span>sentence</span></code></pre></div>
 <pre><code>## [1] &quot;The Klimt University of Vienna Ceiling Paintings, also known as the Faculty Paintings, were a series of paintings made by Gustav Klimt for the ceiling of the University of Vienna`s Great Hall between the years of 1900–1907.&quot;                                            
 ## [2] &quot;Upon presenting his paintings, Philosophy, Medicine and Jurisprudence, Klimt came under attack for `pornography` and `perverted excess` in the paintings.&quot;                                                                                                                  
 ## [3] &quot;Klimt described the painting as follows: `On the left a group of figures, the beginning of life, fruition, decay.&quot;                                                                                                                                                          
@@ -913,7 +902,7 @@ friend and fellow artist, Koloman Moser.[clarification needed]
 Medicine eventually came into the possession of a Jewish family,
 and in 1938 the painting was seized by Germany.&quot; </code></pre>
 <p>Here is another corpus of articles to play with (from <code>tm</code> library):</p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tm)</span></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tm)</span></code></pre></div>
 <pre><code>## Lade nötiges Paket: NLP</code></pre>
 <pre><code>## 
 ## Attache Paket: &#39;NLP&#39;</code></pre>
@@ -931,14 +920,14 @@ and in 1938 the painting was seized by Germany.&quot; </code></pre>
 <pre><code>## Das folgende Objekt ist maskiert &#39;package:quanteda&#39;:
 ## 
 ##     stopwords</code></pre>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;acq&quot;</span>)</span>
-<span id="cb128-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb128-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb128-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb128-3" aria-hidden="true" tabindex="-1"></a>acqTidy <span class="ot">&lt;-</span> <span class="fu">tidy</span>(acq)</span></code></pre></div>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;acq&quot;</span>)</span>
+<span id="cb124-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb124-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb124-3" aria-hidden="true" tabindex="-1"></a>acqTidy <span class="ot">&lt;-</span> <span class="fu">tidy</span>(acq)</span></code></pre></div>
 <p>Here is an article:</p>
-<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb129-1" aria-hidden="true" tabindex="-1"></a>item <span class="ot">=</span> <span class="dv">1</span></span>
-<span id="cb129-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb129-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb129-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb129-3" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(acqTidy<span class="sc">$</span>text[item], <span class="st">&quot;</span><span class="sc">\\</span><span class="st">s+&quot;</span>, <span class="st">&quot; &quot;</span>)</span>
-<span id="cb129-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb129-4" aria-hidden="true" tabindex="-1"></a>test</span></code></pre></div>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb125-1" aria-hidden="true" tabindex="-1"></a>item <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb125-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb125-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb125-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb125-3" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(acqTidy<span class="sc">$</span>text[item], <span class="st">&quot;</span><span class="sc">\\</span><span class="st">s+&quot;</span>, <span class="st">&quot; &quot;</span>)</span>
+<span id="cb125-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb125-4" aria-hidden="true" tabindex="-1"></a>test</span></code></pre></div>
 <pre><code>## [1] &quot;Computer Terminal Systems Inc said it has completed the sale of 200,000 shares of its common stock, and warrants to acquire an additional one mln shares, to &lt;Sedio N.V.&gt; of Lugano, Switzerland for 50,000 dlrs. The company said the warrants are exercisable for five years at a purchase price of .125 dlrs per share. Computer Terminal said Sedio also has the right to buy additional shares and increase its total holdings up to 40 pct of the Computer Terminal&#39;s outstanding common stock under certain circumstances involving change of control at the company. The company said if the conditions occur the warrants would be exercisable at a price equal to 75 pct of its common stock&#39;s market price at the time, not to exceed 1.50 dlrs per share. Computer Terminal also said it sold the technolgy rights to its Dot Matrix impact technology, including any future improvements, to &lt;Woodco Inc&gt; of Houston, Tex. for 200,000 dlrs. But, it said it would continue to be the exclusive worldwide licensee of the technology for Woodco. The company said the moves were part of its reorganization plan and would help pay current operation costs and ensure product delivery. Computer Terminal makes computer generated labels, forms, tags and ticket printers and terminals. Reuter&quot;</code></pre>
 <pre><code>[1] &quot;Computer Terminal Systems Inc said it has completed the sale
 of 200,000 shares of its common stock, and warrants to acquire an
@@ -961,24 +950,24 @@ operation costs and ensure product delivery. Computer Terminal makes
 computer generated labels, forms, tags and ticket printers and
 terminals. Reuter&quot;</code></pre>
 <p>Let’s see how our summary comes out:</p>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb132-1" aria-hidden="true" tabindex="-1"></a>textToSummarize <span class="ot">=</span> test</span>
-<span id="cb132-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb132-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb132-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb132-3" aria-hidden="true" tabindex="-1"></a>summary <span class="ot">=</span> <span class="fu">lexRank</span>(textToSummarize,</span>
-<span id="cb132-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb132-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">docId =</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">length</span>(textToSummarize)), <span class="co">#repeat same docid for all of input vector</span></span>
-<span id="cb132-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb132-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">n =</span> <span class="dv">3</span>, <span class="co"># number of sentences</span></span>
-<span id="cb132-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb132-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">continuous =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb128-1" aria-hidden="true" tabindex="-1"></a>textToSummarize <span class="ot">=</span> test</span>
+<span id="cb128-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb128-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb128-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb128-3" aria-hidden="true" tabindex="-1"></a>summary <span class="ot">=</span> <span class="fu">lexRank</span>(textToSummarize,</span>
+<span id="cb128-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb128-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">docId =</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">length</span>(textToSummarize)), <span class="co">#repeat same docid for all of input vector</span></span>
+<span id="cb128-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb128-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">n =</span> <span class="dv">3</span>, <span class="co"># number of sentences</span></span>
+<span id="cb128-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb128-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">continuous =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## Parsing text into sentences and tokens...DONE
 ## Calculating pairwise sentence similarities...DONE
 ## Applying LexRank...DONE
 ## Formatting Output...DONE</code></pre>
-<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this is just preparing results for better viewing</span></span>
-<span id="cb134-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb134-2" aria-hidden="true" tabindex="-1"></a>summary<span class="sc">$</span>sentenceId <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(summary<span class="sc">$</span>sentenceId, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">d+_&quot;</span>, <span class="st">&quot;&quot;</span>)</span>
-<span id="cb134-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb134-3" aria-hidden="true" tabindex="-1"></a>summary<span class="sc">$</span>sentenceId <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(summary<span class="sc">$</span>sentenceId)</span>
-<span id="cb134-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb134-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb134-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb134-5" aria-hidden="true" tabindex="-1"></a>summary <span class="ot">&lt;-</span> summary <span class="sc">%&gt;%</span></span>
-<span id="cb134-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb134-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(sentenceId)</span>
-<span id="cb134-7"><a href="text-analysis-ii-distances-keywords-summarization.html#cb134-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb134-8"><a href="text-analysis-ii-distances-keywords-summarization.html#cb134-8" aria-hidden="true" tabindex="-1"></a>summary<span class="sc">$</span>sentence</span></code></pre></div>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this is just preparing results for better viewing</span></span>
+<span id="cb130-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb130-2" aria-hidden="true" tabindex="-1"></a>summary<span class="sc">$</span>sentenceId <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(summary<span class="sc">$</span>sentenceId, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">d+_&quot;</span>, <span class="st">&quot;&quot;</span>)</span>
+<span id="cb130-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb130-3" aria-hidden="true" tabindex="-1"></a>summary<span class="sc">$</span>sentenceId <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(summary<span class="sc">$</span>sentenceId)</span>
+<span id="cb130-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb130-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb130-5" aria-hidden="true" tabindex="-1"></a>summary <span class="ot">&lt;-</span> summary <span class="sc">%&gt;%</span></span>
+<span id="cb130-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb130-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(sentenceId)</span>
+<span id="cb130-7"><a href="text-analysis-ii-distances-keywords-summarization.html#cb130-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-8"><a href="text-analysis-ii-distances-keywords-summarization.html#cb130-8" aria-hidden="true" tabindex="-1"></a>summary<span class="sc">$</span>sentence</span></code></pre></div>
 <pre><code>## [1] &quot;Computer Terminal Systems Inc said it has completed the sale of 200,000 shares of its common stock, and warrants to acquire an additional one mln shares, to &lt;Sedio N.V.&gt; of Lugano, Switzerland for 50,000 dlrs.&quot;                                
 ## [2] &quot;Computer Terminal said Sedio also has the right to buy additional shares and increase its total holdings up to 40 pct of the Computer Terminal&#39;s outstanding common stock under certain circumstances involving change of control at the company.&quot;
 ## [3] &quot;The company said if the conditions occur the warrants would be exercisable at a price equal to 75 pct of its common stock&#39;s market price at the time, not to exceed 1.50 dlrs per share.&quot;</code></pre>
