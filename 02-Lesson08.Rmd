@@ -221,13 +221,13 @@ Let's check the texts of `1862-04-07_advert_175` and `1862-04-05_advert_38`, whi
 ```{r}
 example <- d1862 %>%
   filter(id=="1862-04-07_advert_175")
-paste(example[5])
+print(example[5])
 ```
 
 ```{r}
 example <- d1862 %>%
   filter(id=="1862-04-05_advert_38")
-paste(example[5])
+print(example[5])
 ```
 
 (@) Check <http://text2vec.org/similarity.html> and calculate `cosine` and `euclidean` distances for the same set of texts. What is the score for the same two texts? How do these scores differ in your opinion?
