@@ -24,9 +24,7 @@ prep_fun = function(x) {
 ```
 
 ```{r}
-pathToFiles = "./files/data/"
-
-d1862 <- read.delim(paste0(pathToFiles, "dispatch_1862.tsv"), encoding="UTF-8", header=TRUE, quote="")
+d1862 <- read.delim("./files/data/dispatch_1862.tsv", encoding="UTF-8", header=TRUE, quote="")
 ```
 
 The following are the libraries that we will need for this section. Install those that you do not have yet.
