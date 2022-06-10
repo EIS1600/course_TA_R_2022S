@@ -451,7 +451,7 @@ and in 1938 the painting was seized by Germany."
 
 Here is another corpus of articles to play with (from `tm` library):
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 library(tm)
 
 data("acq")
