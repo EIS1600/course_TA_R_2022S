@@ -322,7 +322,8 @@ udhr_TFIDF <- udhrTidy %>%
   arrange(desc(tf_idf)) %>%
   ungroup
 
-udhr_TFIDF
+udhr_TFIDF %>%
+  filter(tf_idf >= 0.15)
 ```
 
 
@@ -421,6 +422,28 @@ summary <- summary %>%
   arrange(sentenceId)
 
 summary$sentence
+```
+
+```
+[1] "The Klimt University of Vienna Ceiling Paintings, also known
+as the Faculty Paintings, were a series of paintings made by Gustav
+Klimt for the ceiling of the University of Vienna`s Great Hall
+between the years of 1900–1907."
+
+[2] "Upon presenting his paintings, Philosophy, Medicine and
+Jurisprudence, Klimt came under attack for `pornography` and
+`perverted excess` in the paintings."                                                                                                                  
+[3] "Klimt described the painting as follows: `On the left a
+group of figures, the beginning of life, fruition, decay."                                                                                                                                                          
+[4] "In 1903, Hermann Bahr, a writer and a supporter of Klimt, in
+response to the criticism of the Faculty Paintings compiled articles
+which attacked Klimt, and published a book Gegen Klimt (Against Klimt)
+with his foreword, where he argued that the reactions were absurd."
+
+[5] "In 1911 Medicine and Jurisprudence were bought by Klimt`s
+friend and fellow artist, Koloman Moser.[clarification needed]
+Medicine eventually came into the possession of a Jewish family,
+and in 1938 the painting was seized by Germany." 
 ```
 
 Here is another corpus of articles to play with (from `tm` library):
