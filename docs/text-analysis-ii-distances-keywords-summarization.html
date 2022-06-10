@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>8 Text Analysis II: Distances, KEywords, Summarization | DH in AAS - TA with R (2022S)</title>
+  <title>8 Text Analysis II: Distances, Keywords, Summarization | DH in AAS - TA with R (2022S)</title>
   <meta name="description" content="This is a collection of relevant materials for the class ‘57-528 ONLINE S: Digital Humanities in African and Asian Studies: Text Analysis with R’ (2022S), offered at the University of Hamburg (Afrika-Asien Institut) and taught by Maxim G. Romanov" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="8 Text Analysis II: Distances, KEywords, Summarization | DH in AAS - TA with R (2022S)" />
+  <meta property="og:title" content="8 Text Analysis II: Distances, Keywords, Summarization | DH in AAS - TA with R (2022S)" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://eis1600.github.io/course_TA_R_2022S/" />
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="EIS1600/course_TA_R_2022S" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="8 Text Analysis II: Distances, KEywords, Summarization | DH in AAS - TA with R (2022S)" />
+  <meta name="twitter:title" content="8 Text Analysis II: Distances, Keywords, Summarization | DH in AAS - TA with R (2022S)" />
   
   <meta name="twitter:description" content="This is a collection of relevant materials for the class ‘57-528 ONLINE S: Digital Humanities in African and Asian Studies: Text Analysis with R’ (2022S), offered at the University of Hamburg (Afrika-Asien Institut) and taught by Maxim G. Romanov" />
   
@@ -283,7 +283,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.8" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#HW07"><i class="fa fa-check"></i><b>7.8</b> Homework</a></li>
 <li class="chapter" data-level="7.9" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#SHW07"><i class="fa fa-check"></i><b>7.9</b> Submitting homework</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="text-analysis-ii-distances-keywords-summarization.html"><a href="text-analysis-ii-distances-keywords-summarization.html"><i class="fa fa-check"></i><b>8</b> Text Analysis II: Distances, KEywords, Summarization</a>
+<li class="chapter" data-level="8" data-path="text-analysis-ii-distances-keywords-summarization.html"><a href="text-analysis-ii-distances-keywords-summarization.html"><i class="fa fa-check"></i><b>8</b> Text Analysis II: Distances, Keywords, Summarization</a>
 <ul>
 <li class="chapter" data-level="8.1" data-path="text-analysis-ii-distances-keywords-summarization.html"><a href="text-analysis-ii-distances-keywords-summarization.html#goals08"><i class="fa fa-check"></i><b>8.1</b> Goals</a></li>
 <li class="chapter" data-level="8.2" data-path="text-analysis-ii-distances-keywords-summarization.html"><a href="text-analysis-ii-distances-keywords-summarization.html#Prelim08"><i class="fa fa-check"></i><b>8.2</b> Preliminaries</a>
@@ -320,7 +320,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="text-analysis-ii-distances-keywords-summarization" class="section level1" number="8">
-<h1><span class="header-section-number">8</span> Text Analysis II: Distances, KEywords, Summarization</h1>
+<h1><span class="header-section-number">8</span> Text Analysis II: Distances, Keywords, Summarization</h1>
 <div id="goals08" class="section level2" number="8.1">
 <h2><span class="header-section-number">8.1</span> Goals</h2>
 <ul>
@@ -519,257 +519,35 @@ Additional read: <a href="https://cmry.github.io/notes/euclidean-v-cosine" class
 <span id="cb83-10"><a href="text-analysis-ii-distances-keywords-summarization.html#cb83-10" aria-hidden="true" tabindex="-1"></a>jaccard_sim_df <span class="ot">&lt;-</span> jaccard_sim_df <span class="sc">%&gt;%</span></span>
 <span id="cb83-11"><a href="text-analysis-ii-distances-keywords-summarization.html#cb83-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(jaccardSimilarity))</span>
 <span id="cb83-12"><a href="text-analysis-ii-distances-keywords-summarization.html#cb83-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb83-13"><a href="text-analysis-ii-distances-keywords-summarization.html#cb83-13" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(jaccard_sim_df)</span></code></pre></div>
-<pre><code>##                   text1                 text2 jaccardSimilarity
-## 1 1862-04-22_advert_244 1862-04-05_advert_248                 1
-## 2 1862-01-13_advert_273 1862-01-11_advert_231                 1
-## 3 1862-04-07_advert_127 1862-04-05_advert_235                 1
-## 4 1862-04-07_advert_162 1862-04-05_advert_183                 1
-## 5 1862-04-07_advert_189 1862-04-05_advert_161                 1
-## 6 1862-04-07_advert_250 1862-04-05_advert_255                 1</code></pre>
+<span id="cb83-13"><a href="text-analysis-ii-distances-keywords-summarization.html#cb83-13" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(jaccard_sim_df, <span class="dv">10</span>)</span></code></pre></div>
+<pre><code>##                    text1                 text2 jaccardSimilarity
+## 1  1862-04-22_advert_244 1862-04-05_advert_248                 1
+## 2  1862-01-13_advert_273 1862-01-11_advert_231                 1
+## 3  1862-04-07_advert_127 1862-04-05_advert_235                 1
+## 4  1862-04-07_advert_162 1862-04-05_advert_183                 1
+## 5  1862-04-07_advert_189 1862-04-05_advert_161                 1
+## 6  1862-04-07_advert_250 1862-04-05_advert_255                 1
+## 7  1862-04-07_advert_253 1862-04-05_advert_289                 1
+## 8  1862-04-07_advert_262 1862-04-05_advert_250                 1
+## 9  1862-04-07_advert_263 1862-04-05_advert_251                 1
+## 10 1862-04-07_advert_264 1862-04-05_advert_253                 1</code></pre>
 <div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb85-1" aria-hidden="true" tabindex="-1"></a>t_jaccard_sim_df_subset <span class="ot">&lt;-</span> jaccard_sim_df <span class="sc">%&gt;%</span></span>
 <span id="cb85-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb85-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(jaccardSimilarity <span class="sc">&gt;</span> <span class="fl">0.49</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb85-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb85-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(jaccardSimilarity <span class="sc">&lt;=</span> <span class="fl">0.9</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb85-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb85-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(jaccardSimilarity), <span class="at">.by_group=</span>T)</span>
 <span id="cb85-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb85-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb85-6" aria-hidden="true" tabindex="-1"></a>t_jaccard_sim_df_subset</span></code></pre></div>
-<pre><code>##                     text1                 text2 jaccardSimilarity
-## 1    1862-04-07_advert_30 1862-04-05_advert_237         0.9000000
-## 2   1862-04-07_advert_175  1862-04-05_advert_38         0.9000000
-## 3   1862-04-05_advert_303 1862-02-10_advert_149         0.9000000
-## 4   1862-01-13_advert_272 1862-01-11_advert_230         0.8979592
-## 5   1862-05-12_advert_219  1862-06-09_advert_63         0.8974359
-## 6   1862-03-10_advert_146 1862-04-05_advert_261         0.8928571
-## 7    1862-03-10_advert_13 1862-02-10_advert_224         0.8913043
-## 8   1862-05-12_advert_233 1862-06-09_advert_309         0.8913043
-## 9    1862-04-07_advert_22 1862-04-05_advert_148         0.8888889
-## 10  1862-04-07_advert_163 1862-04-05_advert_184         0.8888889
-## 11  1862-04-07_advert_165 1862-06-09_advert_331         0.8888889
-## 12  1862-04-07_advert_250 1862-06-09_advert_339         0.8888889
-## 13  1862-04-07_advert_267 1862-04-05_advert_261         0.8888889
-## 14  1862-04-05_advert_255 1862-06-09_advert_339         0.8888889
-## 15  1862-04-07_advert_268 1862-04-05_advert_262         0.8867925
-## 16  1862-04-07_advert_131 1862-04-05_advert_166         0.8823529
-## 17  1862-04-07_advert_137  1862-06-09_advert_95         0.8823529
-## 18   1862-10-13_advert_57 1862-10-13_advert_206         0.8823529
-## 19  1862-04-07_advert_184 1862-03-11_advert_304         0.8809524
-## 20    1862-05-12_advert_9 1862-06-09_advert_248         0.8800000
-## 21  1862-04-07_advert_190 1862-04-05_advert_162         0.8780488
-## 22   1862-04-07_advert_29 1862-04-05_advert_236         0.8775510
-## 23  1862-04-07_advert_183 1862-03-10_advert_198         0.8750000
-## 24  1862-04-07_advert_217  1862-04-05_advert_27         0.8750000
-## 25  1862-04-07_advert_232 1862-04-05_advert_249         0.8727273
-## 26  1862-04-07_advert_204 1862-04-05_advert_156         0.8679245
-## 27  1862-04-07_advert_219 1862-04-05_advert_164         0.8679245
-## 28  1862-01-13_advert_157 1862-02-10_advert_228         0.8666667
-## 29   1862-04-07_advert_25 1862-04-05_advert_115         0.8636364
-## 30  1862-04-07_advert_160 1862-04-05_advert_113         0.8636364
-## 31  1862-04-07_advert_250 1862-05-12_advert_161         0.8636364
-## 32  1862-05-12_advert_161 1862-04-05_advert_255         0.8636364
-## 33  1862-04-07_advert_218 1862-04-05_advert_163         0.8611111
-## 34  1862-04-07_advert_176  1862-04-05_advert_40         0.8585859
-## 35   1862-04-07_advert_55 1862-04-05_advert_216         0.8507463
-## 36  1862-01-13_advert_153 1862-02-10_advert_227         0.8500000
-## 37  1862-06-09_advert_248 1862-10-13_advert_195         0.8500000
-## 38  1862-04-07_advert_187 1862-04-05_advert_159         0.8472222
-## 39  1862-04-05_advert_287 1862-06-09_advert_294         0.8461538
-## 40   1862-04-07_advert_49 1862-04-05_advert_206         0.8421053
-## 41  1862-04-07_advert_165 1862-04-05_advert_186         0.8421053
-## 42  1862-04-05_advert_184 1862-06-09_advert_327         0.8421053
-## 43  1862-05-12_advert_161 1862-06-09_advert_339         0.8409091
-## 44    1862-05-12_advert_6 1862-04-05_advert_295         0.8405797
-## 45  1862-04-07_advert_169  1862-04-05_advert_54         0.8385093
-## 46  1862-04-07_advert_174  1862-04-05_advert_36         0.8378378
-## 47  1862-04-07_advert_170  1862-04-05_advert_55         0.8372093
-## 48  1862-04-07_advert_193  1862-04-05_advert_46         0.8363636
-## 49  1862-05-12_advert_246 1862-06-09_advert_296         0.8363636
-## 50  1862-04-07_advert_168  1862-04-05_advert_43         0.8346457
-## 51   1862-04-07_advert_23 1862-04-05_advert_117         0.8333333
-## 52    1862-05-12_advert_5 1862-06-09_advert_266         0.8333333
-## 53  1862-05-12_advert_179 1862-04-05_advert_202         0.8333333
-## 54   1862-04-07_advert_45 1862-04-05_advert_199         0.8311688
-## 55   1862-04-07_advert_16  1862-06-09_advert_63         0.8292683
-## 56  1862-03-10_advert_149 1862-04-05_advert_303         0.8292683
-## 57  1862-01-13_advert_200 1862-02-10_advert_262         0.8275862
-## 58   1862-05-12_advert_93  1862-06-09_advert_39         0.8275862
-## 59  1862-04-07_advert_246 1862-04-05_advert_243         0.8260870
-## 60  1862-04-07_advert_258   1862-05-12_advert_6         0.8260870
-## 61  1862-06-09_advert_247 1862-10-13_advert_194         0.8260870
-## 62  1862-04-07_advert_267 1862-03-10_advert_146         0.8214286
-## 63  1862-04-07_advert_215 1862-04-05_advert_158         0.8205128
-## 64  1862-04-07_advert_206 1862-04-05_advert_157         0.8172043
-## 65  1862-06-09_advert_247 1862-02-10_advert_161         0.8142857
-## 66  1862-04-05_advert_167 1862-06-09_advert_319         0.8020833
-## 67   1862-04-07_advert_19  1862-04-05_advert_14         0.8000000
-## 68   1862-04-07_advert_32 1862-04-05_advert_254         0.8000000
-## 69  1862-04-07_advert_172  1862-04-05_advert_26         0.8000000
-## 70  1862-04-07_advert_229  1862-06-09_advert_28         0.8000000
-## 71    1862-05-12_advert_6 1862-06-09_advert_246         0.8000000
-## 72    1862-05-12_advert_8 1862-06-09_advert_247         0.8000000
-## 73  1862-04-05_advert_118 1862-06-09_advert_348         0.8000000
-## 74  1862-06-30_advert_157  1862-06-09_advert_88         0.7959184
-## 75   1862-05-12_advert_15  1862-06-09_advert_37         0.7916667
-## 76  1862-05-12_advert_291 1862-06-09_advert_344         0.7910448
-## 77  1862-04-07_advert_164 1862-04-05_advert_185         0.7894737
-## 78  1862-05-12_advert_189 1862-04-05_advert_206         0.7894737
-## 79   1862-04-07_advert_14 1862-04-05_advert_140         0.7857143
-## 80   1862-04-07_advert_54 1862-04-05_advert_215         0.7826087
-## 81  1862-04-07_advert_221  1862-04-05_advert_58         0.7812500
-## 82   1862-04-07_advert_38 1862-04-05_advert_134         0.7777778
-## 83   1862-04-07_advert_47 1862-05-12_advert_179         0.7777778
-## 84  1862-04-07_advert_249 1862-05-12_advert_229         0.7777778
-## 85  1862-02-10_advert_135 1862-02-10_advert_136         0.7777778
-## 86  1862-02-10_advert_136 1862-02-10_advert_137         0.7777778
-## 87  1862-03-10_advert_157 1862-02-10_advert_123         0.7647059
-## 88   1862-04-07_advert_15 1862-04-05_advert_141         0.7631579
-## 89  1862-04-05_advert_295 1862-06-09_advert_246         0.7605634
-## 90  1862-04-07_advert_249 1862-03-10_advert_201         0.7600000
-## 91  1862-04-07_advert_213  1862-04-05_advert_41         0.7538462
-## 92   1862-01-13_advert_66 1862-01-13_advert_201         0.7532468
-## 93  1862-04-07_advert_207  1862-04-05_advert_42         0.7521368
-## 94  1862-04-07_advert_185 1862-02-10_advert_144         0.7520000
-## 95   1862-04-07_advert_31 1862-04-05_advert_238         0.7500000
-## 96   1862-04-07_advert_40 1862-04-05_advert_193         0.7500000
-## 97   1862-04-07_advert_48 1862-04-05_advert_203         0.7500000
-## 98  1862-04-07_advert_137 1862-04-05_advert_149         0.7500000
-## 99  1862-04-07_advert_161 1862-04-05_advert_114         0.7500000
-## 100 1862-05-12_advert_184 1862-04-05_advert_207         0.7500000
-## 101 1862-05-12_advert_234 1862-06-09_advert_310         0.7500000
-## 102 1862-06-09_advert_340 1862-02-10_advert_221         0.7500000
-## 103 1862-04-07_advert_258 1862-06-09_advert_246         0.7464789
-## 104  1862-04-07_advert_34 1862-04-05_advert_127         0.7428571
-## 105 1862-05-12_advert_249 1862-06-09_advert_297         0.7428571
-## 106 1862-04-07_advert_186 1862-04-05_advert_118         0.7407407
-## 107  1862-05-12_advert_38 1862-06-09_advert_287         0.7391304
-## 108 1862-05-12_advert_145 1862-05-12_advert_146         0.7368421
-## 109 1862-05-12_advert_146 1862-05-12_advert_147         0.7368421
-## 110   1862-04-07_advert_9   1862-04-05_advert_5         0.7346939
-## 111  1862-07-07_advert_48 1862-10-13_advert_193         0.7346939
-## 112 1862-04-07_advert_132   1862-04-05_advert_1         0.7333333
-## 113 1862-04-05_advert_188  1862-06-09_advert_92         0.7333333
-## 114 1862-04-22_advert_245 1862-06-09_advert_325         0.7307692
-## 115 1862-05-12_advert_258  1862-06-09_advert_28         0.7307692
-## 116 1862-04-07_advert_173  1862-04-05_advert_30         0.7304965
-## 117 1862-04-07_advert_191  1862-04-05_advert_50         0.7246377
-## 118 1862-01-13_advert_177 1862-04-07_advert_185         0.7244094
-## 119 1862-04-07_advert_202  1862-04-05_advert_57         0.7230769
-## 120  1862-04-07_advert_47 1862-04-05_advert_202         0.7222222
-## 121 1862-03-10_advert_102 1862-03-10_advert_242         0.7179487
-## 122 1862-05-12_advert_159 1862-06-09_advert_307         0.7164179
-## 123  1862-04-07_advert_18  1862-04-05_advert_13         0.7142857
-## 124 1862-04-07_advert_186 1862-06-09_advert_348         0.7142857
-## 125 1862-03-10_advert_201 1862-05-12_advert_229         0.7037037
-## 126 1862-05-12_advert_229 1862-04-05_advert_247         0.7037037
-## 127 1862-01-13_advert_110 1862-04-07_advert_213         0.7017544
-## 128 1862-05-12_advert_145 1862-05-12_advert_147         0.7000000
-## 129 1862-02-10_advert_135 1862-02-10_advert_137         0.7000000
-## 130 1862-04-07_advert_249 1862-04-05_advert_247         0.6923077
-## 131  1862-04-07_advert_50 1862-05-12_advert_184         0.6875000
-## 132 1862-04-07_advert_245 1862-04-05_advert_242         0.6875000
-## 133  1862-04-07_advert_44 1862-04-05_advert_197         0.6842105
-## 134 1862-04-07_advert_265  1862-05-12_advert_39         0.6829268
-## 135  1862-05-12_advert_39 1862-04-05_advert_257         0.6829268
-## 136  1862-04-07_advert_51 1862-04-05_advert_210         0.6724138
-## 137 1862-06-09_advert_260 1862-10-13_advert_350         0.6716418
-## 138 1862-01-13_advert_224 1862-02-10_advert_218         0.6666667
-## 139   1862-04-07_advert_8 1862-04-05_advert_116         0.6666667
-## 140  1862-04-07_advert_28  1862-04-05_advert_17         0.6666667
-## 141  1862-05-12_advert_84 1862-06-09_advert_166         0.6666667
-## 142  1862-09-08_advert_51  1862-09-08_advert_52         0.6666667
-## 143  1862-04-07_advert_10   1862-04-05_advert_8         0.6590909
-## 144 1862-01-13_advert_105 1862-09-08_advert_170         0.6547619
-## 145  1862-04-07_advert_27  1862-04-05_advert_16         0.6521739
-## 146  1862-04-07_advert_49 1862-05-12_advert_189         0.6500000
-## 147 1862-04-05_advert_149  1862-06-09_advert_95         0.6500000
-## 148 1862-05-12_advert_237 1862-06-09_advert_249         0.6486486
-## 149  1862-04-07_advert_26  1862-04-05_advert_15         0.6451613
-## 150  1862-04-07_advert_43 1862-04-05_advert_196         0.6363636
-## 151  1862-04-07_advert_39 1862-04-05_advert_135         0.6216216
-## 152 1862-06-09_advert_249 1862-06-09_advert_251         0.6216216
-## 153 1862-03-10_advert_255 1862-03-10_advert_274         0.6212121
-## 154  1862-04-07_advert_37 1862-04-05_advert_133         0.6190476
-## 155 1862-10-13_advert_235 1862-10-13_advert_237         0.6129032
-## 156  1862-02-10_advert_13  1862-02-10_advert_17         0.6063830
-## 157 1862-04-05_advert_288 1862-06-09_advert_292         0.6052632
-## 158  1862-01-13_advert_74  1862-01-13_advert_75         0.6000000
-## 159 1862-01-13_advert_272 1862-01-13_advert_273         0.6000000
-## 160 1862-01-13_advert_272 1862-01-11_advert_231         0.6000000
-## 161  1862-04-07_advert_36 1862-04-05_advert_132         0.6000000
-## 162  1862-09-08_advert_47 1862-10-13_advert_231         0.6000000
-## 163 1862-01-13_advert_106 1862-09-08_advert_163         0.5925926
-## 164 1862-06-09_advert_268 1862-02-10_advert_152         0.5909091
-## 165  1862-04-07_advert_41 1862-04-05_advert_194         0.5897436
-## 166 1862-01-13_advert_189 1862-01-13_advert_190         0.5882353
-## 167 1862-03-10_advert_206 1862-03-10_advert_207         0.5882353
-## 168 1862-10-13_advert_234 1862-10-13_advert_355         0.5862069
-## 169 1862-01-13_advert_273 1862-01-11_advert_230         0.5818182
-## 170 1862-01-11_advert_230 1862-01-11_advert_231         0.5818182
-## 171 1862-04-07_advert_104  1862-05-12_advert_84         0.5714286
-## 172 1862-05-12_advert_228 1862-05-12_advert_231         0.5714286
-## 173 1862-06-09_advert_226 1862-06-09_advert_232         0.5714286
-## 174 1862-01-13_advert_143 1862-02-10_advert_157         0.5681818
-## 175 1862-04-07_advert_137 1862-06-09_advert_236         0.5652174
-## 176  1862-03-10_advert_14 1862-01-17_advert_201         0.5645161
-## 177  1862-09-08_advert_77  1862-09-08_advert_78         0.5625000
-## 178  1862-04-07_advert_53 1862-04-05_advert_212         0.5600000
-## 179 1862-04-07_advert_207 1862-09-08_advert_163         0.5575221
-## 180 1862-01-13_advert_128 1862-02-10_advert_129         0.5555556
-## 181 1862-04-07_advert_104 1862-06-09_advert_166         0.5555556
-## 182 1862-04-05_advert_305  1862-06-09_advert_95         0.5555556
-## 183 1862-01-13_advert_110  1862-04-05_advert_41         0.5524476
-## 184 1862-09-08_advert_162 1862-09-08_advert_163         0.5462963
-## 185 1862-01-13_advert_106 1862-04-07_advert_207         0.5438596
-## 186 1862-04-07_advert_207  1862-04-05_advert_40         0.5416667
-## 187 1862-04-07_advert_222  1862-04-05_advert_59         0.5370370
-## 188 1862-04-07_advert_192 1862-04-07_advert_197         0.5365854
-## 189 1862-04-05_advert_119 1862-06-09_advert_321         0.5365854
-## 190 1862-01-13_advert_128 1862-05-12_advert_156         0.5360825
-## 191 1862-01-13_advert_187 1862-01-13_advert_188         0.5357143
-## 192  1862-10-13_advert_76 1862-10-13_advert_268         0.5357143
-## 193 1862-09-08_advert_162 1862-09-08_advert_170         0.5346535
-## 194 1862-04-07_advert_192  1862-04-05_advert_51         0.5327869
-## 195 1862-04-07_advert_197  1862-04-05_advert_45         0.5322581
-## 196  1862-06-09_advert_78  1862-06-09_advert_79         0.5322581
-## 197 1862-04-07_advert_104  1862-03-10_advert_60         0.5312500
-## 198 1862-09-08_advert_170 1862-10-13_advert_145         0.5300000
-## 199 1862-04-07_advert_176 1862-04-07_advert_207         0.5299145
-## 200 1862-01-13_advert_194 1862-01-13_advert_195         0.5294118
-## 201  1862-04-05_advert_45  1862-04-05_advert_51         0.5284553
-## 202  1862-04-05_advert_38  1862-04-05_advert_40         0.5251799
-## 203 1862-02-10_advert_213 1862-02-10_advert_216         0.5250000
-## 204  1862-04-07_advert_33 1862-05-12_advert_178         0.5245902
-## 205 1862-09-08_advert_131 1862-09-08_advert_172         0.5238095
-## 206 1862-09-08_advert_163 1862-09-08_advert_171         0.5225225
-## 207 1862-04-07_advert_207  1862-04-05_advert_38         0.5220588
-## 208  1862-03-10_advert_60  1862-05-12_advert_84         0.5217391
-## 209 1862-02-10_advert_271 1862-02-10_advert_272         0.5185185
-## 210 1862-01-13_advert_105 1862-10-13_advert_145         0.5157895
-## 211 1862-04-07_advert_175  1862-04-05_advert_40         0.5147059
-## 212  1862-04-07_advert_17   1862-04-05_advert_9         0.5135135
-## 213 1862-06-09_advert_243 1862-02-10_advert_142         0.5135135
-## 214  1862-04-05_advert_26  1862-04-05_advert_40         0.5132743
-## 215  1862-02-10_advert_13  1862-02-10_advert_14         0.5130435
-## 216 1862-04-07_advert_175 1862-04-07_advert_207         0.5112782
-## 217 1862-03-10_advert_116 1862-03-10_advert_117         0.5111111
-## 218 1862-09-08_advert_171 1862-09-08_advert_172         0.5098039
-## 219 1862-09-08_advert_155 1862-09-08_advert_156         0.5089286
-## 220 1862-10-13_advert_156 1862-10-13_advert_159         0.5035971
-## 221 1862-01-13_advert_264 1862-01-13_advert_265         0.5000000
-## 222  1862-04-07_advert_33 1862-04-05_advert_126         0.5000000
-## 223 1862-04-07_advert_137 1862-04-05_advert_305         0.5000000
-## 224 1862-04-07_advert_160 1862-04-07_advert_161         0.5000000
-## 225 1862-04-07_advert_164 1862-06-09_advert_330         0.5000000
-## 226 1862-04-07_advert_207 1862-04-07_advert_217         0.5000000
-## 227 1862-04-07_advert_207  1862-02-10_advert_13         0.5000000
-## 228 1862-03-10_advert_207 1862-03-10_advert_221         0.5000000
-## 229 1862-05-12_advert_289 1862-09-08_advert_139         0.5000000
-## 230 1862-09-08_advert_163 1862-09-08_advert_172         0.4952381
-## 231 1862-01-13_advert_107 1862-01-13_advert_108         0.4949495
-## 232 1862-01-13_advert_108 1862-09-08_advert_169         0.4949495
-## 233  1862-04-07_advert_46 1862-04-05_advert_200         0.4927536
-## 234 1862-04-07_advert_207 1862-09-08_advert_171         0.4913793
-## 235 1862-05-12_advert_287 1862-05-12_advert_288         0.4909091
-## 236  1862-04-07_advert_42 1862-04-05_advert_195         0.4905660</code></pre>
+<span id="cb85-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb85-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(t_jaccard_sim_df_subset, <span class="dv">10</span>)</span></code></pre></div>
+<pre><code>##                    text1                 text2 jaccardSimilarity
+## 1   1862-04-07_advert_30 1862-04-05_advert_237         0.9000000
+## 2  1862-04-07_advert_175  1862-04-05_advert_38         0.9000000
+## 3  1862-04-05_advert_303 1862-02-10_advert_149         0.9000000
+## 4  1862-01-13_advert_272 1862-01-11_advert_230         0.8979592
+## 5  1862-05-12_advert_219  1862-06-09_advert_63         0.8974359
+## 6  1862-03-10_advert_146 1862-04-05_advert_261         0.8928571
+## 7   1862-03-10_advert_13 1862-02-10_advert_224         0.8913043
+## 8  1862-05-12_advert_233 1862-06-09_advert_309         0.8913043
+## 9   1862-04-07_advert_22 1862-04-05_advert_148         0.8888889
+## 10 1862-04-07_advert_163 1862-04-05_advert_184         0.8888889</code></pre>
 <p>Let’s check the texts of <code>1862-04-07_advert_175</code> and <code>1862-04-05_advert_38</code>, which have the score of 0.9000000 (a close match).</p>
 <div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb87-1" aria-hidden="true" tabindex="-1"></a>example <span class="ot">&lt;-</span> d1862 <span class="sc">%&gt;%</span></span>
 <span id="cb87-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb87-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(id<span class="sc">==</span><span class="st">&quot;1862-04-07_advert_175&quot;</span>)</span>

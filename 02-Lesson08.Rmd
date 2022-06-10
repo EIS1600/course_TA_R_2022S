@@ -1,4 +1,4 @@
-# Text Analysis II: Distances, KEywords, Summarization
+# Text Analysis II: Distances, Keywords, Summarization
 
 ```{r echo=FALSE}
 library(knitr)
@@ -204,7 +204,7 @@ colnames(jaccard_sim_df) <- c("text1", "text2", "jaccardSimilarity")
 jaccard_sim_df <- jaccard_sim_df %>%
   arrange(desc(jaccardSimilarity))
 
-head(jaccard_sim_df)
+head(jaccard_sim_df, 10)
 ```
 
 ```{r}
@@ -213,7 +213,7 @@ t_jaccard_sim_df_subset <- jaccard_sim_df %>%
   filter(jaccardSimilarity <= 0.9) %>%
   arrange(desc(jaccardSimilarity), .by_group=T)
 
-t_jaccard_sim_df_subset
+head(t_jaccard_sim_df_subset, 10)
 ```
 
 Let's check the texts of `1862-04-07_advert_175` and `1862-04-05_advert_38`, which have the score of 0.9000000 (a close match).
