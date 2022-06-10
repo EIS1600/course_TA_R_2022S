@@ -533,12 +533,7 @@ stock's market price at the time, not to exceed 1.50 dlrs per share."
 
 ## Homework{#HW08}
 
-* Read about *ngrams* in *Chapter 4. Relationships between words: n-grams and correlations* (<https://www.tidytextmining.com/ngrams.html>), in <https://www.tidytextmining.com/>.
-  - Using what you have learned in this chapter identify and analyze *bigrams* in Dispatch, 1862.
-  - Submit the results of your analysis as an R notebook, as usual.
-  - You are welcome to work in groups.
-* *Optional*: Work through Chapter 9 of Arnold, Taylor, and Lauren Tilton. 2015. *Humanities Data in R*. New York, NY: Springer Science+Business Media. (on Moodle!): create a notebook with all the code discusses there and send it via email (share via DropBox or some other service, if too large).
-* DataCamp Assignments.
+* given in the chapter.
 
 ## Submitting homework{#SHW08}
 
