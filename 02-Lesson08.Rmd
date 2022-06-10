@@ -233,8 +233,6 @@ example <- d1862 %>%
   filter(id=="1862-04-07_advert_175")
 ```
 
-This example:
-
 ```
 [1] "Very desirable Residence on the South of Main st., between and Cheery
 streets, in Sidney, at Auction. -- We will sell, upon the premises, on
@@ -256,8 +254,6 @@ M. Taylor, & Son, Auctioneers. mh 27"
 example <- d1862 %>%
   filter(id=="1862-04-05_advert_38")
 ```
-
-This example:
 
 ```
 [1] "Very desirable Framed Residence of the South side of Main St. Between
