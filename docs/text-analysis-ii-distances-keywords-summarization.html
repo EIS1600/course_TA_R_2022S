@@ -24,7 +24,7 @@
 <meta name="author" content="Maxim G. Romanov" />
 
 
-<meta name="date" content="2022-06-10" />
+<meta name="date" content="2022-06-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -430,8 +430,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 6 1 . 1 . 1 1 1 1 2 2 1 1
 ## 7 . 1 . 1 1 2 1 3 2 2 2 3</code></pre>
 <p>Let’s generate our distance matrices:</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb67-1" aria-hidden="true" tabindex="-1"></a>jaccardMatrix <span class="ot">=</span> <span class="fu">sim2</span>(sparseMatrix, sparseMatrix, <span class="at">method =</span> <span class="st">&quot;jaccard&quot;</span>, <span class="at">norm =</span> <span class="st">&quot;none&quot;</span>)</span>
+<span id="cb67-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb67-2" aria-hidden="true" tabindex="-1"></a>cosineMatrix <span class="ot">=</span> <span class="fu">sim2</span>(sparseMatrix, sparseMatrix, <span class="at">method =</span> <span class="st">&quot;cosine&quot;</span>, <span class="at">norm =</span> <span class="st">&quot;l2&quot;</span>)</span>
+<span id="cb67-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb67-3" aria-hidden="true" tabindex="-1"></a>euclideanMatrix <span class="ot">=</span> <span class="fu">dist2</span>(denseMatrix, denseMatrix, <span class="at">method =</span> <span class="st">&quot;euclidean&quot;</span>, <span class="at">norm=</span><span class="st">&quot;l2&quot;</span>)</span></code></pre></div>
 <p>Now, let’s check against the actual sentences:</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb67-1" aria-hidden="true" tabindex="-1"></a>testDF<span class="sc">$</span>TEXT</span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb68-1" aria-hidden="true" tabindex="-1"></a>testDF<span class="sc">$</span>TEXT</span></code></pre></div>
 <pre><code>## [1] &quot;the caliph arrived to baghdad from mecca &quot;                                                                        
 ## [2] &quot;the caliph arrived to mecca from baghdad &quot;                                                                        
 ## [3] &quot;the caliph arrived from mecca to baghdad the caliph arrived from baghdad to mecca &quot;                               
@@ -449,7 +452,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>The Caliph arrived from Mecca to Baghdad, and then returned to Mecca.</li>
 <li>The Vezier arrived from Isbahan to Mecca. The Caliph, Caliph, Caliph returned from Mecca to Baghdad Baghdad Baghdad.</li>
 </ol>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;JACCARD: 1 is full match&quot;</span>); jaccardMatrix</span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;JACCARD: 1 is full match&quot;</span>); jaccardMatrix</span></code></pre></div>
 <pre><code>## [1] &quot;JACCARD: 1 is full match&quot;</code></pre>
 <pre><code>## 7 x 7 sparse Matrix of class &quot;dgCMatrix&quot;
 ##       1     2     3     4     5         6         7
@@ -460,7 +463,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5 0.875 0.875 0.875 0.875 1.000 0.8000000 0.8000000
 ## 6 0.700 0.700 0.700 0.700 0.800 1.0000000 0.6666667
 ## 7 0.700 0.700 0.700 0.700 0.800 0.6666667 1.0000000</code></pre>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;COSINE: 1 is full match&quot;</span>); cosineMatrix</span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;COSINE: 1 is full match&quot;</span>); cosineMatrix</span></code></pre></div>
 <pre><code>## [1] &quot;COSINE: 1 is full match&quot;</code></pre>
 <pre><code>## 7 x 7 sparse Matrix of class &quot;dgCMatrix&quot;
 ##           1         2         3         4         5         6         7
@@ -471,7 +474,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5 0.9636241 0.9636241 0.9636241 0.7614996 1.0000000 0.8825226 0.9544271
 ## 6 0.8504201 0.8504201 0.8504201 0.6240377 0.8825226 1.0000000 0.8111071
 ## 7 0.9197090 0.9197090 0.9197090 0.7423701 0.9544271 0.8111071 1.0000000</code></pre>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;EUCLIDEAN: 0 is full match&quot;</span>); euclideanMatrix</span></code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;EUCLIDEAN: 0 is full match&quot;</span>); euclideanMatrix</span></code></pre></div>
 <pre><code>## [1] &quot;EUCLIDEAN: 0 is full match&quot;</code></pre>
 <pre><code>##           [,1]      [,2]      [,3]      [,4]      [,5]      [,6]      [,7]
 ## [1,] 0.0000000 0.0000000 0.0000000 0.5681059 0.2697254 0.5469551 0.4007268
@@ -488,24 +491,24 @@ Additional read: <a href="https://cmry.github.io/notes/euclidean-v-cosine" class
 </div>
 <div id="now-lets-run-this-on-dispatch" class="section level3" number="8.3.2">
 <h3><span class="header-section-number">8.3.2</span> Now, let’s run this on “Dispatch”</h3>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb78-1" aria-hidden="true" tabindex="-1"></a>sample_d1862 <span class="ot">&lt;-</span> d1862 <span class="sc">%&gt;%</span></span>
-<span id="cb78-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb78-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(type<span class="sc">==</span><span class="st">&quot;advert&quot;</span>)</span>
-<span id="cb78-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb78-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb78-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb78-4" aria-hidden="true" tabindex="-1"></a>sample_d1862<span class="sc">$</span>text <span class="ot">&lt;-</span> <span class="fu">prep_fun</span>(sample_d1862<span class="sc">$</span>text)</span>
-<span id="cb78-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb78-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb78-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb78-6" aria-hidden="true" tabindex="-1"></a><span class="co"># shared vector space</span></span>
-<span id="cb78-7"><a href="text-analysis-ii-distances-keywords-summarization.html#cb78-7" aria-hidden="true" tabindex="-1"></a>it <span class="ot">=</span> <span class="fu">itoken</span>(<span class="fu">as.vector</span>(sample_d1862<span class="sc">$</span>text))</span>
-<span id="cb78-8"><a href="text-analysis-ii-distances-keywords-summarization.html#cb78-8" aria-hidden="true" tabindex="-1"></a>v <span class="ot">=</span> <span class="fu">create_vocabulary</span>(it) <span class="sc">%&gt;%</span></span>
-<span id="cb78-9"><a href="text-analysis-ii-distances-keywords-summarization.html#cb78-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prune_vocabulary</span>(<span class="at">term_count_min =</span> <span class="dv">3</span>) <span class="co"># </span></span>
-<span id="cb78-10"><a href="text-analysis-ii-distances-keywords-summarization.html#cb78-10" aria-hidden="true" tabindex="-1"></a>vectorizer <span class="ot">=</span> <span class="fu">vocab_vectorizer</span>(v)</span></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb79-1" aria-hidden="true" tabindex="-1"></a>sample_d1862 <span class="ot">&lt;-</span> d1862 <span class="sc">%&gt;%</span></span>
+<span id="cb79-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb79-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(type<span class="sc">==</span><span class="st">&quot;advert&quot;</span>)</span>
+<span id="cb79-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb79-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb79-4" aria-hidden="true" tabindex="-1"></a>sample_d1862<span class="sc">$</span>text <span class="ot">&lt;-</span> <span class="fu">prep_fun</span>(sample_d1862<span class="sc">$</span>text)</span>
+<span id="cb79-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb79-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb79-6" aria-hidden="true" tabindex="-1"></a><span class="co"># shared vector space</span></span>
+<span id="cb79-7"><a href="text-analysis-ii-distances-keywords-summarization.html#cb79-7" aria-hidden="true" tabindex="-1"></a>it <span class="ot">=</span> <span class="fu">itoken</span>(<span class="fu">as.vector</span>(sample_d1862<span class="sc">$</span>text))</span>
+<span id="cb79-8"><a href="text-analysis-ii-distances-keywords-summarization.html#cb79-8" aria-hidden="true" tabindex="-1"></a>v <span class="ot">=</span> <span class="fu">create_vocabulary</span>(it) <span class="sc">%&gt;%</span></span>
+<span id="cb79-9"><a href="text-analysis-ii-distances-keywords-summarization.html#cb79-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prune_vocabulary</span>(<span class="at">term_count_min =</span> <span class="dv">3</span>) <span class="co"># </span></span>
+<span id="cb79-10"><a href="text-analysis-ii-distances-keywords-summarization.html#cb79-10" aria-hidden="true" tabindex="-1"></a>vectorizer <span class="ot">=</span> <span class="fu">vocab_vectorizer</span>(v)</span></code></pre></div>
 <p><code>prune_vocabulary()</code> is a useful function if you work with a large corpus; using <code>term_count_min=</code> would allow to remove low frequency vocabulary from our vector space and lighten up calculations.</p>
 <p>Now, we need to create a document-feature matrix:</p>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb79-1" aria-hidden="true" tabindex="-1"></a>dtmD <span class="ot">=</span> <span class="fu">create_dtm</span>(it, vectorizer)</span></code></pre></div>
-<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb80-1" aria-hidden="true" tabindex="-1"></a>jaccardMatrix <span class="ot">=</span> <span class="fu">sim2</span>(dtmD, dtmD, <span class="at">method =</span> <span class="st">&quot;jaccard&quot;</span>, <span class="at">norm =</span> <span class="st">&quot;none&quot;</span>)</span>
-<span id="cb80-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb80-2" aria-hidden="true" tabindex="-1"></a>jaccardMatrix<span class="sc">@</span>Dimnames[[<span class="dv">1</span>]] <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(sample_d1862<span class="sc">$</span>id)</span>
-<span id="cb80-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb80-3" aria-hidden="true" tabindex="-1"></a>jaccardMatrix<span class="sc">@</span>Dimnames[[<span class="dv">2</span>]] <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(sample_d1862<span class="sc">$</span>id)</span></code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb80-1" aria-hidden="true" tabindex="-1"></a>dtmD <span class="ot">=</span> <span class="fu">create_dtm</span>(it, vectorizer)</span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb81-1" aria-hidden="true" tabindex="-1"></a>jaccardMatrix <span class="ot">=</span> <span class="fu">sim2</span>(dtmD, dtmD, <span class="at">method =</span> <span class="st">&quot;jaccard&quot;</span>, <span class="at">norm =</span> <span class="st">&quot;none&quot;</span>)</span>
+<span id="cb81-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb81-2" aria-hidden="true" tabindex="-1"></a>jaccardMatrix<span class="sc">@</span>Dimnames[[<span class="dv">1</span>]] <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(sample_d1862<span class="sc">$</span>id)</span>
+<span id="cb81-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb81-3" aria-hidden="true" tabindex="-1"></a>jaccardMatrix<span class="sc">@</span>Dimnames[[<span class="dv">2</span>]] <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(sample_d1862<span class="sc">$</span>id)</span></code></pre></div>
 <p>Let’s take a look at a small section of our matrix. Can you read it? How should this data look in tidy format?</p>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb81-1" aria-hidden="true" tabindex="-1"></a>jaccardMatrix[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb82-1" aria-hidden="true" tabindex="-1"></a>jaccardMatrix[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span></code></pre></div>
 <pre><code>## 4 x 2 sparse Matrix of class &quot;dgCMatrix&quot;
 ##                       1862-04-22_advert_244 1862-04-22_advert_245
 ## 1862-04-22_advert_244            1.00000000            0.05063291
@@ -520,19 +523,19 @@ Additional read: <a href="https://cmry.github.io/notes/euclidean-v-cosine" class
 <li>create <code>igraph</code> object from our regular matrix;</li>
 <li>extract edges dataframe.</li>
 </ol>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb83-1" aria-hidden="true" tabindex="-1"></a>jaccardMatrix <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(jaccardMatrix)</span>
-<span id="cb83-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb83-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb83-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb83-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
-<span id="cb83-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb83-4" aria-hidden="true" tabindex="-1"></a>jaccardNW <span class="ot">&lt;-</span> <span class="fu">graph.adjacency</span>(jaccardMatrix, <span class="at">mode=</span><span class="st">&quot;undirected&quot;</span>, <span class="at">weighted=</span><span class="cn">TRUE</span>)</span>
-<span id="cb83-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb83-5" aria-hidden="true" tabindex="-1"></a>jaccardNW <span class="ot">&lt;-</span> <span class="fu">simplify</span>(jaccardNW)</span>
-<span id="cb83-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb83-6" aria-hidden="true" tabindex="-1"></a>jaccard_sim_df <span class="ot">&lt;-</span> <span class="fu">as_data_frame</span>(jaccardNW, <span class="at">what=</span><span class="st">&quot;edges&quot;</span>)</span>
-<span id="cb83-7"><a href="text-analysis-ii-distances-keywords-summarization.html#cb83-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb83-8"><a href="text-analysis-ii-distances-keywords-summarization.html#cb83-8" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(jaccard_sim_df) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;text1&quot;</span>, <span class="st">&quot;text2&quot;</span>, <span class="st">&quot;jaccardSimilarity&quot;</span>)</span>
-<span id="cb83-9"><a href="text-analysis-ii-distances-keywords-summarization.html#cb83-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb83-10"><a href="text-analysis-ii-distances-keywords-summarization.html#cb83-10" aria-hidden="true" tabindex="-1"></a>jaccard_sim_df <span class="ot">&lt;-</span> jaccard_sim_df <span class="sc">%&gt;%</span></span>
-<span id="cb83-11"><a href="text-analysis-ii-distances-keywords-summarization.html#cb83-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(jaccardSimilarity))</span>
-<span id="cb83-12"><a href="text-analysis-ii-distances-keywords-summarization.html#cb83-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb83-13"><a href="text-analysis-ii-distances-keywords-summarization.html#cb83-13" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(jaccard_sim_df, <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb84-1" aria-hidden="true" tabindex="-1"></a>jaccardMatrix <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(jaccardMatrix)</span>
+<span id="cb84-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb84-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb84-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
+<span id="cb84-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb84-4" aria-hidden="true" tabindex="-1"></a>jaccardNW <span class="ot">&lt;-</span> <span class="fu">graph.adjacency</span>(jaccardMatrix, <span class="at">mode=</span><span class="st">&quot;undirected&quot;</span>, <span class="at">weighted=</span><span class="cn">TRUE</span>)</span>
+<span id="cb84-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb84-5" aria-hidden="true" tabindex="-1"></a>jaccardNW <span class="ot">&lt;-</span> <span class="fu">simplify</span>(jaccardNW)</span>
+<span id="cb84-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb84-6" aria-hidden="true" tabindex="-1"></a>jaccard_sim_df <span class="ot">&lt;-</span> <span class="fu">as_data_frame</span>(jaccardNW, <span class="at">what=</span><span class="st">&quot;edges&quot;</span>)</span>
+<span id="cb84-7"><a href="text-analysis-ii-distances-keywords-summarization.html#cb84-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-8"><a href="text-analysis-ii-distances-keywords-summarization.html#cb84-8" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(jaccard_sim_df) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;text1&quot;</span>, <span class="st">&quot;text2&quot;</span>, <span class="st">&quot;jaccardSimilarity&quot;</span>)</span>
+<span id="cb84-9"><a href="text-analysis-ii-distances-keywords-summarization.html#cb84-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-10"><a href="text-analysis-ii-distances-keywords-summarization.html#cb84-10" aria-hidden="true" tabindex="-1"></a>jaccard_sim_df <span class="ot">&lt;-</span> jaccard_sim_df <span class="sc">%&gt;%</span></span>
+<span id="cb84-11"><a href="text-analysis-ii-distances-keywords-summarization.html#cb84-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(jaccardSimilarity))</span>
+<span id="cb84-12"><a href="text-analysis-ii-distances-keywords-summarization.html#cb84-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-13"><a href="text-analysis-ii-distances-keywords-summarization.html#cb84-13" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(jaccard_sim_df, <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##                    text1                 text2 jaccardSimilarity
 ## 1  1862-04-22_advert_244 1862-04-05_advert_248                 1
 ## 2  1862-01-13_advert_273 1862-01-11_advert_231                 1
@@ -544,12 +547,12 @@ Additional read: <a href="https://cmry.github.io/notes/euclidean-v-cosine" class
 ## 8  1862-04-07_advert_262 1862-04-05_advert_250                 1
 ## 9  1862-04-07_advert_263 1862-04-05_advert_251                 1
 ## 10 1862-04-07_advert_264 1862-04-05_advert_253                 1</code></pre>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb85-1" aria-hidden="true" tabindex="-1"></a>t_jaccard_sim_df_subset <span class="ot">&lt;-</span> jaccard_sim_df <span class="sc">%&gt;%</span></span>
-<span id="cb85-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb85-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(jaccardSimilarity <span class="sc">&gt;</span> <span class="fl">0.49</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb85-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb85-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(jaccardSimilarity <span class="sc">&lt;=</span> <span class="fl">0.9</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb85-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb85-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(jaccardSimilarity), <span class="at">.by_group=</span>T)</span>
-<span id="cb85-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb85-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb85-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(t_jaccard_sim_df_subset, <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb86-1" aria-hidden="true" tabindex="-1"></a>t_jaccard_sim_df_subset <span class="ot">&lt;-</span> jaccard_sim_df <span class="sc">%&gt;%</span></span>
+<span id="cb86-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb86-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(jaccardSimilarity <span class="sc">&gt;</span> <span class="fl">0.49</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb86-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb86-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(jaccardSimilarity <span class="sc">&lt;=</span> <span class="fl">0.9</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb86-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb86-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(jaccardSimilarity), <span class="at">.by_group=</span>T)</span>
+<span id="cb86-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb86-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb86-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(t_jaccard_sim_df_subset, <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##                    text1                 text2 jaccardSimilarity
 ## 1   1862-04-07_advert_30 1862-04-05_advert_237         0.9000000
 ## 2  1862-04-07_advert_175  1862-04-05_advert_38         0.9000000
@@ -562,8 +565,8 @@ Additional read: <a href="https://cmry.github.io/notes/euclidean-v-cosine" class
 ## 9   1862-04-07_advert_22 1862-04-05_advert_148         0.8888889
 ## 10 1862-04-07_advert_163 1862-04-05_advert_184         0.8888889</code></pre>
 <p>Let’s check the texts of <code>1862-04-07_advert_175</code> and <code>1862-04-05_advert_38</code>, which have the score of 0.9000000 (a close match).</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb87-1" aria-hidden="true" tabindex="-1"></a>example <span class="ot">&lt;-</span> d1862 <span class="sc">%&gt;%</span></span>
-<span id="cb87-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb87-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(id<span class="sc">==</span><span class="st">&quot;1862-04-07_advert_175&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb88-1" aria-hidden="true" tabindex="-1"></a>example <span class="ot">&lt;-</span> d1862 <span class="sc">%&gt;%</span></span>
+<span id="cb88-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb88-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(id<span class="sc">==</span><span class="st">&quot;1862-04-07_advert_175&quot;</span>)</span></code></pre></div>
 <pre><code>[1] &quot;Very desirable Residence on the South of Main st., between and Cheery
 streets, in Sidney, at Auction. -- We will sell, upon the premises, on
 Monday, the 7th day of April, at 4½ o&#39;clock P. M., a very comfortable and
@@ -577,8 +580,8 @@ to an alley 30 feet wide. Terms. -- One-third cash; the balance at 6 and
 12 months, for negotiable notes, with interest added, and secured by a
 trust deed. The purchaser to pay the taxes and insurance for 1862. Jas.
 M. Taylor, &amp; Son, Auctioneers. mh 27&quot;</code></pre>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb89-1" aria-hidden="true" tabindex="-1"></a>example <span class="ot">&lt;-</span> d1862 <span class="sc">%&gt;%</span></span>
-<span id="cb89-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb89-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(id<span class="sc">==</span><span class="st">&quot;1862-04-05_advert_38&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb90-1" aria-hidden="true" tabindex="-1"></a>example <span class="ot">&lt;-</span> d1862 <span class="sc">%&gt;%</span></span>
+<span id="cb90-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb90-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(id<span class="sc">==</span><span class="st">&quot;1862-04-05_advert_38&quot;</span>)</span></code></pre></div>
 <pre><code>[1] &quot;Very desirable Framed Residence of the South side of Main St. Between
 culvert and Cherri streets. In Sidney, at Auction. -- We will sell, upon
 the premises, on Monday, the 7th day of April, at 4½ o&#39;clock P. M. a very
@@ -627,13 +630,13 @@ rownames(euclideanMatrix) <- as.vector(sample_d1862$id)
 <div id="tf-idf" class="section level2" number="8.4">
 <h2><span class="header-section-number">8.4</span> TF-IDF</h2>
 <p>Before we proceed, let’s load some text. Below is an example of how you can load a text using its URL. However, be mindful about using this approach: it is convenient with a small number of short texts, but not efficient with large number of long texts.</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb91-1" aria-hidden="true" tabindex="-1"></a>urlUDHR <span class="ot">&lt;-</span> <span class="st">&quot;https://univie-histr-2020s.github.io/files/UDHR.csv&quot;</span></span>
-<span id="cb91-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb91-2" aria-hidden="true" tabindex="-1"></a>udhr <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="fu">url</span>(urlUDHR), <span class="at">encoding=</span><span class="st">&quot;UTF-8&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">quote=</span><span class="st">&quot;&quot;</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb92-1" aria-hidden="true" tabindex="-1"></a>udhrTidy <span class="ot">&lt;-</span> udhr <span class="sc">%&gt;%</span></span>
-<span id="cb92-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb92-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(WORD, TEXT) <span class="sc">%&gt;%</span></span>
-<span id="cb92-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb92-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(SECTION, WORD, <span class="at">sort=</span><span class="cn">TRUE</span>)</span>
-<span id="cb92-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb92-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb92-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb92-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(udhrTidy)</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb92-1" aria-hidden="true" tabindex="-1"></a>urlUDHR <span class="ot">&lt;-</span> <span class="st">&quot;https://univie-histr-2020s.github.io/files/UDHR.csv&quot;</span></span>
+<span id="cb92-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb92-2" aria-hidden="true" tabindex="-1"></a>udhr <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="fu">url</span>(urlUDHR), <span class="at">encoding=</span><span class="st">&quot;UTF-8&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">quote=</span><span class="st">&quot;&quot;</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb93-1" aria-hidden="true" tabindex="-1"></a>udhrTidy <span class="ot">&lt;-</span> udhr <span class="sc">%&gt;%</span></span>
+<span id="cb93-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb93-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(WORD, TEXT) <span class="sc">%&gt;%</span></span>
+<span id="cb93-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb93-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(SECTION, WORD, <span class="at">sort=</span><span class="cn">TRUE</span>)</span>
+<span id="cb93-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb93-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb93-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb93-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(udhrTidy)</span></code></pre></div>
 <pre><code>##    SECTION              WORD                 n         
 ##  Length:1134        Length:1134        Min.   : 1.000  
 ##  Class :character   Class :character   1st Qu.: 1.000  
@@ -642,13 +645,13 @@ rownames(euclideanMatrix) <- as.vector(sample_d1862$id)
 ##                                        3rd Qu.: 1.000  
 ##                                        Max.   :26.000</code></pre>
 <p><strong>From Wikipedia</strong>: In information retrieval, tf–idf or TFIDF, short for term frequency–inverse document frequency, is a numerical statistic that is intended to reflect how important a word is to a document in a collection or corpus.[1] It is often used as a weighting factor in searches of information retrieval, text mining, and user modeling. The tf–idf value increases proportionally to the number of times a word appears in the document and is offset by the number of documents in the corpus that contain the word, which helps to adjust for the fact that some words appear more frequently in general. tf–idf is one of the most popular term-weighting schemes today; 83% of text-based recommender systems in digital libraries use tf–idf. Variations of the tf–idf weighting scheme are often used by search engines as a central tool in scoring and ranking a document’s relevance given a user query. tf–idf can be successfully used for stop-words filtering in various subject fields, including text summarization and classification. One of the simplest ranking functions is computed by summing the tf–idf for each query term; many more sophisticated ranking functions are variants of this simple model.</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb94-1" aria-hidden="true" tabindex="-1"></a>udhr_TFIDF <span class="ot">&lt;-</span> udhrTidy <span class="sc">%&gt;%</span> </span>
-<span id="cb94-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb94-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_tf_idf</span>(WORD, SECTION, n) <span class="sc">%&gt;%</span></span>
-<span id="cb94-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb94-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(tf_idf)) <span class="sc">%&gt;%</span></span>
-<span id="cb94-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb94-4" aria-hidden="true" tabindex="-1"></a>  ungroup</span>
-<span id="cb94-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb94-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb94-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb94-6" aria-hidden="true" tabindex="-1"></a>udhr_TFIDF <span class="sc">%&gt;%</span></span>
-<span id="cb94-7"><a href="text-analysis-ii-distances-keywords-summarization.html#cb94-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(tf_idf <span class="sc">&gt;=</span> <span class="fl">0.15</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb95-1" aria-hidden="true" tabindex="-1"></a>udhr_TFIDF <span class="ot">&lt;-</span> udhrTidy <span class="sc">%&gt;%</span> </span>
+<span id="cb95-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb95-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_tf_idf</span>(WORD, SECTION, n) <span class="sc">%&gt;%</span></span>
+<span id="cb95-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb95-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(tf_idf)) <span class="sc">%&gt;%</span></span>
+<span id="cb95-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb95-4" aria-hidden="true" tabindex="-1"></a>  ungroup</span>
+<span id="cb95-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb95-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb95-6" aria-hidden="true" tabindex="-1"></a>udhr_TFIDF <span class="sc">%&gt;%</span></span>
+<span id="cb95-7"><a href="text-analysis-ii-distances-keywords-summarization.html#cb95-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(tf_idf <span class="sc">&gt;=</span> <span class="fl">0.15</span>)</span></code></pre></div>
 <pre><code>##       SECTION           WORD n         tf      idf    tf_idf
 ## 1   Article 4        slavery 2 0.09523810 3.433987 0.3270464
 ## 2  Article 15    nationality 3 0.11538462 2.740840 0.3162508
@@ -686,14 +689,14 @@ rownames(euclideanMatrix) <- as.vector(sample_d1862$id)
 ## 34  Article 4      servitude 1 0.04761905 3.433987 0.1635232
 ## 35  Article 4          slave 1 0.04761905 3.433987 0.1635232
 ## 36 Article 26      education 7 0.05882353 2.740840 0.1612259</code></pre>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(udhr_TFIDF<span class="sc">$</span>tf_idf)</span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(udhr_TFIDF<span class="sc">$</span>tf_idf)</span></code></pre></div>
 <p><img src="main_files/figure-html/unnamed-chunk-61-1.png" width="672" /></p>
 <p>Let’s take a look at any of the Articles:</p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb97-1" aria-hidden="true" tabindex="-1"></a>articleID <span class="ot">=</span> <span class="st">&quot;Article 4&quot;</span></span>
-<span id="cb97-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb97-2" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">filter</span>(udhr_TFIDF, SECTION<span class="sc">==</span>articleID) <span class="sc">%&gt;%</span></span>
-<span id="cb97-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb97-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(tf_idf))</span>
-<span id="cb97-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb97-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb97-5" aria-hidden="true" tabindex="-1"></a>temp</span></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb98-1" aria-hidden="true" tabindex="-1"></a>articleID <span class="ot">=</span> <span class="st">&quot;Article 4&quot;</span></span>
+<span id="cb98-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb98-2" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">filter</span>(udhr_TFIDF, SECTION<span class="sc">==</span>articleID) <span class="sc">%&gt;%</span></span>
+<span id="cb98-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb98-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(tf_idf))</span>
+<span id="cb98-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb98-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb98-5" aria-hidden="true" tabindex="-1"></a>temp</span></code></pre></div>
 <pre><code>##      SECTION       WORD n         tf       idf      tf_idf
 ## 1  Article 4    slavery 2 0.09523810 3.4339872 0.327046400
 ## 2  Article 4      forms 1 0.04761905 3.4339872 0.163523200
@@ -712,11 +715,11 @@ rownames(euclideanMatrix) <- as.vector(sample_d1862$id)
 ## 15 Article 4         or 1 0.04761905 0.7259370 0.034568429
 ## 16 Article 4        and 1 0.04761905 0.2559334 0.012187304
 ## 17 Article 4        the 1 0.04761905 0.1017827 0.004846795</code></pre>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb99-1" aria-hidden="true" tabindex="-1"></a>articleID <span class="ot">=</span> <span class="st">&quot;Article 26&quot;</span></span>
-<span id="cb99-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb99-2" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">filter</span>(udhr_TFIDF, SECTION<span class="sc">==</span>articleID) <span class="sc">%&gt;%</span></span>
-<span id="cb99-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb99-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(tf_idf))</span>
-<span id="cb99-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb99-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb99-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb99-5" aria-hidden="true" tabindex="-1"></a>temp</span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb100-1" aria-hidden="true" tabindex="-1"></a>articleID <span class="ot">=</span> <span class="st">&quot;Article 26&quot;</span></span>
+<span id="cb100-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb100-2" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">filter</span>(udhr_TFIDF, SECTION<span class="sc">==</span>articleID) <span class="sc">%&gt;%</span></span>
+<span id="cb100-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb100-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(tf_idf))</span>
+<span id="cb100-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb100-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb100-5" aria-hidden="true" tabindex="-1"></a>temp</span></code></pre></div>
 <pre><code>##       SECTION          WORD  n          tf        idf      tf_idf
 ## 1  Article 26     education  7 0.058823529 2.74084002 0.161225884
 ## 2  Article 26    elementary  2 0.016806723 3.43398720 0.057714071
@@ -788,27 +791,27 @@ rownames(euclideanMatrix) <- as.vector(sample_d1862$id)
 ## 68 Article 26           has  1 0.008403361 0.38946477 0.003272813
 ## 69 Article 26      everyone  1 0.008403361 0.29849299 0.002508344</code></pre>
 <p>We can use wordcloud to vizualize results — but they will not be too telling, if we use word frequencies.</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wordcloud)</span>
-<span id="cb101-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb101-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;RColorBrewer&quot;</span>)</span>
-<span id="cb101-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb101-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb101-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb101-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb101-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb101-5" aria-hidden="true" tabindex="-1"></a><span class="fu">wordcloud</span>(<span class="at">words=</span>temp<span class="sc">$</span>WORD, <span class="at">freq=</span>temp<span class="sc">$</span>n,</span>
-<span id="cb101-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb101-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">min.freq =</span> <span class="dv">1</span>, <span class="at">rot.per =</span> .<span class="dv">0</span>, <span class="at">random.order=</span><span class="cn">FALSE</span>, <span class="at">scale=</span><span class="fu">c</span>(<span class="dv">10</span>,.<span class="dv">5</span>),</span>
-<span id="cb101-7"><a href="text-analysis-ii-distances-keywords-summarization.html#cb101-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">max.words=</span><span class="dv">150</span>, <span class="at">colors=</span><span class="fu">brewer.pal</span>(<span class="dv">8</span>, <span class="st">&quot;Dark2&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wordcloud)</span>
+<span id="cb102-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb102-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;RColorBrewer&quot;</span>)</span>
+<span id="cb102-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb102-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb102-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb102-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb102-5" aria-hidden="true" tabindex="-1"></a><span class="fu">wordcloud</span>(<span class="at">words=</span>temp<span class="sc">$</span>WORD, <span class="at">freq=</span>temp<span class="sc">$</span>n,</span>
+<span id="cb102-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb102-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">min.freq =</span> <span class="dv">1</span>, <span class="at">rot.per =</span> .<span class="dv">0</span>, <span class="at">random.order=</span><span class="cn">FALSE</span>, <span class="at">scale=</span><span class="fu">c</span>(<span class="dv">10</span>,.<span class="dv">5</span>),</span>
+<span id="cb102-7"><a href="text-analysis-ii-distances-keywords-summarization.html#cb102-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">max.words=</span><span class="dv">150</span>, <span class="at">colors=</span><span class="fu">brewer.pal</span>(<span class="dv">8</span>, <span class="st">&quot;Dark2&quot;</span>))</span></code></pre></div>
 <p><img src="main_files/figure-html/unnamed-chunk-64-1.png" width="960" /></p>
 <p>Instead we can use <code>tf_idf</code> values:</p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb102-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb102-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wordcloud</span>(<span class="at">words=</span>temp<span class="sc">$</span>WORD, <span class="at">freq=</span>temp<span class="sc">$</span>tf_idf,</span>
-<span id="cb102-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb102-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">min.freq =</span> <span class="dv">1</span>, <span class="at">rot.per =</span> .<span class="dv">0</span>, <span class="at">random.order=</span><span class="cn">FALSE</span>, <span class="at">scale=</span><span class="fu">c</span>(<span class="dv">10</span>,.<span class="dv">5</span>),</span>
-<span id="cb102-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb102-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">max.words=</span><span class="dv">150</span>, <span class="at">colors=</span><span class="fu">brewer.pal</span>(<span class="dv">8</span>, <span class="st">&quot;Dark2&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb103-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb103-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wordcloud</span>(<span class="at">words=</span>temp<span class="sc">$</span>WORD, <span class="at">freq=</span>temp<span class="sc">$</span>tf_idf,</span>
+<span id="cb103-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb103-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">min.freq =</span> <span class="dv">1</span>, <span class="at">rot.per =</span> .<span class="dv">0</span>, <span class="at">random.order=</span><span class="cn">FALSE</span>, <span class="at">scale=</span><span class="fu">c</span>(<span class="dv">10</span>,.<span class="dv">5</span>),</span>
+<span id="cb103-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb103-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">max.words=</span><span class="dv">150</span>, <span class="at">colors=</span><span class="fu">brewer.pal</span>(<span class="dv">8</span>, <span class="st">&quot;Dark2&quot;</span>))</span></code></pre></div>
 <p><img src="main_files/figure-html/unnamed-chunk-65-1.png" width="960" /></p>
 <div id="inaugural-speeches-of-the-us-presidents" class="section level3" number="8.4.1">
 <h3><span class="header-section-number">8.4.1</span> Inaugural speeches of the US presidents</h3>
 <p>The <code>quanteda</code> package includes a corpus of presidential inaugural speeches. What did the presidenst speak about? For thoughts and ideas, take a look at what Google News Lab did with this data: <a href="http://inauguratespeeches.com/" class="uri">http://inauguratespeeches.com/</a>. You can find readable addresses here: <a href="https://www.presidency.ucsb.edu/documents/presidential-documents-archive-guidebook/inaugural-addresses" class="uri">https://www.presidency.ucsb.edu/documents/presidential-documents-archive-guidebook/inaugural-addresses</a>.</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;data_corpus_inaugural&quot;</span>, <span class="at">package =</span> <span class="st">&quot;quanteda&quot;</span>)</span>
-<span id="cb103-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb103-2" aria-hidden="true" tabindex="-1"></a>inaug_dfm <span class="ot">&lt;-</span> quanteda<span class="sc">::</span><span class="fu">dfm</span>(data_corpus_inaugural, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;data_corpus_inaugural&quot;</span>, <span class="at">package =</span> <span class="st">&quot;quanteda&quot;</span>)</span>
+<span id="cb104-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb104-2" aria-hidden="true" tabindex="-1"></a>inaug_dfm <span class="ot">&lt;-</span> quanteda<span class="sc">::</span><span class="fu">dfm</span>(data_corpus_inaugural, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## Warning: &#39;dfm.corpus()&#39; is deprecated. Use &#39;tokens()&#39; first.</code></pre>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(inaug_dfm)</span></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(inaug_dfm)</span></code></pre></div>
 <pre><code>## Document-feature matrix of: 6 documents, 9,439 features (93.84% sparse) and 4 docvars.
 ##                  features
 ## docs              fellow-citizens  of the senate and house representatives :
@@ -828,8 +831,8 @@ rownames(euclideanMatrix) <- as.vector(sample_d1862$id)
 ##   1809-Madison        0            0
 ## [ reached max_nfeat ... 9,429 more features ]</code></pre>
 <p>The corpus is stored as a <code>document-feature matrix</code>, which we can convert into a more familiar tidy format in the following manner:</p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb107-1" aria-hidden="true" tabindex="-1"></a>inaug_td <span class="ot">&lt;-</span> <span class="fu">tidy</span>(inaug_dfm)</span>
-<span id="cb107-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb107-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(inaug_td)</span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb108-1" aria-hidden="true" tabindex="-1"></a>inaug_td <span class="ot">&lt;-</span> <span class="fu">tidy</span>(inaug_dfm)</span>
+<span id="cb108-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb108-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(inaug_td)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 3
 ##   document        term            count
 ##   &lt;chr&gt;           &lt;chr&gt;           &lt;dbl&gt;
@@ -852,29 +855,29 @@ rownames(euclideanMatrix) <- as.vector(sample_d1862$id)
 <div id="text-summarization" class="section level2" number="8.5">
 <h2><span class="header-section-number">8.5</span> Text summarization</h2>
 <p>Before we proceed, let’s load some text. Below is an example of how you can load a text using its URL. However, be mindful about using this approach: it is convenient with a small number of short texts, but not efficient with large number of long texts.</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb109-1" aria-hidden="true" tabindex="-1"></a>urlText <span class="ot">&lt;-</span> <span class="st">&quot;https://univie-histr-2020s.github.io/files/test_text.txt&quot;</span></span>
-<span id="cb109-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb109-2" aria-hidden="true" tabindex="-1"></a>testText <span class="ot">&lt;-</span> <span class="fu">scan</span>(<span class="fu">url</span>(urlText), <span class="at">what=</span><span class="st">&quot;character&quot;</span>, <span class="at">sep=</span><span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb110-1" aria-hidden="true" tabindex="-1"></a>urlText <span class="ot">&lt;-</span> <span class="st">&quot;https://univie-histr-2020s.github.io/files/test_text.txt&quot;</span></span>
+<span id="cb110-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb110-2" aria-hidden="true" tabindex="-1"></a>testText <span class="ot">&lt;-</span> <span class="fu">scan</span>(<span class="fu">url</span>(urlText), <span class="at">what=</span><span class="st">&quot;character&quot;</span>, <span class="at">sep=</span><span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
 <p>We can use different algorithms to <em>summarize</em> texts, which in this context means extracting key sentences, whose keyness is calculated through different means. Library <code>lexRankr</code> used tf-idf values and some methods from social network analysis to identify the most central sentences in a text. (For technical details, see: <a href="https://cran.r-project.org/web/packages/lexRankr/lexRankr.pdf" class="uri">https://cran.r-project.org/web/packages/lexRankr/lexRankr.pdf</a>; for a detailed <em>math</em> description: <a href="http://www.cs.cmu.edu/afs/cs/project/jair/pub/volume22/erkan04a-html/erkan04a.html" class="uri">http://www.cs.cmu.edu/afs/cs/project/jair/pub/volume22/erkan04a-html/erkan04a.html</a>).</p>
 <p>Take a look at the summary and then at the full text!</p>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lexRankr)</span></code></pre></div>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb111-1" aria-hidden="true" tabindex="-1"></a>textToSummarize <span class="ot">=</span> testText</span>
-<span id="cb111-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb111-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb111-3" aria-hidden="true" tabindex="-1"></a>summary <span class="ot">=</span> <span class="fu">lexRank</span>(textToSummarize,</span>
-<span id="cb111-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb111-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">docId =</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">length</span>(textToSummarize)), <span class="co">#repeat same docid for all of input vector</span></span>
-<span id="cb111-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb111-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">n =</span> <span class="dv">5</span>, <span class="co"># number of sentences</span></span>
-<span id="cb111-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb111-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">continuous =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lexRankr)</span></code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb112-1" aria-hidden="true" tabindex="-1"></a>textToSummarize <span class="ot">=</span> testText</span>
+<span id="cb112-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb112-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb112-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb112-3" aria-hidden="true" tabindex="-1"></a>summary <span class="ot">=</span> <span class="fu">lexRank</span>(textToSummarize,</span>
+<span id="cb112-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb112-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">docId =</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">length</span>(textToSummarize)), <span class="co">#repeat same docid for all of input vector</span></span>
+<span id="cb112-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb112-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">n =</span> <span class="dv">5</span>, <span class="co"># number of sentences</span></span>
+<span id="cb112-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb112-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">continuous =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## Parsing text into sentences and tokens...DONE
 ## Calculating pairwise sentence similarities...DONE
 ## Applying LexRank...DONE
 ## Formatting Output...DONE</code></pre>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this is just preparing results for better viewing</span></span>
-<span id="cb113-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb113-2" aria-hidden="true" tabindex="-1"></a>summary<span class="sc">$</span>sentenceId <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(summary<span class="sc">$</span>sentenceId, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">d+_&quot;</span>, <span class="st">&quot;&quot;</span>)</span>
-<span id="cb113-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb113-3" aria-hidden="true" tabindex="-1"></a>summary<span class="sc">$</span>sentenceId <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(summary<span class="sc">$</span>sentenceId)</span>
-<span id="cb113-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb113-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb113-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb113-5" aria-hidden="true" tabindex="-1"></a>summary <span class="ot">&lt;-</span> summary <span class="sc">%&gt;%</span></span>
-<span id="cb113-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb113-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(sentenceId)</span>
-<span id="cb113-7"><a href="text-analysis-ii-distances-keywords-summarization.html#cb113-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb113-8"><a href="text-analysis-ii-distances-keywords-summarization.html#cb113-8" aria-hidden="true" tabindex="-1"></a>summary<span class="sc">$</span>sentence</span></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this is just preparing results for better viewing</span></span>
+<span id="cb114-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb114-2" aria-hidden="true" tabindex="-1"></a>summary<span class="sc">$</span>sentenceId <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(summary<span class="sc">$</span>sentenceId, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">d+_&quot;</span>, <span class="st">&quot;&quot;</span>)</span>
+<span id="cb114-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb114-3" aria-hidden="true" tabindex="-1"></a>summary<span class="sc">$</span>sentenceId <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(summary<span class="sc">$</span>sentenceId)</span>
+<span id="cb114-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb114-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb114-5" aria-hidden="true" tabindex="-1"></a>summary <span class="ot">&lt;-</span> summary <span class="sc">%&gt;%</span></span>
+<span id="cb114-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb114-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(sentenceId)</span>
+<span id="cb114-7"><a href="text-analysis-ii-distances-keywords-summarization.html#cb114-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-8"><a href="text-analysis-ii-distances-keywords-summarization.html#cb114-8" aria-hidden="true" tabindex="-1"></a>summary<span class="sc">$</span>sentence</span></code></pre></div>
 <pre><code>## [1] &quot;The Klimt University of Vienna Ceiling Paintings, also known as the Faculty Paintings, were a series of paintings made by Gustav Klimt for the ceiling of the University of Vienna`s Great Hall between the years of 1900–1907.&quot;                                            
 ## [2] &quot;Upon presenting his paintings, Philosophy, Medicine and Jurisprudence, Klimt came under attack for `pornography` and `perverted excess` in the paintings.&quot;                                                                                                                  
 ## [3] &quot;Klimt described the painting as follows: `On the left a group of figures, the beginning of life, fruition, decay.&quot;                                                                                                                                                          
@@ -900,16 +903,16 @@ friend and fellow artist, Koloman Moser.[clarification needed]
 Medicine eventually came into the possession of a Jewish family,
 and in 1938 the painting was seized by Germany.&quot; </code></pre>
 <p>Here is another corpus of articles to play with (from <code>tm</code> library):</p>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tm)</span>
-<span id="cb116-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb116-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb116-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb116-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;acq&quot;</span>)</span>
-<span id="cb116-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb116-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb116-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb116-5" aria-hidden="true" tabindex="-1"></a>acqTidy <span class="ot">&lt;-</span> <span class="fu">tidy</span>(acq)</span></code></pre></div>
-<p>Here is an article:</p>
-<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb117-1" aria-hidden="true" tabindex="-1"></a>item <span class="ot">=</span> <span class="dv">1</span></span>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tm)</span>
 <span id="cb117-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb117-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb117-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb117-3" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(acqTidy<span class="sc">$</span>text[item], <span class="st">&quot;</span><span class="sc">\\</span><span class="st">s+&quot;</span>, <span class="st">&quot; &quot;</span>)</span>
-<span id="cb117-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb117-4" aria-hidden="true" tabindex="-1"></a>test</span></code></pre></div>
+<span id="cb117-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb117-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;acq&quot;</span>)</span>
+<span id="cb117-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb117-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb117-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb117-5" aria-hidden="true" tabindex="-1"></a>acqTidy <span class="ot">&lt;-</span> <span class="fu">tidy</span>(acq)</span></code></pre></div>
+<p>Here is an article:</p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb118-1" aria-hidden="true" tabindex="-1"></a>item <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb118-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb118-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb118-3" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(acqTidy<span class="sc">$</span>text[item], <span class="st">&quot;</span><span class="sc">\\</span><span class="st">s+&quot;</span>, <span class="st">&quot; &quot;</span>)</span>
+<span id="cb118-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb118-4" aria-hidden="true" tabindex="-1"></a>test</span></code></pre></div>
 <pre><code>## [1] &quot;Computer Terminal Systems Inc said it has completed the sale of 200,000 shares of its common stock, and warrants to acquire an additional one mln shares, to &lt;Sedio N.V.&gt; of Lugano, Switzerland for 50,000 dlrs. The company said the warrants are exercisable for five years at a purchase price of .125 dlrs per share. Computer Terminal said Sedio also has the right to buy additional shares and increase its total holdings up to 40 pct of the Computer Terminal&#39;s outstanding common stock under certain circumstances involving change of control at the company. The company said if the conditions occur the warrants would be exercisable at a price equal to 75 pct of its common stock&#39;s market price at the time, not to exceed 1.50 dlrs per share. Computer Terminal also said it sold the technolgy rights to its Dot Matrix impact technology, including any future improvements, to &lt;Woodco Inc&gt; of Houston, Tex. for 200,000 dlrs. But, it said it would continue to be the exclusive worldwide licensee of the technology for Woodco. The company said the moves were part of its reorganization plan and would help pay current operation costs and ensure product delivery. Computer Terminal makes computer generated labels, forms, tags and ticket printers and terminals. Reuter&quot;</code></pre>
 <pre><code>[1] &quot;Computer Terminal Systems Inc said it has completed the sale
 of 200,000 shares of its common stock, and warrants to acquire an
@@ -932,24 +935,24 @@ operation costs and ensure product delivery. Computer Terminal makes
 computer generated labels, forms, tags and ticket printers and
 terminals. Reuter&quot;</code></pre>
 <p>Let’s see how our summary comes out:</p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb120-1" aria-hidden="true" tabindex="-1"></a>textToSummarize <span class="ot">=</span> test</span>
-<span id="cb120-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb120-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb120-3" aria-hidden="true" tabindex="-1"></a>summary <span class="ot">=</span> <span class="fu">lexRank</span>(textToSummarize,</span>
-<span id="cb120-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb120-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">docId =</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">length</span>(textToSummarize)), <span class="co">#repeat same docid for all of input vector</span></span>
-<span id="cb120-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb120-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">n =</span> <span class="dv">3</span>, <span class="co"># number of sentences</span></span>
-<span id="cb120-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb120-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">continuous =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb121-1" aria-hidden="true" tabindex="-1"></a>textToSummarize <span class="ot">=</span> test</span>
+<span id="cb121-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb121-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb121-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb121-3" aria-hidden="true" tabindex="-1"></a>summary <span class="ot">=</span> <span class="fu">lexRank</span>(textToSummarize,</span>
+<span id="cb121-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb121-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">docId =</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">length</span>(textToSummarize)), <span class="co">#repeat same docid for all of input vector</span></span>
+<span id="cb121-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb121-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">n =</span> <span class="dv">3</span>, <span class="co"># number of sentences</span></span>
+<span id="cb121-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb121-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">continuous =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## Parsing text into sentences and tokens...DONE
 ## Calculating pairwise sentence similarities...DONE
 ## Applying LexRank...DONE
 ## Formatting Output...DONE</code></pre>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this is just preparing results for better viewing</span></span>
-<span id="cb122-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb122-2" aria-hidden="true" tabindex="-1"></a>summary<span class="sc">$</span>sentenceId <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(summary<span class="sc">$</span>sentenceId, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">d+_&quot;</span>, <span class="st">&quot;&quot;</span>)</span>
-<span id="cb122-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb122-3" aria-hidden="true" tabindex="-1"></a>summary<span class="sc">$</span>sentenceId <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(summary<span class="sc">$</span>sentenceId)</span>
-<span id="cb122-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb122-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb122-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb122-5" aria-hidden="true" tabindex="-1"></a>summary <span class="ot">&lt;-</span> summary <span class="sc">%&gt;%</span></span>
-<span id="cb122-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb122-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(sentenceId)</span>
-<span id="cb122-7"><a href="text-analysis-ii-distances-keywords-summarization.html#cb122-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb122-8"><a href="text-analysis-ii-distances-keywords-summarization.html#cb122-8" aria-hidden="true" tabindex="-1"></a>summary<span class="sc">$</span>sentence</span></code></pre></div>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this is just preparing results for better viewing</span></span>
+<span id="cb123-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb123-2" aria-hidden="true" tabindex="-1"></a>summary<span class="sc">$</span>sentenceId <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(summary<span class="sc">$</span>sentenceId, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">d+_&quot;</span>, <span class="st">&quot;&quot;</span>)</span>
+<span id="cb123-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb123-3" aria-hidden="true" tabindex="-1"></a>summary<span class="sc">$</span>sentenceId <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(summary<span class="sc">$</span>sentenceId)</span>
+<span id="cb123-4"><a href="text-analysis-ii-distances-keywords-summarization.html#cb123-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb123-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb123-5" aria-hidden="true" tabindex="-1"></a>summary <span class="ot">&lt;-</span> summary <span class="sc">%&gt;%</span></span>
+<span id="cb123-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb123-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(sentenceId)</span>
+<span id="cb123-7"><a href="text-analysis-ii-distances-keywords-summarization.html#cb123-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb123-8"><a href="text-analysis-ii-distances-keywords-summarization.html#cb123-8" aria-hidden="true" tabindex="-1"></a>summary<span class="sc">$</span>sentence</span></code></pre></div>
 <pre><code>## [1] &quot;Computer Terminal Systems Inc said it has completed the sale of 200,000 shares of its common stock, and warrants to acquire an additional one mln shares, to &lt;Sedio N.V.&gt; of Lugano, Switzerland for 50,000 dlrs.&quot;                                
 ## [2] &quot;Computer Terminal said Sedio also has the right to buy additional shares and increase its total holdings up to 40 pct of the Computer Terminal&#39;s outstanding common stock under certain circumstances involving change of control at the company.&quot;
 ## [3] &quot;The company said if the conditions occur the warrants would be exercisable at a price equal to 75 pct of its common stock&#39;s market price at the time, not to exceed 1.50 dlrs per share.&quot;</code></pre>
