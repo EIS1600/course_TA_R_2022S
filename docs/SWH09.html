@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>11 Additional Materials | DH in AAS - TA with R (2022S)</title>
+  <meta name="description" content="This is a collection of relevant materials for the class ‘57-528 ONLINE S: Digital Humanities in African and Asian Studies: Text Analysis with R’ (2022S), offered at the University of Hamburg (Afrika-Asien Institut) and taught by Maxim G. Romanov" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="11 Additional Materials | DH in AAS - TA with R (2022S)" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://eis1600.github.io/course_TA_R_2022S/" />
+  
+  <meta property="og:description" content="This is a collection of relevant materials for the class ‘57-528 ONLINE S: Digital Humanities in African and Asian Studies: Text Analysis with R’ (2022S), offered at the University of Hamburg (Afrika-Asien Institut) and taught by Maxim G. Romanov" />
+  <meta name="github-repo" content="EIS1600/course_TA_R_2022S" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="11 Additional Materials | DH in AAS - TA with R (2022S)" />
+  
+  <meta name="twitter:description" content="This is a collection of relevant materials for the class ‘57-528 ONLINE S: Digital Humanities in African and Asian Studies: Text Analysis with R’ (2022S), offered at the University of Hamburg (Afrika-Asien Institut) and taught by Maxim G. Romanov" />
+  
+
+<meta name="author" content="Maxim G. Romanov" />
+
+
+<meta name="date" content="2022-06-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="touch-icon.png" />
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+<link rel="prev" href="exploring-topics.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">DH Methods for Middle Eastern Studies: Text Mining with R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Syllabus</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-details"><i class="fa fa-check"></i>Course Details</a></li>
+<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#aims-contents-and-method-of-the-course"><i class="fa fa-check"></i><b>0.1</b> Aims, Contents and Method of the Course</a></li>
+<li class="chapter" data-level="0.2" data-path="index.html"><a href="index.html#course-evaluation"><i class="fa fa-check"></i><b>0.2</b> Course Evaluation</a>
+<ul>
+<li class="chapter" data-level="0.2.1" data-path="index.html"><a href="index.html#datacamp"><i class="fa fa-check"></i><b>0.2.1</b> DataCamp</a></li>
+</ul></li>
+<li class="chapter" data-level="0.3" data-path="index.html"><a href="index.html#class-participation"><i class="fa fa-check"></i><b>0.3</b> Class Participation</a></li>
+<li class="chapter" data-level="0.4" data-path="index.html"><a href="index.html#homework"><i class="fa fa-check"></i><b>0.4</b> Homework</a></li>
+<li class="chapter" data-level="0.5" data-path="index.html"><a href="index.html#final-project"><i class="fa fa-check"></i><b>0.5</b> Final Project</a></li>
+<li class="chapter" data-level="0.6" data-path="index.html"><a href="index.html#practice-worksheets-r-notebooks"><i class="fa fa-check"></i><b>0.6</b> Practice Worksheets (R Notebooks)</a></li>
+<li class="chapter" data-level="0.7" data-path="index.html"><a href="index.html#additional-study-materials"><i class="fa fa-check"></i><b>0.7</b> Additional Study Materials</a></li>
+<li class="chapter" data-level="0.8" data-path="index.html"><a href="index.html#software-tools-technologies"><i class="fa fa-check"></i><b>0.8</b> Software, Tools, &amp; Technologies:</a></li>
+<li class="chapter" data-level="0.9" data-path="index.html"><a href="index.html#submitting-homework"><i class="fa fa-check"></i><b>0.9</b> Submitting Homework:</a>
+<ul>
+<li class="chapter" data-level="0.9.1" data-path="index.html"><a href="index.html#handouts-workbooks"><i class="fa fa-check"></i><b>0.9.1</b> Handouts / Workbooks</a></li>
+<li class="chapter" data-level="0.9.2" data-path="index.html"><a href="index.html#datacamp-assignments"><i class="fa fa-check"></i><b>0.9.2</b> DataCamp Assignments</a></li>
+</ul></li>
+<li class="chapter" data-level="0.10" data-path="index.html"><a href="index.html#schedule"><i class="fa fa-check"></i><b>0.10</b> Schedule</a></li>
+<li class="chapter" data-level="0.11" data-path="index.html"><a href="index.html#lesson-topics-subject-to-modifications"><i class="fa fa-check"></i><b>0.11</b> Lesson Topics (<em>subject to modifications</em>)</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="general-introduction.html"><a href="general-introduction.html"><i class="fa fa-check"></i><b>1</b> General Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="general-introduction.html"><a href="general-introduction.html#L01_goals"><i class="fa fa-check"></i><b>1.1</b> Goals</a></li>
+<li class="chapter" data-level="1.2" data-path="general-introduction.html"><a href="general-introduction.html#L01_sw"><i class="fa fa-check"></i><b>1.2</b> Software</a></li>
+<li class="chapter" data-level="1.3" data-path="general-introduction.html"><a href="general-introduction.html#L01_class"><i class="fa fa-check"></i><b>1.3</b> Class</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="general-introduction.html"><a href="general-introduction.html#installing-rmarkdown"><i class="fa fa-check"></i><b>1.3.1</b> Installing <code>rmarkdown</code></a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="general-introduction.html"><a href="general-introduction.html#starting-with-our-first-workbook"><i class="fa fa-check"></i><b>1.4</b> Starting with our first workbook:</a></li>
+<li class="chapter" data-level="1.5" data-path="general-introduction.html"><a href="general-introduction.html#L01_topics"><i class="fa fa-check"></i><b>1.5</b> Topics covered</a></li>
+<li class="chapter" data-level="1.6" data-path="general-introduction.html"><a href="general-introduction.html#L01_RM"><i class="fa fa-check"></i><b>1.6</b> Reference materials</a></li>
+<li class="chapter" data-level="1.7" data-path="general-introduction.html"><a href="general-introduction.html#L01_HW"><i class="fa fa-check"></i><b>1.7</b> Homework</a></li>
+<li class="chapter" data-level="1.8" data-path="general-introduction.html"><a href="general-introduction.html#L01_commonissues"><i class="fa fa-check"></i><b>1.8</b> Common issues with homework</a>
+<ul>
+<li class="chapter" data-level="1.8.1" data-path="general-introduction.html"><a href="general-introduction.html#tracing-errors"><i class="fa fa-check"></i><b>1.8.1</b> Tracing errors</a></li>
+<li class="chapter" data-level="1.8.2" data-path="general-introduction.html"><a href="general-introduction.html#comments-commenting-out"><i class="fa fa-check"></i><b>1.8.2</b> Comments / Commenting out</a></li>
+<li class="chapter" data-level="1.8.3" data-path="general-introduction.html"><a href="general-introduction.html#random-errors"><i class="fa fa-check"></i><b>1.8.3</b> Random errors:</a></li>
+</ul></li>
+<li class="chapter" data-level="1.9" data-path="general-introduction.html"><a href="general-introduction.html#L01_SHW"><i class="fa fa-check"></i><b>1.9</b> Submitting homework</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="basics-i-main-data-structures-in-r.html"><a href="basics-i-main-data-structures-in-r.html"><i class="fa fa-check"></i><b>2</b> Basics I: Main data structures in R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="basics-i-main-data-structures-in-r.html"><a href="basics-i-main-data-structures-in-r.html#goals02"><i class="fa fa-check"></i><b>2.1</b> Goals</a></li>
+<li class="chapter" data-level="2.2" data-path="basics-i-main-data-structures-in-r.html"><a href="basics-i-main-data-structures-in-r.html#soft02"><i class="fa fa-check"></i><b>2.2</b> Software</a></li>
+<li class="chapter" data-level="2.3" data-path="basics-i-main-data-structures-in-r.html"><a href="basics-i-main-data-structures-in-r.html#cLass02"><i class="fa fa-check"></i><b>2.3</b> Class</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="basics-i-main-data-structures-in-r.html"><a href="basics-i-main-data-structures-in-r.html#topics02"><i class="fa fa-check"></i><b>2.3.1</b> Topics: Data Structures &amp; Types</a></li>
+<li class="chapter" data-level="2.3.2" data-path="basics-i-main-data-structures-in-r.html"><a href="basics-i-main-data-structures-in-r.html#additional_notes_02"><i class="fa fa-check"></i><b>2.3.2</b> Additional notes</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="basics-i-main-data-structures-in-r.html"><a href="basics-i-main-data-structures-in-r.html#RM02"><i class="fa fa-check"></i><b>2.4</b> Reference materials</a></li>
+<li class="chapter" data-level="2.5" data-path="basics-i-main-data-structures-in-r.html"><a href="basics-i-main-data-structures-in-r.html#HW02"><i class="fa fa-check"></i><b>2.5</b> Homework</a></li>
+<li class="chapter" data-level="2.6" data-path="basics-i-main-data-structures-in-r.html"><a href="basics-i-main-data-structures-in-r.html#L02_SHW"><i class="fa fa-check"></i><b>2.6</b> Submitting homework</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="basics-ii-data-manipulation-exloratory-analysis.html"><a href="basics-ii-data-manipulation-exloratory-analysis.html"><i class="fa fa-check"></i><b>3</b> Basics II: Data Manipulation &amp; Exloratory Analysis</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="basics-ii-data-manipulation-exloratory-analysis.html"><a href="basics-ii-data-manipulation-exloratory-analysis.html#goals03"><i class="fa fa-check"></i><b>3.1</b> Goals</a></li>
+<li class="chapter" data-level="3.2" data-path="basics-ii-data-manipulation-exloratory-analysis.html"><a href="basics-ii-data-manipulation-exloratory-analysis.html#soft03"><i class="fa fa-check"></i><b>3.2</b> Software</a></li>
+<li class="chapter" data-level="3.3" data-path="basics-ii-data-manipulation-exloratory-analysis.html"><a href="basics-ii-data-manipulation-exloratory-analysis.html#cLass03"><i class="fa fa-check"></i><b>3.3</b> Class</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="basics-ii-data-manipulation-exloratory-analysis.html"><a href="basics-ii-data-manipulation-exloratory-analysis.html#topics03"><i class="fa fa-check"></i><b>3.3.1</b> Topics</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="basics-ii-data-manipulation-exloratory-analysis.html"><a href="basics-ii-data-manipulation-exloratory-analysis.html#RM03"><i class="fa fa-check"></i><b>3.4</b> Reference materials</a></li>
+<li class="chapter" data-level="3.5" data-path="basics-ii-data-manipulation-exloratory-analysis.html"><a href="basics-ii-data-manipulation-exloratory-analysis.html#HW03"><i class="fa fa-check"></i><b>3.5</b> Homework</a></li>
+<li class="chapter" data-level="3.6" data-path="basics-ii-data-manipulation-exloratory-analysis.html"><a href="basics-ii-data-manipulation-exloratory-analysis.html#SHW03"><i class="fa fa-check"></i><b>3.6</b> Submitting homework</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="basics-iii-data-visualization-functions.html"><a href="basics-iii-data-visualization-functions.html"><i class="fa fa-check"></i><b>4</b> Basics III: Data Visualization; Functions</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="basics-iii-data-visualization-functions.html"><a href="basics-iii-data-visualization-functions.html#goals04"><i class="fa fa-check"></i><b>4.1</b> Goals</a></li>
+<li class="chapter" data-level="4.2" data-path="basics-iii-data-visualization-functions.html"><a href="basics-iii-data-visualization-functions.html#soft04"><i class="fa fa-check"></i><b>4.2</b> Software</a></li>
+<li class="chapter" data-level="4.3" data-path="basics-iii-data-visualization-functions.html"><a href="basics-iii-data-visualization-functions.html#cLass04"><i class="fa fa-check"></i><b>4.3</b> Class</a></li>
+<li class="chapter" data-level="4.4" data-path="basics-iii-data-visualization-functions.html"><a href="basics-iii-data-visualization-functions.html#topics04"><i class="fa fa-check"></i><b>4.4</b> Topics</a></li>
+<li class="chapter" data-level="4.5" data-path="basics-iii-data-visualization-functions.html"><a href="basics-iii-data-visualization-functions.html#RM04"><i class="fa fa-check"></i><b>4.5</b> Reference materials</a></li>
+<li class="chapter" data-level="4.6" data-path="basics-iii-data-visualization-functions.html"><a href="basics-iii-data-visualization-functions.html#HW04"><i class="fa fa-check"></i><b>4.6</b> Homework</a></li>
+<li class="chapter" data-level="4.7" data-path="basics-iii-data-visualization-functions.html"><a href="basics-iii-data-visualization-functions.html#SHW04"><i class="fa fa-check"></i><b>4.7</b> Submitting homework</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html"><i class="fa fa-check"></i><b>5</b> Data I: Collecting, Organizing, Creating</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#goals05"><i class="fa fa-check"></i><b>5.1</b> Goals</a></li>
+<li class="chapter" data-level="5.2" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#soft05"><i class="fa fa-check"></i><b>5.2</b> Software</a></li>
+<li class="chapter" data-level="5.3" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#CA05"><i class="fa fa-check"></i><b>5.3</b> In Class I: <em>Theoretical and Conceptual</em></a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#CaA05"><i class="fa fa-check"></i><b>5.3.1</b> Ways of obtaining data</a></li>
+<li class="chapter" data-level="5.3.2" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#CbA05"><i class="fa fa-check"></i><b>5.3.2</b> Main format</a></li>
+<li class="chapter" data-level="5.3.3" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#CdA05"><i class="fa fa-check"></i><b>5.3.3</b> Basic principles of organizing data: <em>Tidy Data</em></a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#CB05"><i class="fa fa-check"></i><b>5.4</b> In Class II: <em>Practical</em></a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#CaB05"><i class="fa fa-check"></i><b>5.4.1</b> Morris Dataset: <em>the East Vs. the West</em></a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#OCR05"><i class="fa fa-check"></i><b>5.5</b> OCR in R</a></li>
+<li class="chapter" data-level="5.6" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#rm05"><i class="fa fa-check"></i><b>5.6</b> Reference Materials:</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#rmA05"><i class="fa fa-check"></i><b>5.6.1</b> Additional</a></li>
+<li class="chapter" data-level="5.6.2" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#rmB05"><i class="fa fa-check"></i><b>5.6.2</b> Additional Readings</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#HW05"><i class="fa fa-check"></i><b>5.7</b> Homework</a></li>
+<li class="chapter" data-level="5.8" data-path="data-i-collecting-organizing-creating.html"><a href="data-i-collecting-organizing-creating.html#SHW05"><i class="fa fa-check"></i><b>5.8</b> Submitting homework</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="data-ii-modeling-manipulating.html"><a href="data-ii-modeling-manipulating.html"><i class="fa fa-check"></i><b>6</b> Data II: Modeling &amp; Manipulating</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="data-ii-modeling-manipulating.html"><a href="data-ii-modeling-manipulating.html#goals06"><i class="fa fa-check"></i><b>6.1</b> Goals:</a></li>
+<li class="chapter" data-level="6.2" data-path="data-ii-modeling-manipulating.html"><a href="data-ii-modeling-manipulating.html#soft06"><i class="fa fa-check"></i><b>6.2</b> Software:</a></li>
+<li class="chapter" data-level="6.3" data-path="data-ii-modeling-manipulating.html"><a href="data-ii-modeling-manipulating.html#InClassI06"><i class="fa fa-check"></i><b>6.3</b> In Class I: <em>Theoretical and Conceptual</em></a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="data-ii-modeling-manipulating.html"><a href="data-ii-modeling-manipulating.html#DM06"><i class="fa fa-check"></i><b>6.3.1</b> Ways of modeling data: Categorization</a></li>
+<li class="chapter" data-level="6.3.2" data-path="data-ii-modeling-manipulating.html"><a href="data-ii-modeling-manipulating.html#Norm06"><i class="fa fa-check"></i><b>6.3.2</b> Normalization</a></li>
+<li class="chapter" data-level="6.3.3" data-path="data-ii-modeling-manipulating.html"><a href="data-ii-modeling-manipulating.html#Proxies06"><i class="fa fa-check"></i><b>6.3.3</b> Note: <em>Proxies</em>, <em>Features</em>, <em>Abstractions</em></a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="data-ii-modeling-manipulating.html"><a href="data-ii-modeling-manipulating.html#InClassII06"><i class="fa fa-check"></i><b>6.4</b> In Class II: <em>Practical</em></a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="data-ii-modeling-manipulating.html"><a href="data-ii-modeling-manipulating.html#Si06"><i class="fa fa-check"></i><b>6.4.1</b> SECTION I.</a></li>
+<li class="chapter" data-level="6.4.2" data-path="data-ii-modeling-manipulating.html"><a href="data-ii-modeling-manipulating.html#Sii06"><i class="fa fa-check"></i><b>6.4.2</b> SECTION II</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="data-ii-modeling-manipulating.html"><a href="data-ii-modeling-manipulating.html#RM06"><i class="fa fa-check"></i><b>6.5</b> Reference Materials</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="data-ii-modeling-manipulating.html"><a href="data-ii-modeling-manipulating.html#AR06"><i class="fa fa-check"></i><b>6.5.1</b> Additional Readings</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="data-ii-modeling-manipulating.html"><a href="data-ii-modeling-manipulating.html#HW06"><i class="fa fa-check"></i><b>6.6</b> Homework</a></li>
+<li class="chapter" data-level="6.7" data-path="data-ii-modeling-manipulating.html"><a href="data-ii-modeling-manipulating.html#SHW06"><i class="fa fa-check"></i><b>6.7</b> Submitting homework</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html"><i class="fa fa-check"></i><b>7</b> Text Analysis I: Basics</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#goals07"><i class="fa fa-check"></i><b>7.1</b> Goals</a></li>
+<li class="chapter" data-level="7.2" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#Prelim07"><i class="fa fa-check"></i><b>7.2</b> Preliminaries</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#Data07"><i class="fa fa-check"></i><b>7.2.1</b> Data</a></li>
+<li class="chapter" data-level="7.2.2" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#Lib07"><i class="fa fa-check"></i><b>7.2.2</b> Libraries</a></li>
+<li class="chapter" data-level="7.2.3" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#functions07"><i class="fa fa-check"></i><b>7.2.3</b> Functions in <code>R</code> (a refresher)</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#texts-and-text-analysis"><i class="fa fa-check"></i><b>7.3</b> Texts and Text Analysis</a></li>
+<li class="chapter" data-level="7.4" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#word-frequencies-and-word-clouds"><i class="fa fa-check"></i><b>7.4</b> Word Frequencies and Word Clouds</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#word-frequencies"><i class="fa fa-check"></i><b>7.4.1</b> Word Frequencies</a></li>
+<li class="chapter" data-level="7.4.2" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#wordclouds"><i class="fa fa-check"></i><b>7.4.2</b> Wordclouds</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#word-distribution-plots"><i class="fa fa-check"></i><b>7.5</b> Word Distribution Plots</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#simple-a-star-wars-example"><i class="fa fa-check"></i><b>7.5.1</b> Simple — a Star Wars Example</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#word-distribution-plots-with-frequencies-over-time"><i class="fa fa-check"></i><b>7.6</b> Word Distribution Plots: With Frequencies Over Time</a></li>
+<li class="chapter" data-level="7.7" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#kwic-keywords-in-context"><i class="fa fa-check"></i><b>7.7</b> KWIC: Keywords-in-Context</a></li>
+<li class="chapter" data-level="7.8" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#HW07"><i class="fa fa-check"></i><b>7.8</b> Homework</a></li>
+<li class="chapter" data-level="7.9" data-path="text-analysis-i-basics.html"><a href="text-analysis-i-basics.html#SHW07"><i class="fa fa-check"></i><b>7.9</b> Submitting homework</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="text-analysis-ii-distances-keywords-summarization.html"><a href="text-analysis-ii-distances-keywords-summarization.html"><i class="fa fa-check"></i><b>8</b> Text Analysis II: Distances, Keywords, Summarization</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="text-analysis-ii-distances-keywords-summarization.html"><a href="text-analysis-ii-distances-keywords-summarization.html#goals08"><i class="fa fa-check"></i><b>8.1</b> Goals</a></li>
+<li class="chapter" data-level="8.2" data-path="text-analysis-ii-distances-keywords-summarization.html"><a href="text-analysis-ii-distances-keywords-summarization.html#Prelim08"><i class="fa fa-check"></i><b>8.2</b> Preliminaries</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="text-analysis-ii-distances-keywords-summarization.html"><a href="text-analysis-ii-distances-keywords-summarization.html#Data08"><i class="fa fa-check"></i><b>8.2.1</b> Data</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="text-analysis-ii-distances-keywords-summarization.html"><a href="text-analysis-ii-distances-keywords-summarization.html#docsim08"><i class="fa fa-check"></i><b>8.3</b> Document similarity/distance measures: <code>text2vec</code> library</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="text-analysis-ii-distances-keywords-summarization.html"><a href="text-analysis-ii-distances-keywords-summarization.html#distance-measures-jaccard-index-cosine-similarity-euclidean-distance"><i class="fa fa-check"></i><b>8.3.1</b> Distance Measures: Jaccard index, Cosine similarity, Euclidean distance</a></li>
+<li class="chapter" data-level="8.3.2" data-path="text-analysis-ii-distances-keywords-summarization.html"><a href="text-analysis-ii-distances-keywords-summarization.html#now-lets-run-this-on-dispatch"><i class="fa fa-check"></i><b>8.3.2</b> Now, let’s run this on “Dispatch”</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="text-analysis-ii-distances-keywords-summarization.html"><a href="text-analysis-ii-distances-keywords-summarization.html#tf-idf"><i class="fa fa-check"></i><b>8.4</b> TF-IDF</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="text-analysis-ii-distances-keywords-summarization.html"><a href="text-analysis-ii-distances-keywords-summarization.html#inaugural-speeches-of-the-us-presidents"><i class="fa fa-check"></i><b>8.4.1</b> Inaugural speeches of the US presidents</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="text-analysis-ii-distances-keywords-summarization.html"><a href="text-analysis-ii-distances-keywords-summarization.html#text-summarization"><i class="fa fa-check"></i><b>8.5</b> Text summarization</a></li>
+<li class="chapter" data-level="8.6" data-path="text-analysis-ii-distances-keywords-summarization.html"><a href="text-analysis-ii-distances-keywords-summarization.html#HW08"><i class="fa fa-check"></i><b>8.6</b> Homework</a></li>
+<li class="chapter" data-level="8.7" data-path="text-analysis-ii-distances-keywords-summarization.html"><a href="text-analysis-ii-distances-keywords-summarization.html#SHW08"><i class="fa fa-check"></i><b>8.7</b> Submitting homework</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html"><i class="fa fa-check"></i><b>9</b> Text Analysis III: Finding Groups of Texts</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#goals09"><i class="fa fa-check"></i><b>9.1</b> Goals</a></li>
+<li class="chapter" data-level="9.2" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#Prelim09"><i class="fa fa-check"></i><b>9.2</b> Preliminaries</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#libraries"><i class="fa fa-check"></i><b>9.2.1</b> Libraries</a></li>
+<li class="chapter" data-level="9.2.2" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#tf-idf-1"><i class="fa fa-check"></i><b>9.2.2</b> TF-IDF</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#clustering"><i class="fa fa-check"></i><b>9.3</b> Clustering</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#hierarchical-clustering"><i class="fa fa-check"></i><b>9.3.1</b> Hierarchical clustering</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#pca-viz-for-hclust"><i class="fa fa-check"></i><b>9.4</b> PCA viz for HCLUST</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#determining-the-optimal-number-of-clusters-elbow-method-and-average-silhouette-method"><i class="fa fa-check"></i><b>9.4.1</b> Determining the optimal number of clusters: “Elbow Method” and “Average Silhouette Method”</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#k-means-clustering"><i class="fa fa-check"></i><b>9.5</b> K-means clustering</a></li>
+<li class="chapter" data-level="9.6" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#determining-the-optimal-number-of-clusters-elbow-method-and-average-silhouette-method-1"><i class="fa fa-check"></i><b>9.6</b> Determining the optimal number of clusters: “Elbow Method” and “Average Silhouette Method”</a></li>
+<li class="chapter" data-level="9.7" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#other-clustering-methods"><i class="fa fa-check"></i><b>9.7</b> Other “clustering” methods</a></li>
+<li class="chapter" data-level="9.8" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#topic-modeling"><i class="fa fa-check"></i><b>9.8</b> Topic Modeling</a>
+<ul>
+<li class="chapter" data-level="9.8.1" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#topics"><i class="fa fa-check"></i><b>9.8.1</b> Topics?</a></li>
+<li class="chapter" data-level="9.8.2" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#getting-to-code"><i class="fa fa-check"></i><b>9.8.2</b> Getting to code</a></li>
+</ul></li>
+<li class="chapter" data-level="9.9" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#per-topic-per-word-probabilities-beta"><i class="fa fa-check"></i><b>9.9</b> Per-topic-per-word probabilities (<em>beta</em>)</a></li>
+<li class="chapter" data-level="9.10" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#topics-over-time"><i class="fa fa-check"></i><b>9.10</b> Topics over time:</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="exploring-topics.html"><a href="exploring-topics.html"><i class="fa fa-check"></i><b>10</b> Exploring topics</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="exploring-topics.html"><a href="exploring-topics.html#addendum-different-distances-code-sample"><i class="fa fa-check"></i><b>10.1</b> Addendum: different distances code sample</a></li>
+<li class="chapter" data-level="10.2" data-path="exploring-topics.html"><a href="exploring-topics.html#HW09"><i class="fa fa-check"></i><b>10.2</b> Homework</a></li>
+<li class="chapter" data-level="10.3" data-path="exploring-topics.html"><a href="exploring-topics.html#SHW09"><i class="fa fa-check"></i><b>10.3</b> Submitting homework</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="SWH09.html"><a href="SWH09.html"><i class="fa fa-check"></i><b>11</b> Additional Materials</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">DH in AAS - TA with R (2022S)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="SWH09" class="section level1" number="11">
+<h1><span class="header-section-number">11</span> Additional Materials</h1>
+<ul>
+<li>Chapter 3 “Analyzing word and document frequency: tf-idf” in: Silge, Julia, and David Robinson. 2017. <em>Text Mining with R: A Tidy Approach</em>. First edition. Beijing Boston Farnham: O´Reilly. <a href="https://www.tidytextmining.com/" class="uri">https://www.tidytextmining.com/</a>. Available online: <a href="https://www.tidytextmining.com/tfidf.html" class="uri">https://www.tidytextmining.com/tfidf.html</a></li>
+<li>Chapter 6 “Topic modeling” in: Silge, Julia, and David Robinson. 2017. <em>Text Mining with R: A Tidy Approach</em>. First edition. Beijing Boston Farnham: O´Reilly. <a href="https://www.tidytextmining.com/" class="uri">https://www.tidytextmining.com/</a>. Available online: <a href="https://www.tidytextmining.com/topicmodeling.html" class="uri">https://www.tidytextmining.com/topicmodeling.html</a></li>
+<li>Chapter on Topic Modeling in: Benjamin Soltoff. <em>MACS 305001: Computing for the Social Sciences</em>, University of Chicago, <a href="https://cfss.uchicago.edu/notes/topic-modeling/" class="uri">https://cfss.uchicago.edu/notes/topic-modeling/</a></li>
+<li>David Meza. <em>Topic Modeling using R</em>, <a href="https://knowledger.rbind.io/post/topic-modeling-using-r/" class="uri">https://knowledger.rbind.io/post/topic-modeling-using-r/</a></li>
+<li>Grün, Bettina, and Kurt Hornik. 2011. “Topicmodels: An R Package for Fitting Topic Models.” <em>Journal of Statistical Software</em> 40 (13). <a href="https://doi.org/10.18637/jss.v040.i13" class="uri">https://doi.org/10.18637/jss.v040.i13</a>.</li>
+</ul>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="exploring-topics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "github"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "serif",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/EIS1600/course_TM_R_2022S/edit/main/02-Lesson09.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/EIS1600/course_TM_R_2022S/blob/main/02-Lesson09.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"info": true
+});
+});
+</script>
+
+</body>
+
+</html>

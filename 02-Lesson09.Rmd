@@ -49,6 +49,9 @@ library(tictoc) # to time operations
 - [The Richmond Dispatch (1863)](./files/data/dispatch_1863.tsv)
 - [The Richmond Dispatch (1864)](./files/data/dispatch_1864.tsv)
 
+- [Topic Models trained on 1864](./files/data/d1864_lda_vem_25t_better.rda)
+- [Topic Models fir testing LDAvis](./files/data/dispatch_lda_vem_better.rda)
+
 We will limit to only one year, but, of course, the results are always more interesting with more data...
 
 Loading...
@@ -215,8 +218,9 @@ Note that PCA (principal component analysis) and clustering are not the same, bu
 ```{r}
 library(factoextra)
 
+set.seed(1)
 distanceMatrixHC.scaled <- scale(distanceMatrixHC)
-hc.cut <- hcut(distanceMatrixHC.scaled, k = 10, hc_method = "ward.D")
+hc.cut <- hcut(distanceMatrixHC.scaled, k = 3, hc_method = "ward.D")
 fviz_cluster(hc.cut, labelsize=0, ellipse.type = "convex")
 
 ```
@@ -357,7 +361,7 @@ Let's try to visualize our clusters again:
 
 ```{r}
 set.seed(786)
-kmeansClusters <- kmeans(distanceMatrixKM, centers=5, nstart=25)
+kmeansClusters <- kmeans(distanceMatrixKM, centers=10, nstart=25)
 fviz_cluster(kmeansClusters, data = distanceMatrix, labelsize = 0)
 ```
 
@@ -379,6 +383,304 @@ More information, see:
 
 Although not cluster analysis techniques strictly speaking, PCA (principal component analysis) and MDS (multi-dimensional scaling) are used in similar ways. We will touch upon these in the context of stylometry. 
 
+## Topic Modeling
+
+### Topics?
+
+#### Example 1
+
+*Thursday, March 27, 1862*
+
+**LIGHT ARTILLERY**
+
+—I am authorized by the Governor of Virginia to raise a Company of Light Artillery for the war. All those desirous of enlisting in this the most effective arm of the service, would do well to call at once at the office of Johnson & Guigon, Whig Building.
+
+Uniforms and subsistence furnished.
+
+A. B. GUIGON. mh 25—6t
+
+#### Example 2
+
+*Wednesday, August 17, 1864*
+
+**Royal Marriages.**
+
+—There is a story circulated in Germany, and some in Paris, that the match between the heir-apparent of the Imperial throne of Russia and the Princess Dagmar of Denmark having been definitively broken off, another is in the course of negotiation between His Imperial Highness and the Princess Helens of England.
+
+#### Example 3
+
+*Monday, June 22, 1863*
+
+**NEWS FROM EUROPE.**
+
+The steamship Scotia arrived at New York on Thursday from Europe, with foreign news to the 7th inst. The news is not important. The Confederate steamer Lord Clyde was searched by order of the British Government, but nothing contraband being found on board her she was permitted to sail. The Russians have been defeated near Grochoury by the Polish insurgents. The three Powers have sent an earnest note to Russia, asking for a representative Government, a general amnesty, and an immediate cessation of hostilities in Poland.
+
+### Getting to code
+
+We can start with our preprocessed variable `d1864_clean`, which is essentially a cumulative frequency list for all articles.
+
+```{r}
+library(tm)
+library(topicmodels)
+library(tictoc)
+```
+
+```{r}
+head(d1864_clean_minusSW)
+```
+
+```{r}
+d1864_dm <- d1864_clean_minusSW %>%
+  cast_dtm(id, word, n)
+d1864_dm
+```
+
+Training a model. **NB**: `eval=FALSE` setting will prevent from running this chunk when you `Knit` the notebook; but you can still execute it within the notebook, when you run chunks individually
+
+```{r eval=FALSE}
+tic()
+
+d1864_lda <- LDA(d1864_dm, k = 4, control = list(seed = 1234))
+d1864_lda
+
+toc()
+
+#A LDA_VEM topic model with 2 topics.
+#35.962 sec elapsed
+
+#A LDA_VEM topic model with 4 topics.
+#72.545 sec elapsed
+```
+
+**Do not run this!**
+
+```{r eval=FALSE}
+tic()
+
+kVal <- 25
+d1864_lda_better <- LDA(d1864_dm, k=kVal, control=list(seed=1234))
+
+toc()
+
+#A LDA_VEM topic model with 20 topics.
+#1261.087 sec elapsed (21 minutes)
+
+#A LDA_VEM topic model with 25 topics.
+#1112.262 sec elapsed (18 minutes)
+
+```
+
+Save/load the model, so that there is no need to regenerate it every time.
+
+```{r}
+
+#d1864_lda_vem_25t_better <- d1864_lda_better
+#save(d1864_lda_vem_25t_better, file="./files/data/d1864_lda_vem_25t_better.rda")
+#load(file="./data/d1864_lda_vem_25t_better.rda")
+
+```
+
+```{r}
+load(file="./files/data/d1864_lda_vem_25t_better.rda")
+lda_model <- d1864_lda_vem_25t_better
+corpus <- d1864
+```
+
+From this point on, the code should simply run --- if you rename your own model produced above to `lda_model`.
+
+## Per-topic-per-word probabilities (*beta*)
+
+```{r}
+lda_model_better_topic_term_prob <- tidy(lda_model, matrix="beta")
+
+lda_model_better_topic_term_prob %>%
+  filter(term == "bonds") %>%
+  arrange(desc(beta))
+```
+
+**NB:** This step may throw an error. The error seems a bit cryptic, but restarting R (without saving workspace) seems to help. (*beta* stands for term-per-topic probability).
+
+```{r}
+
+top_terms <- lda_model_better_topic_term_prob %>%
+  group_by(topic) %>%
+  top_n(15, beta) %>%
+  ungroup() %>%
+  arrange(topic, -beta)
+
+head(top_terms)
+
+```
+
+```{r fig.height=5, fig.width=9}
+
+library(ggplot2)
+
+top_terms %>%
+  mutate(term = reorder(term, beta)) %>%
+  ggplot(aes(term, beta, fill = factor(topic))) +
+  geom_col(show.legend=FALSE) +
+  facet_wrap(~topic, scales = "free") +
+  coord_flip()
+
+```
+Here it is in a bit of a better quality:
+
+![](./files/data/topics.png)
+
+Topic-per-document probabilities: this object will tell us to which topics documents belong (and to what extent):
+(*gamma* stands for topic-per-document probability).
+
+```{r}
+lda_model_topic_doc_prob <- tidy(lda_model, matrix="gamma")
+lda_model_topic_doc_prob
+```
+
+(@) Pick a document and print out topics it belongs to (from the most prominent to less prominent). (Hint: use the object we just created > filter > arrange).
+
+```{r}
+
+# your code here
+
+```
+
+Top N documents per topic: this will create an object with top N documents per each topic.
+
+```{r}
+
+N = 10
+
+top_docs <- lda_model_topic_doc_prob %>%
+  group_by(topic) %>%
+  top_n(N, gamma) %>%
+  ungroup() %>%
+  arrange(topic, -gamma)
+
+top_docs
+```
+
+Now that we have IDs of representative documents, we can check those documents one by one, but let's do something else first: topic-title function—--it is not really necessary, but it will combine together topic number (from the model) and its top words, which can be used for graphs.
+
+```{r}
+topicVar <- function(top, topTerms){
+  topicVar <- topTerms %>%
+    filter(topic == top) %>%
+    arrange(-beta)
+  vals = paste(topicVar$term, collapse=", ")
+  as.String(paste(c("Topic ", top, ": ", vals), collapse=""))
+}
+```
+
+
+```{r}
+topicNum = 8 
+idTest   = "1864-08-31_orders_74"
+
+topicVar(topicNum, top_terms)
+print("---")
+as.String(d1864[d1864$id==idTest, ]["text"])
+```
+
+##  Topics over time:
+
+```{r}
+
+corpus_light <- corpus %>%
+  select(-header, -text)
+
+lda_model_topics <- lda_model_topic_doc_prob %>%
+  rename(id=document) %>%
+  left_join(corpus_light, by="id") %>%
+  group_by(topic, date) %>%
+  summarize(freq=sum(gamma))
+
+lda_model_topics
+
+```
+
+Now, we can plot topic distribution over time:
+
+```{r fig.height=4, fig.width=9}
+topicVal = 8
+
+lda_model_topics_final <- lda_model_topics %>%
+  filter(topic == topicVal)
+
+plot(x=lda_model_topics_final$date, y=lda_model_topics_final$freq, type="l", lty=3, lwd=1,
+     main=topicVar(topicVal, top_terms),
+     xlab = "1864 - Dispatch coverage", ylab = "topic saliency")
+segments(x0=lda_model_topics_final$date, x1=lda_model_topics_final$date, y0=0, y1=lda_model_topics_final$freq, lty=1, lwd=2)
+
+```
+
+![](./files/data/topic_bonds.png)
+
+# Exploring topics
+
+`LDAvis` offers a visual browser for topics, which has already became a very popular tool for this purpose. If everything is done right, a visualization similar to the one below should open in a browser.
+
+![`LDAvis` Browser Example.](./files/data/LDAvis.png)
+
+We can use the following function that extracts all needed information from a model and converts it into a format that `LDAvis` expects:
+
+```{r}
+library(LDAvis)
+library(slam)
+
+topicmodels2LDAvis <- function(x, ...){
+  post <- topicmodels::posterior(x)
+  if (ncol(post[["topics"]]) < 3) stop("The model must contain > 2 topics")
+  mat <- x@wordassignments
+  LDAvis::createJSON(
+    phi = post[["terms"]], 
+    theta = post[["topics"]],
+    vocab = colnames(post[["terms"]]),
+    doc.length = slam::row_sums(mat, na.rm = TRUE),
+    term.frequency = slam::col_sums(mat, na.rm = TRUE)
+  )
+}
+```
+
+```{r eval=FALSE}
+serVis(topicmodels2LDAvis(lda_model))
+```
+
+**NB**: there are some issues with `LDAvis` and for some reason it does not always parse out a topic model object. We can try loading another one, which does work: this is a 20 topic model based on issues of the Dispatch covering the period of 1861-1864. 
+
+```{r eval=FALSE}
+load(file="./files/data/dispatch_lda_vem_better.rda")
+serVis(topicmodels2LDAvis(dispatch_lda_vem_better))
+```
+
+## Addendum: different distances code sample
+
+This is simply a chunk of code that you can reuse for generating different distances. This code will not run because there is no variable `YOUR_MATRIX`!
+
+```{r eval=FALSE}
+#library(stylo)
+
+# USING library(stylo) FUNCTIONS
+if (distanceMethod == "cosine"){distanceMatrix <- dist.cosine(YOUR_MATRIX)
+} else if (distanceMethod == "delta"){distanceMatrix <- dist.delta(YOUR_MATRIX)
+} else if (distanceMethod == "argamon"){distanceMatrix <- dist.argamon(YOUR_MATRIX)
+} else if (distanceMethod == "eder"){distanceMatrix <- dist.eder(YOUR_MATRIX)
+} else if (distanceMethod == "minmax"){distanceMatrix <- dist.minmax(YOUR_MATRIX)
+} else if (distanceMethod == "enthropy"){distanceMatrix <- dist.enthropy(YOUR_MATRIX)
+} else if (distanceMethod == "simple"){distanceMatrix <- dist.simple(YOUR_MATRIX)
+} else if (distanceMethod == "wurzburg"){distanceMatrix <- dist.wurzburg(YOUR_MATRIX)
+# USING dist() FUNCTION
+} else if (distanceMethod == "euclidean"){distanceMatrix <- dist(YOUR_MATRIX, method="euclidean")
+} else if (distanceMethod == "maximum"){distanceMatrix <- dist(YOUR_MATRIX, method="maximum")
+} else if (distanceMethod == "manhattan"){distanceMatrix <- dist(YOUR_MATRIX, method="manhattan")
+} else if (distanceMethod == "canberra"){distanceMatrix <- dist(YOUR_MATRIX, method="canberra")
+} else if (distanceMethod == "binary"){distanceMatrix <- dist(YOUR_MATRIX, method="binary")
+} else if (distanceMethod == "minkowski"){distanceMatrix <- dist(YOUR_MATRIX, method="minkowski")
+
+distanceMatrix <- as.dist(distanceMatrix)
+clustered.data <- hclust(distanceMatrix, method = clusteringMethod)
+
+```
+
 
 ...
 
@@ -392,3 +694,11 @@ Although not cluster analysis techniques strictly speaking, PCA (principal compo
 * Homework assignment must be submitted by the beginning of the next class;
 * Email your homework to the instructor as attachments.
 	*  In the subject of your email, please, add the following: `57528-LXX-HW-YourLastName-YourMatriculationNumber`, where `LXX` is the number of the lesson for which you submit homework; `YourLastName` is your last name; and `YourMatriculationNumber` is your matriculation number.
+	
+# Additional Materials{#SWH09}
+
+* Chapter 3 "Analyzing word and document frequency: tf-idf" in: Silge, Julia, and David Robinson. 2017. *Text Mining with R: A Tidy Approach*. First edition. Beijing Boston Farnham: O´Reilly. <https://www.tidytextmining.com/>. Available online: <https://www.tidytextmining.com/tfidf.html>
+* Chapter 6 "Topic modeling" in: Silge, Julia, and David Robinson. 2017. *Text Mining with R: A Tidy Approach*. First edition. Beijing Boston Farnham: O´Reilly. <https://www.tidytextmining.com/>. Available online: <https://www.tidytextmining.com/topicmodeling.html>
+* Chapter on Topic Modeling in:  Benjamin Soltoff. *MACS 305001: Computing for the Social Sciences*, University of Chicago, <https://cfss.uchicago.edu/notes/topic-modeling/>
+* David Meza. *Topic Modeling using R*, <https://knowledger.rbind.io/post/topic-modeling-using-r/>
+* Grün, Bettina, and Kurt Hornik. 2011. “Topicmodels: An R Package for Fitting Topic Models.” *Journal of Statistical Software* 40 (13). <https://doi.org/10.18637/jss.v040.i13>.

@@ -32,7 +32,7 @@
   <link rel="apple-touch-icon-precomposed" sizes="120x120" href="touch-icon.png" />
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 <link rel="prev" href="text-analysis-ii-distances-keywords-summarization.html"/>
-<link rel="next" href="references.html"/>
+<link rel="next" href="exploring-topics.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -322,9 +322,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.5" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#k-means-clustering"><i class="fa fa-check"></i><b>9.5</b> K-means clustering</a></li>
 <li class="chapter" data-level="9.6" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#determining-the-optimal-number-of-clusters-elbow-method-and-average-silhouette-method-1"><i class="fa fa-check"></i><b>9.6</b> Determining the optimal number of clusters: “Elbow Method” and “Average Silhouette Method”</a></li>
 <li class="chapter" data-level="9.7" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#other-clustering-methods"><i class="fa fa-check"></i><b>9.7</b> Other “clustering” methods</a></li>
-<li class="chapter" data-level="9.8" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#HW09"><i class="fa fa-check"></i><b>9.8</b> Homework</a></li>
-<li class="chapter" data-level="9.9" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#SHW09"><i class="fa fa-check"></i><b>9.9</b> Submitting homework</a></li>
+<li class="chapter" data-level="9.8" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#topic-modeling"><i class="fa fa-check"></i><b>9.8</b> Topic Modeling</a>
+<ul>
+<li class="chapter" data-level="9.8.1" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#topics"><i class="fa fa-check"></i><b>9.8.1</b> Topics?</a></li>
+<li class="chapter" data-level="9.8.2" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#getting-to-code"><i class="fa fa-check"></i><b>9.8.2</b> Getting to code</a></li>
 </ul></li>
+<li class="chapter" data-level="9.9" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#per-topic-per-word-probabilities-beta"><i class="fa fa-check"></i><b>9.9</b> Per-topic-per-word probabilities (<em>beta</em>)</a></li>
+<li class="chapter" data-level="9.10" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#topics-over-time"><i class="fa fa-check"></i><b>9.10</b> Topics over time:</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="exploring-topics.html"><a href="exploring-topics.html"><i class="fa fa-check"></i><b>10</b> Exploring topics</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="exploring-topics.html"><a href="exploring-topics.html#addendum-different-distances-code-sample"><i class="fa fa-check"></i><b>10.1</b> Addendum: different distances code sample</a></li>
+<li class="chapter" data-level="10.2" data-path="exploring-topics.html"><a href="exploring-topics.html#HW09"><i class="fa fa-check"></i><b>10.2</b> Homework</a></li>
+<li class="chapter" data-level="10.3" data-path="exploring-topics.html"><a href="exploring-topics.html#SHW09"><i class="fa fa-check"></i><b>10.3</b> Submitting homework</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="SWH09.html"><a href="SWH09.html"><i class="fa fa-check"></i><b>11</b> Additional Materials</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -389,10 +401,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="the-dispatch-data-preprocessing" class="section level4" number="9.2.1.1">
 <h4><span class="header-section-number">9.2.1.1</span> The Dispatch Data: Preprocessing</h4>
 <ul>
-<li><a href="./files/data/dispatch_1861.tsv">The Richmond Dispatch (1861)</a></li>
-<li><a href="./files/data/dispatch_1862.tsv">The Richmond Dispatch (1862)</a></li>
-<li><a href="./files/data/dispatch_1863.tsv">The Richmond Dispatch (1863)</a></li>
-<li><a href="./files/data/dispatch_1864.tsv">The Richmond Dispatch (1864)</a></li>
+<li><p><a href="./files/data/dispatch_1861.tsv">The Richmond Dispatch (1861)</a></p></li>
+<li><p><a href="./files/data/dispatch_1862.tsv">The Richmond Dispatch (1862)</a></p></li>
+<li><p><a href="./files/data/dispatch_1863.tsv">The Richmond Dispatch (1863)</a></p></li>
+<li><p><a href="./files/data/dispatch_1864.tsv">The Richmond Dispatch (1864)</a></p></li>
+<li><p><a href="./files/data/d1864_lda_vem_25t_better.rda">Topic Models trained on 1864</a></p></li>
+<li><p><a href="./files/data/dispatch_lda_vem_better.rda">Topic Models fir testing LDAvis</a></p></li>
 </ul>
 <p>We will limit to only one year, but, of course, the results are always more interesting with more data…</p>
 <p>Loading…</p>
@@ -1254,9 +1268,10 @@ telegrams
 <p>Note that PCA (principal component analysis) and clustering are not the same, but PCA can be also used to visualize hierarchical clustering:</p>
 <div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb152-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(factoextra)</span>
 <span id="cb152-2"><a href="text-analysis-iii-finding-groups-of-texts.html#cb152-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-3"><a href="text-analysis-iii-finding-groups-of-texts.html#cb152-3" aria-hidden="true" tabindex="-1"></a>distanceMatrixHC.scaled <span class="ot">&lt;-</span> <span class="fu">scale</span>(distanceMatrixHC)</span>
-<span id="cb152-4"><a href="text-analysis-iii-finding-groups-of-texts.html#cb152-4" aria-hidden="true" tabindex="-1"></a>hc.cut <span class="ot">&lt;-</span> <span class="fu">hcut</span>(distanceMatrixHC.scaled, <span class="at">k =</span> <span class="dv">10</span>, <span class="at">hc_method =</span> <span class="st">&quot;ward.D&quot;</span>)</span>
-<span id="cb152-5"><a href="text-analysis-iii-finding-groups-of-texts.html#cb152-5" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_cluster</span>(hc.cut, <span class="at">labelsize=</span><span class="dv">0</span>, <span class="at">ellipse.type =</span> <span class="st">&quot;convex&quot;</span>)</span></code></pre></div>
+<span id="cb152-3"><a href="text-analysis-iii-finding-groups-of-texts.html#cb152-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb152-4"><a href="text-analysis-iii-finding-groups-of-texts.html#cb152-4" aria-hidden="true" tabindex="-1"></a>distanceMatrixHC.scaled <span class="ot">&lt;-</span> <span class="fu">scale</span>(distanceMatrixHC)</span>
+<span id="cb152-5"><a href="text-analysis-iii-finding-groups-of-texts.html#cb152-5" aria-hidden="true" tabindex="-1"></a>hc.cut <span class="ot">&lt;-</span> <span class="fu">hcut</span>(distanceMatrixHC.scaled, <span class="at">k =</span> <span class="dv">3</span>, <span class="at">hc_method =</span> <span class="st">&quot;ward.D&quot;</span>)</span>
+<span id="cb152-6"><a href="text-analysis-iii-finding-groups-of-texts.html#cb152-6" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_cluster</span>(hc.cut, <span class="at">labelsize=</span><span class="dv">0</span>, <span class="at">ellipse.type =</span> <span class="st">&quot;convex&quot;</span>)</span></code></pre></div>
 <p><img src="main_files/figure-html/unnamed-chunk-92-1.png" width="672" /></p>
 <div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(clustered.data.complete, <span class="at">labels=</span><span class="cn">FALSE</span>, <span class="at">main=</span><span class="st">&quot;Complete&quot;</span>)</span></code></pre></div>
 <p><img src="main_files/figure-html/unnamed-chunk-93-1.png" width="672" /></p>
@@ -1642,7 +1657,7 @@ Blockade Goods. – Mantle Depot, 60 Main, between 14th and 15th streets. – La
 <p><img src="main_files/figure-html/unnamed-chunk-108-1.png" width="672" /></p>
 <p>Let’s try to visualize our clusters again:</p>
 <div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">786</span>)</span>
-<span id="cb171-2"><a href="text-analysis-iii-finding-groups-of-texts.html#cb171-2" aria-hidden="true" tabindex="-1"></a>kmeansClusters <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(distanceMatrixKM, <span class="at">centers=</span><span class="dv">5</span>, <span class="at">nstart=</span><span class="dv">25</span>)</span>
+<span id="cb171-2"><a href="text-analysis-iii-finding-groups-of-texts.html#cb171-2" aria-hidden="true" tabindex="-1"></a>kmeansClusters <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(distanceMatrixKM, <span class="at">centers=</span><span class="dv">10</span>, <span class="at">nstart=</span><span class="dv">25</span>)</span>
 <span id="cb171-3"><a href="text-analysis-iii-finding-groups-of-texts.html#cb171-3" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_cluster</span>(kmeansClusters, <span class="at">data =</span> distanceMatrix, <span class="at">labelsize =</span> <span class="dv">0</span>)</span></code></pre></div>
 <p><img src="main_files/figure-html/unnamed-chunk-109-1.png" width="672" /></p>
 <p>Here is, however, an example of where k-means clustering may/can fail: we gave a different starting point to the algorithm and</p>
@@ -1659,24 +1674,246 @@ Blockade Goods. – Mantle Depot, 60 Main, between 14th and 15th streets. – La
 <div id="other-clustering-methods" class="section level2" number="9.7">
 <h2><span class="header-section-number">9.7</span> Other “clustering” methods</h2>
 <p>Although not cluster analysis techniques strictly speaking, PCA (principal component analysis) and MDS (multi-dimensional scaling) are used in similar ways. We will touch upon these in the context of stylometry.</p>
-<p>…</p>
 </div>
-<div id="HW09" class="section level2" number="9.8">
-<h2><span class="header-section-number">9.8</span> Homework</h2>
-<ul>
-<li>given in the chapter.</li>
-</ul>
+<div id="topic-modeling" class="section level2" number="9.8">
+<h2><span class="header-section-number">9.8</span> Topic Modeling</h2>
+<div id="topics" class="section level3" number="9.8.1">
+<h3><span class="header-section-number">9.8.1</span> Topics?</h3>
+<div id="example-1" class="section level4" number="9.8.1.1">
+<h4><span class="header-section-number">9.8.1.1</span> Example 1</h4>
+<p><em>Thursday, March 27, 1862</em></p>
+<p><strong>LIGHT ARTILLERY</strong></p>
+<p>—I am authorized by the Governor of Virginia to raise a Company of Light Artillery for the war. All those desirous of enlisting in this the most effective arm of the service, would do well to call at once at the office of Johnson &amp; Guigon, Whig Building.</p>
+<p>Uniforms and subsistence furnished.</p>
+<p>A. B. GUIGON. mh 25—6t</p>
 </div>
-<div id="SHW09" class="section level2" number="9.9">
-<h2><span class="header-section-number">9.9</span> Submitting homework</h2>
-<ul>
-<li>Homework assignment must be submitted by the beginning of the next class;</li>
-<li>Email your homework to the instructor as attachments.
-<ul>
-<li>In the subject of your email, please, add the following: <code>57528-LXX-HW-YourLastName-YourMatriculationNumber</code>, where <code>LXX</code> is the number of the lesson for which you submit homework; <code>YourLastName</code> is your last name; and <code>YourMatriculationNumber</code> is your matriculation number.</li>
-</ul></li>
-</ul>
-
+<div id="example-2" class="section level4" number="9.8.1.2">
+<h4><span class="header-section-number">9.8.1.2</span> Example 2</h4>
+<p><em>Wednesday, August 17, 1864</em></p>
+<p><strong>Royal Marriages.</strong></p>
+<p>—There is a story circulated in Germany, and some in Paris, that the match between the heir-apparent of the Imperial throne of Russia and the Princess Dagmar of Denmark having been definitively broken off, another is in the course of negotiation between His Imperial Highness and the Princess Helens of England.</p>
+</div>
+<div id="example-3" class="section level4" number="9.8.1.3">
+<h4><span class="header-section-number">9.8.1.3</span> Example 3</h4>
+<p><em>Monday, June 22, 1863</em></p>
+<p><strong>NEWS FROM EUROPE.</strong></p>
+<p>The steamship Scotia arrived at New York on Thursday from Europe, with foreign news to the 7th inst. The news is not important. The Confederate steamer Lord Clyde was searched by order of the British Government, but nothing contraband being found on board her she was permitted to sail. The Russians have been defeated near Grochoury by the Polish insurgents. The three Powers have sent an earnest note to Russia, asking for a representative Government, a general amnesty, and an immediate cessation of hostilities in Poland.</p>
+</div>
+</div>
+<div id="getting-to-code" class="section level3" number="9.8.2">
+<h3><span class="header-section-number">9.8.2</span> Getting to code</h3>
+<p>We can start with our preprocessed variable <code>d1864_clean</code>, which is essentially a cumulative frequency list for all articles.</p>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb173-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tm)</span>
+<span id="cb173-2"><a href="text-analysis-iii-finding-groups-of-texts.html#cb173-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(topicmodels)</span>
+<span id="cb173-3"><a href="text-analysis-iii-finding-groups-of-texts.html#cb173-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tictoc)</span></code></pre></div>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb174-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(d1864_clean_minusSW)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 3
+## # Groups:   id [5]
+##   id                    word      n
+##   &lt;chr&gt;                 &lt;chr&gt; &lt;int&gt;
+## 1 1864-09-12_advert_30  mrs     307
+## 2 1864-09-12_advert_30  miss    251
+## 3 1864-04-18_article_10 mr       84
+## 4 1864-08-27_article_41 slave    79
+## 5 1864-11-24_article_46 mr       71
+## 6 1864-04-26_article_8  enemy    64</code></pre>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb176-1" aria-hidden="true" tabindex="-1"></a>d1864_dm <span class="ot">&lt;-</span> d1864_clean_minusSW <span class="sc">%&gt;%</span></span>
+<span id="cb176-2"><a href="text-analysis-iii-finding-groups-of-texts.html#cb176-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cast_dtm</span>(id, word, n)</span>
+<span id="cb176-3"><a href="text-analysis-iii-finding-groups-of-texts.html#cb176-3" aria-hidden="true" tabindex="-1"></a>d1864_dm</span></code></pre></div>
+<pre><code>## &lt;&lt;DocumentTermMatrix (documents: 14617, terms: 30391)&gt;&gt;
+## Non-/sparse entries: 1162644/443062603
+## Sparsity           : 100%
+## Maximal term length: 32
+## Weighting          : term frequency (tf)</code></pre>
+<p>Training a model. <strong>NB</strong>: <code>eval=FALSE</code> setting will prevent from running this chunk when you <code>Knit</code> the notebook; but you can still execute it within the notebook, when you run chunks individually</p>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb178-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
+<span id="cb178-2"><a href="text-analysis-iii-finding-groups-of-texts.html#cb178-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb178-3"><a href="text-analysis-iii-finding-groups-of-texts.html#cb178-3" aria-hidden="true" tabindex="-1"></a>d1864_lda <span class="ot">&lt;-</span> <span class="fu">LDA</span>(d1864_dm, <span class="at">k =</span> <span class="dv">4</span>, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">seed =</span> <span class="dv">1234</span>))</span>
+<span id="cb178-4"><a href="text-analysis-iii-finding-groups-of-texts.html#cb178-4" aria-hidden="true" tabindex="-1"></a>d1864_lda</span>
+<span id="cb178-5"><a href="text-analysis-iii-finding-groups-of-texts.html#cb178-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb178-6"><a href="text-analysis-iii-finding-groups-of-texts.html#cb178-6" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span>
+<span id="cb178-7"><a href="text-analysis-iii-finding-groups-of-texts.html#cb178-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb178-8"><a href="text-analysis-iii-finding-groups-of-texts.html#cb178-8" aria-hidden="true" tabindex="-1"></a><span class="co">#A LDA_VEM topic model with 2 topics.</span></span>
+<span id="cb178-9"><a href="text-analysis-iii-finding-groups-of-texts.html#cb178-9" aria-hidden="true" tabindex="-1"></a><span class="co">#35.962 sec elapsed</span></span>
+<span id="cb178-10"><a href="text-analysis-iii-finding-groups-of-texts.html#cb178-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb178-11"><a href="text-analysis-iii-finding-groups-of-texts.html#cb178-11" aria-hidden="true" tabindex="-1"></a><span class="co">#A LDA_VEM topic model with 4 topics.</span></span>
+<span id="cb178-12"><a href="text-analysis-iii-finding-groups-of-texts.html#cb178-12" aria-hidden="true" tabindex="-1"></a><span class="co">#72.545 sec elapsed</span></span></code></pre></div>
+<p><strong>Do not run this!</strong></p>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb179-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
+<span id="cb179-2"><a href="text-analysis-iii-finding-groups-of-texts.html#cb179-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb179-3"><a href="text-analysis-iii-finding-groups-of-texts.html#cb179-3" aria-hidden="true" tabindex="-1"></a>kVal <span class="ot">&lt;-</span> <span class="dv">25</span></span>
+<span id="cb179-4"><a href="text-analysis-iii-finding-groups-of-texts.html#cb179-4" aria-hidden="true" tabindex="-1"></a>d1864_lda_better <span class="ot">&lt;-</span> <span class="fu">LDA</span>(d1864_dm, <span class="at">k=</span>kVal, <span class="at">control=</span><span class="fu">list</span>(<span class="at">seed=</span><span class="dv">1234</span>))</span>
+<span id="cb179-5"><a href="text-analysis-iii-finding-groups-of-texts.html#cb179-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb179-6"><a href="text-analysis-iii-finding-groups-of-texts.html#cb179-6" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span>
+<span id="cb179-7"><a href="text-analysis-iii-finding-groups-of-texts.html#cb179-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb179-8"><a href="text-analysis-iii-finding-groups-of-texts.html#cb179-8" aria-hidden="true" tabindex="-1"></a><span class="co">#A LDA_VEM topic model with 20 topics.</span></span>
+<span id="cb179-9"><a href="text-analysis-iii-finding-groups-of-texts.html#cb179-9" aria-hidden="true" tabindex="-1"></a><span class="co">#1261.087 sec elapsed (21 minutes)</span></span>
+<span id="cb179-10"><a href="text-analysis-iii-finding-groups-of-texts.html#cb179-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb179-11"><a href="text-analysis-iii-finding-groups-of-texts.html#cb179-11" aria-hidden="true" tabindex="-1"></a><span class="co">#A LDA_VEM topic model with 25 topics.</span></span>
+<span id="cb179-12"><a href="text-analysis-iii-finding-groups-of-texts.html#cb179-12" aria-hidden="true" tabindex="-1"></a><span class="co">#1112.262 sec elapsed (18 minutes)</span></span></code></pre></div>
+<p>Save/load the model, so that there is no need to regenerate it every time.</p>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb180-1" aria-hidden="true" tabindex="-1"></a><span class="co">#d1864_lda_vem_25t_better &lt;- d1864_lda_better</span></span>
+<span id="cb180-2"><a href="text-analysis-iii-finding-groups-of-texts.html#cb180-2" aria-hidden="true" tabindex="-1"></a><span class="co">#save(d1864_lda_vem_25t_better, file=&quot;./files/data/d1864_lda_vem_25t_better.rda&quot;)</span></span>
+<span id="cb180-3"><a href="text-analysis-iii-finding-groups-of-texts.html#cb180-3" aria-hidden="true" tabindex="-1"></a><span class="co">#load(file=&quot;./data/d1864_lda_vem_25t_better.rda&quot;)</span></span></code></pre></div>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb181-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="at">file=</span><span class="st">&quot;./files/data/d1864_lda_vem_25t_better.rda&quot;</span>)</span>
+<span id="cb181-2"><a href="text-analysis-iii-finding-groups-of-texts.html#cb181-2" aria-hidden="true" tabindex="-1"></a>lda_model <span class="ot">&lt;-</span> d1864_lda_vem_25t_better</span>
+<span id="cb181-3"><a href="text-analysis-iii-finding-groups-of-texts.html#cb181-3" aria-hidden="true" tabindex="-1"></a>corpus <span class="ot">&lt;-</span> d1864</span></code></pre></div>
+<p>From this point on, the code should simply run — if you rename your own model produced above to <code>lda_model</code>.</p>
+</div>
+</div>
+<div id="per-topic-per-word-probabilities-beta" class="section level2" number="9.9">
+<h2><span class="header-section-number">9.9</span> Per-topic-per-word probabilities (<em>beta</em>)</h2>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb182-1" aria-hidden="true" tabindex="-1"></a>lda_model_better_topic_term_prob <span class="ot">&lt;-</span> <span class="fu">tidy</span>(lda_model, <span class="at">matrix=</span><span class="st">&quot;beta&quot;</span>)</span>
+<span id="cb182-2"><a href="text-analysis-iii-finding-groups-of-texts.html#cb182-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb182-3"><a href="text-analysis-iii-finding-groups-of-texts.html#cb182-3" aria-hidden="true" tabindex="-1"></a>lda_model_better_topic_term_prob <span class="sc">%&gt;%</span></span>
+<span id="cb182-4"><a href="text-analysis-iii-finding-groups-of-texts.html#cb182-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">&quot;bonds&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb182-5"><a href="text-analysis-iii-finding-groups-of-texts.html#cb182-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(beta))</span></code></pre></div>
+<pre><code>## # A tibble: 25 × 3
+##    topic term      beta
+##    &lt;int&gt; &lt;chr&gt;    &lt;dbl&gt;
+##  1     8 bonds 3.53e- 2
+##  2     9 bonds 5.05e- 4
+##  3    24 bonds 3.92e- 4
+##  4    11 bonds 2.34e-13
+##  5     2 bonds 2.13e-13
+##  6     1 bonds 3.67e-16
+##  7    16 bonds 2.01e-20
+##  8    14 bonds 3.08e-21
+##  9    18 bonds 3.87e-22
+## 10     3 bonds 2.00e-22
+## # … with 15 more rows</code></pre>
+<p><strong>NB:</strong> This step may throw an error. The error seems a bit cryptic, but restarting R (without saving workspace) seems to help. (<em>beta</em> stands for term-per-topic probability).</p>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb184-1" aria-hidden="true" tabindex="-1"></a>top_terms <span class="ot">&lt;-</span> lda_model_better_topic_term_prob <span class="sc">%&gt;%</span></span>
+<span id="cb184-2"><a href="text-analysis-iii-finding-groups-of-texts.html#cb184-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(topic) <span class="sc">%&gt;%</span></span>
+<span id="cb184-3"><a href="text-analysis-iii-finding-groups-of-texts.html#cb184-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">15</span>, beta) <span class="sc">%&gt;%</span></span>
+<span id="cb184-4"><a href="text-analysis-iii-finding-groups-of-texts.html#cb184-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb184-5"><a href="text-analysis-iii-finding-groups-of-texts.html#cb184-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(topic, <span class="sc">-</span>beta)</span>
+<span id="cb184-6"><a href="text-analysis-iii-finding-groups-of-texts.html#cb184-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb184-7"><a href="text-analysis-iii-finding-groups-of-texts.html#cb184-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(top_terms)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 3
+##   topic term          beta
+##   &lt;int&gt; &lt;chr&gt;        &lt;dbl&gt;
+## 1     1 york       0.0113 
+## 2     1 mr         0.0102 
+## 3     1 lincoln    0.00915
+## 4     1 union      0.00827
+## 5     1 states     0.00809
+## 6     1 washington 0.00689</code></pre>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb186-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb186-2"><a href="text-analysis-iii-finding-groups-of-texts.html#cb186-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb186-3"><a href="text-analysis-iii-finding-groups-of-texts.html#cb186-3" aria-hidden="true" tabindex="-1"></a>top_terms <span class="sc">%&gt;%</span></span>
+<span id="cb186-4"><a href="text-analysis-iii-finding-groups-of-texts.html#cb186-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">term =</span> <span class="fu">reorder</span>(term, beta)) <span class="sc">%&gt;%</span></span>
+<span id="cb186-5"><a href="text-analysis-iii-finding-groups-of-texts.html#cb186-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(term, beta, <span class="at">fill =</span> <span class="fu">factor</span>(topic))) <span class="sc">+</span></span>
+<span id="cb186-6"><a href="text-analysis-iii-finding-groups-of-texts.html#cb186-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">show.legend=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb186-7"><a href="text-analysis-iii-finding-groups-of-texts.html#cb186-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>topic, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
+<span id="cb186-8"><a href="text-analysis-iii-finding-groups-of-texts.html#cb186-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
+<p><img src="main_files/figure-html/unnamed-chunk-120-1.png" width="864" />
+Here it is in a bit of a better quality:</p>
+<p><img src="files/data/topics.png" /></p>
+<p>Topic-per-document probabilities: this object will tell us to which topics documents belong (and to what extent):
+(<em>gamma</em> stands for topic-per-document probability).</p>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb187-1" aria-hidden="true" tabindex="-1"></a>lda_model_topic_doc_prob <span class="ot">&lt;-</span> <span class="fu">tidy</span>(lda_model, <span class="at">matrix=</span><span class="st">&quot;gamma&quot;</span>)</span>
+<span id="cb187-2"><a href="text-analysis-iii-finding-groups-of-texts.html#cb187-2" aria-hidden="true" tabindex="-1"></a>lda_model_topic_doc_prob</span></code></pre></div>
+<pre><code>## # A tibble: 356,150 × 3
+##    document              topic     gamma
+##    &lt;chr&gt;                 &lt;int&gt;     &lt;dbl&gt;
+##  1 1864-09-12_advert_30      1 0.0000115
+##  2 1864-04-18_article_10     1 0.709    
+##  3 1864-08-27_article_41     1 0.0000581
+##  4 1864-11-24_article_46     1 0.0614   
+##  5 1864-04-26_article_8      1 0.0000152
+##  6 1864-05-09_article_1      1 0.0000152
+##  7 1864-05-14_article_23     1 0.139    
+##  8 1864-05-16_article_6      1 0.122    
+##  9 1864-06-27_article_2      1 0.0000270
+## 10 1864-04-16_article_15     1 0.620    
+## # … with 356,140 more rows</code></pre>
+<ol start="12" class="example" style="list-style-type: decimal">
+<li>Pick a document and print out topics it belongs to (from the most prominent to less prominent). (Hint: use the object we just created &gt; filter &gt; arrange).</li>
+</ol>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb189-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code></pre></div>
+<p>Top N documents per topic: this will create an object with top N documents per each topic.</p>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb190-1" aria-hidden="true" tabindex="-1"></a>N <span class="ot">=</span> <span class="dv">10</span></span>
+<span id="cb190-2"><a href="text-analysis-iii-finding-groups-of-texts.html#cb190-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb190-3"><a href="text-analysis-iii-finding-groups-of-texts.html#cb190-3" aria-hidden="true" tabindex="-1"></a>top_docs <span class="ot">&lt;-</span> lda_model_topic_doc_prob <span class="sc">%&gt;%</span></span>
+<span id="cb190-4"><a href="text-analysis-iii-finding-groups-of-texts.html#cb190-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(topic) <span class="sc">%&gt;%</span></span>
+<span id="cb190-5"><a href="text-analysis-iii-finding-groups-of-texts.html#cb190-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(N, gamma) <span class="sc">%&gt;%</span></span>
+<span id="cb190-6"><a href="text-analysis-iii-finding-groups-of-texts.html#cb190-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb190-7"><a href="text-analysis-iii-finding-groups-of-texts.html#cb190-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(topic, <span class="sc">-</span>gamma)</span>
+<span id="cb190-8"><a href="text-analysis-iii-finding-groups-of-texts.html#cb190-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb190-9"><a href="text-analysis-iii-finding-groups-of-texts.html#cb190-9" aria-hidden="true" tabindex="-1"></a>top_docs</span></code></pre></div>
+<pre><code>## # A tibble: 285 × 3
+##    document               topic gamma
+##    &lt;chr&gt;                  &lt;int&gt; &lt;dbl&gt;
+##  1 1864-09-14_article_65      1 0.992
+##  2 1864-08-31_article_103     1 0.989
+##  3 1864-09-08_article_34      1 0.984
+##  4 1864-04-19_article_30      1 0.980
+##  5 1864-03-23_article_68      1 0.977
+##  6 1864-06-03_article_12      1 0.965
+##  7 1864-12-29_article_47      1 0.957
+##  8 1864-03-10_article_118     1 0.956
+##  9 1864-06-08_article_15      1 0.940
+## 10 1864-09-01_article_65      1 0.939
+## # … with 275 more rows</code></pre>
+<p>Now that we have IDs of representative documents, we can check those documents one by one, but let’s do something else first: topic-title function—–it is not really necessary, but it will combine together topic number (from the model) and its top words, which can be used for graphs.</p>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb192-1" aria-hidden="true" tabindex="-1"></a>topicVar <span class="ot">&lt;-</span> <span class="cf">function</span>(top, topTerms){</span>
+<span id="cb192-2"><a href="text-analysis-iii-finding-groups-of-texts.html#cb192-2" aria-hidden="true" tabindex="-1"></a>  topicVar <span class="ot">&lt;-</span> topTerms <span class="sc">%&gt;%</span></span>
+<span id="cb192-3"><a href="text-analysis-iii-finding-groups-of-texts.html#cb192-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(topic <span class="sc">==</span> top) <span class="sc">%&gt;%</span></span>
+<span id="cb192-4"><a href="text-analysis-iii-finding-groups-of-texts.html#cb192-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="sc">-</span>beta)</span>
+<span id="cb192-5"><a href="text-analysis-iii-finding-groups-of-texts.html#cb192-5" aria-hidden="true" tabindex="-1"></a>  vals <span class="ot">=</span> <span class="fu">paste</span>(topicVar<span class="sc">$</span>term, <span class="at">collapse=</span><span class="st">&quot;, &quot;</span>)</span>
+<span id="cb192-6"><a href="text-analysis-iii-finding-groups-of-texts.html#cb192-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.String</span>(<span class="fu">paste</span>(<span class="fu">c</span>(<span class="st">&quot;Topic &quot;</span>, top, <span class="st">&quot;: &quot;</span>, vals), <span class="at">collapse=</span><span class="st">&quot;&quot;</span>))</span>
+<span id="cb192-7"><a href="text-analysis-iii-finding-groups-of-texts.html#cb192-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb193-1" aria-hidden="true" tabindex="-1"></a>topicNum <span class="ot">=</span> <span class="dv">8</span> </span>
+<span id="cb193-2"><a href="text-analysis-iii-finding-groups-of-texts.html#cb193-2" aria-hidden="true" tabindex="-1"></a>idTest   <span class="ot">=</span> <span class="st">&quot;1864-08-31_orders_74&quot;</span></span>
+<span id="cb193-3"><a href="text-analysis-iii-finding-groups-of-texts.html#cb193-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb193-4"><a href="text-analysis-iii-finding-groups-of-texts.html#cb193-4" aria-hidden="true" tabindex="-1"></a><span class="fu">topicVar</span>(topicNum, top_terms)</span></code></pre></div>
+<pre><code>## Topic 8: treasury, bonds, notes, 1864, states, cent, certificates, confederate, secretary, department, america, richmond, payment, interest, treasurer</code></pre>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb195-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;---&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;---&quot;</code></pre>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb197-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.String</span>(d1864[d1864<span class="sc">$</span>id<span class="sc">==</span>idTest, ][<span class="st">&quot;text&quot;</span>])</span></code></pre></div>
+<pre><code>## Treasury Department, Confederate States of America, Richmond, August 8, 1864. Certificates of Indebtedness Bearing Six Per Cent. Per Annum interest and Free from Taxation. -- By the fourteenth section of the act to reduce the currency, approved February 17, 1864, the Secretary of the Treasury is authorized to issue the above certificates, payable two years after the ratification of a treaty of peace with the United States. They cannot be sold, but are only to be issued to such creditors of the Government as are willing to receive the same in payment of their demands. They must also be given at par, though free from taxation. The attention of purchasing agents and disbursing officers of the Government is called to this class of public securities as offering peculiar advantages to those from whom the supplies of the Government are bought; and to facilitate the use of them, checks drawn by disbursing officers upon the depositaries holding these funds, and marked across the face &quot; payable in certificates of indebtedness,&quot; will be paid in conformity therewith. Depositaries are hereby authorized and required to comply with this regulation, and to make application to the Register for supplies of certificates as required. Signed) G. A. Trenholm, Secretary of Treasury. au 22 -- ts</code></pre>
+</div>
+<div id="topics-over-time" class="section level2" number="9.10">
+<h2><span class="header-section-number">9.10</span> Topics over time:</h2>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb199-1" aria-hidden="true" tabindex="-1"></a>corpus_light <span class="ot">&lt;-</span> corpus <span class="sc">%&gt;%</span></span>
+<span id="cb199-2"><a href="text-analysis-iii-finding-groups-of-texts.html#cb199-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>header, <span class="sc">-</span>text)</span>
+<span id="cb199-3"><a href="text-analysis-iii-finding-groups-of-texts.html#cb199-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-4"><a href="text-analysis-iii-finding-groups-of-texts.html#cb199-4" aria-hidden="true" tabindex="-1"></a>lda_model_topics <span class="ot">&lt;-</span> lda_model_topic_doc_prob <span class="sc">%&gt;%</span></span>
+<span id="cb199-5"><a href="text-analysis-iii-finding-groups-of-texts.html#cb199-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">id=</span>document) <span class="sc">%&gt;%</span></span>
+<span id="cb199-6"><a href="text-analysis-iii-finding-groups-of-texts.html#cb199-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(corpus_light, <span class="at">by=</span><span class="st">&quot;id&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb199-7"><a href="text-analysis-iii-finding-groups-of-texts.html#cb199-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(topic, date) <span class="sc">%&gt;%</span></span>
+<span id="cb199-8"><a href="text-analysis-iii-finding-groups-of-texts.html#cb199-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">freq=</span><span class="fu">sum</span>(gamma))</span></code></pre></div>
+<pre><code>## `summarise()` has grouped output by &#39;topic&#39;. You can override using the
+## `.groups` argument.</code></pre>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb201-1" aria-hidden="true" tabindex="-1"></a>lda_model_topics</span></code></pre></div>
+<pre><code>## # A tibble: 7,725 × 3
+## # Groups:   topic [25]
+##    topic date        freq
+##    &lt;int&gt; &lt;date&gt;     &lt;dbl&gt;
+##  1     1 1864-01-01 0.219
+##  2     1 1864-01-02 0.731
+##  3     1 1864-01-04 1.02 
+##  4     1 1864-01-05 0.587
+##  5     1 1864-01-06 0.708
+##  6     1 1864-01-07 1.35 
+##  7     1 1864-01-08 0.400
+##  8     1 1864-01-09 0.580
+##  9     1 1864-01-11 0.838
+## 10     1 1864-01-12 0.783
+## # … with 7,715 more rows</code></pre>
+<p>Now, we can plot topic distribution over time:</p>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb203-1" aria-hidden="true" tabindex="-1"></a>topicVal <span class="ot">=</span> <span class="dv">8</span></span>
+<span id="cb203-2"><a href="text-analysis-iii-finding-groups-of-texts.html#cb203-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb203-3"><a href="text-analysis-iii-finding-groups-of-texts.html#cb203-3" aria-hidden="true" tabindex="-1"></a>lda_model_topics_final <span class="ot">&lt;-</span> lda_model_topics <span class="sc">%&gt;%</span></span>
+<span id="cb203-4"><a href="text-analysis-iii-finding-groups-of-texts.html#cb203-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(topic <span class="sc">==</span> topicVal)</span>
+<span id="cb203-5"><a href="text-analysis-iii-finding-groups-of-texts.html#cb203-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb203-6"><a href="text-analysis-iii-finding-groups-of-texts.html#cb203-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span>lda_model_topics_final<span class="sc">$</span>date, <span class="at">y=</span>lda_model_topics_final<span class="sc">$</span>freq, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lty=</span><span class="dv">3</span>, <span class="at">lwd=</span><span class="dv">1</span>,</span>
+<span id="cb203-7"><a href="text-analysis-iii-finding-groups-of-texts.html#cb203-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="fu">topicVar</span>(topicVal, top_terms),</span>
+<span id="cb203-8"><a href="text-analysis-iii-finding-groups-of-texts.html#cb203-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;1864 - Dispatch coverage&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;topic saliency&quot;</span>)</span>
+<span id="cb203-9"><a href="text-analysis-iii-finding-groups-of-texts.html#cb203-9" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(<span class="at">x0=</span>lda_model_topics_final<span class="sc">$</span>date, <span class="at">x1=</span>lda_model_topics_final<span class="sc">$</span>date, <span class="at">y0=</span><span class="dv">0</span>, <span class="at">y1=</span>lda_model_topics_final<span class="sc">$</span>freq, <span class="at">lty=</span><span class="dv">1</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="main_files/figure-html/unnamed-chunk-127-1.png" width="864" /></p>
+<p><img src="files/data/topic_bonds.png" /></p>
 </div>
 </div>
             </section>
@@ -1685,7 +1922,7 @@ Blockade Goods. – Mantle Depot, 60 Main, between 14th and 15th streets. – La
         </div>
       </div>
 <a href="text-analysis-ii-distances-keywords-summarization.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="exploring-topics.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -131,5 +131,16 @@ determining-the-optimal-number-of-clusters-elbow-method-and-average-silhouette-m
 k-means-clustering
 determining-the-optimal-number-of-clusters-elbow-method-and-average-silhouette-method-1
 other-clustering-methods
+topic-modeling
+topics
+example-1
+example-2
+example-3
+getting-to-code
+per-topic-per-word-probabilities-beta
+topics-over-time
+exploring-topics
+addendum-different-distances-code-sample
 HW09
 SHW09
+SWH09
