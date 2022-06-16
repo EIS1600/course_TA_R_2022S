@@ -24,7 +24,7 @@
 <meta name="author" content="Maxim G. Romanov" />
 
 
-<meta name="date" content="2022-06-16" />
+<meta name="date" content="2022-06-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1657,12 +1657,12 @@ Blockade Goods. – Mantle Depot, 60 Main, between 14th and 15th streets. – La
 <p><img src="main_files/figure-html/unnamed-chunk-108-1.png" width="672" /></p>
 <p>Let’s try to visualize our clusters again:</p>
 <div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">786</span>)</span>
-<span id="cb171-2"><a href="text-analysis-iii-finding-groups-of-texts.html#cb171-2" aria-hidden="true" tabindex="-1"></a>kmeansClusters <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(distanceMatrixKM, <span class="at">centers=</span><span class="dv">10</span>, <span class="at">nstart=</span><span class="dv">25</span>)</span>
+<span id="cb171-2"><a href="text-analysis-iii-finding-groups-of-texts.html#cb171-2" aria-hidden="true" tabindex="-1"></a>kmeansClusters <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(distanceMatrixKM, <span class="at">centers=</span><span class="dv">5</span>, <span class="at">nstart=</span><span class="dv">25</span>)</span>
 <span id="cb171-3"><a href="text-analysis-iii-finding-groups-of-texts.html#cb171-3" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_cluster</span>(kmeansClusters, <span class="at">data =</span> distanceMatrix, <span class="at">labelsize =</span> <span class="dv">0</span>)</span></code></pre></div>
 <p><img src="main_files/figure-html/unnamed-chunk-109-1.png" width="672" /></p>
 <p>Here is, however, an example of where k-means clustering may/can fail: we gave a different starting point to the algorithm and</p>
 <div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb172-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">786</span>)</span>
-<span id="cb172-2"><a href="text-analysis-iii-finding-groups-of-texts.html#cb172-2" aria-hidden="true" tabindex="-1"></a>kmeansClusters <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(distanceMatrixKM, <span class="at">centers=</span><span class="dv">3</span>, <span class="at">nstart=</span><span class="dv">50</span>)</span>
+<span id="cb172-2"><a href="text-analysis-iii-finding-groups-of-texts.html#cb172-2" aria-hidden="true" tabindex="-1"></a>kmeansClusters <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(distanceMatrixKM, <span class="at">centers=</span><span class="dv">5</span>, <span class="at">nstart=</span><span class="dv">50</span>)</span>
 <span id="cb172-3"><a href="text-analysis-iii-finding-groups-of-texts.html#cb172-3" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_cluster</span>(kmeansClusters, <span class="at">data =</span> distanceMatrix, <span class="at">labelsize =</span> <span class="dv">0</span>)</span></code></pre></div>
 <p><img src="main_files/figure-html/unnamed-chunk-110-1.png" width="672" /></p>
 <p>More information, see:</p>

@@ -361,7 +361,7 @@ Let's try to visualize our clusters again:
 
 ```{r}
 set.seed(786)
-kmeansClusters <- kmeans(distanceMatrixKM, centers=10, nstart=25)
+kmeansClusters <- kmeans(distanceMatrixKM, centers=5, nstart=25)
 fviz_cluster(kmeansClusters, data = distanceMatrix, labelsize = 0)
 ```
 
@@ -369,7 +369,7 @@ Here is, however, an example of where k-means clustering may/can fail: we gave a
 
 ```{r}
 set.seed(786)
-kmeansClusters <- kmeans(distanceMatrixKM, centers=3, nstart=50)
+kmeansClusters <- kmeans(distanceMatrixKM, centers=5, nstart=50)
 fviz_cluster(kmeansClusters, data = distanceMatrix, labelsize = 0)
 ```
 
