@@ -82,7 +82,7 @@ summary(lowFreq)
 Most of these low-frequency items are typos:
 
 ```{r}
-lowFreq
+knitr::kable(head(lowFreq, 15), table.attr = "class=\"striped\"", format="html")
 ```
 
 We can `anti-join` our corpus with `lowFreq`, which will remove them:
@@ -109,7 +109,7 @@ d1864_clean_FL <- d1864_clean %>%
   summarize(freq=sum(n)) %>%
   arrange(desc(freq))
 
-d1864_clean_FL
+knitr::kable(head(d1864_clean_FL, 15), table.attr = "class=\"striped\"", format="html")
 ```
 
 To make things faster, you can remove top 50, 100, 150, 200 most frequent words, but this is a rather brutal way. Ideally, you want to curate your own stop word list that will be tuned to your texts. Below, I have taken top 500 words and manually removed everything that was meaningful (or, better, what I *considered* meaningful). Additionally, there are also NLP procedures that are designed to lemmatize words (i.e., reduce all words to their dictionary forms) and also do part-of-speech tagging, which allows to remove words categorically (for example, keeping only nouns, adjectives and verbs). 
@@ -143,7 +143,8 @@ df_TF_IDF <- d1864_clean_minusSW %>% # d1864_clean, d1864_clean_minusSW
   arrange(desc(tf_idf)) %>%
   ungroup
 
-df_TF_IDF
+knitr::kable(head(df_TF_IDF, 15), table.attr = "class=\"striped\"", format="html")
+
 ```
 
 ```{r}
@@ -166,7 +167,7 @@ In what follows, we take our TF-IDF data, sample it, and run cluster analysis on
 
 ```{r}
 # RANDOMLY SELECT N ITEMS
-set.seed(48965) # 4, 12, 48965
+set.seed(786)
 N = 100
 sampledIDs <- sample(unique(df_TF_IDF$id), N)
 sample_d1864_tfidf <- df_TF_IDF %>% filter(id %in% sampledIDs) %>%
@@ -215,7 +216,7 @@ Note that PCA (principal component analysis) and clustering are not the same, bu
 library(factoextra)
 
 distanceMatrixHC.scaled <- scale(distanceMatrixHC)
-hc.cut <- hcut(distanceMatrixHC.scaled, k = 3, hc_method = "ward.D")
+hc.cut <- hcut(distanceMatrixHC.scaled, k = 10, hc_method = "ward.D")
 fviz_cluster(hc.cut, labelsize=0, ellipse.type = "convex")
 
 ```
@@ -241,7 +242,8 @@ clusters_df <- stack(clusters_named_vector)
 colnames(clusters_df) <- c("cluster", "id")
 clusters_df <- clusters_df %>% select(id, cluster)
 
-clusters_df
+knitr::kable(head(clusters_df, 15), table.attr = "class=\"striped\"", format="html")
+
 ```
 We can then `left_join` these clustering results with the original table and manually check if our clustering makes sense.
 
@@ -250,21 +252,132 @@ d1864_clustering <- d1864 %>%
   left_join(clusters_df, by = "id")
 ```
 
-Let's print out a few examples of cluster 10:
+Let's print out a few clusters:
 
 ```{r}
-
-d1864_clustering %>% filter(cluster == 10) %>%
+cluster <- d1864_clustering %>% filter(cluster == 9) %>%
   select(text)
 
+knitr::kable(cluster, table.attr = "class=\"striped\"", format="html")
 ```
 
 ```{r}
-
-d1864_clustering %>% filter(cluster == 9) %>%
+cluster <- d1864_clustering %>% filter(cluster == 7) %>%
   select(text)
 
+knitr::kable(cluster, table.attr = "class=\"striped\"", format="html")
 ```
+
+```{r}
+cluster <- d1864_clustering %>% filter(cluster == 5) %>%
+  select(text)
+
+knitr::kable(cluster, table.attr = "class=\"striped\"", format="html")
+```
+### Determining the optimal number of clusters: "Elbow Method" and "Average Silhouette Method"
+
+In a nutshell, we repeatedly run clustering, increasing the number of clusters by one, and calculate the total within-cluster sum of square (*wss*). We then plot the curve of *wss* and look for a point in the curve with the sharpest bend (hence the "elbow"), which is considered to be an indicator of the appropriate number of clusters. `library(factoextra)` can perform this with a single command:
+
+```{r}
+set.seed(786)
+fviz_nbclust(as.matrix(distanceMatrixHC), FUN = hcut, k.max=10, method = "wss")
+```
+
+Ideally, we sould have something like `L` or `V`. Here, perhaps, 3 is our optimal number. We can try another method --- *average silhouette method* (which is also easily callable from `library(factoextra)`). Like with *elbow method*, we run clustering multiple times but here we measures the quality of a clustering, but determining how well each object lies within its cluster. A high average silhouette width indicates a good clustering.
+
+```{r}
+set.seed(786)
+fviz_nbclust(as.matrix(distanceMatrixHC), FUN = hcut, k.max = 10, method = "silhouette")
+```
+
+More on hierarchical clustering: "Hierarchical Cluster Analysis", in in *U of Cincinnati Business Analytics R Programming Course* <http://uc-r.github.io/hc_clustering>.
+
+## K-means clustering
+
+Let's get a different sample from our data. With k-means clustering we can run on more data:
+
+```{r}
+# RANDOMLY SELECT N ITEMS
+set.seed(786)
+N = 1000
+sampledIDs <- sample(unique(df_TF_IDF$id), N)
+sample_d1864_tfidf <- df_TF_IDF %>% filter(id %in% sampledIDs) %>%
+  select(id, word, tf_idf)
+
+# CONVERT INTO DTM MATRIX
+colnames(sample_d1864_tfidf) <- c("document", "term", "count")
+sample <- tibble(sample_d1864_tfidf) %>% cast_dtm(document, term, count)
+sample_matrix <- as.matrix(sample)
+
+# CONVERT INTO REGULAR MATRIC AND CALCULATE DISTANCES
+distanceMatrix <- dist.cosine(sample_matrix) # from library(stylo)
+distanceMatrixKM <- as.dist(distanceMatrix)
+```
+
+
+```{r}
+kmeansClusters <- kmeans(distanceMatrixKM, centers=5, nstart=25)
+str(kmeansClusters)
+```
+
+We can extract cluster information in the same manner as with `hclust()` object:
+
+```{r}
+kmeans_clusters_df <- stack(kmeansClusters$cluster)
+colnames(kmeans_clusters_df) <- c("cluster", "id")
+kmeans_clusters_df <- kmeans_clusters_df %>% select(id, cluster)
+
+head(kmeans_clusters_df)
+```
+
+We can visualize the results of our kmeans clustering using `fviz_cluster()` (from `factoextra`). Our data is multidimensional --- each word in our matrix is a single dimension, so this function will perform principal component analysis (PCA) and plot data according to the first two principal components that explain majority of the variance in our dataset.
+
+```{r}
+set.seed(786)
+fviz_cluster(kmeansClusters, data = distanceMatrix, labelsize = 0)
+```
+
+## Determining the optimal number of clusters: "Elbow Method" and "Average Silhouette Method"
+
+In a nutshell, we repeatedly run clustering, increasing the number of clusters by one, and calculate the total within-cluster sum of square (*wss*). We then plot the curve of *wss* and look for a point in the curve with the sharpest bend (hence the "elbow"), which is considered to be an indicator of the appropriate number of clusters. `library(factoextra)` can perform this with a single command:
+
+```{r}
+set.seed(786)
+fviz_nbclust(as.matrix(distanceMatrix), kmeans, k.max=20, method = "wss")
+```
+
+Ideally, we should have something like `L` or `V`. Here results do not seem to be very helpful. We can try another method --- *average silhouette method* (which is also easily callable from `library(factoextra)`). Like with *elbow method*, we run clustering multiple times but here we measures the quality of a clustering, bu determining how well each object lies within its cluster. A high average silhouette width indicates a good clustering.
+
+```{r}
+set.seed(786)
+fviz_nbclust(as.matrix(distanceMatrix), kmeans, k.max = 20, method = "silhouette")
+```
+
+Let's try to visualize our clusters again:
+
+```{r}
+set.seed(786)
+kmeansClusters <- kmeans(distanceMatrixKM, centers=5, nstart=25)
+fviz_cluster(kmeansClusters, data = distanceMatrix, labelsize = 0)
+```
+
+Here is, however, an example of where k-means clustering may/can fail: we gave a different starting point to the algorithm and 
+
+```{r}
+set.seed(786)
+kmeansClusters <- kmeans(distanceMatrixKM, centers=3, nstart=50)
+fviz_cluster(kmeansClusters, data = distanceMatrix, labelsize = 0)
+```
+
+
+More information, see:
+
+- "K-means Cluster Analysis", in *U of Cincinnati Business Analytics R Programming Course* <https://uc-r.github.io/kmeans_clustering>.
+- <https://towardsdatascience.com/k-means-clustering-algorithm-applications-evaluation-methods-and-drawbacks-aa03e644b48a>
+
+## Other "clustering" methods
+
+Although not cluster analysis techniques strictly speaking, PCA (principal component analysis) and MDS (multi-dimensional scaling) are used in similar ways. We will touch upon these in the context of stylometry. 
 
 
 ...
