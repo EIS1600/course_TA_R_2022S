@@ -581,7 +581,7 @@ print("---")
 as.String(d1864[d1864$id==idTest, ]["text"])
 ```
 
-##  Topics over time:
+###  Topics over time
 
 ```{r}
 
@@ -615,7 +615,7 @@ segments(x0=lda_model_topics_final$date, x1=lda_model_topics_final$date, y0=0, y
 
 ![](./files/data/topic_bonds.png)
 
-# Exploring topics
+### Exploring topics
 
 `LDAvis` offers a visual browser for topics, which has already became a very popular tool for this purpose. If everything is done right, a visualization similar to the one below should open in a browser.
 
@@ -695,7 +695,7 @@ clustered.data <- hclust(distanceMatrix, method = clusteringMethod)
 * Email your homework to the instructor as attachments.
 	*  In the subject of your email, please, add the following: `57528-LXX-HW-YourLastName-YourMatriculationNumber`, where `LXX` is the number of the lesson for which you submit homework; `YourLastName` is your last name; and `YourMatriculationNumber` is your matriculation number.
 	
-# Additional Materials{#SWH09}
+## Additional Materials{#SWH09}
 
 * Chapter 3 "Analyzing word and document frequency: tf-idf" in: Silge, Julia, and David Robinson. 2017. *Text Mining with R: A Tidy Approach*. First edition. Beijing Boston Farnham: O´Reilly. <https://www.tidytextmining.com/>. Available online: <https://www.tidytextmining.com/tfidf.html>
 * Chapter 6 "Topic modeling" in: Silge, Julia, and David Robinson. 2017. *Text Mining with R: A Tidy Approach*. First edition. Beijing Boston Farnham: O´Reilly. <https://www.tidytextmining.com/>. Available online: <https://www.tidytextmining.com/topicmodeling.html>

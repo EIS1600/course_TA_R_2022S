@@ -32,7 +32,7 @@
   <link rel="apple-touch-icon-precomposed" sizes="120x120" href="touch-icon.png" />
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 <link rel="prev" href="text-analysis-ii-distances-keywords-summarization.html"/>
-<link rel="next" href="exploring-topics.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -327,16 +327,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.8.1" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#topics"><i class="fa fa-check"></i><b>9.8.1</b> Topics?</a></li>
 <li class="chapter" data-level="9.8.2" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#getting-to-code"><i class="fa fa-check"></i><b>9.8.2</b> Getting to code</a></li>
 </ul></li>
-<li class="chapter" data-level="9.9" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#per-topic-per-word-probabilities-beta"><i class="fa fa-check"></i><b>9.9</b> Per-topic-per-word probabilities (<em>beta</em>)</a></li>
-<li class="chapter" data-level="9.10" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#topics-over-time"><i class="fa fa-check"></i><b>9.10</b> Topics over time:</a></li>
-</ul></li>
-<li class="chapter" data-level="10" data-path="exploring-topics.html"><a href="exploring-topics.html"><i class="fa fa-check"></i><b>10</b> Exploring topics</a>
+<li class="chapter" data-level="9.9" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#per-topic-per-word-probabilities-beta"><i class="fa fa-check"></i><b>9.9</b> Per-topic-per-word probabilities (<em>beta</em>)</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="exploring-topics.html"><a href="exploring-topics.html#addendum-different-distances-code-sample"><i class="fa fa-check"></i><b>10.1</b> Addendum: different distances code sample</a></li>
-<li class="chapter" data-level="10.2" data-path="exploring-topics.html"><a href="exploring-topics.html#HW09"><i class="fa fa-check"></i><b>10.2</b> Homework</a></li>
-<li class="chapter" data-level="10.3" data-path="exploring-topics.html"><a href="exploring-topics.html#SHW09"><i class="fa fa-check"></i><b>10.3</b> Submitting homework</a></li>
+<li class="chapter" data-level="9.9.1" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#topics-over-time"><i class="fa fa-check"></i><b>9.9.1</b> Topics over time</a></li>
+<li class="chapter" data-level="9.9.2" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#exploring-topics"><i class="fa fa-check"></i><b>9.9.2</b> Exploring topics</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="SWH09.html"><a href="SWH09.html"><i class="fa fa-check"></i><b>11</b> Additional Materials</a></li>
+<li class="chapter" data-level="9.10" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#addendum-different-distances-code-sample"><i class="fa fa-check"></i><b>9.10</b> Addendum: different distances code sample</a></li>
+<li class="chapter" data-level="9.11" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#HW09"><i class="fa fa-check"></i><b>9.11</b> Homework</a></li>
+<li class="chapter" data-level="9.12" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#SHW09"><i class="fa fa-check"></i><b>9.12</b> Submitting homework</a></li>
+<li class="chapter" data-level="9.13" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#SWH09"><i class="fa fa-check"></i><b>9.13</b> Additional Materials</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -1873,9 +1873,8 @@ Here it is in a bit of a better quality:</p>
 <pre><code>## [1] &quot;---&quot;</code></pre>
 <div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb197-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.String</span>(d1864[d1864<span class="sc">$</span>id<span class="sc">==</span>idTest, ][<span class="st">&quot;text&quot;</span>])</span></code></pre></div>
 <pre><code>## Treasury Department, Confederate States of America, Richmond, August 8, 1864. Certificates of Indebtedness Bearing Six Per Cent. Per Annum interest and Free from Taxation. -- By the fourteenth section of the act to reduce the currency, approved February 17, 1864, the Secretary of the Treasury is authorized to issue the above certificates, payable two years after the ratification of a treaty of peace with the United States. They cannot be sold, but are only to be issued to such creditors of the Government as are willing to receive the same in payment of their demands. They must also be given at par, though free from taxation. The attention of purchasing agents and disbursing officers of the Government is called to this class of public securities as offering peculiar advantages to those from whom the supplies of the Government are bought; and to facilitate the use of them, checks drawn by disbursing officers upon the depositaries holding these funds, and marked across the face &quot; payable in certificates of indebtedness,&quot; will be paid in conformity therewith. Depositaries are hereby authorized and required to comply with this regulation, and to make application to the Register for supplies of certificates as required. Signed) G. A. Trenholm, Secretary of Treasury. au 22 -- ts</code></pre>
-</div>
-<div id="topics-over-time" class="section level2" number="9.10">
-<h2><span class="header-section-number">9.10</span> Topics over time:</h2>
+<div id="topics-over-time" class="section level3" number="9.9.1">
+<h3><span class="header-section-number">9.9.1</span> Topics over time</h3>
 <div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb199-1" aria-hidden="true" tabindex="-1"></a>corpus_light <span class="ot">&lt;-</span> corpus <span class="sc">%&gt;%</span></span>
 <span id="cb199-2"><a href="text-analysis-iii-finding-groups-of-texts.html#cb199-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>header, <span class="sc">-</span>text)</span>
 <span id="cb199-3"><a href="text-analysis-iii-finding-groups-of-texts.html#cb199-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1915,6 +1914,88 @@ Here it is in a bit of a better quality:</p>
 <p><img src="main_files/figure-html/unnamed-chunk-127-1.png" width="864" /></p>
 <p><img src="files/data/topic_bonds.png" /></p>
 </div>
+<div id="exploring-topics" class="section level3" number="9.9.2">
+<h3><span class="header-section-number">9.9.2</span> Exploring topics</h3>
+<p><code>LDAvis</code> offers a visual browser for topics, which has already became a very popular tool for this purpose. If everything is done right, a visualization similar to the one below should open in a browser.</p>
+<div class="figure">
+<img src="files/data/LDAvis.png" alt="" />
+<p class="caption"><code>LDAvis</code> Browser Example.</p>
+</div>
+<p>We can use the following function that extracts all needed information from a model and converts it into a format that <code>LDAvis</code> expects:</p>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb204-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(LDAvis)</span>
+<span id="cb204-2"><a href="text-analysis-iii-finding-groups-of-texts.html#cb204-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(slam)</span>
+<span id="cb204-3"><a href="text-analysis-iii-finding-groups-of-texts.html#cb204-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb204-4"><a href="text-analysis-iii-finding-groups-of-texts.html#cb204-4" aria-hidden="true" tabindex="-1"></a>topicmodels2LDAvis <span class="ot">&lt;-</span> <span class="cf">function</span>(x, ...){</span>
+<span id="cb204-5"><a href="text-analysis-iii-finding-groups-of-texts.html#cb204-5" aria-hidden="true" tabindex="-1"></a>  post <span class="ot">&lt;-</span> topicmodels<span class="sc">::</span><span class="fu">posterior</span>(x)</span>
+<span id="cb204-6"><a href="text-analysis-iii-finding-groups-of-texts.html#cb204-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">ncol</span>(post[[<span class="st">&quot;topics&quot;</span>]]) <span class="sc">&lt;</span> <span class="dv">3</span>) <span class="fu">stop</span>(<span class="st">&quot;The model must contain &gt; 2 topics&quot;</span>)</span>
+<span id="cb204-7"><a href="text-analysis-iii-finding-groups-of-texts.html#cb204-7" aria-hidden="true" tabindex="-1"></a>  mat <span class="ot">&lt;-</span> x<span class="sc">@</span>wordassignments</span>
+<span id="cb204-8"><a href="text-analysis-iii-finding-groups-of-texts.html#cb204-8" aria-hidden="true" tabindex="-1"></a>  LDAvis<span class="sc">::</span><span class="fu">createJSON</span>(</span>
+<span id="cb204-9"><a href="text-analysis-iii-finding-groups-of-texts.html#cb204-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">phi =</span> post[[<span class="st">&quot;terms&quot;</span>]], </span>
+<span id="cb204-10"><a href="text-analysis-iii-finding-groups-of-texts.html#cb204-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">theta =</span> post[[<span class="st">&quot;topics&quot;</span>]],</span>
+<span id="cb204-11"><a href="text-analysis-iii-finding-groups-of-texts.html#cb204-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">vocab =</span> <span class="fu">colnames</span>(post[[<span class="st">&quot;terms&quot;</span>]]),</span>
+<span id="cb204-12"><a href="text-analysis-iii-finding-groups-of-texts.html#cb204-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">doc.length =</span> slam<span class="sc">::</span><span class="fu">row_sums</span>(mat, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb204-13"><a href="text-analysis-iii-finding-groups-of-texts.html#cb204-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">term.frequency =</span> slam<span class="sc">::</span><span class="fu">col_sums</span>(mat, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb204-14"><a href="text-analysis-iii-finding-groups-of-texts.html#cb204-14" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb204-15"><a href="text-analysis-iii-finding-groups-of-texts.html#cb204-15" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb205-1" aria-hidden="true" tabindex="-1"></a><span class="fu">serVis</span>(<span class="fu">topicmodels2LDAvis</span>(lda_model))</span></code></pre></div>
+<p><strong>NB</strong>: there are some issues with <code>LDAvis</code> and for some reason it does not always parse out a topic model object. We can try loading another one, which does work: this is a 20 topic model based on issues of the Dispatch covering the period of 1861-1864.</p>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb206-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="at">file=</span><span class="st">&quot;./files/data/dispatch_lda_vem_better.rda&quot;</span>)</span>
+<span id="cb206-2"><a href="text-analysis-iii-finding-groups-of-texts.html#cb206-2" aria-hidden="true" tabindex="-1"></a><span class="fu">serVis</span>(<span class="fu">topicmodels2LDAvis</span>(dispatch_lda_vem_better))</span></code></pre></div>
+</div>
+</div>
+<div id="addendum-different-distances-code-sample" class="section level2" number="9.10">
+<h2><span class="header-section-number">9.10</span> Addendum: different distances code sample</h2>
+<p>This is simply a chunk of code that you can reuse for generating different distances. This code will not run because there is no variable <code>YOUR_MATRIX</code>!</p>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb207-1" aria-hidden="true" tabindex="-1"></a><span class="co">#library(stylo)</span></span>
+<span id="cb207-2"><a href="text-analysis-iii-finding-groups-of-texts.html#cb207-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb207-3"><a href="text-analysis-iii-finding-groups-of-texts.html#cb207-3" aria-hidden="true" tabindex="-1"></a><span class="co"># USING library(stylo) FUNCTIONS</span></span>
+<span id="cb207-4"><a href="text-analysis-iii-finding-groups-of-texts.html#cb207-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (distanceMethod <span class="sc">==</span> <span class="st">&quot;cosine&quot;</span>){distanceMatrix <span class="ot">&lt;-</span> <span class="fu">dist.cosine</span>(YOUR_MATRIX)</span>
+<span id="cb207-5"><a href="text-analysis-iii-finding-groups-of-texts.html#cb207-5" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (distanceMethod <span class="sc">==</span> <span class="st">&quot;delta&quot;</span>){distanceMatrix <span class="ot">&lt;-</span> <span class="fu">dist.delta</span>(YOUR_MATRIX)</span>
+<span id="cb207-6"><a href="text-analysis-iii-finding-groups-of-texts.html#cb207-6" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (distanceMethod <span class="sc">==</span> <span class="st">&quot;argamon&quot;</span>){distanceMatrix <span class="ot">&lt;-</span> <span class="fu">dist.argamon</span>(YOUR_MATRIX)</span>
+<span id="cb207-7"><a href="text-analysis-iii-finding-groups-of-texts.html#cb207-7" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (distanceMethod <span class="sc">==</span> <span class="st">&quot;eder&quot;</span>){distanceMatrix <span class="ot">&lt;-</span> <span class="fu">dist.eder</span>(YOUR_MATRIX)</span>
+<span id="cb207-8"><a href="text-analysis-iii-finding-groups-of-texts.html#cb207-8" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (distanceMethod <span class="sc">==</span> <span class="st">&quot;minmax&quot;</span>){distanceMatrix <span class="ot">&lt;-</span> <span class="fu">dist.minmax</span>(YOUR_MATRIX)</span>
+<span id="cb207-9"><a href="text-analysis-iii-finding-groups-of-texts.html#cb207-9" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (distanceMethod <span class="sc">==</span> <span class="st">&quot;enthropy&quot;</span>){distanceMatrix <span class="ot">&lt;-</span> <span class="fu">dist.enthropy</span>(YOUR_MATRIX)</span>
+<span id="cb207-10"><a href="text-analysis-iii-finding-groups-of-texts.html#cb207-10" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (distanceMethod <span class="sc">==</span> <span class="st">&quot;simple&quot;</span>){distanceMatrix <span class="ot">&lt;-</span> <span class="fu">dist.simple</span>(YOUR_MATRIX)</span>
+<span id="cb207-11"><a href="text-analysis-iii-finding-groups-of-texts.html#cb207-11" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (distanceMethod <span class="sc">==</span> <span class="st">&quot;wurzburg&quot;</span>){distanceMatrix <span class="ot">&lt;-</span> <span class="fu">dist.wurzburg</span>(YOUR_MATRIX)</span>
+<span id="cb207-12"><a href="text-analysis-iii-finding-groups-of-texts.html#cb207-12" aria-hidden="true" tabindex="-1"></a><span class="co"># USING dist() FUNCTION</span></span>
+<span id="cb207-13"><a href="text-analysis-iii-finding-groups-of-texts.html#cb207-13" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (distanceMethod <span class="sc">==</span> <span class="st">&quot;euclidean&quot;</span>){distanceMatrix <span class="ot">&lt;-</span> <span class="fu">dist</span>(YOUR_MATRIX, <span class="at">method=</span><span class="st">&quot;euclidean&quot;</span>)</span>
+<span id="cb207-14"><a href="text-analysis-iii-finding-groups-of-texts.html#cb207-14" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (distanceMethod <span class="sc">==</span> <span class="st">&quot;maximum&quot;</span>){distanceMatrix <span class="ot">&lt;-</span> <span class="fu">dist</span>(YOUR_MATRIX, <span class="at">method=</span><span class="st">&quot;maximum&quot;</span>)</span>
+<span id="cb207-15"><a href="text-analysis-iii-finding-groups-of-texts.html#cb207-15" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (distanceMethod <span class="sc">==</span> <span class="st">&quot;manhattan&quot;</span>){distanceMatrix <span class="ot">&lt;-</span> <span class="fu">dist</span>(YOUR_MATRIX, <span class="at">method=</span><span class="st">&quot;manhattan&quot;</span>)</span>
+<span id="cb207-16"><a href="text-analysis-iii-finding-groups-of-texts.html#cb207-16" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (distanceMethod <span class="sc">==</span> <span class="st">&quot;canberra&quot;</span>){distanceMatrix <span class="ot">&lt;-</span> <span class="fu">dist</span>(YOUR_MATRIX, <span class="at">method=</span><span class="st">&quot;canberra&quot;</span>)</span>
+<span id="cb207-17"><a href="text-analysis-iii-finding-groups-of-texts.html#cb207-17" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (distanceMethod <span class="sc">==</span> <span class="st">&quot;binary&quot;</span>){distanceMatrix <span class="ot">&lt;-</span> <span class="fu">dist</span>(YOUR_MATRIX, <span class="at">method=</span><span class="st">&quot;binary&quot;</span>)</span>
+<span id="cb207-18"><a href="text-analysis-iii-finding-groups-of-texts.html#cb207-18" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (distanceMethod <span class="sc">==</span> <span class="st">&quot;minkowski&quot;</span>){distanceMatrix <span class="ot">&lt;-</span> <span class="fu">dist</span>(YOUR_MATRIX, <span class="at">method=</span><span class="st">&quot;minkowski&quot;</span>)</span>
+<span id="cb207-19"><a href="text-analysis-iii-finding-groups-of-texts.html#cb207-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb207-20"><a href="text-analysis-iii-finding-groups-of-texts.html#cb207-20" aria-hidden="true" tabindex="-1"></a>distanceMatrix <span class="ot">&lt;-</span> <span class="fu">as.dist</span>(distanceMatrix)</span>
+<span id="cb207-21"><a href="text-analysis-iii-finding-groups-of-texts.html#cb207-21" aria-hidden="true" tabindex="-1"></a>clustered.data <span class="ot">&lt;-</span> <span class="fu">hclust</span>(distanceMatrix, <span class="at">method =</span> clusteringMethod)</span></code></pre></div>
+<p>…</p>
+</div>
+<div id="HW09" class="section level2" number="9.11">
+<h2><span class="header-section-number">9.11</span> Homework</h2>
+<ul>
+<li>given in the chapter.</li>
+</ul>
+</div>
+<div id="SHW09" class="section level2" number="9.12">
+<h2><span class="header-section-number">9.12</span> Submitting homework</h2>
+<ul>
+<li>Homework assignment must be submitted by the beginning of the next class;</li>
+<li>Email your homework to the instructor as attachments.
+<ul>
+<li>In the subject of your email, please, add the following: <code>57528-LXX-HW-YourLastName-YourMatriculationNumber</code>, where <code>LXX</code> is the number of the lesson for which you submit homework; <code>YourLastName</code> is your last name; and <code>YourMatriculationNumber</code> is your matriculation number.</li>
+</ul></li>
+</ul>
+</div>
+<div id="SWH09" class="section level2" number="9.13">
+<h2><span class="header-section-number">9.13</span> Additional Materials</h2>
+<ul>
+<li>Chapter 3 “Analyzing word and document frequency: tf-idf” in: Silge, Julia, and David Robinson. 2017. <em>Text Mining with R: A Tidy Approach</em>. First edition. Beijing Boston Farnham: O´Reilly. <a href="https://www.tidytextmining.com/" class="uri">https://www.tidytextmining.com/</a>. Available online: <a href="https://www.tidytextmining.com/tfidf.html" class="uri">https://www.tidytextmining.com/tfidf.html</a></li>
+<li>Chapter 6 “Topic modeling” in: Silge, Julia, and David Robinson. 2017. <em>Text Mining with R: A Tidy Approach</em>. First edition. Beijing Boston Farnham: O´Reilly. <a href="https://www.tidytextmining.com/" class="uri">https://www.tidytextmining.com/</a>. Available online: <a href="https://www.tidytextmining.com/topicmodeling.html" class="uri">https://www.tidytextmining.com/topicmodeling.html</a></li>
+<li>Chapter on Topic Modeling in: Benjamin Soltoff. <em>MACS 305001: Computing for the Social Sciences</em>, University of Chicago, <a href="https://cfss.uchicago.edu/notes/topic-modeling/" class="uri">https://cfss.uchicago.edu/notes/topic-modeling/</a></li>
+<li>David Meza. <em>Topic Modeling using R</em>, <a href="https://knowledger.rbind.io/post/topic-modeling-using-r/" class="uri">https://knowledger.rbind.io/post/topic-modeling-using-r/</a></li>
+<li>Grün, Bettina, and Kurt Hornik. 2011. “Topicmodels: An R Package for Fitting Topic Models.” <em>Journal of Statistical Software</em> 40 (13). <a href="https://doi.org/10.18637/jss.v040.i13" class="uri">https://doi.org/10.18637/jss.v040.i13</a>.</li>
+</ul>
+
+</div>
 </div>
             </section>
 
@@ -1922,7 +2003,7 @@ Here it is in a bit of a better quality:</p>
         </div>
       </div>
 <a href="text-analysis-ii-distances-keywords-summarization.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="exploring-topics.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
