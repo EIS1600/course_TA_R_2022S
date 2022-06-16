@@ -124,5 +124,8 @@ Prelim09
 libraries
 the-dispatch-data-preprocessing
 tf-idf-1
+clustering
+hierarchical-clustering
+pca-viz-for-hclust
 HW09
 SHW09
