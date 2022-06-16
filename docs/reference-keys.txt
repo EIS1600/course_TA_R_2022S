@@ -118,3 +118,10 @@ inaugural-speeches-of-the-us-presidents
 text-summarization
 HW08
 SHW08
+text-analysis-iii-finding-groups-of-texts
+goals09
+Prelim09
+libraries
+the-dispatch-data-preprocessing
+HW09
+SHW09

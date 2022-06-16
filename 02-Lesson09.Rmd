@@ -1,0 +1,77 @@
+# Text Analysis III: finding Groups of Texts
+
+```{r echo=FALSE}
+library(knitr)
+```
+
+## Goals{#goals09}
+
+- introduce text clustering approaches: approaches that allow us find groups of thematically similar texts:
+  - hierarchical clustering; 
+  - k-means clustering;
+  - topic modeling;
+
+## Preliminaries{#Prelim09}
+
+### Libraries
+
+The following are the libraries that we will need for this section. Install those that you do not have yet.
+
+```{r message=FALSE}
+#install.packages("ggplot2", "LDAvis", "readr", "slam", "stringr", "tictoc", "tidytext", "tidyverse", "tm", "topicmodels")
+
+# general
+library(ggplot2)
+
+# text analysis specific
+library(readr)
+library(slam)
+library(stringr)
+library(tidytext)
+library(tidyverse)
+library(tm)
+library(topicmodels)
+
+library(text2vec)
+library(stylo)
+
+library(cluster)    # clustering algorithms
+library(factoextra) # clustering algorithms & visualization
+
+# extra
+library(tictoc) # to time operations
+```
+
+#### The Dispatch Data: Preprocessing
+
+- [The Richmond Dispatch (1861)](./files/data/dispatch_1861.tsv)
+- [The Richmond Dispatch (1862)](./files/data/dispatch_1862.tsv)
+- [The Richmond Dispatch (1863)](./files/data/dispatch_1863.tsv)
+- [The Richmond Dispatch (1864)](./files/data/dispatch_1864.tsv)
+
+We will limit to only one year, but, of course, the results are always more interesting with more data...
+
+Loading...
+
+```{r}
+d1864 <- read.delim("./files/data/dispatch_1864.tsv", encoding="UTF-8", header=TRUE, quote="", stringsAsFactors = FALSE)
+d1864$date <- as.Date(d1864$date, format="%Y-%m-%d")
+```
+
+
+```{r}
+knitr::kable(head(d1864), table.attr = "class=\"striped\"", format="html")
+```
+
+...
+
+
+## Homework{#HW09}
+
+* given in the chapter.
+
+## Submitting homework{#SHW09}
+
+* Homework assignment must be submitted by the beginning of the next class;
+* Email your homework to the instructor as attachments.
+	*  In the subject of your email, please, add the following: `57528-LXX-HW-YourLastName-YourMatriculationNumber`, where `LXX` is the number of the lesson for which you submit homework; `YourLastName` is your last name; and `YourMatriculationNumber` is your matriculation number.

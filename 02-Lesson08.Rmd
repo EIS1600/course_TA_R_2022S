@@ -122,10 +122,12 @@ sparseMatrix
 Let's generate our distance matrices:
 
 ```{r echo=T, message=FALSE, warning=FALSE}
-jaccardMatrix = sim2(sparseMatrix, sparseMatrix, method = "jaccard", norm = "none")
-cosineMatrix = sim2(sparseMatrix, sparseMatrix, method = "cosine", norm = "l2")
-euclideanMatrix = dist2(denseMatrix, denseMatrix, method = "euclidean", norm="l2")
+jaccardMatrix = sim2(sparseMatrix, method = "jaccard", norm = "none")
+cosineMatrix = sim2(sparseMatrix, method = "cosine", norm = "l2")
+euclideanMatrix = dist2(denseMatrix, method = "euclidean", norm="l2")
 ```
+
+**NB:** 
 
 Now, let's check against the actual sentences:
 

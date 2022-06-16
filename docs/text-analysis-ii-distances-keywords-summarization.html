@@ -24,7 +24,7 @@
 <meta name="author" content="Maxim G. Romanov" />
 
 
-<meta name="date" content="2022-06-14" />
+<meta name="date" content="2022-06-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   <link rel="apple-touch-icon-precomposed" sizes="120x120" href="touch-icon.png" />
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 <link rel="prev" href="text-analysis-i-basics.html"/>
-<link rel="next" href="references.html"/>
+<link rel="next" href="text-analysis-iii-finding-groups-of-texts.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -303,6 +303,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.6" data-path="text-analysis-ii-distances-keywords-summarization.html"><a href="text-analysis-ii-distances-keywords-summarization.html#HW08"><i class="fa fa-check"></i><b>8.6</b> Homework</a></li>
 <li class="chapter" data-level="8.7" data-path="text-analysis-ii-distances-keywords-summarization.html"><a href="text-analysis-ii-distances-keywords-summarization.html#SHW08"><i class="fa fa-check"></i><b>8.7</b> Submitting homework</a></li>
 </ul></li>
+<li class="chapter" data-level="9" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html"><i class="fa fa-check"></i><b>9</b> Text Analysis III: finding Groups of Texts</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#goals09"><i class="fa fa-check"></i><b>9.1</b> Goals</a></li>
+<li class="chapter" data-level="9.2" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#Prelim09"><i class="fa fa-check"></i><b>9.2</b> Preliminaries</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#libraries"><i class="fa fa-check"></i><b>9.2.1</b> Libraries</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#HW09"><i class="fa fa-check"></i><b>9.3</b> Homework</a></li>
+<li class="chapter" data-level="9.4" data-path="text-analysis-iii-finding-groups-of-texts.html"><a href="text-analysis-iii-finding-groups-of-texts.html#SHW09"><i class="fa fa-check"></i><b>9.4</b> Submitting homework</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -430,9 +440,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 6 1 . 1 . 1 1 1 1 2 2 1 1
 ## 7 . 1 . 1 1 2 1 3 2 2 2 3</code></pre>
 <p>Let’s generate our distance matrices:</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb67-1" aria-hidden="true" tabindex="-1"></a>jaccardMatrix <span class="ot">=</span> <span class="fu">sim2</span>(sparseMatrix, sparseMatrix, <span class="at">method =</span> <span class="st">&quot;jaccard&quot;</span>, <span class="at">norm =</span> <span class="st">&quot;none&quot;</span>)</span>
-<span id="cb67-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb67-2" aria-hidden="true" tabindex="-1"></a>cosineMatrix <span class="ot">=</span> <span class="fu">sim2</span>(sparseMatrix, sparseMatrix, <span class="at">method =</span> <span class="st">&quot;cosine&quot;</span>, <span class="at">norm =</span> <span class="st">&quot;l2&quot;</span>)</span>
-<span id="cb67-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb67-3" aria-hidden="true" tabindex="-1"></a>euclideanMatrix <span class="ot">=</span> <span class="fu">dist2</span>(denseMatrix, denseMatrix, <span class="at">method =</span> <span class="st">&quot;euclidean&quot;</span>, <span class="at">norm=</span><span class="st">&quot;l2&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb67-1" aria-hidden="true" tabindex="-1"></a>jaccardMatrix <span class="ot">=</span> <span class="fu">sim2</span>(sparseMatrix, <span class="at">method =</span> <span class="st">&quot;jaccard&quot;</span>, <span class="at">norm =</span> <span class="st">&quot;none&quot;</span>)</span>
+<span id="cb67-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb67-2" aria-hidden="true" tabindex="-1"></a>cosineMatrix <span class="ot">=</span> <span class="fu">sim2</span>(sparseMatrix, <span class="at">method =</span> <span class="st">&quot;cosine&quot;</span>, <span class="at">norm =</span> <span class="st">&quot;l2&quot;</span>)</span>
+<span id="cb67-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb67-3" aria-hidden="true" tabindex="-1"></a>euclideanMatrix <span class="ot">=</span> <span class="fu">dist2</span>(denseMatrix, <span class="at">method =</span> <span class="st">&quot;euclidean&quot;</span>, <span class="at">norm=</span><span class="st">&quot;l2&quot;</span>)</span></code></pre></div>
+<p><strong>NB:</strong></p>
 <p>Now, let’s check against the actual sentences:</p>
 <div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb68-1" aria-hidden="true" tabindex="-1"></a>testDF<span class="sc">$</span>TEXT</span></code></pre></div>
 <pre><code>## [1] &quot;the caliph arrived to baghdad from mecca &quot;                                                                        
@@ -465,7 +476,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 7 0.700 0.700 0.700 0.700 0.800 0.6666667 1.0000000</code></pre>
 <div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;COSINE: 1 is full match&quot;</span>); cosineMatrix</span></code></pre></div>
 <pre><code>## [1] &quot;COSINE: 1 is full match&quot;</code></pre>
-<pre><code>## 7 x 7 sparse Matrix of class &quot;dgCMatrix&quot;
+<pre><code>## 7 x 7 sparse Matrix of class &quot;dsCMatrix&quot;
 ##           1         2         3         4         5         6         7
 ## 1 1.0000000 1.0000000 1.0000000 0.8386279 0.9636241 0.8504201 0.9197090
 ## 2 1.0000000 1.0000000 1.0000000 0.8386279 0.9636241 0.8504201 0.9197090
@@ -510,11 +521,11 @@ Additional read: <a href="https://cmry.github.io/notes/euclidean-v-cosine" class
 <p>Let’s take a look at a small section of our matrix. Can you read it? How should this data look in tidy format?</p>
 <div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb82-1" aria-hidden="true" tabindex="-1"></a>jaccardMatrix[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span></code></pre></div>
 <pre><code>## 4 x 2 sparse Matrix of class &quot;dgCMatrix&quot;
-##                       1862-04-22_advert_244 1862-04-22_advert_245
-## 1862-04-22_advert_244            1.00000000            0.05063291
-## 1862-04-22_advert_245            0.05063291            1.00000000
-## 1862-04-16_advert_6              0.10588235            0.11764706
-## 1862-04-16_advert_7              0.06578947            0.07317073</code></pre>
+##                       1862-01-10_advert_108 1862-01-10_advert_109
+## 1862-01-10_advert_108            1.00000000            0.07476636
+## 1862-01-10_advert_109            0.07476636            1.00000000
+## 1862-01-11_advert_230            0.04109589            0.09016393
+## 1862-01-11_advert_231            0.04912281            0.08474576</code></pre>
 <p>Converting matrix into a proper tidy data frame is a bit tricky. Luckily, <code>igraph</code> library can be extremely helpful here. We can treat our matrix as edges, where each number is the weight of each given edge. Loading this data into <code>igraph</code> will help us to avoid heavy-lifting on conversion as it can do all the complicated reconfiguration of our data, converting it into a proper dataframe that conforms to the principles of tidy data.</p>
 <p>All steps include:</p>
 <ol style="list-style-type: decimal">
@@ -537,16 +548,16 @@ Additional read: <a href="https://cmry.github.io/notes/euclidean-v-cosine" class
 <span id="cb84-12"><a href="text-analysis-ii-distances-keywords-summarization.html#cb84-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb84-13"><a href="text-analysis-ii-distances-keywords-summarization.html#cb84-13" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(jaccard_sim_df, <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##                    text1                 text2 jaccardSimilarity
-## 1  1862-04-22_advert_244 1862-04-05_advert_248                 1
-## 2  1862-01-13_advert_273 1862-01-11_advert_231                 1
-## 3  1862-04-07_advert_127 1862-04-05_advert_235                 1
-## 4  1862-04-07_advert_162 1862-04-05_advert_183                 1
-## 5  1862-04-07_advert_189 1862-04-05_advert_161                 1
-## 6  1862-04-07_advert_250 1862-04-05_advert_255                 1
-## 7  1862-04-07_advert_253 1862-04-05_advert_289                 1
-## 8  1862-04-07_advert_262 1862-04-05_advert_250                 1
-## 9  1862-04-07_advert_263 1862-04-05_advert_251                 1
-## 10 1862-04-07_advert_264 1862-04-05_advert_253                 1</code></pre>
+## 1  1862-01-11_advert_231 1862-01-13_advert_273                 1
+## 2   1862-09-08_advert_26 1862-10-13_advert_293                 1
+## 3  1862-04-22_advert_244 1862-04-05_advert_248                 1
+## 4  1862-04-07_advert_127 1862-04-05_advert_235                 1
+## 5  1862-04-07_advert_162 1862-04-05_advert_183                 1
+## 6  1862-04-07_advert_189 1862-04-05_advert_161                 1
+## 7  1862-04-07_advert_250 1862-04-05_advert_255                 1
+## 8  1862-04-07_advert_253 1862-04-05_advert_289                 1
+## 9  1862-04-07_advert_262 1862-04-05_advert_250                 1
+## 10 1862-04-07_advert_263 1862-04-05_advert_251                 1</code></pre>
 <div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb86-1" aria-hidden="true" tabindex="-1"></a>t_jaccard_sim_df_subset <span class="ot">&lt;-</span> jaccard_sim_df <span class="sc">%&gt;%</span></span>
 <span id="cb86-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb86-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(jaccardSimilarity <span class="sc">&gt;</span> <span class="fl">0.49</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb86-3"><a href="text-analysis-ii-distances-keywords-summarization.html#cb86-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(jaccardSimilarity <span class="sc">&lt;=</span> <span class="fl">0.9</span>) <span class="sc">%&gt;%</span></span>
@@ -554,16 +565,16 @@ Additional read: <a href="https://cmry.github.io/notes/euclidean-v-cosine" class
 <span id="cb86-5"><a href="text-analysis-ii-distances-keywords-summarization.html#cb86-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb86-6"><a href="text-analysis-ii-distances-keywords-summarization.html#cb86-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(t_jaccard_sim_df_subset, <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##                    text1                 text2 jaccardSimilarity
-## 1   1862-04-07_advert_30 1862-04-05_advert_237         0.9000000
-## 2  1862-04-07_advert_175  1862-04-05_advert_38         0.9000000
-## 3  1862-04-05_advert_303 1862-02-10_advert_149         0.9000000
-## 4  1862-01-13_advert_272 1862-01-11_advert_230         0.8979592
-## 5  1862-05-12_advert_219  1862-06-09_advert_63         0.8974359
+## 1  1862-02-10_advert_149 1862-04-05_advert_303         0.9000000
+## 2   1862-04-07_advert_30 1862-04-05_advert_237         0.9000000
+## 3  1862-04-07_advert_175  1862-04-05_advert_38         0.9000000
+## 4  1862-01-11_advert_230 1862-01-13_advert_272         0.8979592
+## 5   1862-06-09_advert_63 1862-05-12_advert_219         0.8974359
 ## 6  1862-03-10_advert_146 1862-04-05_advert_261         0.8928571
-## 7   1862-03-10_advert_13 1862-02-10_advert_224         0.8913043
-## 8  1862-05-12_advert_233 1862-06-09_advert_309         0.8913043
-## 9   1862-04-07_advert_22 1862-04-05_advert_148         0.8888889
-## 10 1862-04-07_advert_163 1862-04-05_advert_184         0.8888889</code></pre>
+## 7  1862-06-09_advert_309 1862-05-12_advert_233         0.8913043
+## 8  1862-02-10_advert_224  1862-03-10_advert_13         0.8913043
+## 9  1862-06-09_advert_331 1862-04-07_advert_165         0.8888889
+## 10 1862-06-09_advert_339 1862-04-07_advert_250         0.8888889</code></pre>
 <p>Let’s check the texts of <code>1862-04-07_advert_175</code> and <code>1862-04-05_advert_38</code>, which have the score of 0.9000000 (a close match).</p>
 <div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="text-analysis-ii-distances-keywords-summarization.html#cb88-1" aria-hidden="true" tabindex="-1"></a>example <span class="ot">&lt;-</span> d1862 <span class="sc">%&gt;%</span></span>
 <span id="cb88-2"><a href="text-analysis-ii-distances-keywords-summarization.html#cb88-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(id<span class="sc">==</span><span class="st">&quot;1862-04-07_advert_175&quot;</span>)</span></code></pre></div>
@@ -1002,7 +1013,7 @@ stock&#39;s market price at the time, not to exceed 1.50 dlrs per share.&quot;</
         </div>
       </div>
 <a href="text-analysis-i-basics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="text-analysis-iii-finding-groups-of-texts.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
