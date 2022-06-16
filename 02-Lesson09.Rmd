@@ -167,7 +167,7 @@ In what follows, we take our TF-IDF data, sample it, and run cluster analysis on
 
 ```{r}
 # RANDOMLY SELECT N ITEMS
-set.seed(786)
+set.seed(48965)
 N = 100
 sampledIDs <- sample(unique(df_TF_IDF$id), N)
 sample_d1864_tfidf <- df_TF_IDF %>% filter(id %in% sampledIDs) %>%
@@ -298,7 +298,7 @@ Let's get a different sample from our data. With k-means clustering we can run o
 
 ```{r}
 # RANDOMLY SELECT N ITEMS
-set.seed(786)
+set.seed(48965)
 N = 1000
 sampledIDs <- sample(unique(df_TF_IDF$id), N)
 sample_d1864_tfidf <- df_TF_IDF %>% filter(id %in% sampledIDs) %>%

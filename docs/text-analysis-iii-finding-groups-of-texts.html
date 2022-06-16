@@ -1209,7 +1209,7 @@ telegrams
 <p>Clustering is a method to break items into closely related groups—clusters. The code below show how our data can be broken into clusters with hierarchical clustering, using distance matrices. Hierarchical clustering has rather high precision, but sensitive to outliers and computationally expensive, which makes it nearly unusable with large datasets. K-means clustering is more suitable for large datasets, but struggles with uniform data (<a href="https://www.inovex.de/blog/disadvantages-of-k-means-clustering/">for example</a>). In both cases you have to define the number of clusters.</p>
 <p>In what follows, we take our TF-IDF data, sample it, and run cluster analysis on a small sample. The chunk below simply prepares our data for analysis:</p>
 <div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb148-1" aria-hidden="true" tabindex="-1"></a><span class="co"># RANDOMLY SELECT N ITEMS</span></span>
-<span id="cb148-2"><a href="text-analysis-iii-finding-groups-of-texts.html#cb148-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">786</span>)</span>
+<span id="cb148-2"><a href="text-analysis-iii-finding-groups-of-texts.html#cb148-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">48965</span>)</span>
 <span id="cb148-3"><a href="text-analysis-iii-finding-groups-of-texts.html#cb148-3" aria-hidden="true" tabindex="-1"></a>N <span class="ot">=</span> <span class="dv">100</span></span>
 <span id="cb148-4"><a href="text-analysis-iii-finding-groups-of-texts.html#cb148-4" aria-hidden="true" tabindex="-1"></a>sampledIDs <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">unique</span>(df_TF_IDF<span class="sc">$</span>id), N)</span>
 <span id="cb148-5"><a href="text-analysis-iii-finding-groups-of-texts.html#cb148-5" aria-hidden="true" tabindex="-1"></a>sample_d1864_tfidf <span class="ot">&lt;-</span> df_TF_IDF <span class="sc">%&gt;%</span> <span class="fu">filter</span>(id <span class="sc">%in%</span> sampledIDs) <span class="sc">%&gt;%</span></span>
@@ -1234,10 +1234,10 @@ telegrams
 <span id="cb149-6"><a href="text-analysis-iii-finding-groups-of-texts.html#cb149-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb149-7"><a href="text-analysis-iii-finding-groups-of-texts.html#cb149-7" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(clustered.data.ward)</span></code></pre></div>
 <pre><code>## List of 7
-##  $ merge      : int [1:99, 1:2] -4 -2 -28 -50 -42 -55 -39 -81 -25 -14 ...
-##  $ height     : num [1:99] 0.335 0.35 0.494 0.614 0.716 ...
-##  $ order      : int [1:100] 42 2 4 5 55 50 28 49 34 53 ...
-##  $ labels     : chr [1:100] &quot;1864-07-11_advert_120&quot; &quot;1864-03-30_ad-blank_61&quot; &quot;1864-01-11_advert_155&quot; &quot;1864-06-04_ad-blank_45&quot; ...
+##  $ merge      : int [1:99, 1:2] -23 -2 -58 -99 -52 -3 -51 -60 -86 -17 ...
+##  $ height     : num [1:99] 0.699 0.714 0.732 0.733 0.758 ...
+##  $ order      : int [1:100] 51 23 72 86 52 58 89 32 60 61 ...
+##  $ labels     : chr [1:100] &quot;1864-10-10_printrun_6&quot; &quot;1864-04-16_article_26&quot; &quot;1864-10-01_ad-blank_69&quot; &quot;1864-03-23_article_58&quot; ...
 ##  $ method     : chr &quot;ward.D&quot;
 ##  $ call       : language hclust(d = distanceMatrixHC, method = &quot;ward.D&quot;)
 ##  $ dist.method: NULL
@@ -1285,7 +1285,7 @@ cluster
 <tbody>
 <tr>
 <td style="text-align:left;">
-1864-07-11_advert_120
+1864-10-10_printrun_6
 </td>
 <td style="text-align:right;">
 1
@@ -1293,7 +1293,7 @@ cluster
 </tr>
 <tr>
 <td style="text-align:left;">
-1864-03-30_ad-blank_61
+1864-04-16_article_26
 </td>
 <td style="text-align:right;">
 2
@@ -1301,31 +1301,7 @@ cluster
 </tr>
 <tr>
 <td style="text-align:left;">
-1864-01-11_advert_155
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-1864-06-04_ad-blank_45
-</td>
-<td style="text-align:right;">
-2
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-1864-04-20_ad-blank_61
-</td>
-<td style="text-align:right;">
-2
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-1864-02-25_married_104
+1864-10-01_ad-blank_69
 </td>
 <td style="text-align:right;">
 3
@@ -1333,39 +1309,7 @@ cluster
 </tr>
 <tr>
 <td style="text-align:left;">
-1864-01-21_article_59
-</td>
-<td style="text-align:right;">
-3
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-1864-03-11_article_57
-</td>
-<td style="text-align:right;">
-3
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-1864-10-01_article_123
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-1864-03-09_article_146
-</td>
-<td style="text-align:right;">
-3
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-1864-07-13_article_109
+1864-03-23_article_58
 </td>
 <td style="text-align:right;">
 4
@@ -1373,23 +1317,15 @@ cluster
 </tr>
 <tr>
 <td style="text-align:left;">
-1864-01-20_article_50
+1864-08-23_article_36
 </td>
 <td style="text-align:right;">
-5
+4
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-1864-03-11_article_61
-</td>
-<td style="text-align:right;">
-3
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-1864-12-29_article_140
+1864-05-09_advert_47
 </td>
 <td style="text-align:right;">
 1
@@ -1397,10 +1333,74 @@ cluster
 </tr>
 <tr>
 <td style="text-align:left;">
-1864-03-11_article_76
+1864-01-06_article_114
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1864-04-14_article_39
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1864-12-12_advert_116
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1864-10-12_article_14
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1864-10-27_advert_59
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1864-07-11_advert_55
 </td>
 <td style="text-align:right;">
 5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1864-03-09_article_53
+</td>
+<td style="text-align:right;">
+6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1864-09-12_advert_4
+</td>
+<td style="text-align:right;">
+7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1864-01-07_article_68
+</td>
+<td style="text-align:right;">
+4
 </td>
 </tr>
 </tbody>
@@ -1424,17 +1424,72 @@ text
 <tbody>
 <tr>
 <td style="text-align:left;">
-Treasury Department, Confederate States of America, Richmond, July 26, 1864. taxed Treasury Notes. – In order to promote as for as practicable, the early liquidation …. And all for the safe of the above bonds are hereby authorized to receive the taxed with the exception above named, in payment of bonds, when sold, at the rate of 66½ per centum. G. A. Trenholm, Secretary of the Treasury. au 22 – ts
+Twelve Hundred and fifty Dollars reward. – A reward of two Hundred and fifty Dollars will be paid for the delivery to me, in this city, of each one of the following Slaves, who have absconded from the Carbon Hill Mines, in this county, during the past six months: Charles, a mulatto, about five feet nine inches in height, thirty-two years old, not stout, with very noticeable grey eyes; from Orange county. Daniel, a dark brown negro, about five feet eight inches in height, nineteen or twenty years old, very sprightly countenance, and very talkative. William, dark brown or black, five feet eight or nine inches in height, very slightly made, thirty-two or thirty-four years old, very quiet in his demeanor; from Gloucester county Virginia. Festus, dark brown, five feet seven or eight inches in height, well made, pleasant countenance and good address, twenty-two to twenty-four years of age. Lewis, black, five feet seven or eight inches in height, square built, but not very stout; twenty-eight or thirty years of age; limps slightly. The two latter have relations living in Richmond, and have been employed for some years in Manchester. John J. Werth, Agent. de 2 – 2aw4w
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Treasury Department, Confederate States of America, Richmond, August 8, 1864. Certificates of Indebtedness Bearing Six Per Cent. Per Annum Interest and Free from Taxation. – By the fourteenth section of the act to reduce the currency, approved February 17, 1864, the Secretary of the Treasury is authorized to issue the above certificates, payable two years after the ratification of a treaty of peace with the United States. They cannot be sold, but are only to be issued to such creditors of the Government as are willing to receive the same in payment of their demands. They must also be given at par, though free from taxation. The attention of purchasing agents and disbursing officers of the Government is called to this class of public securities as offering peculiar advantages to those from whom the supplies of the Government are bought; and to facilitate the use of them, checks drawn by disbursing officers upon the depositaries holding these funds, and marked across the face " payable in certificates of indebtedness," will be paid in conformity therewith. Depositaries are hereby authorized and required to comply with this regulation, and to make application to the Register for supplies of certificates as required. Signed] G. A. Trenholm, Secretary of Treasury. au 22 – ts
+50 dollars reward. – Ran away from my farm, near White Oak Swamp bridge, my negro boy Mitchell. Said negro is about 18 years old, black, five feet high, has a scar over the left temple; had on when last seen a slouched hat and black woolen pants; supposed to be lurking about Richmond. The above reward will be given if delivered at my farm, or Mr. Jack Fisher’s. Loftin D. Allen. Henrico county. je 10 – cod3t
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Treasury Department, Confederate States of America. Loans on the Security of the five hundred Million Six Per Cent. Non-taxable Bonds, under the Seventh Section of the Currency Law. – Deposits on call will be received by the Treasurer in this city, Assistant Treasurers at Charleston and Mobile, and the Depositaries at Wilmington, Raleigh, Columbia, Augusta, Savannah and Montgomery, and certificates will be issued for the same, bearing interest at the fate of four per cent. per annum, and secured by the hypothecation of an amount of the above bonds equal to the sum of these loans. The bonds to be set apart by the Treasurer, and the proceeds, when sold, applied exclusively to the payment of the said certificates. The security and convenience afforded to banks and other corporations, and to the public generally, by this mode of temporary investment, and the effect of the measure, if generally adopted, in keeping the currency within moderate bounds, it is hoped will commend it to the favorable consideration of the community and secure their prompt co-operation in carrying it into effect. G. A. Trenholm, Secretary of the Treasury. Richmond, July 22, 1864. au 22 – ts
+One hundred and fifty dollars reward. – Ran away, on Monday, 17th instant, a Negro Boy, sixteen years old; about five feet eight or nine inches high, very nearsighted, and black, with a scar on the left cheek, under the eye. He has been seen in the city every day. The above reward will be paid for his delivery at the New Richmond Theatre, corner Seventh and Broad streets. oc 21 – ts
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+50 dollars reward. – Ran away on Monday, the 18th inst, from Mrs Lucy C Binford, , a negro girl about eighteen years old, well grown, dark brown, slender made — She was at the head of Mechanicsville Turnpike, Hanover county, and she is probably lurking about that neighborhood. She has a husband living with Dr John G Lempkis. I will pay the above reward if delivered to me, or secured in jail so that I can get her. J. B. Keesee, Adm’r of W. M. A. Binford, dec’d. Henrico co, July 25, 1864 jy 26 – 2t
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+500 dollars reward. – I will give the above reward for the apprehension of, and delivery to me; at my office, or his lodgement in jail so that I can get him) of my servant boy George Henry Ray. Said boy is a bright mulatto, about five feet high, wooly hair, has a swaggering walk, speaks very quick, and has a very sullen look. He may possibly be lurking about the city, as he has acquaintances in every part of it, but my impression is that he is endeavoring to get to Fredericksburg, from thence to Stafford, to the farm of the late Major John Seddon where he has a father.) in order to pass the lines. Soldiers in the camps are cautioned against employing said boy. M A Blackman, Surgeon and Dentist, No. 83 Main street, Richmond, Va. As he has been accompanying the to the hospitals, he has a pass from Capt Coke, requesting the guard to pass him unmolested. M A B. jy 22 – ts
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ran away – From the gravel train on Sunday, 28th ult, four negroes, named Ned, Frederick, Efford, and Albert, hired of Mrs. A C Isbell, of Cumberland county. Efford and Albert are of a bright gingerbread color, 5 feet 10 inches high; Ned and Frederick are of dark complexion, stout, 5 feet 7 inches high. The usual reward will be paid for their apprehension. C G Talbott. Supt Richmond and Denville R R. mh 6 – ts
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+200 dollars reward. – Ranaway from the subscriber about the 17th of January last, two slaves, named Doctor and Raleigh commonly called Flem. Both are black, quick, active man. – Doctor is about 19 years old, had his left hand hurt in an apple mill and scarred on the outside, and has lost one or more of his nails from that hand. He had on a red flannel shirt when he left. Flem is left handed, and is about 17 years of age. I will give $100 a piece for the delivery to me, or to some jail from which I can get them, of the said slaves, if caught out of the county of Charlotte, or $50 a piece if apprehended in the county. I believe they are passing as free men, and are trying to get employment on the Richmond and Danville, or Southside Railroad. Address, Henry E. Edmunds, Moesingford P. O., Charlotte county. Va. fe 16 – 1m
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+200 dollars reward. – Ran off on 19th March a negro woman named Creasy, a very small black woman, thick lips, and large nose, and very short spoken. Carried off with her two new striped homespun yarn dresses, one brown and the other black. The above reward will be given for her apprehension if taken out of the county, at one hundred if taken in the county, in either case to be delivered to me or secured in jail so I get her again. William Priddy. Negro Foot P. O., Hanover co, Va. ap 2 – 6t
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+300 dollars reward – will be paid for the delivery of my servant girl Carellec, who left on Tuesday morning, the 1st instant. She is black, about 18 years of age, well grown, rather stout, has round face and thick lips. A Rodeker, Druggist, No. 19 Main st. au 6 –
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Five hundred dollars reward. – Ran away from the Richmond Arsenal, where he was hired, about the 20th of July, my negro man, Peter miles, sometimes called Peter Redd. He is twenty-two or twenty-three years of age, five feet eight or nine inches high, gingerbread color, rather a long face, nose rather long and flat, and carries himself very erect. When he left the arsenal be wore a grey jacket and cap. He is no doubt making an effort to pass through our lines. I will give the above reward if caught beyond the limits of the city, or two hundred and fifty dollars if caught within the corporate limits and secured in any jail so that I get him. Neal McCURDY. au 10 – 6t*
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ran away from my Farm, at the Half-way House, on the Richmond and Petersburg railroad, Chesterfield country, my man Richard. He left my farm last Tuesday morning, the 9th instant, and had on when he left a pair of dark pants, white cotton shirt, and had on a pair of shoes, no coat nor hat. He is about twenty or twenty-one years old, five feet six or seven inches high, black, has a small moustache, and speaks slow. I bought him last April, of Lee &amp; Bowman, in Richmond. He formerly belonged to Miss Margaret Bottom, of Amelia Courthouse. He has a wife at or near Amelia Courthouse, and may be trying to go there. He was last seen near the Half-Way Station. I will pay a liberal reward if caught and put in jail, or delivered to me. Address J. M. Wolff, 64 Main street, Richmond, Va., or Proctor’s Creek, Chesterfield county. au 17 – 6t*
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ranaway. – $100 reward. – From the subscriber, in 10th March, 1864, my men Washington, again about 26 years, about complexion, large mouth will be given if taken out of the State, and if taken in it, and secured so I get him. My address in Fork Union, Fluvanna co, Va., Samuel R. Pellet. ap 26 – 1aw4t
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+100 Dollars reward. – Ranaway from the Midlothian Coal Mines, a negro man named Joe, or Joe Hampton. He is about 25 years old, of dark brown color, spare made, about 5 feet 10 inches high, with rather large eyes, and somewhat wild expression of countenance, though generally smiling when spoken to. He was bought in January last of Mr C C Burton, near Petersburg, where his friends and connexions are, and he is probably in the neighborhood of that place. The above reward will be paid for his apprehension and delivery in any jail, or to the agent of the Company, at their mines, or in Richmond. my 12 – ts
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ruanaway. – $100 reward will be paid for the delivery to S N Davis &amp; Co. of a negro boy named John. He is about 18 years old, gingerbread color; he had on a black felt hat, boots tipped on the toes, and gray pantaloons, when he left Friday. He was raised in Albemarle, by Dr. T J Cook Geo. Turner mh 14 – 6t
 </td>
 </tr>
 </tbody>
@@ -1454,22 +1509,27 @@ text
 <tbody>
 <tr>
 <td style="text-align:left;">
-By the Governor of Virginia. – A Proclamation. – Whereas a vacancy has occurred in the General Assembly of this State by the resignation of James H. Carson, late the Senator for the District composed of the counties of Frederick, Clark, and Warren; Therefore I, William Smith, Governor of the Commonwealth of Virginia, do hereby proclaim and make known that elections will be held in the said counties on the fourth Thursday in May next for a Senator to fill the vacancy aforesaid; and the Sheriffs of the said counties are hereby required to caused elections to be held in their respective counties on the day and for the purpose mentioned. Refugees from the said counties, and citizens thereof now in the military service, will also be allowed to vote. Officers will cause polls to be opened in their respective military encampments, according to law. Given under my hand as Governor, and under the lesser seal of the Commonwealth, at Richmond, this 21st days of March, in the year 1864. By the Governor. Wm. Smith. Geo. W. Munford, Secretary of the Commonwealth. mh 23 – 1awtd
+For rent – A store neatly fitted up, and the best stand in the town. Apply to John Perry, Ashland Hotel. fe 6 – 2t*
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-By the Governor of Virginia – A Proclamation. – Information having been received by the Executive that Pleasant, a slave, the property of Theodorick Carter, Sr, who was confined in the jail of Appomattox county, under sentence of death for the murder of Wm. V. Hotley, has made his escape from the said jail and is now going at large: Therefore, I do hereby offer a reward of two hundred dollars to any person or persons who shall arrest the said slave Pleasant and deliver him into the jail of said county of Appomattox; and I do moreover require all officers of this Commonwealth, civil and military, and request the people generally, to use their best exertions to procure the arrest of the said Pleasant, that he may be brought to justice. Given under my hand as Governor, and under the Lesser Seal of the Commonwealth, at Richmond, this 15th day of January, in the year 1864. Wm. Smith. By the Governor. Geo. W. Munford, Sec’y of the Commonwealth. Pleasant is a dark mulatto, about 30 years of age, 5 feet 10 inches high, and heavy built. ja 19 – sw3tMilitary Notices.
+For Rent – Two nicely furnishes rooms, suitable for ladies and gentlemen, or gentlemen, with use of parlor and kitchen. Apply at the corner house on the north corner of Marshall and Adams streets. mh 7 – 1t*
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-State of Virginia, Executive Department, Richmond, November 4, 1864, A proclamation. – Whereas, a vacancy has occurred in the General Assembly of this Commonwealth by the resignation of S. W. Thomas, the member of the House of Delegates from the county of Warren; therefore. I, William Smith, Governor of the Commonwealth of Virginia, do Hereby proclaim and make known that an election will be held in said county, at the places prescribed by law, to supply the vacancy aforesaid, on the first Thursday in December next. Given under my hand as Governor, and under the lesser seal of the Commonwealth, at Richmond, this 4th day of November, 1864, and in the eighty-ninth year of the Commonwealth. William Smith. Teste: George W. Munford, Secretary of the Commonwealth. no 7 – tdeRailroads and Steamers.
+Shockoe Mill, Seventeenth street, across the Dock. Wheat and Corn ground on tell. For sale – Nice New Flour at $1. 25 per pound. Corn Meal at $55 per bushel. au 4 – 10t* For Rent and Sale.
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-By the Governor of Virginia. – A Proclamation. – Whereas, by reason of the presence of the public enemy in the county of Nansemond, the regular terms of the County Court Cannot be held at the Court House, therefore, by virtue of authority vested in the Executive by law, I, William Smith, Governor of the Commonwealth of Virginia, do hereby require the Justices composing the County Court of Nansemond county to hold the sessions of said Court at South Quay Church, in the said county, as long as the reason for the change hereby authorized shall continue. Given under my hand as Governor, and under the lesser seal of the Commonwealth, at Richmond, this 12th day of January, A D 1864, and in the 88th year of the Commonwealth. Wm Smith. By the Governor: George W. Munford, Secretary of the Commonwealth. ja 15 – c3t
+For Rent, a furnished House in a pleasant part of the city. For terms, address " E. S.," with references, Dispatch office. se 12 – 3t*
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+For Rent, a very desirable Dwelling-House, with eight rooms, a spacious yard, out-houses, &amp; c., on Nineteenth street, one door from Grace. Possession given on 1st October. Apply to Mrs. Branch, Franklin street, between Eighteenth and Nineteenth. se 12 – eod3t*
 </td>
 </tr>
 </tbody>
@@ -1489,57 +1549,17 @@ text
 <tbody>
 <tr>
 <td style="text-align:left;">
-Mayor’s Court, Saturday. – David Lewis and John J. Bowman were charged with stealing a horse belonging to E. G. Duval, and Jordan Miller with receiving the same knowing it to have been stolen. As no testimony was given in this case the particulars of the robbery were not made known. Witnesses for both sides are strictly enjoined to be in attendance on Wednesday. Henrietta Lanian, charged with withholding sundry articles of wearing apparel belonging to Carolina Totty. was, after an investigation of the matter, discharged. It appears that Miss Totty left the residence of Mrs. Lanian while she was in arrears for board, and leaving her clothes behind she conceived the idea that she could not obtain them without legal process. The accused freely consented to give up the clothing, though frankly confessed she had been badly treated by the complainant. Charles Miller, a baker on Broad street, was charged with threatening to whip Edward Vickers, and nailing up the window shutters of his residence. Vickers testified that during his absence from the city, Miller, without any authority, nailed up the window shutters opening into his yard, thereby excluding all light from his V.’s) dining room, and compelling his wife to take her meals by gas-light. Since his return to the city, M. called at his house and abused him in a most outrageous manner, threatening to rip him open, &amp; c. Vickers claimed to be terribly annoyed by M. – so much so that he would willingly sell his residence, which is next door, for five thousand dollars less than it was worth in order to get rid of him. The accused was required to give security for future good behavior. L. Foltz was fined $20 for buying eggs in the Second Market to sell again. Mr. Tyler, clerk of the market, stated that the practice had been so often committed that it was difficult for small buyers to obtain anything from first hands, and great complaints were made to him about it. A fine of $30 was imposed upon D. Von Grorling, for permitting his negro boy to buy eggs in the public market place without giving him a proper pass to do so.
+Silk culture. Some of our citizens are disposed to turn their attention to the culture of silk. It would afford a new and most profitable employment to women and children. Many years ago there was a great deal of silk produced in this State. The morus multicaulis was extensively cultivated, and almost every house had its room devoted to silk worms, and their feeding and spinning. The business was abandoned, however, and the multicaulis trees were taken up by the roots, and cast out upon the highways to die. Yet there are no doubt some scattering bushes which escaped the general massacre which occurred when it was concluded that the enterprise was unprofitable. Moreover, it may be that some person having faith in the old adage that everything — the most useless, even — comes in use once in seven years, may have saved and kept on hand a small stock of the silk worms. There is now an enquiry for them, and if anybody has ever so small a family, their eggs will sell almost as high as hen’s eggs. The have but to announce that they have the genuine silk worm, to invite orders from every direction.
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Forgery. – Officers Davis, Seal and Jenkins arrested yesterday afternoon a man named Thomas H. S. Boyd, charged with forging the name of Lewis Whitlock to an order for one year’s house rent, amounting to one thousand three hundred dollars. The order was drawn upon A. J. Allison. Immediately succeeding the arrest of the party, the money was taken possession of by officer Davis.
+50 Dollars reward. – Stolen from the residence of James Sinton, Jr, on Franklin st, on Sunday, the 8th last, one new large black Silk Circular, trimmed with white buttons. Also, one Stella Shawl. The above reward will be given for the return of the articles to the " Illustrated News Office," and no questions asked. my 9 – 3t
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Police Arrests. – The following parties have been arrested and committed to the cage since Saturday morning: Reuben, slave of Thomas Branch, charged with stealing a silver teapot, valued at $100, and a ham of bacon, valued at $50, the property of Emma Cummings; James Dunn, a white man, charged with stealing iron from the Petersburg railroad depot, and Davy, slave of John R. Harris, arrested as a suspicious character.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Deserted to the enemy. – John Cunningham, a member of one of the local defence companies, now below the city, deserted to the Yankees on Friday last. A short time since he was arraigned for trail before Judge Lyons on the charge of stealing money from Mrs. William S. Munson, of this city, but was acquitted.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Iron exchanged for country Produce. – Having, at present, more than our usual assortment of Rolled Iron, for plantation use, we will exchange it for country produce at the Richmond market price, the purchaser taking not less than $500 worth at a time, or we will sell in the usual way for Confederate money. On hand, Broad Iron, for Ploughs, Nail Rods and Horseshoe Iron. John N. Gordon &amp; son. Fourteenth street, Richmond. oc 7 – 1t
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Sent on for trial. – The examination of Frederick Maisch and Emanuel Raymond, butchers, in the Second Market, took place before C. S. Commissioner A. H. Sands yesterday. These parties were arrested on the part of the Confederate States for making false returns of their receipts to the C. S. War Tax Assessor. The evidence elicited before the Commissioner was strongly against the accused, and they were therefore sent on for trial before Judge Halyburton on the 10th of next month. Each of them gave ball to appear. Other parties will undergo examination for the same offence this morning.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Stealing lard – A negro named Ben, slave of George Governator, was arrested Wednesday night with a lot of lard in his possession, weighing about eight pounds, supposed to have been stolen. The evidence before the Mayor yesterday was sufficiently strong against Ben to ensure him a sound whipping.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-New laws in Alabama. – Alabama will be decidedly an unsafe State for law-breakers to reside in. Among the acts passed at the late session of the Alabama Legislature was one which makes the crimes of negro stealing, horse stealing, burglary, robbery and arson, punishable with death by hanging, without discretion of the jury. Another to punish by imprisonment in the penitentiary, for a term not exceeding five years, any impressing officer who violates the impressment law in any shape or form in the execution, or pretended execution, of the same.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Confederate States District Court, yesterday. – This court met at the usual hour – Judge Halyburton presiding, A. H. Sands acting prosecutor. Write of habeas corpus were awarded P. A. L. Coutee, William H. May, George G. Coombe, Marshall Forbes and John M. Shustei, members of Captain William F. Dement’s Maryland battery, claiming discharge from service on the ground of expiration of term of enlistment and illegality of compelling exiles to re-enlist. William P. Compton, John G. Harris, Samuel F. Thomas, Joshua E. Stinehcomb and John C. Handy were discharged from Captain William F. Dement’s company upon writs claiming their discharge upon grounds mentioned in paragraph above. Peter Morris was discharged on account of being over age — he proving himself to be sixty-two years old. A nolle prosequi was entered by consent of the prosecutor in case of Mary B. Yates, indicted for harboring deserters. Court adjourned till eleven o’clock this morning.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Gathering them in. – The police are as busily engaged on the trail of the vicious and idle loungers that infest the city as ever a hound was on that of a hare. They suspect that the scores of able-bodied idlers who infect the city are parties to the burglaries and robberies continually perpetrated, and they are bent on unearthing them at any cost of labor. Yesterday morning a brace of young men, known to be without visible means of support, were before the Mayor, and ordered to be locked up.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-A Mistress charged with Steeling from her servant. – A German woman, named Louise Rumpt, made complaint before the Mayor yesterday against Mrs. Louisa Coleburn, for breaking open her trunk a day or two since and stealing therefrom $820 in Confederate and corporation notes. From the mass of almost unintelligible testimony, which was given in broken German, we give the following as the gist of the evidence: The witnesses for the complainant asseverate that during the absence from home of Miss Rumpt, who has been for several months back in the employment of Mrs. Coleburn as a servant, her trunk was broken open and the money taken from the pocket of a dress which was in it. Afterwards Mr. Coleburn expressed gratification that the girl had left his employ, at the same time remarking that his wife had forced the lock to her trunk and taken out the money. For the defence it was proven the for some time back Mr. Coleburn had lost various sums of money, and very recently a boarder in the house lost a valuable penknife. Having reason to suspect the servant girl as the thief, advantage was taken of her absence from home by Mrs. Coleburn to institute a search among her things, when in her trunk, the lock to which was forced, were found the knife and some money, amounting to a little over $400, some of which Coleburn recognized as a part of that which he had stolen from him. Subsequently Miss Rumpt acknowledged, according to the testimony of a witness, that she had taken the knife which he had lost, and that the money found in her trunk was some which she had received from a lady for value received. In consideration of the fact that Mrs. Coleburn had heretofore lost money, it was decided by herself and husband to retain the money found in the trunk. The Mayor postponed further examination till this morning.
+Blockade Goods. – Mantle Depot, 60 Main, between 14th and 15th streets. – Ladies’silk parasols, large sizes; white silk illusion; superior quality bonnet ribbons; blond laces; blk silk lacer; blk English crapes; blk English crapes; blk dress silk; bonnet frames; checked muslins, jaconets; cambrics; bleached cotton; extra heavy English cotton hose; lists hose; crape collars; palm leaf fans; black alpacas; castile soap; Ezekiel’s hair tonic; tooth brushes; pomades; collogue, &amp; c, &amp; c. Mantle Depot, 69 Main, bet 14th and 15th sts jy 11 – 3t*
 </td>
 </tr>
 </tbody>
@@ -1561,7 +1581,7 @@ A Mistress charged with Steeling from her servant. – A German woman, named Lou
 <h2><span class="header-section-number">9.5</span> K-means clustering</h2>
 <p>Let’s get a different sample from our data. With k-means clustering we can run on more data:</p>
 <div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="co"># RANDOMLY SELECT N ITEMS</span></span>
-<span id="cb163-2"><a href="text-analysis-iii-finding-groups-of-texts.html#cb163-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">786</span>)</span>
+<span id="cb163-2"><a href="text-analysis-iii-finding-groups-of-texts.html#cb163-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">48965</span>)</span>
 <span id="cb163-3"><a href="text-analysis-iii-finding-groups-of-texts.html#cb163-3" aria-hidden="true" tabindex="-1"></a>N <span class="ot">=</span> <span class="dv">1000</span></span>
 <span id="cb163-4"><a href="text-analysis-iii-finding-groups-of-texts.html#cb163-4" aria-hidden="true" tabindex="-1"></a>sampledIDs <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">unique</span>(df_TF_IDF<span class="sc">$</span>id), N)</span>
 <span id="cb163-5"><a href="text-analysis-iii-finding-groups-of-texts.html#cb163-5" aria-hidden="true" tabindex="-1"></a>sample_d1864_tfidf <span class="ot">&lt;-</span> df_TF_IDF <span class="sc">%&gt;%</span> <span class="fu">filter</span>(id <span class="sc">%in%</span> sampledIDs) <span class="sc">%&gt;%</span></span>
@@ -1578,17 +1598,17 @@ A Mistress charged with Steeling from her servant. – A German woman, named Lou
 <div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb164-1" aria-hidden="true" tabindex="-1"></a>kmeansClusters <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(distanceMatrixKM, <span class="at">centers=</span><span class="dv">5</span>, <span class="at">nstart=</span><span class="dv">25</span>)</span>
 <span id="cb164-2"><a href="text-analysis-iii-finding-groups-of-texts.html#cb164-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(kmeansClusters)</span></code></pre></div>
 <pre><code>## List of 9
-##  $ cluster     : Named int [1:1000] 4 4 4 4 4 4 1 1 4 4 ...
-##   ..- attr(*, &quot;names&quot;)= chr [1:1000] &quot;1864-03-30_article_50&quot; &quot;1864-02-08_advert_86&quot; &quot;1864-05-09_advert_42&quot; &quot;1864-02-08_article_15&quot; ...
-##  $ centers     : num [1:5, 1:1000] 1 1 1 0.993 1 ...
+##  $ cluster     : Named int [1:1000] 2 2 2 2 2 2 5 2 2 2 ...
+##   ..- attr(*, &quot;names&quot;)= chr [1:1000] &quot;1864-01-28_article_49&quot; &quot;1864-10-10_printrun_6&quot; &quot;1864-10-10_advert_3&quot; &quot;1864-06-22_article_22&quot; ...
+##  $ centers     : num [1:5, 1:1000] 1 0.997 1 1 1 ...
 ##   ..- attr(*, &quot;dimnames&quot;)=List of 2
 ##   .. ..$ : chr [1:5] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
-##   .. ..$ : chr [1:1000] &quot;1864-03-30_article_50&quot; &quot;1864-02-08_advert_86&quot; &quot;1864-05-09_advert_42&quot; &quot;1864-02-08_article_15&quot; ...
-##  $ totss       : num 2025
-##  $ withinss    : num [1:5] 6.68 111.27 104.61 1185.72 193.31
-##  $ tot.withinss: num 1602
-##  $ betweenss   : num 423
-##  $ size        : int [1:5] 16 43 73 739 129
+##   .. ..$ : chr [1:1000] &quot;1864-01-28_article_49&quot; &quot;1864-10-10_printrun_6&quot; &quot;1864-10-10_advert_3&quot; &quot;1864-06-22_article_22&quot; ...
+##  $ totss       : num 2199
+##  $ withinss    : num [1:5] 9.03 1313.82 84.42 186.05 9.94
+##  $ tot.withinss: num 1603
+##  $ betweenss   : num 595
+##  $ size        : int [1:5] 12 806 37 121 24
 ##  $ iter        : int 3
 ##  $ ifault      : int 0
 ##  - attr(*, &quot;class&quot;)= chr &quot;kmeans&quot;</code></pre>
@@ -1599,12 +1619,12 @@ A Mistress charged with Steeling from her servant. – A German woman, named Lou
 <span id="cb166-4"><a href="text-analysis-iii-finding-groups-of-texts.html#cb166-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb166-5"><a href="text-analysis-iii-finding-groups-of-texts.html#cb166-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(kmeans_clusters_df)</span></code></pre></div>
 <pre><code>##                      id cluster
-## 1 1864-03-30_article_50       4
-## 2  1864-02-08_advert_86       4
-## 3  1864-05-09_advert_42       4
-## 4 1864-02-08_article_15       4
-## 5 1864-04-16_article_26       4
-## 6 1864-12-08_article_72       4</code></pre>
+## 1 1864-01-28_article_49       2
+## 2 1864-10-10_printrun_6       2
+## 3   1864-10-10_advert_3       2
+## 4 1864-06-22_article_22       2
+## 5 1864-04-16_article_26       2
+## 6 1864-03-07_advert_112       2</code></pre>
 <p>We can visualize the results of our kmeans clustering using <code>fviz_cluster()</code> (from <code>factoextra</code>). Our data is multidimensional — each word in our matrix is a single dimension, so this function will perform principal component analysis (PCA) and plot data according to the first two principal components that explain majority of the variance in our dataset.</p>
 <div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb168-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">786</span>)</span>
 <span id="cb168-2"><a href="text-analysis-iii-finding-groups-of-texts.html#cb168-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_cluster</span>(kmeansClusters, <span class="at">data =</span> distanceMatrix, <span class="at">labelsize =</span> <span class="dv">0</span>)</span></code></pre></div>
