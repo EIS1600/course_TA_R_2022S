@@ -1,4 +1,4 @@
-# Text Analysis III: finding Groups of Texts
+# Text Analysis III: Finding Groups of Texts
 
 ```{r echo=FALSE}
 library(knitr)
