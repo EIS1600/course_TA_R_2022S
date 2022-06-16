@@ -63,6 +63,103 @@ d1864$date <- as.Date(d1864$date, format="%Y-%m-%d")
 knitr::kable(head(d1864), table.attr = "class=\"striped\"", format="html")
 ```
 
+Let's remove low freq items:
+
+```{r}
+d1864_lowFreq <- d1864 %>%
+  unnest_tokens(word, text) %>%
+  count(word, sort=TRUE)
+
+summary(d1864_lowFreq)
+```
+
+```{r}
+lowFreq <- d1864_lowFreq %>%
+  filter(n <= 1)
+summary(lowFreq)
+```
+
+Most of these low-frequency items are typos:
+
+```{r}
+lowFreq
+```
+
+We can `anti-join` our corpus with `lowFreq`, which will remove them:
+
+```{r}
+d1864_clean <- d1864 %>%
+  filter(type != "ad_blank")
+
+d1864_clean <- d1864_clean %>%
+  unnest_tokens(word, text) %>%
+  anti_join(lowFreq, by="word") %>%
+  group_by(id) %>%
+  count(word, sort=TRUE)
+
+# unfiltered:      2,815,144
+# filtered (>3):   2,749,078
+```
+
+Additionally, we need to remove `stop words`, but first we need to identify them.
+
+```{r}
+d1864_clean_FL <- d1864_clean %>%
+  group_by(word) %>%
+  summarize(freq=sum(n)) %>%
+  arrange(desc(freq))
+
+d1864_clean_FL
+```
+
+To make things faster, you can remove top 50, 100, 150, 200 most frequent words, but this is a rather brutal way. Ideally, you want to curate your own stop word list that will be tuned to your texts. Below, I have taken top 500 words and manually removed everything that was meaningful (or, better, what I *considered* meaningful). Additionally, there are also NLP procedures that are designed to lemmatize words (i.e., reduce all words to their dictionary forms) and also do part-of-speech tagging, which allows to remove words categorically (for example, keeping only nouns, adjectives and verbs). 
+
+```{r}
+word <- c("the", "of", "and", "to", "in", "a", "that", "for", "on", "was", "is", "at", "be", "by", "from", "his", "he", "it", "with", "as", "this", "will", "which", "have", "or", "are", "they", "their", "not", "were", "been", "has", "our", "we", "all", "but", "one", "had", "who", "an", "no", "i", "them", "about", "him", "two", "upon", "may", "there", "any", "some", "so", "men", "when", "if", "day", "her", "under", "would", "c", "such", "made", "up", "last", "j", "time", "years", "other", "into", "said", "new", "very", "five", "after", "out", "these", "shall", "my", "w", "more", "its", "now", "before", "three", "m", "than", "h", "o'clock", "old", "being", "left", "can", "s", "man", "only", "same", "act", "first", "between", "above", "she", "you", "place", "following", "do", "per", "every", "most", "near", "us", "good", "should", "having", "great", "also", "over", "r", "could", "twenty", "people", "those", "e", "without", "four", "received", "p", "then", "what", "well", "where", "must", "says", "g", "large", "against", "back", "000", "through", "b", "off", "few", "me", "sent", "while", "make", "number", "many", "much", "give", "1", "six", "down", "several", "high", "since", "little", "during", "away", "until", "each", "5", "year", "present", "own", "t", "here", "d", "found", "reported", "2", "right", "given", "age", "your", "way", "side", "did", "part", "long", "next", "fifty", "another", "1st", "whole", "10", "still", "among", "3", "within", "get", "named", "f", "l", "himself", "ten", "both", "nothing", "again", "n", "thirty", "eight", "took", "never", "came", "called", "small", "passed", "just", "brought", "4", "further", "yet", "half", "far", "held", "soon", "main", "8", "second", "however", "say", "heavy", "thus", "hereby", "even", "ran", "come", "whom", "like", "cannot", "head", "ever", "themselves", "put", "12", "cause", "known", "7", "go", "6", "once", "therefore", "thursday", "full", "apply", "see", "though", "seven", "tuesday", "11", "done", "whose", "let", "how", "making", "immediately", "forty", "early", "wednesday", "either", "too", "amount", "fact", "heard", "receive", "short", "less", "100", "know", "might", "except", "supposed", "others", "doubt", "set", "works") 
+
+sWordsDF <- data.frame(word)
+
+d1864_clean_minusSW <- d1864_clean %>%
+  anti_join(sWordsDF, by="word")
+```
+
+```{r}
+dim(d1864_clean)
+# 1,759,828
+```
+
+```{r}
+dim(d1864_clean_minusSW)
+# 1,159,214
+```
+
+### TF-IDF
+
+From Wikipedia: In information retrieval, tf–idf or TFIDF, short for term frequency–inverse document frequency, is a numerical statistic that is intended to reflect how important a word is to a document in a collection or corpus.[1] It is often used as a weighting factor in searches of information retrieval, text mining, and user modeling. The tf–idf value increases proportionally to the number of times a word appears in the document and is offset by the number of documents in the corpus that contain the word, which helps to adjust for the fact that some words appear more frequently in general. tf–idf is one of the most popular term-weighting schemes today; 83% of text-based recommender systems in digital libraries use tf–idf. Variations of the tf–idf weighting scheme are often used by search engines as a central tool in scoring and ranking a document's relevance given a user query. tf–idf can be successfully used for stop-words filtering in various subject fields, including text summarization and classification. One of the simplest ranking functions is computed by summing the tf–idf for each query term; many more sophisticated ranking functions are variants of this simple model.
+
+```{r}
+df_TF_IDF <- d1864_clean_minusSW %>% # d1864_clean, d1864_clean_minusSW
+  bind_tf_idf(word, id, n) %>%
+  arrange(desc(tf_idf)) %>%
+  ungroup
+
+df_TF_IDF
+```
+
+```{r}
+articleID = "1864-07-25_article_6"
+filter(df_TF_IDF, id==articleID) %>%
+  arrange(desc(tf_idf))
+```
+
+```{r}
+d1864$text[d1864$id==articleID]
+```
+
+
+
+
+
 ...
 
 
