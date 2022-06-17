@@ -1577,7 +1577,7 @@ Blockade Goods. – Mantle Depot, 60 Main, between 14th and 15th streets. – La
 <span id="cb171-2"><a href="text-analysis-iii-finding-groups-of-texts.html#cb171-2" aria-hidden="true" tabindex="-1"></a>kmeansClusters <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(distanceMatrixKM, <span class="at">centers=</span><span class="dv">5</span>, <span class="at">nstart=</span><span class="dv">25</span>)</span>
 <span id="cb171-3"><a href="text-analysis-iii-finding-groups-of-texts.html#cb171-3" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_cluster</span>(kmeansClusters, <span class="at">data =</span> distanceMatrix, <span class="at">labelsize =</span> <span class="dv">0</span>)</span></code></pre></div>
 <p><img src="main_files/figure-html/unnamed-chunk-109-1.png" width="672" /></p>
-<p>Here is, however, an example of where k-means clustering may/can fail: we gave a different starting point to the algorithm and</p>
+<p>Here is, however, an example of where k-means clustering may/can fail: we gave a different starting point to the algorithm and the clustering outcome may be different:</p>
 <div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb172-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">786</span>)</span>
 <span id="cb172-2"><a href="text-analysis-iii-finding-groups-of-texts.html#cb172-2" aria-hidden="true" tabindex="-1"></a>kmeansClusters <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(distanceMatrixKM, <span class="at">centers=</span><span class="dv">5</span>, <span class="at">nstart=</span><span class="dv">50</span>)</span>
 <span id="cb172-3"><a href="text-analysis-iii-finding-groups-of-texts.html#cb172-3" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_cluster</span>(kmeansClusters, <span class="at">data =</span> distanceMatrix, <span class="at">labelsize =</span> <span class="dv">0</span>)</span></code></pre></div>
@@ -1726,8 +1726,7 @@ Blockade Goods. – Mantle Depot, 60 Main, between 14th and 15th streets. – La
 <span id="cb186-8"><a href="text-analysis-iii-finding-groups-of-texts.html#cb186-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
 <p>Here it is in a bit of a better quality:</p>
 <p><img src="files/data/topics.png" /></p>
-<p>Topic-per-document probabilities: this object will tell us to which topics documents belong (and to what extent):
-(<em>gamma</em> stands for topic-per-document probability).</p>
+<p>Topic-per-document probabilities: this object will tell us to which topics documents belong (and to what extent): (<em>gamma</em> stands for topic-per-document probability).</p>
 <div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb187-1" aria-hidden="true" tabindex="-1"></a>lda_model_topic_doc_prob <span class="ot">&lt;-</span> <span class="fu">tidy</span>(lda_model, <span class="at">matrix=</span><span class="st">&quot;gamma&quot;</span>)</span>
 <span id="cb187-2"><a href="text-analysis-iii-finding-groups-of-texts.html#cb187-2" aria-hidden="true" tabindex="-1"></a>lda_model_topic_doc_prob</span></code></pre></div>
 <pre><code>## # A tibble: 356,150 × 3
@@ -1824,7 +1823,7 @@ Blockade Goods. – Mantle Depot, 60 Main, between 14th and 15th streets. – La
 <span id="cb203-3"><a href="text-analysis-iii-finding-groups-of-texts.html#cb203-3" aria-hidden="true" tabindex="-1"></a>lda_model_topics_final <span class="ot">&lt;-</span> lda_model_topics <span class="sc">%&gt;%</span></span>
 <span id="cb203-4"><a href="text-analysis-iii-finding-groups-of-texts.html#cb203-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(topic <span class="sc">==</span> topicVal)</span>
 <span id="cb203-5"><a href="text-analysis-iii-finding-groups-of-texts.html#cb203-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb203-6"><a href="text-analysis-iii-finding-groups-of-texts.html#cb203-6" aria-hidden="true" tabindex="-1"></a>graph2 <span class="ot">&lt;-</span> <span class="fu">plot</span>(<span class="at">x=</span>lda_model_topics_final<span class="sc">$</span>date, <span class="at">y=</span>lda_model_topics_final<span class="sc">$</span>freq, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lty=</span><span class="dv">3</span>, <span class="at">lwd=</span><span class="dv">1</span>,</span>
+<span id="cb203-6"><a href="text-analysis-iii-finding-groups-of-texts.html#cb203-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span>lda_model_topics_final<span class="sc">$</span>date, <span class="at">y=</span>lda_model_topics_final<span class="sc">$</span>freq, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lty=</span><span class="dv">3</span>, <span class="at">lwd=</span><span class="dv">1</span>,</span>
 <span id="cb203-7"><a href="text-analysis-iii-finding-groups-of-texts.html#cb203-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="fu">topicVar</span>(topicVal, top_terms),</span>
 <span id="cb203-8"><a href="text-analysis-iii-finding-groups-of-texts.html#cb203-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;1864 - Dispatch coverage&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;topic saliency&quot;</span>)</span>
 <span id="cb203-9"><a href="text-analysis-iii-finding-groups-of-texts.html#cb203-9" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(<span class="at">x0=</span>lda_model_topics_final<span class="sc">$</span>date, <span class="at">x1=</span>lda_model_topics_final<span class="sc">$</span>date, <span class="at">y0=</span><span class="dv">0</span>, <span class="at">y1=</span>lda_model_topics_final<span class="sc">$</span>freq, <span class="at">lty=</span><span class="dv">1</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span></code></pre></div>
@@ -1886,7 +1885,6 @@ Blockade Goods. – Mantle Depot, 60 Main, between 14th and 15th streets. – La
 <span id="cb207-21"><a href="text-analysis-iii-finding-groups-of-texts.html#cb207-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb207-22"><a href="text-analysis-iii-finding-groups-of-texts.html#cb207-22" aria-hidden="true" tabindex="-1"></a>distanceMatrix <span class="ot">&lt;-</span> <span class="fu">as.dist</span>(distanceMatrix)</span>
 <span id="cb207-23"><a href="text-analysis-iii-finding-groups-of-texts.html#cb207-23" aria-hidden="true" tabindex="-1"></a>clustered.data <span class="ot">&lt;-</span> <span class="fu">hclust</span>(distanceMatrix, <span class="at">method =</span> clusteringMethod)</span></code></pre></div>
-<p>…</p>
 </div>
 <div id="HW09" class="section level2" number="9.8">
 <h2><span class="header-section-number">9.8</span> Homework</h2>

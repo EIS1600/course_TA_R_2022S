@@ -370,7 +370,7 @@ kmeansClusters <- kmeans(distanceMatrixKM, centers=5, nstart=25)
 fviz_cluster(kmeansClusters, data = distanceMatrix, labelsize = 0)
 ```
 
-Here is, however, an example of where k-means clustering may/can fail: we gave a different starting point to the algorithm and 
+Here is, however, an example of where k-means clustering may/can fail: we gave a different starting point to the algorithm and the clustering outcome may be different:
 
 ```{r}
 set.seed(786)
@@ -533,8 +533,7 @@ Here it is in a bit of a better quality:
 
 ![](./files/data/topics.png)
 
-Topic-per-document probabilities: this object will tell us to which topics documents belong (and to what extent):
-(*gamma* stands for topic-per-document probability).
+Topic-per-document probabilities: this object will tell us to which topics documents belong (and to what extent): (*gamma* stands for topic-per-document probability).
 
 ```{r}
 lda_model_topic_doc_prob <- tidy(lda_model, matrix="gamma")
@@ -611,7 +610,7 @@ topicVal = 8
 lda_model_topics_final <- lda_model_topics %>%
   filter(topic == topicVal)
 
-graph2 <- plot(x=lda_model_topics_final$date, y=lda_model_topics_final$freq, type="l", lty=3, lwd=1,
+plot(x=lda_model_topics_final$date, y=lda_model_topics_final$freq, type="l", lty=3, lwd=1,
      main=topicVar(topicVal, top_terms),
      xlab = "1864 - Dispatch coverage", ylab = "topic saliency")
 segments(x0=lda_model_topics_final$date, x1=lda_model_topics_final$date, y0=0, y1=lda_model_topics_final$freq, lty=1, lwd=2)
