@@ -604,16 +604,15 @@ lda_model_topics
 
 Now, we can plot topic distribution over time:
 
-```{r fig.height=4, fig.width=9}
+```{r eval=FALSE, fig.height=4, fig.width=9, include=TRUE}
 topicVal = 8
 
 lda_model_topics_final <- lda_model_topics %>%
   filter(topic == topicVal)
 
-plot(x=lda_model_topics_final$date, y=lda_model_topics_final$freq, type="l", lty=3, lwd=1,
+graph2 <- plot(x=lda_model_topics_final$date, y=lda_model_topics_final$freq, type="l", lty=3, lwd=1,
      main=topicVar(topicVal, top_terms),
-     xlab = "1864 - Dispatch coverage", ylab = "topic saliency")
-segments(x0=lda_model_topics_final$date, x1=lda_model_topics_final$date, y0=0, y1=lda_model_topics_final$freq, lty=1, lwd=2)
+     xlab = "1864 - Dispatch coverage", ylab = "topic saliency"); segments(x0=lda_model_topics_final$date, x1=lda_model_topics_final$date, y0=0, y1=lda_model_topics_final$freq, lty=1, lwd=2)
 
 ```
 
