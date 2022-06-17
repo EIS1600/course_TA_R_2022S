@@ -416,7 +416,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Loading…</p>
 <div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb127-1" aria-hidden="true" tabindex="-1"></a>d1864 <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">&quot;./files/data/dispatch_1864.tsv&quot;</span>, <span class="at">encoding=</span><span class="st">&quot;UTF-8&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">quote=</span><span class="st">&quot;&quot;</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb127-2"><a href="text-analysis-iii-finding-groups-of-texts.html#cb127-2" aria-hidden="true" tabindex="-1"></a>d1864<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(d1864<span class="sc">$</span>date, <span class="at">format=</span><span class="st">&quot;%Y-%m-%d&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb128-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(d1864), <span class="at">table.attr =</span> <span class="st">&quot;class=</span><span class="sc">\&quot;</span><span class="st">striped</span><span class="sc">\&quot;</span><span class="st">&quot;</span>, <span class="at">format=</span><span class="st">&quot;html&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb128-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(d1864, <span class="dv">1</span>), <span class="at">table.attr =</span> <span class="st">&quot;class=</span><span class="sc">\&quot;</span><span class="st">striped</span><span class="sc">\&quot;</span><span class="st">&quot;</span>, <span class="at">format=</span><span class="st">&quot;html&quot;</span>)</span></code></pre></div>
 <table class="striped">
 <thead>
 <tr>
@@ -453,91 +453,6 @@ The news.
 </td>
 <td style="text-align:left;">
 The news. Yesterday was an unusual dull day, there being a great dearth in the news market, which was the subject of general remark. – The report which prevailed towards night, to the effect that a battle was progressing on the line of the Rapidan, we feel authorized to contradict. All was quiet when the Central train left Gordonsville yesterday evening. The cannonading heard in the direction of Germanna Ford, previously noticed, was caused by artillery practice.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-1864-04-28_article_2
-</td>
-<td style="text-align:left;">
-1864-04-28
-</td>
-<td style="text-align:left;">
-article
-</td>
-<td style="text-align:left;">
-Yankee rule in Plymouth.
-</td>
-<td style="text-align:left;">
-Yankee rule in Plymouth. The following orders are copies of hand-bills posted in the town of Plymouth. It will be seen that Brig. Gen. Wessels is a model after Lincoln’s own heart, and undertook to " run the churches" and the schools besides. As we find the names of the General and the Provost Marshal, and the A. A., G.’s on the register of the Libby Hotel, in this city, it is more than likely that the children " between eight and fourteen" in Plymouth are having a cheerful vacation, and that Col. Moffitt will refrain for the present from the disagreeable duty of reporting the derelict heads of families who don’t enforce their attendance. This is the school order: Notice. The inhabitants of Plymouth are hereby notified that a Free school, for white children, will be spend under competent teachers, On Monday, 18th inst, in the Episcopal Church. The attention of parents and guardians is called in this important subject; and it is expected that all children between eight and fourteen years of age will attend the school. Those over fourteen may attend if they wish. Lieut. Col. Moffitt, Provost Marshal, will institute careful inquiries, and report such families as neglect to avail themselves of the advantages thus offered. By command of Brig. Gen. H. W. Wessels, Andrew Stewart, Assistant Adjutant General. Plymouth, N. C., April 14th, 1864. And this is the order for running the churches: Notice. Until further orders church call will be sounded at the Provost Guard on Sundays, at fifteen minutes before 11 A.M., and at 2. 15 P. M. the call to be repeated promptly by the drums of the several regiments and detachments. The annoyance caused by entering and leaving the churches during the performance of Divine service, and by the practice of spitting on the floor is excessive, and it is hoped that these evils will be corrected without the necessity of individual reproof. By order of Brig. Gen. H. W. Wessels, D. F. Beegle, Lieut, A. D. C. &amp; A. A. A. G. Plymouth, N. C, April 11th, 1864.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-1864-04-28_article_3
-</td>
-<td style="text-align:left;">
-1864-04-28
-</td>
-<td style="text-align:left;">
-article
-</td>
-<td style="text-align:left;">
-List of members of the next House of Representatives.
-</td>
-<td style="text-align:left;">
-List of members of the next House of Representatives. Below we give a correct list of the members of the next Confederate House of Representatives, prepared and courteously furnished us by Mr. De Louis Dalton, Asst-Clerk of the House. Those members whose names are marked thus [!] were members of the last Congress: Alabama. – 1st District, Thomas J. Foster;‖ 2, Wm R. Smith;‖ 3d, Williamson R. W. Cobb; 4th, Marcus H. Cruikshank; 5th, Francis S. Lyon;‖ 6th, Wm. P. Chilton; 7th, David Clopton;‖ 8th, James L. Pugh;‖ 9th, J. S. Dickinson. Arkansas. – 1st District, Felix I. Batson;‖ 2d, Rufus K. Garland; 3d, Augustus H. Garland;‖ 4th, Thomas B. Hanly.‖ Florida. – 1st District, St. George Rogers; 2d, Robert B. Hilton.‖ Georgia. – 1st District, Julian Hurtridge;‖ 2d, Wm. E. Smith; 3d, Mark H. Blandford; 4th, Clifford Anderson; 5th, J. T. Shewmake; 6th; J. H. Echots; 7th, James M. Smith; 8th, George N. Lester; 9th, H. P. Bell, 10th, Warren Aiken. Kentucky. – 1st District, Willis B. Machen;‖ 2d, George W. Triplett; 3d, Henry E. Read;‖ 4th Geo. W. Ewing;‖ 5th, James S. Chrisman;‖ 6th, Theodore. Le Burnett;‖ 7th, H. W. Bruce;‖ 8th, Humphrey Marshall; 9th, Ely M. Bruce; 10th, James W. Moore;‖ 11th Benjamin F. Bradly; 12th, John M. Eliott.‖ Louisiana. – 1st District, Charles J. Villere;‖ 2d, Chas. M. Conrad;‖ 3d, Duncan F. Kenner;‖ 4th, Lucins J. Dupre;‖ 5th, B. L. Hodge; 6th, John Perkins, Mississippi. – 1st District, John A. Orr; 2d, Wm. D. Holder,‖ 3d, Israel Welsh,‖ 4th, Henry C. Chambers;‖ 5th, Otho R. Singleton;‖ 6th, Ethelbert Barksdale;‖ 7th, J. T. Lampkin. Missouri. – To be elected May 2, 1864.) North Carolina. – 1st District, Wm. N. H. Smith;‖ 2d Robt. R. Bridgers;‖ 3d, J. T. Leach; 4th, Thos C. Faller; 5th, Josiah Turner; 6th, John A. Gilmer; 7th, James M. Leach; 8th, J. G. Ramsey; 9th, B. S. Gaithers, 10th, Geo. W. Logan. South Carolina. – 1st District, James M. Witherspoon; 2d, Wm. Porcher Miles;‖ 3d, Lucius M. Ayer;‖ 4th, Wm. D. Simpson;‖ 5th, James Farrar;‖ 6th, Wm. W. Boyee. Tennessee. – 1st District, Joseph B. Heiskell;‖ 2d, Wm. G. Swan‖; 3d, A. S. Colyer; 4th, John P. Murray; 5th, Henry S. Foote‖; 6th, E. A. Keeble; 7th, James McCollum; 8th, Thomas Menees;‖ 9th, John D. C. Atkins‖; 10th, John V. Wright‖; 11th, Daniel M. Currien‖; deceased.) Texas. – 1st District, John A. Wilcox‖, deceased;) 2d, C. C. Herbert‖; 3d, A.M. Branch; 4th, F. B. Sexton‖; 5th, A. R. Bayler; 6th, S. H. Morgan. Virginia. – 1st district, Robert L. Montague; 2d, R. H. Whitfield; 3d, Wms C. Wickham; 4th, T. S. Gholson; 5th, Thomas S. Bocock;‖ 6th, John Goode, Jr;‖ 7th, Wm. C. Rives; 8th; Daniel C. DeJarnett;‖ 9th, David Runsten;‖ 10th, F. W. M. Holliday; 11th, John R. Baldwin;‖ 12th, Waller R. Staples;‖ 13th, Fayette McMullen;‖ 4th, Samuel. A. Miller;‖ 15th, Robert Johnson;‖ 16th, Charles W. Russell.‖
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-1864-04-28_article_4
-</td>
-<td style="text-align:left;">
-1864-04-28
-</td>
-<td style="text-align:left;">
-article
-</td>
-<td style="text-align:left;">
-NO HEADER
-</td>
-<td style="text-align:left;">
-Provisions at the South. – The Mobile Advertize, in an article on the prices and the currency, gives some facts that contrast strangely with the Richmond market. It says: Three weeks ago we paid $22. 50 per hundred for folder. Yesterday we bought the same article at $10. A month since bacon was selling at $6. The present price is $3. 50 to $4. 00. We paid a month ago for corn meal $10; yesterday we bought the best article for $5. 00. Even flour has tumbled down $75 a barrel, although it is still unreasonably dear. We notice a decided improvement in the vegetable and meat markets. Customers do not throng to the market as they used to do. – We saw meat in the market yesterday morning that has been there since Saturday – a certain sign of two important facts; that money is scarce, more prized, and not so readily parted with as formerly, and that the supply of meat is not short of the demand. The fishermen even are becoming more moderate. We have never seen the market so abundantly supplied as since the 1st of April. We boarded a large oyster boat at the wharf a few days ago. It had the remains of its cargo on board – 10, 000 oysters. We asked the price – $3 a basket. How many in a basket? Over 200. That is $1. 50 a hundred. The oyster-shops ask $3. 00 a hundred. The oyster boat had been two days at the wharf, and the skipper said he had been trying all day to sell out, and was debating between throwing them away or giving them to the Free Market. We advised the latter course by all means. Certainly there are signs of lower prices. And they appear thus early in the operation of the late laws of Congress. We did not anticipate any marked effect of this legislation until the fives were ruled out like the larger notes and the new tax law had gone into effect. If such things be in the green, what may we not hope for in the dry? – Money is going to be scarce, and prices are, in our opinion, sure to fall. The effect of the tax upon the planter has been marked in one respect. He is sending produce to market which he never thought it worth his while to take the trouble of before. Fodder, shucks, bacon, corn, peas, &amp; c., are coming in more freely than at any time during the war, and the prices of all these articles are coming down. Starvation is an obsolete idea. – There has always been enough in the South for man and beast. It only needed a golden key to unlock the treasure. Funding and taxation have supplied it.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-1864-04-28_article_5
-</td>
-<td style="text-align:left;">
-1864-04-28
-</td>
-<td style="text-align:left;">
-article
-</td>
-<td style="text-align:left;">
-NO HEADER
-</td>
-<td style="text-align:left;">
-Impressive ceremony at Dalton. – A most interesting and impressive ceremony took place at the Episcopal Church in Dalton, Ga., on Wednesday last, in the confirmation, by Bishop Elliott, of four Generals of the Army of Tennessee, viz: Lieut. Gen. Hardee, and Gens. Govan, Shupe, and Strahl. The last named General was first received into the church by baptism, and then the rite of confirmation was administered to him with the others. The Atlanta Confederacy, referring to the impressive ceremony, says: An immense concourse, civil and military, witnessed the imposing spectacle, including the Commander in-Chief and nearly every general officer in the army. The Rev. Dr. Quintard and others of the Episcopal clergy officiated. The ceremony of " the laying on of hands" was performed by the eminent Bishop of this Dioceses the Rt. Rev. Bishop Stephen D. Elliott.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-1864-04-28_article_6
-</td>
-<td style="text-align:left;">
-1864-04-28
-</td>
-<td style="text-align:left;">
-article
-</td>
-<td style="text-align:left;">
-Later from the North.
-</td>
-<td style="text-align:left;">
-A sure way to avoid service. – The Winston N. C.) Sentinel states that Alexander Ridings, of Forsyth county, committed suicide last week by hanging himself, to keep from going to the army. Later from the North.
 </td>
 </tr>
 </tbody>
@@ -871,7 +786,9 @@ from
 </div>
 <div id="tf-idf-1" class="section level3" number="9.2.2">
 <h3><span class="header-section-number">9.2.2</span> TF-IDF</h3>
-<p>From Wikipedia: In information retrieval, tf–idf or TFIDF, short for term frequency–inverse document frequency, is a numerical statistic that is intended to reflect how important a word is to a document in a collection or corpus.[1] It is often used as a weighting factor in searches of information retrieval, text mining, and user modeling. The tf–idf value increases proportionally to the number of times a word appears in the document and is offset by the number of documents in the corpus that contain the word, which helps to adjust for the fact that some words appear more frequently in general. tf–idf is one of the most popular term-weighting schemes today; 83% of text-based recommender systems in digital libraries use tf–idf. Variations of the tf–idf weighting scheme are often used by search engines as a central tool in scoring and ranking a document’s relevance given a user query. tf–idf can be successfully used for stop-words filtering in various subject fields, including text summarization and classification. One of the simplest ranking functions is computed by summing the tf–idf for each query term; many more sophisticated ranking functions are variants of this simple model.</p>
+<blockquote>
+<p><strong>From Wikipedia</strong>: In information retrieval, tf–idf or TFIDF, short for term frequency–inverse document frequency, is a numerical statistic that is intended to reflect how important a word is to a document in a collection or corpus.[1] It is often used as a weighting factor in searches of information retrieval, text mining, and user modeling. The tf–idf value increases proportionally to the number of times a word appears in the document and is offset by the number of documents in the corpus that contain the word, which helps to adjust for the fact that some words appear more frequently in general. tf–idf is one of the most popular term-weighting schemes today; 83% of text-based recommender systems in digital libraries use tf–idf. Variations of the tf–idf weighting scheme are often used by search engines as a central tool in scoring and ranking a document’s relevance given a user query. tf–idf can be successfully used for stop-words filtering in various subject fields, including text summarization and classification. One of the simplest ranking functions is computed by summing the tf–idf for each query term; many more sophisticated ranking functions are variants of this simple model.</p>
+</blockquote>
 <div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb143-1" aria-hidden="true" tabindex="-1"></a>df_TF_IDF <span class="ot">&lt;-</span> d1864_clean_minusSW <span class="sc">%&gt;%</span> <span class="co"># d1864_clean, d1864_clean_minusSW</span></span>
 <span id="cb143-2"><a href="text-analysis-iii-finding-groups-of-texts.html#cb143-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_tf_idf</span>(word, id, n) <span class="sc">%&gt;%</span></span>
 <span id="cb143-3"><a href="text-analysis-iii-finding-groups-of-texts.html#cb143-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(tf_idf)) <span class="sc">%&gt;%</span></span>
@@ -1224,7 +1141,7 @@ telegrams
 <h2><span class="header-section-number">9.3</span> Clustering</h2>
 <div id="hierarchical-clustering" class="section level3" number="9.3.1">
 <h3><span class="header-section-number">9.3.1</span> Hierarchical clustering</h3>
-<p>Clustering is a method to break items into closely related groups—clusters. The code below show how our data can be broken into clusters with hierarchical clustering, using distance matrices. Hierarchical clustering has rather high precision, but sensitive to outliers and computationally expensive, which makes it nearly unusable with large datasets. K-means clustering is more suitable for large datasets, but struggles with uniform data (<a href="https://www.inovex.de/blog/disadvantages-of-k-means-clustering/">for example</a>). In both cases you have to define the number of clusters.</p>
+<p>Clustering is a method to break items into closely related groups—clusters. The code below show how our data can be broken into clusters with hierarchical clustering, using distance matrices. Hierarchical clustering has rather high precision, but sensitive to outliers and computationally expensive, which makes it nearly unusable with large datasets. K-means clustering is more suitable for large datasets, but struggles with uniform data. <!--([for example](https://www.inovex.de/blog/disadvantages-of-k-means-clustering/))--> In both cases you have to define the number of clusters.</p>
 <p>In what follows, we take our TF-IDF data, sample it, and run cluster analysis on a small sample. The chunk below simply prepares our data for analysis:</p>
 <div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb148-1" aria-hidden="true" tabindex="-1"></a><span class="co"># RANDOMLY SELECT N ITEMS</span></span>
 <span id="cb148-2"><a href="text-analysis-iii-finding-groups-of-texts.html#cb148-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">48965</span>)</span>
@@ -1241,9 +1158,12 @@ telegrams
 <span id="cb148-13"><a href="text-analysis-iii-finding-groups-of-texts.html#cb148-13" aria-hidden="true" tabindex="-1"></a><span class="co"># CONVERT INTO REGULAR MATRIC AND CALCULATE DISTANCES</span></span>
 <span id="cb148-14"><a href="text-analysis-iii-finding-groups-of-texts.html#cb148-14" aria-hidden="true" tabindex="-1"></a>distanceMatrix <span class="ot">&lt;-</span> <span class="fu">dist.cosine</span>(sample_matrix) <span class="co"># from library(stylo)</span></span>
 <span id="cb148-15"><a href="text-analysis-iii-finding-groups-of-texts.html#cb148-15" aria-hidden="true" tabindex="-1"></a>distanceMatrixHC <span class="ot">&lt;-</span> <span class="fu">as.dist</span>(distanceMatrix)</span></code></pre></div>
-<p>Now we can do the actual clustering. There are several clustering/linkage methods that can be used for clustering, and it usually depends on your goals. From <code>?hclust</code>: “A number of different clustering methods are provided. Ward’s minimum variance method aims at finding compact, spherical clusters. The complete linkage method finds similar clusters. The single linkage method (which is closely related to the minimal spanning tree) adopts a ‘friends of friends’ clustering strategy. The other methods can be regarded as aiming for clusters with characteristics somewhere between the single and complete link methods. Note however, that methods”median” and “centroid” are not leading to a monotone distance measure, or equivalently the resulting dendrograms can have so called inversions or reversals which are hard to interpret, but note the trichotomies in Legendre and Legendre (2012).”</p>
+<p>Now we can do the actual clustering. There are several clustering/linkage methods that can be used for clustering, and it usually depends on your goals.</p>
+<blockquote>
+<p><strong>From <code>?hclust</code></strong>: “A number of different clustering methods are provided. Ward’s minimum variance method aims at finding compact, spherical clusters. The complete linkage method finds similar clusters. The single linkage method (which is closely related to the minimal spanning tree) adopts a ‘friends of friends’ clustering strategy. The other methods can be regarded as aiming for clusters with characteristics somewhere between the single and complete link methods. Note however, that methods”median” and “centroid” are not leading to a monotone distance measure, or equivalently the resulting dendrograms can have so called inversions or reversals which are hard to interpret …”</p>
+</blockquote>
 <p>As a rule of thumb: you want balanced trees when you want an even number of items assigned to each cluster. Unbalanced trees are useful for finding outliers — with this method you can find which items you might want to remove in order to achieve better clustering.</p>
-<p>You can find additional explanations here: <a href="https://towardsdatascience.com/https-towardsdatascience-com-hierarchical-clustering-6f3c98c9d0ca" class="uri">https://towardsdatascience.com/https-towardsdatascience-com-hierarchical-clustering-6f3c98c9d0ca</a>.</p>
+<p>You can find additional explanations <a href="https://towardsdatascience.com/introduction-hierarchical-clustering-d3066c6b560e#:~:text=There%20are%20two%20types%20of,agglomerative%20(bottom%2Dup)">here</a>.</p>
 <div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="text-analysis-iii-finding-groups-of-texts.html#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="co"># THE FOLLOWING IS THE ACTUAL CLUSTERING   </span></span>
 <span id="cb149-2"><a href="text-analysis-iii-finding-groups-of-texts.html#cb149-2" aria-hidden="true" tabindex="-1"></a>clustered.data.ward <span class="ot">&lt;-</span> <span class="fu">hclust</span>(distanceMatrixHC, <span class="at">method =</span> <span class="st">&quot;ward.D&quot;</span>)</span>
 <span id="cb149-3"><a href="text-analysis-iii-finding-groups-of-texts.html#cb149-3" aria-hidden="true" tabindex="-1"></a>clustered.data.complete <span class="ot">&lt;-</span> <span class="fu">hclust</span>(distanceMatrixHC, <span class="at">method =</span> <span class="st">&quot;complete&quot;</span>)</span>

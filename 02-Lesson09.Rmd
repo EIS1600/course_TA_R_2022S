@@ -142,7 +142,7 @@ dim(d1864_clean_minusSW)
 
 ### TF-IDF
 
-From Wikipedia: In information retrieval, tf–idf or TFIDF, short for term frequency–inverse document frequency, is a numerical statistic that is intended to reflect how important a word is to a document in a collection or corpus.[1] It is often used as a weighting factor in searches of information retrieval, text mining, and user modeling. The tf–idf value increases proportionally to the number of times a word appears in the document and is offset by the number of documents in the corpus that contain the word, which helps to adjust for the fact that some words appear more frequently in general. tf–idf is one of the most popular term-weighting schemes today; 83% of text-based recommender systems in digital libraries use tf–idf. Variations of the tf–idf weighting scheme are often used by search engines as a central tool in scoring and ranking a document's relevance given a user query. tf–idf can be successfully used for stop-words filtering in various subject fields, including text summarization and classification. One of the simplest ranking functions is computed by summing the tf–idf for each query term; many more sophisticated ranking functions are variants of this simple model.
+> **From Wikipedia**: In information retrieval, tf–idf or TFIDF, short for term frequency–inverse document frequency, is a numerical statistic that is intended to reflect how important a word is to a document in a collection or corpus.[1] It is often used as a weighting factor in searches of information retrieval, text mining, and user modeling. The tf–idf value increases proportionally to the number of times a word appears in the document and is offset by the number of documents in the corpus that contain the word, which helps to adjust for the fact that some words appear more frequently in general. tf–idf is one of the most popular term-weighting schemes today; 83% of text-based recommender systems in digital libraries use tf–idf. Variations of the tf–idf weighting scheme are often used by search engines as a central tool in scoring and ranking a document's relevance given a user query. tf–idf can be successfully used for stop-words filtering in various subject fields, including text summarization and classification. One of the simplest ranking functions is computed by summing the tf–idf for each query term; many more sophisticated ranking functions are variants of this simple model.
 
 ```{r}
 df_TF_IDF <- d1864_clean_minusSW %>% # d1864_clean, d1864_clean_minusSW
@@ -168,7 +168,7 @@ d1864$text[d1864$id==articleID]
 
 ### Hierarchical clustering
 
-Clustering is a method to break items into closely related groups---clusters. The code below show how our data can be broken into clusters with hierarchical clustering, using distance matrices. Hierarchical clustering has rather high precision, but sensitive to outliers and computationally expensive, which makes it nearly unusable with large datasets. K-means clustering is more suitable for large datasets, but struggles with uniform data ([for example](https://www.inovex.de/blog/disadvantages-of-k-means-clustering/)). In both cases you have to define the number of clusters.
+Clustering is a method to break items into closely related groups---clusters. The code below show how our data can be broken into clusters with hierarchical clustering, using distance matrices. Hierarchical clustering has rather high precision, but sensitive to outliers and computationally expensive, which makes it nearly unusable with large datasets. K-means clustering is more suitable for large datasets, but struggles with uniform data. <!--([for example](https://www.inovex.de/blog/disadvantages-of-k-means-clustering/))--> In both cases you have to define the number of clusters.
 
 In what follows, we take our TF-IDF data, sample it, and run cluster analysis on a small sample. The chunk below simply prepares our data for analysis:
 
@@ -190,11 +190,13 @@ distanceMatrix <- dist.cosine(sample_matrix) # from library(stylo)
 distanceMatrixHC <- as.dist(distanceMatrix)
 ```
 
-Now we can do the actual clustering. There are several clustering/linkage methods that can be used for clustering, and it usually depends on your goals. From `?hclust`: "A number of different clustering methods are provided. Ward's minimum variance method aims at finding compact, spherical clusters. The complete linkage method finds similar clusters. The single linkage method (which is closely related to the minimal spanning tree) adopts a ‘friends of friends’ clustering strategy. The other methods can be regarded as aiming for clusters with characteristics somewhere between the single and complete link methods. Note however, that methods "median" and "centroid" are not leading to a monotone distance measure, or equivalently the resulting dendrograms can have so called inversions or reversals which are hard to interpret, but note the trichotomies in Legendre and Legendre (2012)."
+Now we can do the actual clustering. There are several clustering/linkage methods that can be used for clustering, and it usually depends on your goals.
+
+> **From `?hclust`**: "A number of different clustering methods are provided. Ward's minimum variance method aims at finding compact, spherical clusters. The complete linkage method finds similar clusters. The single linkage method (which is closely related to the minimal spanning tree) adopts a ‘friends of friends’ clustering strategy. The other methods can be regarded as aiming for clusters with characteristics somewhere between the single and complete link methods. Note however, that methods "median" and "centroid" are not leading to a monotone distance measure, or equivalently the resulting dendrograms can have so called inversions or reversals which are hard to interpret ..."
 
 As a rule of thumb: you want balanced trees when you want an even number of items assigned to each cluster. Unbalanced trees are useful for finding outliers --- with this method you can find which items you might want to remove in order to achieve better clustering.
 
-You can find additional explanations here: <https://towardsdatascience.com/https-towardsdatascience-com-hierarchical-clustering-6f3c98c9d0ca>.
+You can find additional explanations [here](https://towardsdatascience.com/introduction-hierarchical-clustering-d3066c6b560e#:~:text=There%20are%20two%20types%20of,agglomerative%20(bottom%2Dup)).
 
 ```{r}
 # THE FOLLOWING IS THE ACTUAL CLUSTERING   
