@@ -164,9 +164,8 @@ filter(df_TF_IDF, id==articleID) %>%
 d1864$text[d1864$id==articleID]
 ```
 
-## Clustering
 
-### Hierarchical clustering
+## Hierarchical clustering
 
 Clustering is a method to break items into closely related groups---clusters. The code below show how our data can be broken into clusters with hierarchical clustering, using distance matrices. Hierarchical clustering has rather high precision, but sensitive to outliers and computationally expensive, which makes it nearly unusable with large datasets. K-means clustering is more suitable for large datasets, but struggles with uniform data. <!--([for example](https://www.inovex.de/blog/disadvantages-of-k-means-clustering/))--> In both cases you have to define the number of clusters.
 
@@ -196,7 +195,7 @@ Now we can do the actual clustering. There are several clustering/linkage method
 
 As a rule of thumb: you want balanced trees when you want an even number of items assigned to each cluster. Unbalanced trees are useful for finding outliers --- with this method you can find which items you might want to remove in order to achieve better clustering.
 
-You can find additional explanations [here](https://towardsdatascience.com/introduction-hierarchical-clustering-d3066c6b560e#:~:text=There%20are%20two%20types%20of,agglomerative%20(bottom%2Dup)).
+You can find additional explanations [here](https://www.saedsayad.com/clustering_hierarchical.htm), [here](https://towardsdatascience.com/introduction-hierarchical-clustering-d3066c6b560e#:~:text=There%20are%20two%20types%20of,agglomerative%20(bottom%2Dup)), and [here](https://en.wikipedia.org/wiki/Hierarchical_clustering).
 
 ```{r}
 # THE FOLLOWING IS THE ACTUAL CLUSTERING   
@@ -217,7 +216,7 @@ rect.hclust(clustered.data.ward, k=10, border="red")
 
 You can use `rect.hclust()` either with `h=` --- which will *cut tree* at a given height, thus determining the number of clusters; or, with `k=` --- which will *cut tree* into a given number of clusters.
 
-## PCA viz for HCLUST
+### PCA viz for HCLUST
 
 Note that PCA (principal component analysis) and clustering are not the same, but PCA can be also used to visualize hierarchical clustering:
 
@@ -347,7 +346,7 @@ set.seed(786)
 fviz_cluster(kmeansClusters, data = distanceMatrix, labelsize = 0)
 ```
 
-## Determining the optimal number of clusters: "Elbow Method" and "Average Silhouette Method"
+### Determining the optimal number of clusters: "Elbow Method" and "Average Silhouette Method"
 
 In a nutshell, we repeatedly run clustering, increasing the number of clusters by one, and calculate the total within-cluster sum of square (*wss*). We then plot the curve of *wss* and look for a point in the curve with the sharpest bend (hence the "elbow"), which is considered to be an indicator of the appropriate number of clusters. `library(factoextra)` can perform this with a single command:
 
@@ -458,7 +457,7 @@ toc()
 #72.545 sec elapsed
 ```
 
-**Do not run this!**
+**Do not run this in class: it takes too long!**
 
 ```{r eval=FALSE}
 tic()
@@ -494,7 +493,7 @@ corpus <- d1864
 
 From this point on, the code should simply run --- if you rename your own model produced above to `lda_model`.
 
-## Per-topic-per-word probabilities (*beta*)
+### Per-topic-per-word probabilities (*beta*)
 
 ```{r}
 lda_model_better_topic_term_prob <- tidy(lda_model, matrix="beta")
@@ -522,7 +521,7 @@ head(top_terms)
 
 library(ggplot2)
 
-top_terms %>%
+graph <- top_terms %>%
   mutate(term = reorder(term, beta)) %>%
   ggplot(aes(term, beta, fill = factor(topic))) +
   geom_col(show.legend=FALSE) +
@@ -612,7 +611,7 @@ topicVal = 8
 lda_model_topics_final <- lda_model_topics %>%
   filter(topic == topicVal)
 
-plot(x=lda_model_topics_final$date, y=lda_model_topics_final$freq, type="l", lty=3, lwd=1,
+graph2 <- plot(x=lda_model_topics_final$date, y=lda_model_topics_final$freq, type="l", lty=3, lwd=1,
      main=topicVar(topicVal, top_terms),
      xlab = "1864 - Dispatch coverage", ylab = "topic saliency")
 segments(x0=lda_model_topics_final$date, x1=lda_model_topics_final$date, y0=0, y1=lda_model_topics_final$freq, lty=1, lwd=2)
@@ -665,6 +664,8 @@ This is simply a chunk of code that you can reuse for generating different dista
 ```{r eval=FALSE}
 #library(stylo)
 
+# YOUR_MATRIX must be generated before you run the code below
+
 # USING library(stylo) FUNCTIONS
 if (distanceMethod == "cosine"){distanceMatrix <- dist.cosine(YOUR_MATRIX)
 } else if (distanceMethod == "delta"){distanceMatrix <- dist.delta(YOUR_MATRIX)
@@ -686,9 +687,6 @@ distanceMatrix <- as.dist(distanceMatrix)
 clustered.data <- hclust(distanceMatrix, method = clusteringMethod)
 
 ```
-
-
-...
 
 
 ## Homework{#HW09}
