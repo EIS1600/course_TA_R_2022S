@@ -363,7 +363,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="goals09" class="section level2" number="9.1">
 <h2><span class="header-section-number">9.1</span> Goals</h2>
 <ul>
-<li>introduce text clustering approaches: approaches that allow us find groups of thematically similar texts:
+<li>introduce text clustering approaches that allow us find groups of thematically similar texts:
 <ul>
 <li>hierarchical clustering;</li>
 <li>k-means clustering;</li>
@@ -400,13 +400,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb126-22"><a href="text-analysis-iii-finding-groups-of-texts.html#cb126-22" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tictoc) <span class="co"># to time operations</span></span></code></pre></div>
 <div id="the-dispatch-data-preprocessing" class="section level4" number="9.2.1.1">
 <h4><span class="header-section-number">9.2.1.1</span> The Dispatch Data: Preprocessing</h4>
+<p>Texts for experiments:</p>
 <ul>
-<li><p><a href="./files/data/dispatch_1861.tsv">The Richmond Dispatch (1861)</a></p></li>
-<li><p><a href="./files/data/dispatch_1862.tsv">The Richmond Dispatch (1862)</a></p></li>
-<li><p><a href="./files/data/dispatch_1863.tsv">The Richmond Dispatch (1863)</a></p></li>
-<li><p><a href="./files/data/dispatch_1864.tsv">The Richmond Dispatch (1864)</a></p></li>
-<li><p><a href="./files/data/d1864_lda_vem_25t_better.rda">Topic Models trained on 1864</a></p></li>
-<li><p><a href="./files/data/dispatch_lda_vem_better.rda">Topic Models fir testing LDAvis</a></p></li>
+<li><a href="./files/data/dispatch_1861.tsv">The Richmond Dispatch (1861)</a></li>
+<li><a href="./files/data/dispatch_1862.tsv">The Richmond Dispatch (1862)</a></li>
+<li><a href="./files/data/dispatch_1863.tsv">The Richmond Dispatch (1863)</a></li>
+<li><a href="./files/data/dispatch_1864.tsv">The Richmond Dispatch (1864)</a></li>
+</ul>
+<p>Topic models, pretrained:</p>
+<ul>
+<li><a href="./files/data/d1864_lda_vem_25t_better.rda">Topic models trained on 1864</a></li>
+<li><a href="./files/data/dispatch_lda_vem_better.rda">Topic models for testing LDAvis</a></li>
 </ul>
 <p>We will limit to only one year, but, of course, the results are always more interesting with more data…</p>
 <p>Loading…</p>
